@@ -1,0 +1,7 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+<h1>{{ session.get('form_test', None) }}</h1>
+<p>{{ eutils.get_cited_PMID(session.get('form_test', None)) }}</p>
+</body>
+</html>
