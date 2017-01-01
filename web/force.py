@@ -9,9 +9,12 @@ from flask import session
 import json
 import networkx
 from networkx.readwrite import json_graph
-import ConnectEutils
+sys.path.append('lib')
+from lib.ConnectEutils import ConnectEutils
+#import ConnectEutils
 
-eutils = ConnectEutils.ConnectEutils()
+#eutils = ConnectEutils.ConnectEutils()
+eutils = ConnectEutils()
 app = Flask(__name__)
 app.secret_key = 'big_secret'
 
@@ -34,8 +37,9 @@ def my_form_post():
     processed_text = text.upper()
     session['form_test'] = processed_text
     print 'Form received.'
-    out_lst = eutils.get_cited_PMID(str(text))
-    return str(out_lst)#render_template("form_output.html")
+    return processed_text
+    #out_lst = eutils.get_cited_PMID(str(text))
+    #return str(out_lst)#render_template("form_output.html")
 
 @app.route("/data")
 def get_data():
