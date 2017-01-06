@@ -6,11 +6,14 @@ from flask import render_template
 from flask import jsonify
 from flask import request
 from flask import session
+from flask import url_for, redirect
 import json
 import networkx
 from networkx.readwrite import json_graph
 sys.path.append('lib')
 from lib.ConnectEutils import ConnectEutils
+from lib.ResultGraph import ResultGraph
+from lib.GraphSession import GraphSession
 #import ConnectEutils
 
 #eutils = ConnectEutils.ConnectEutils()
@@ -40,6 +43,39 @@ def my_form_post():
     return processed_text
     #out_lst = eutils.get_cited_PMID(str(text))
     #return str(out_lst)#render_template("form_output.html")
+
+@app.route("/graphtest")
+def graphtest_form():
+    return render_template("graphtest_form.html")
+
+@app.route('/graphtest', methods=['GET','POST'])
+def graphtest_process_form():
+    session['search_request'] = request.form['text']
+    #return str(graphsession.cite_dict)
+    #return str(session.get('graphsession',False))
+    return render_template('graphtest_output.html')
+    #return redirect(url_for('graphtest_output'))
+
+@app.route('/graphtest_data')
+def graphtest_data():
+    # Get list of citations for pmid
+    search_request = session.get('search_request', False)
+    graphsession = GraphSession(search_request)
+    graphsession.parse_input()
+    graphsession.load_citations()
+    # Create mockup of second publication
+    mock = graphsession.cite_dict.copy()
+    for pmid in mock:
+        graphsession.cite_dict['123'] = mock[pmid]
+    #cite_lst = eutils.get_cited_PMID(str(pmid))
+    # Initialise ResultGraph object
+    resultgraph = ResultGraph()
+    resultgraph.populate_from_cite_dict(graphsession.cite_dict)
+    #resultgraph.add_publication(pmid, cite_lst)
+    #G = networkx.complete_graph(10)
+    #d = json_graph.node_link_data(G)
+    #return jsonify(d)
+    return resultgraph.get_json()
 
 @app.route("/data")
 def get_data():
