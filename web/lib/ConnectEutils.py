@@ -2,6 +2,10 @@ import requests
 import untangle
 import pprint
 
+import xml.etree.ElementTree as ET
+import requests 
+import urllib2
+
 class ConnectEutils():
     '''This class interacts with the Eutils API.
     
@@ -45,3 +49,34 @@ class ConnectEutils():
                     pmid_lst.append(pubs.cdata)
         
         return pmid_lst
+    
+    def get_cited_PMID_etree(self, PMID):
+        
+        # Parse the Eutils XML as an element tree
+        tree = ET.ElementTree(file=urllib2.urlopen('https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pmc&id='+PMID))
+        
+        # Iterate through element tree to identify tags specifying PMIDs
+        pmid_lst = []
+        for element in tree.iter():
+            if element.tag == 'pub-id':
+                if element.attrib['pub-id-type'] == 'pmid':
+                    pmid_lst.append(element.text)
+                    
+        return pmid_lst
+    
+    def get_cited_PMID_elink(self, PMID):
+        search_url = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/elink.fcgi?dbfrom=pubmed&linkname=pubmed_pubmed_refs&id=" + PMID + "&tool=GraphSearch"
+        print search_url
+        
+        # Parse the Eutils XML as an element tree
+        tree = ET.ElementTree(file=urllib2.urlopen(search_url))
+        
+        # Iterate through element tree to identify tags specifying PMIDs
+        pmid_lst = []
+        for element in tree.iter():
+            if element.tag == 'Id':
+                pmid_lst.append(element.text)
+        
+        return pmid_lst
+    
+    
