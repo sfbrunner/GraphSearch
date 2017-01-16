@@ -64,9 +64,9 @@ def graphtest_data():
     graphsession.parse_input()
     graphsession.load_citations()
     # Create mockup of second publication
-    mock = graphsession.cite_dict.copy()
-    for pmid in mock:
-        graphsession.cite_dict['123'] = mock[pmid]
+    #mock = graphsession.cite_dict.copy()
+    #for pmid in mock:
+    #    graphsession.cite_dict['123'] = mock[pmid]
     #cite_lst = eutils.get_cited_PMID(str(pmid))
     # Initialise ResultGraph object
     resultgraph = ResultGraph()
