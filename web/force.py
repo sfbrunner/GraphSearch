@@ -7,6 +7,7 @@ from flask import jsonify
 from flask import request
 from flask import session
 from flask import url_for, redirect
+from pymongo import MongoClient
 import json
 import networkx
 from networkx.readwrite import json_graph
@@ -20,6 +21,11 @@ from lib.GraphSession import GraphSession
 eutils = ConnectEutils()
 app = Flask(__name__)
 app.secret_key = 'big_secret'
+
+client = MongoClient()
+database = 'test'
+db = client[database]
+
 
 @app.route('/')
 def hello_world():
