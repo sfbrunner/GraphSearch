@@ -78,5 +78,26 @@ class ConnectEutils():
                 pmid_lst.append(element.text)
         
         return pmid_lst
-    
+
+    def get_pmid_from_PMC(self, PMC_ID):
+	PMC_ID = PMC_ID.replace('PMC','')
+	search_url = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pmc&id=" + PMC_ID
+		
+	# Parse the Eutils XML as an element tree
+        tree = ET.ElementTree(file=urllib2.urlopen(search_url))
+	pmid = None
+	for element in tree.iter():
+	    if element.tag == 'Item':
+		if 'Name' in element.attrib:
+		    if element.attrib['Name'] == 'pmid':
+			pmid = element.text
+	return pmid
+
+    def get_cited_pub(self, pub_id):
+	if 'PMC' in pub_id:
+	    pub_id = self.get_pmid_from_PMC(pub_id)	    
+	
+	pmid_lst = self.get_cited_PMID_elink(pub_id)
+	return pmid_lst
+
     
