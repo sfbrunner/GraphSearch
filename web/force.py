@@ -65,10 +65,8 @@ def graphtest_process_form():
 @app.route('/graphtest_data')
 def graphtest_data():
     # Get list of citations for pmid
-    search_request = session.get('search_request', False)
-    graphsession = GraphSession(search_request)
-    graphsession.parse_input()
-    graphsession.load_citations()
+    searchRequest = session.get('search_request', False)
+    citationDict = GraphSession.getCitationsFromPMIDString(searchRequest)
     # Create mockup of second publication
     #mock = graphsession.cite_dict.copy()
     #for pmid in mock:
@@ -76,7 +74,7 @@ def graphtest_data():
     #cite_lst = eutils.get_cited_PMID(str(pmid))
     # Initialise ResultGraph object
     resultgraph = ResultGraph()
-    resultgraph.populate_from_cite_dict(graphsession.cite_dict)
+    resultgraph.populate_from_cite_dict(citationDict)
     #resultgraph.add_publication(pmid, cite_lst)
     #G = networkx.complete_graph(10)
     #d = json_graph.node_link_data(G)
