@@ -22,11 +22,6 @@ eutils = ConnectEutils()
 app = Flask(__name__)
 app.secret_key = 'big_secret'
 
-#client = MongoClient()
-#database = 'test'
-#db = client[database]
-
-
 @app.route('/')
 def hello_world():
   print sys.version
