@@ -1,4 +1,4 @@
-from ConnectEutils import ConnectEutils as ce
+import ConnectEutils as ce
 from MongoSession import MongoSession as ms
 
 class GraphSession():
@@ -9,6 +9,7 @@ class GraphSession():
 
     @staticmethod
     def loadCitations(pmidList):
+        eutils = ce.ConnectEutils()
         mongoSession = ms.fromConnectionString()
         citationDict = {}
         for pmid in pmidList:
@@ -17,8 +18,8 @@ class GraphSession():
             if mongoCursor:
                 citationDict[pmid] = mongoCursor['citations']
             else:
-                citationDict[pmid] = ce.get_cited_pub(pmid)
-                mongoSession.insertPublication({"pmid" : pmid, "citations" : cite_dict[pmid]})
+                citationDict[pmid] = eutils.get_cited_pub(pmid)
+                mongoSession.insertPublication({"pmid" : pmid, "citations" : citationDict[pmid]})
         return citationDict
 
     @staticmethod

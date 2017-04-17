@@ -2,12 +2,12 @@ import sys
 import os
 import networkx
 from flask import Flask
+from flask import flash
 from flask import render_template
 from flask import jsonify
 from flask import request
 from flask import session
 from flask import url_for, redirect
-#from pymongo import MongoClient
 import json
 import networkx
 from networkx.readwrite import json_graph
@@ -23,13 +23,27 @@ app = Flask(__name__)
 app.secret_key = 'big_secret'
 
 @app.route('/')
-def hello_world():
-  print sys.version
+def homepage():
+    return render_template("main.html")
+  #print sys.version
   #return 'Hello from Flask!'
   #return os.getcwd()
   #return render_template('force/force.html')
   #return app.send_static_file('force.html')
-  return render_template("index.html")
+  #return render_template("index.html")
+
+@app.route('/dashboard/', methods=["GET", "POST"])
+def dashboard():
+    return render_template("dashboard.html")
+
+@app.route("/_graphdata")
+def graphdata():
+    searchInput = request.args.get('searchInput', '', type=str)
+    graphSession = GraphSession()
+    citations = graphSession.getCitationsFromPMIDString(searchInput)
+    resultGraph = ResultGraph()
+    resultGraph.populate_from_cite_dict(citations)
+    return jsonify(result = resultGraph.get_graph())
 
 @app.route("/test")
 def render_form():
@@ -76,20 +90,14 @@ def graphtest_data():
     #return jsonify(d)
     return resultgraph.get_json()
 
-@app.route("/data")
-def get_data():
-  print 'Fetching data..'
-  #G = networkx.barbell_graph(100,10)
-  num_nodes = session.get('form_test', 2)
-  G = networkx.complete_graph(int(num_nodes))
-  #G.add_edge([(1,2),(1,3),(1,5)])
-  # this d3 example uses the name attribute for the mouse-hover value,
-  # so add a name to each node
-  for n in G:
-    G.node[n]['name'] = n
-  # write json formatted data
-  d = json_graph.node_link_data(G)
-  return jsonify(d)
+@app.route("/exampleData")
+def getExampleData():
+    userInput = "27729734,27785449,25995680"
+    graphSession = GraphSession()
+    citations = graphSession.getCitationsFromPMIDString(userInput)
+    resultGraph = ResultGraph()
+    resultGraph.populate_from_cite_dict(citations)
+    return resultGraph.get_json()
 
 if __name__ == '__main__':
   app.run()
