@@ -1,10 +1,11 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Sat Feb 25 11:14:35 2017
-@author: Ravi Mishra
-"""
-
+'''
+This module contains functionality to communicate 
+with a mongodb. Default connection is through localhost
+on port 27017. Pymongo needs to be installed.
+'''
 import datetime
+import json
+
 try:
     from pymongo import MongoClient
 except ImportError as e:
@@ -36,9 +37,9 @@ class MongoSession(object):
         try:
             client = MongoClient(connectionString)
         except Exception as e:
-            print("Connection failed: " + e)
+            print("mongodb Connection failed: " + e)
         else:
-            print("Connection successful")
+            print("mongodb connection successful")
 
         return cls(client)
 
@@ -56,25 +57,32 @@ class MongoSession(object):
         else:
             print("Request stored in db: " + str(result.inserted_id))
 
-    def queryRequest(self):
-        pass
+    def findRequest(self, query = '{}'):
+        try:
+            db = self.client.Requests
+            requests = db.requests
+            result = requests.find_one(query)
+        except Exception as e:
+            print("db not found: " + e)
+        else:
+            print(str(result))
 
-if __name__ == "__main__":
-    session = MongoSession.fromConnectionString()
-    #db = client.test_1
-    testRequest = {"author": "Mike",
-            "text": "My first blog post!",
-            "tags": ["mongodb","python","pymongo"],
-            "date": datetime.datetime.utcnow()}
-    session.insertRequest(testRequest)
-    #posts = db.posts
-    #result = posts.insert_one(post)
-    #print result.inserted_id
-    #print pymongo.version
-    #con = Connection()
-    # if test_1 does not exist, it will be created
-    # db = con.test_1
-    # people = db.people
-    #print db.name
+    def findPublication(self, query = '{}', projection = '{}'):
+        db = self.client.GraphSearch
+        publications = db.publications
+        result = publications.find(query, projection)		
+        return result
+        
+    def findPublicationByPMID(self, pmid):
+        db = self.client.GraphSearch
+        return db.publications.find_one({"pmid" : str(pmid)}, {"_id" : 0})
 
+    def checkExistPublication(self, pmid):
+        if self.findPublicationByPMID(pmid):
+            return True
+        else:
+            return False
 
+    def insertPublication(self, publication):
+        db = self.client.GraphSearch
+        db.publications.insert(publication)

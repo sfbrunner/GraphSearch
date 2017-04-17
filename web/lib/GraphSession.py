@@ -1,23 +1,27 @@
-from ConnectEutils import ConnectEutils
+import ConnectEutils as ce
+from MongoSession import MongoSession as ms
 
 class GraphSession():
 
-    def __init__(self, user_input):
-        self.user_input = user_input
-        self.eutils = ConnectEutils()
+    @staticmethod
+    def parseInput(userInput): #check user input with regex?
+        return [pmid.strip() for pmid in userInput.split(',')]
 
-    def parse_input(self):
-        pmid_lst_raw = self.user_input.split(',')
-	self.pmid_lst=[]
-	for pmid in pmid_lst_raw:
-	    pmid = pmid.strip()
-            self.pmid_lst.append(pmid)
+    @staticmethod
+    def loadCitations(pmidList):
+        eutils = ce.ConnectEutils()
+        mongoSession = ms.fromConnectionString()
+        citationDict = {}
+        for pmid in pmidList:
+            # TODO: Check if db rec exists while data  is entered
+            mongoCursor = mongoSession.findPublicationByPMID(pmid)
+            if mongoCursor:
+                citationDict[pmid] = mongoCursor['citations']
+            else:
+                citationDict[pmid] = eutils.get_cited_pub(pmid)
+                mongoSession.insertPublication({"pmid" : pmid, "citations" : citationDict[pmid]})
+        return citationDict
 
-    def load_citations(self):
-        cite_dict = {}
-        for pmid in self.pmid_lst:
-            cite_dict[pmid] = self.eutils.get_cited_pub(pmid)
-
-        self.cite_dict = cite_dict
-             
-             
+    @staticmethod
+    def getCitationsFromPMIDString(rawUserInput):
+        return GraphSession.loadCitations(GraphSession.parseInput(rawUserInput))

@@ -1,4 +1,5 @@
 import networkx as nx
+import json
 from flask import jsonify
 from networkx.readwrite import json_graph
 
@@ -26,7 +27,10 @@ class ResultGraph():
         for pmid in cite_dict:
             self.add_publication(pmid, cite_dict[pmid])
 
-    def get_json(self):
-        
+    def get_json(self):     
         d = json_graph.node_link_data(self.G)
+        #return json.dumps(d)
         return jsonify(d) 
+
+    def get_graph(self):
+        return json_graph.node_link_data(self.G)
