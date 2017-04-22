@@ -3,12 +3,12 @@
 <head>
     <meta charset="utf-8">
     <title>Graph Search</title>
-    <meta name="viewport" content="width=device-width",
-    initial-scale=1">
-    <link href="{{ url_for('static',
-    filename='css/bootstrap.min.css') }}" rel="stylesheet">
-    <link rel="shortcut icon" href="{{ url_for('static',
-    filename='gs_icon.ico') }}">
+    <meta name="viewport" content="width=device-width" initial-scale=1>
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+	<link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='gs_icon.ico') }}">
+    <script type="text/javascript" src="http://d3js.org/d3.v3.min.js"></script> 
+    <!-- https://cdnjs.cloudflare.com/ajax/libs/d3/3.4.11/d3.min.js -->
 </head>
 <header>
     <div class="navbar-header">
@@ -25,192 +25,116 @@
     <div class="container-fluid">
         <a href="/dashboard"><button type="button" class="btn btn-primary" aria-label="Left Align" style="margin-top: 10px; margin-bottom: 5px; height: 44px; margin-right: 15px;">
           <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> Start Searching
-        </button></a>
-    
+        </button></a>  
     </div>
 </header>
-<style>
-    .link {
-      fill: none;
-      stroke: #666;
-      stroke-width: 1.5px;
-    }
-
-    #licensing {
-      fill: green;
-    }
-
-    .link.licensing {
-      stroke: green;
-    }
-
-    .link.resolved {
-      stroke-dasharray: 0,2 1;
-    }
-
-    circle {
-      fill: #ccc;
-      stroke: #333;
-      stroke-width: 1.5px;
-    }
-
-    text {
-      font: 10px sans-serif;
-      pointer-events: none;
-      text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
-    }
-</style>
 <body>
-    <div id="chart" class="container-fluid" align="center" style="margin-top: 10px; margin-left: 20px; min-height: 100%"></div>
-    <script type="text/javascript" src="http://d3js.org/d3.v3.min.js"></script> 
-    <!-- https://cdnjs.cloudflare.com/ajax/libs/d3/3.4.11/d3.min.js -->
-    <script type="text/javascript">
- 			var width = 1500,
-			    height = 650,
-				fill = d3.scale.category20(),
-				radius = 7;
-
-			var svg = d3.select("#chart")
-                .append("svg")
-			    .attr("width", width)
-				.attr("height", height);
-
-            var force;
-
-            //scale to be applied to the radius, ranging from 2 to 15px
-            var rScale = d3.scale.linear().range([2, 50]);
-            //colour scale
-            var edgeColScale = d3.scale.linear().range(["teal", "blue"]);
-            //edge width scale
-            var edgeWScale = d3.scale.linear().range([1, 3]);
-            //color scale for clustering acordingly
-            var colScale = d3.scale.category20b();
-            //sort alphabetically
-            var xScale = d3.scale.linear().domain(["a".charCodeAt(0), "z".charCodeAt(0)]).range([10, width-10]);
-            //higher valuer on top, smaller on bottom
-            var yScale = d3.scale.linear().range([0+50, height-30])
-
-            function update(nodes, links){
-                force = d3.layout.force()
-                .nodes(nodes)
-                .links(links)
-                .size([width, height])
-                .linkDistance(40)
-                .linkStrength(0.5)
-                .charge(-50)
-                .gravity(0.1)
-                .on("tick", tick)
-                .start();
-
-                rScale.domain(d3.extent( nodes, function(d){ return d.value; }));
-                edgeColScale.domain(d3.extent( links, function(d){ return d.value; }));
-                edgeWScale.domain(d3.extent( links, function(d){ return d.value; }));
-                yScale.domain(d3.extent( nodes, function(d){ return d.value; }));
-
-                var edge = svg.append("svg:g").selectAll("line")
-                    .data(force.links())
-                    .enter()
-                    .append("svg:line")
-                    .attr("class", function(d){ return "link";})
-                    .attr("marker-end", function(d){ return "url(#" + d.type + ")";})
-                    .style("stroke", function(d){ return edgeColScale(d.value); })
-                    .style("stroke-width", function(d){ return edgeWScale(d.value); });
-
-                var circle = svg.append("svg:g").selectAll("circle")
-                    .data(force.nodes())
-                    .enter().append("svg:circle")
-                    .attr("r", radius)
-                    .call(force.drag)
-                    .style("fill", function(d) { return fill(d.group); })
-                    .on("mouseover", handleMouseOver)
-				    .on("mouseout", handleMouseOut);
-
-                var text = svg.append("svg:g").selectAll("g")
-                    .data(force.nodes())
-                    .enter().append("svg:g")
-                    .style("opacity", 1)
-
-                text.append("svg:text")
-                    .attr("x", 12)
-                    .attr("y", "31em")
-                    .attr("class", "shadow")
-                    .text(function(d) { return d.name; })
-				    .style("visibility", handleVisibility);
-
-                function transform(d) {
-                    return "translate(" + d.x + "," + d.y + ")";
-                    };
-
-                function linkArc(d) {
-                    var dx = d.target.x - d.source.x,
-                        dy = d.target.y - d.source.y,
-                        dr = Math.sqrt(dx * dx + dy * dy);
-                    return "M" + d.source.x + "," + d.source.y + "A" + dr + "," + "0 0,1 " + d.target.x + "," + d.target.y;
-                    };
+    <div id="chart" class="container-fluid" align="left" style="margin-top: 10px; margin-left: 20px; min-height: 100% max-width:100%"></div>
+	<script>
+				
+	var width = 1500
+	var height = 600
+	var radius = 8
+	var gravity = 0.3
+	var charge = -120
+	var linkDistance = 30
+	fill = d3.scale.category20();
+	
+	function handleVisibility(d) {
+		if (d.group == "Searched") {
+			return "visible";
+		} else {
+			return "hidden";
+		}
+	}
+	
+	function handleLinkVisibility(d){
+		//TODO : Only links which are commonly cited
+		return "visible"
+	}
+				
+	var canvas = d3.select("#chart").append("svg")
+		.attr("width", width)
+		.attr("height", height);
+		
+	d3.json("{{ url_for('getExampleData') }}", function(error, data){
+		if (error) throw error;
+		
+	var force = d3.layout.force()
+		.size([width, height])
+		.nodes(data.nodes)
+		.links(data.links)
+		.charge(charge)
+		.gravity(gravity)
+		.on("tick", tick)
+		.linkDistance(linkDistance)
+		.start();
+		
+	var link = canvas.selectAll('.link')
+		.data(force.links())
+		.enter().append('line')
+		.attr('class', 'link')
+		.attr('visibility', handleLinkVisibility)
+		
+	var node = canvas.selectAll('.node')
+		.data(force.nodes())
+		.enter().append('circle')
+		.attr("r", radius)
+		.style("fill", function(d) { return fill(d.group); })
+		.attr('class', 'node')
+		.on("mouseover", function(d){
+			d3.select(this).select("text").style({
+				visibility: "visible"
+			});
+			d3.select(this).select("circle").style({
+				fill: "orange"
+			});
+			d3.select(this).select("circle").attr({
+				r: radius*2
+			});
+		})
+		.on("mouseout", function(d) {
+			d3.select(this).select("text").style({
+				visibility: handleVisibility
+			});
+			d3.select(this).select("circle").style({
+				fill: function(n) { return fill(n.group); }
+			});
+			d3.select(this).select("circle").attr({
+				r: radius
+			});
+		});
+	
+	var nodeText = canvas.selectAll(".nodeText")
+		.data(force.nodes())
+		.enter()
+		.append("text");
+		
+	nodeText.style("visibility", handleVisibility)
+		.style("fill", "#0000ff")
+		.attr("width", "10")
+		.attr("height", "10")
+		.text(function(d){ return d.name; });
 			
-			    function handleMouseOver(d) {
-				    d3.select(this).select("text").style({
-					    visibility: "visible"
-				    })
-				    d3.select(this).select("circle").style({
-					    fill: "orange"
-				    })
-				    d3.select(this).select("circle").attr({
-					    r: radius*2
-				    })
-			    }
-
-			    function handleMouseOut(d) {
-				    d3.select(this).select("text").style({
-					    visibility: handleVisibility
-				    })
-				    d3.select(this).select("circle").style({
-					    fill: function(d) { return fill(d.group); }
-				    })
-				    d3.select(this).select("circle").attr({
-					    r: radius
-				    })
-			    }
-
-			    function handleVisibility(d) {
-				    if (d.group == "Searched") {
-					    return "visible";
-				    } else {
-					    return "hidden";
-				    }
-                    }
-
-                function tick(e){
-                    edge.attr("d", linkArc);
-                    circle.attr("transform", transform);
-                    text.attr("transform", transform);
-                    };
-            }
-
-			d3.json("{{ url_for('getExampleData') }}", function(json) {
-                console.log(json)
-				update(json.nodes, json.links)
-                });
-    </script>
+	
+	function tick(e) {
+	
+		node.attr('cx', function(d) {return d.x; })
+			.attr('cy', function(d) {return d.y; })
+			.call(force.drag);
+			
+		link.attr('x1', function(d) {return d.source.x; })
+			.attr('y1', function(d) {return d.source.y; })
+			.attr('x2', function(d) {return d.target.x; })
+			.attr('y2', function(d) {return d.target.y; })
+			
+		nodeText.attr("x", function(d) { return d.x; })
+			.attr("y", function(d) { return d.y; });
+	}
+			
+	});
+	</script>
     
 </body>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 </html>
