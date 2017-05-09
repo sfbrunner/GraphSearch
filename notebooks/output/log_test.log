@@ -1,0 +1,6 @@
+05/09/2017 11:25:08 AM [INFO]: Info log event, should be written to path stdout as well as disk.
+05/09/2017 11:25:08 AM [INFO]: Info log event, should be written to path stdout as well as disk.
+05/09/2017 11:25:08 AM [DEBUG]: Debug log event, should be written only to disk.
+05/09/2017 11:25:08 AM [DEBUG]: Debug log event, should be written only to disk.
+05/09/2017 11:25:17 AM [INFO]: Info log event, should be written to path stdout as well as disk.
+05/09/2017 11:25:17 AM [DEBUG]: Debug log event, should be written only to disk.
