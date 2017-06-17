@@ -56,7 +56,7 @@ def graphdata():
     print "User input: "
     print userInput
     graphSession = GraphSession()
-    citations = graphSession.getCitationsFromPMIDString(userInput)
+    citations = graphSession.get_citations_from_fulltext(userInput)
     resultGraph = ResultGraph()
     resultGraph.populate_from_cite_dict(citations)
     return resultGraph.get_cy_json()
