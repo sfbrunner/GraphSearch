@@ -120,7 +120,7 @@ class ConnectEutils():
         print root
         for idList in root.iter('IdList'):
             for id in idList.iter('Id'):
-                if counter >= 10:
+                if counter >= 100:
                     break
                 print id
                 print id.text
