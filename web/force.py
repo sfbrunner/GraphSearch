@@ -59,6 +59,7 @@ def graphdata():
     citations = graphSession.get_citations_from_fulltext(userInput)
     resultGraph = ResultGraph()
     resultGraph.populate_from_cite_dict(citations)
+    resultGraph.extract_by_connectivity()
     return resultGraph.get_cy_json()
 
 @app.route("/_graphdata_d3")
