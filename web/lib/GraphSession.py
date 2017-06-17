@@ -8,6 +8,11 @@ class GraphSession():
         return [pmid.strip() for pmid in userInput.split(',')]
 
     @staticmethod
+    def parse_full_text_input(user_input):
+        return user_input.replace(' ','+')
+        
+        
+    @staticmethod
     def loadCitations(pmidList):
         eutils = ce.ConnectEutils()
         mongoSession = ms.fromConnectionString()
@@ -15,7 +20,7 @@ class GraphSession():
         for pmid in pmidList:
             # TODO: Check if db rec exists while data  is entered
             mongoCursor = mongoSession.findPublicationByPMID(pmid)
-            if mongoCursor:
+            if 0==1:#mongoCursor:
                 citationDict[pmid] = mongoCursor['citations']
             else:
                 citationDict[pmid] = eutils.get_cited_pub(pmid)
@@ -25,3 +30,11 @@ class GraphSession():
     @staticmethod
     def getCitationsFromPMIDString(rawUserInput):
         return GraphSession.loadCitations(GraphSession.parseInput(rawUserInput))
+        
+    def get_citations_from_fulltext(self, fulltext):
+        parsed_input = GraphSession.parse_full_text_input(fulltext)
+        eutils = ce.ConnectEutils()
+        return GraphSession.loadCitations(eutils.get_pmid_from_fulltext(parsed_input))
+
+        
+    

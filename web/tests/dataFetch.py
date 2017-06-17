@@ -9,12 +9,13 @@ import json
 class DataFetchTest(unittest.TestCase):
 
     def testResultNotNone(self):
-        userInput = "27729734,27785449,25995680"
+        #userInput = "27729734,27785449,25995680"
+        userInput = "db=pubmed&term=PNAS[ta]+AND+97[vi]"
         self.graphSession = gs.GraphSession()
-        result = self.graphSession.getCitationsFromPMIDString(userInput)
+        result = self.graphSession.get_citations_from_fulltext(userInput)
         self.assertNotEqual(result, None)
-        baseline = json.loads(open('messages/dataFetchTest.json', 'r').read())
-        self.assertTrue(hf.ordered(result) == hf.ordered(baseline))
+        #baseline = json.loads(open('messages/dataFetchTest.json', 'r').read())
+        #self.assertTrue(hf.ordered(result) == hf.ordered(baseline))
 
 if __name__ == "__main__":
     unittest.main(exit = False)  

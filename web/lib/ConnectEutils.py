@@ -51,6 +51,10 @@ class ConnectEutils():
         return pmid_lst
     
     def get_cited_PMID_etree(self, PMID):
+        """
+        input: PMID as string
+        output: list of PMIDs of cited papers
+        """
         
         # Parse the Eutils XML as an element tree
         tree = ET.ElementTree(file=urllib2.urlopen('https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pmc&id='+PMID))
@@ -65,7 +69,8 @@ class ConnectEutils():
         return pmid_lst
     
     def get_cited_PMID_elink(self, PMID):
-        search_url = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/elink.fcgi?dbfrom=pubmed&linkname=pubmed_pubmed_refs&id=" + PMID + "&tool=GraphSearch"
+        #search_url = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/elink.fcgi?dbfrom=pubmed&linkname=pubmed_pubmed_refs&id=" + PMID + "&tool=GraphSearch"
+        search_url = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/elink.fcgi?dbfrom=pubmed&linkname=pmc_refs_pubmed&id=" + PMID + "&tool=GraphSearch"
         print search_url
         
         # Parse the Eutils XML as an element tree
@@ -80,24 +85,49 @@ class ConnectEutils():
         return pmid_lst
 
     def get_pmid_from_PMC(self, PMC_ID):
-	PMC_ID = PMC_ID.replace('PMC','')
-	search_url = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pmc&id=" + PMC_ID
-		
-	# Parse the Eutils XML as an element tree
+        PMC_ID = PMC_ID.replace('PMC','')
+        search_url = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pmc&id=" + PMC_ID
+            
+        # Parse the Eutils XML as an element tree
         tree = ET.ElementTree(file=urllib2.urlopen(search_url))
-	pmid = None
-	for element in tree.iter():
-	    if element.tag == 'Item':
-		if 'Name' in element.attrib:
-		    if element.attrib['Name'] == 'pmid':
-			pmid = element.text
-	return pmid
+        pmid = None
+        for element in tree.iter():
+            if element.tag == 'Item':
+                if 'Name' in element.attrib:
+                    if element.attrib['Name'] == 'pmid':
+                        pmid = element.text
+        return pmid
 
     def get_cited_pub(self, pub_id):
-	if 'PMC' in pub_id:
-	    pub_id = self.get_pmid_from_PMC(pub_id)	    
+	#if 'PMC' in pub_id:
+	#pub_id = self.get_pmid_from_PMC(pub_id)	    
 	
-	pmid_lst = self.get_cited_PMID_elink(pub_id)
-	return pmid_lst
+        pmid_lst = self.get_cited_PMID_elink(pub_id)
+        return pmid_lst
+    
+    
+    def get_pmid_from_fulltext(self, fulltext):
+        """
+        input: search string fulltext
+        output: list of pmc ids queried from pmc database
+        """
+        searchResult = []
+        search_url = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pmc&sort=relevance&term=' + fulltext
+        print search_url
+        # Parse the Eutils XML as an element tree
+        root = ET.ElementTree(file=urllib2.urlopen(search_url))
+        counter = 0
+        print root
+        for idList in root.iter('IdList'):
+            for id in idList.iter('Id'):
+                if counter >= 10:
+                    break
+                print id
+                print id.text
+                searchResult.append(id.text)
+                counter += 1
+        return searchResult
+        
+        
 
     

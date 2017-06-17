@@ -40,7 +40,7 @@ def dashboard():
 def graphdata():
     searchInput = request.args.get('searchInput', '', type=str)
     graphSession = GraphSession()
-    citations = graphSession.getCitationsFromPMIDString(searchInput)
+    citations = graphSession.get_citations_from_fulltext(searchInput)
     resultGraph = ResultGraph()
     resultGraph.populate_from_cite_dict(citations)
     return jsonify(result = resultGraph.get_graph())
