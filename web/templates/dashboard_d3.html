@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Graph Search</title>
+    <meta name="viewport" content="width=device-width", initial-scale=1>
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+	<link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='gs_icon.ico') }}">
+</head>
+<header>
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">
+      <img style="max-width:120px; margin-top: -7px;" src="{{ url_for('static', filename='images/GS_logo.png') }}">
+      </a>
+    </div>
+</header>
+<body>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="http://d3js.org/d3.v3.min.js"></script> 
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="input-group" style="margin-top: 15px;">
+          <input type="text" class="form-control" name="searchInput" placeholder="Search for...">
+          <span class="input-group-btn">
+            <a href='#' id=process_input><button class="btn btn-default" value="Send" type="submit">Search!</button></a>
+          </span>
+        </div><!-- /input-group -->
+      </div><!-- /.col-lg-6 -->
+    </div><!-- /.row -->
+    </div>
+<div id="chart" class="container-fluid" align="left" style="margin-top: 10px; margin-left: 20px; min-height: 100%; max-width: 100%">
+<div class="loader"><!-- Place at bottom of page --></div>
+</div> 
+<script type="text/javascript">
+	$body = $("body");
+
+	$(document).on({
+		ajaxStart: function() { $body.addClass("loading");    },
+		 ajaxStop: function() { $body.removeClass("loading"); }    
+	});
+
+    $(function() {
+        $('a#process_input').bind('click', function() {
+            $.getJSON('/git_dev/_graphdata_d3', {
+            searchInput: $('input[name="searchInput"]').val(),
+            }, function(data) {
+                d3.selectAll("svg > *").remove();
+                var jsonGraph = data.result;
+                console.log(jsonGraph);
+		        update(jsonGraph);
+                });
+        return false;
+        });
+    });
+				
+	var width = 1500
+	var height = 800
+	var radius = 8
+	var gravity = 0.3
+	var charge = -120
+	var linkDistance = 30
+	fill = d3.scale.category20();
+	
+	function handleNodeTextVisibility(d) {
+		if (d.group == "Searched") {
+			return "visible";
+		} else {
+			return "hidden";
+		}
+	}
+    
+    function handleLinkVisibility(d){
+            if ((d.source.weight > 1) && (d.target.group == "Searched")){
+                return "2px";
+            }else if (((d.target.weight > 1) && (d.source.group == "Searched"))){
+                return "2px";
+            }else{
+                return "0.0px";
+            }}
+	
+				
+	var canvas = d3.select("#chart").append("svg")
+        .attr("id", "forceGraph")
+        .attr("viewBox", "0 0 " + width + " " + height)
+        .attr("preserveAspectRatio", "xMidYMid meet");
+		
+	function update(data){
+				
+	var force = d3.layout.force()
+		.size([width, height])
+		.nodes(data.nodes)
+		.links(data.links)
+		.charge(charge)
+		.gravity(gravity)
+		.on("tick", tick)
+		.linkDistance(linkDistance)
+		.start();
+		
+	var link = canvas.selectAll('.link')
+		.data(force.links())
+		.enter().append('line')
+		.attr('class', 'link')
+		.attr('stroke-width', handleLinkVisibility);
+		
+	var node = canvas.selectAll('.node')
+		.data(force.nodes())
+		.enter().append('circle')
+		.attr("r", radius)
+		.style("fill", function(d) { return fill(d.group); })
+		.attr('class', 'node')
+		.on("mouseover", function(d){
+			d3.select(this).select("text").style({
+				visibility: "visible"
+			});
+			d3.select(this).select("circle").style({
+				fill: "orange"
+			});
+			d3.select(this).select("circle").attr({
+				r: radius*2
+			});
+		})
+		.on("mouseout", function(d) {
+			d3.select(this).select("text").style({
+				visibility: handleVisibility
+			});
+			d3.select(this).select("circle").style({
+				fill: function(n) { return fill(n.group); }
+			});
+			d3.select(this).select("circle").attr({
+				r: radius
+			});
+		});
+	
+	var nodeText = canvas.selectAll(".nodeText")
+		.data(force.nodes())
+		.enter()
+		.append("text");
+		
+	nodeText.style("visibility", handleNodeTextVisibility)
+		.style("fill", "#0000ff")
+		.attr("width", "10")
+		.attr("height", "10")
+		.text(function(d){ return d.name; });
+			
+	
+	function tick(e) {
+	
+		node.attr('cx', function(d) {return d.x; })
+			.attr('cy', function(d) {return d.y; })
+			.call(force.drag);
+			
+		link.attr('x1', function(d) {return d.source.x; })
+			.attr('y1', function(d) {return d.source.y; })
+			.attr('x2', function(d) {return d.target.x; })
+			.attr('y2', function(d) {return d.target.y; })
+			
+		nodeText.attr("x", function(d) { return d.x; })
+			.attr("y", function(d) { return d.y; });
+	}
+			
+	};
+	</script>
+</body>
+
+
+</html>
