@@ -130,7 +130,7 @@
                 
                 layout: {
                     name: 'cytoscape-ngraph.forcelayout',
-                    animate: 'false',
+                    animate: true,
                     refreshInterval: 1000, // in ms
                     refreshIterations: 1000,
                     fit: true,
@@ -140,7 +140,7 @@
                          stepsPerCycle: 1000,
 
                          // Run it till the end:
-                         waitForStep: true
+                         waitForStep: false
                      },
                     physics: {
                          /**
@@ -179,7 +179,6 @@
                          timeStep: 20,
                          iterations: 1000,
                          fit: true,
-
                          /**
                           * Maximum movement of the system which can be considered as stabilized
                           */
