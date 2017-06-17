@@ -12,6 +12,7 @@ class GraphSession():
         eutils = ce.ConnectEutils()
         mongoSession = ms.fromConnectionString()
         citationDict = {}
+        #from IPython.core.debugger import Tracer; Tracer()()
         for pmid in pmidList:
             # TODO: Check if db rec exists while data  is entered
             mongoCursor = mongoSession.findPublicationByPMID(pmid)
