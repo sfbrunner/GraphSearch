@@ -83,7 +83,7 @@
 	});
     $(function() {
         $('a#process_input').bind('click', function() {
-            $.getJSON('/git_dev/_graphdata', {
+            $.getJSON("{{ url_for('graphdata') }}", {
             searchInput: $('input[name="searchInput"]').val(),
             }, function(data) {
                 // d3.selectAll("svg > *").remove();
