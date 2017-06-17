@@ -3,11 +3,46 @@
 <head>
     <meta charset="utf-8">
     <title>Graph Search</title>
-    <meta name="viewport" content="width=device-width", initial-scale=1">
+    <meta name="viewport" content="width=device-width", initial-scale=1>
     <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
 	<link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet">
     <link rel="shortcut icon" href="{{ url_for('static', filename='gs_icon.ico') }}">
+    <script type="text/javascript" src="http://d3js.org/d3.v3.min.js"></script> 
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.1.0/cytoscape.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<!-- <script src="https://cdn.rawgit.com/cytoscape/cytoscape.js-cola/1.6.0/cola.js"></script> -->
+	<!-- <script src="https://cdn.rawgit.com/cytoscape/cytoscape.js-cola/1.6.0/cytoscape-cola.js"></script> -->
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/qtip2/2.2.0/jquery.qtip.min.js"></script>
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/qtip2/2.2.0/jquery.qtip.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.rawgit.com/cytoscape/cytoscape.js-qtip/2.7.0/cytoscape-qtip.js"></script>
+	<script src="https://rawgit.com/tgdwyer/WebCola/master/WebCola/cola.min.js"></script>
+	<script src="https://rawgit.com/cytoscape/cytoscape.js-cola/master/cytoscape-cola.js"></script>
+    <script src="https://cdn.rawgit.com/maxkfranz/weaver/v1.2.0/dist/weaver.min.js"></script>
+    <script src="https://cdn.rawgit.com/cytoscape/cytoscape.js-spread/1.3.0/cytoscape-spread.js"></script>
+    <script src="https://cdn.rawgit.com/dhotson/springy/2.7.1/springy.js"></script>
+    <script src="https://cdn.rawgit.com/cytoscape/cytoscape.js-springy/37dd0a9a/cytoscape-springy.js"></script>
+    <script src="https://cdn.rawgit.com/Nickolasmv/cytoscape-ngraph.forcelayout/488e2340/cytoscape-ngraph.forcelayout.js"></script>
 </head>
+<style>
+    body { 
+      font: 14px helvetica neue, helvetica, arial, sans-serif;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      left: 0;
+      top: 0;
+      margin: 0;
+      padding: 0;
+    }
+    #cy {
+        width: 100%;
+        height: 80%;
+        position: absolute;
+        top: 80px;
+        left: 0px;
+        color: 'red';
+    }
+</style>
 <header>
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -38,135 +73,159 @@
 <div id="chart" class="container-fluid" align="left" style="margin-top: 10px; margin-left: 20px; min-height: 100%; max-width: 100%">
 <div class="loader"><!-- Place at bottom of page --></div>
 </div> 
-<script type="text/javascript">
-	$body = $("body");
-
-	$(document).on({
+<div id="cy"></div>
+<script>
+    $body = $("body");
+                    
+    $(document).on({
 		ajaxStart: function() { $body.addClass("loading");    },
-		 ajaxStop: function() { $body.removeClass("loading"); }    
+		ajaxStop: function() { $body.removeClass("loading"); }    
 	});
-
     $(function() {
         $('a#process_input').bind('click', function() {
-            $.getJSON('/_graphdata', {
+            $.getJSON('/git_dev/_graphdata', {
             searchInput: $('input[name="searchInput"]').val(),
             }, function(data) {
-                d3.selectAll("svg > *").remove();
-                var jsonGraph = data.result;
+                // d3.selectAll("svg > *").remove();
+                var jsonGraph = data;
                 console.log(jsonGraph);
 		        update(jsonGraph);
                 });
         return false;
         });
     });
-				
-	var width = 1500
-	var height = 800
-	var radius = 8
-	var gravity = 0.3
-	var charge = -120
-	var linkDistance = 30
-	fill = d3.scale.category20();
-	
-	function handleNodeTextVisibility(d) {
-		if (d.group == "Searched") {
-			return "visible";
-		} else {
-			return "hidden";
-		}
-	}
     
-    function handleLinkVisibility(d){
-            if ((d.source.weight > 1) && (d.target.group == "Searched")){
-                return "2px";
-            }else if (((d.target.weight > 1) && (d.source.group == "Searched"))){
-                return "2px";
-            }else{
-                return "0.0px";
-            }}
-	
-				
-	var canvas = d3.select("#chart").append("svg")
-        .attr("id", "forceGraph")
-        .attr("viewBox", "0 0 " + width + " " + height)
-        .attr("preserveAspectRatio", "xMidYMid meet");
-		
-	function update(data){
-				
-	var force = d3.layout.force()
-		.size([width, height])
-		.nodes(data.nodes)
-		.links(data.links)
-		.charge(charge)
-		.gravity(gravity)
-		.on("tick", tick)
-		.linkDistance(linkDistance)
-		.start();
-		
-	var link = canvas.selectAll('.link')
-		.data(force.links())
-		.enter().append('line')
-		.attr('class', 'link')
-		.attr('stroke-width', handleLinkVisibility);
-		
-	var node = canvas.selectAll('.node')
-		.data(force.nodes())
-		.enter().append('circle')
-		.attr("r", radius)
-		.style("fill", function(d) { return fill(d.group); })
-		.attr('class', 'node')
-		.on("mouseover", function(d){
-			d3.select(this).select("text").style({
-				visibility: "visible"
-			});
-			d3.select(this).select("circle").style({
-				fill: "orange"
-			});
-			d3.select(this).select("circle").attr({
-				r: radius*2
-			});
-		})
-		.on("mouseout", function(d) {
-			d3.select(this).select("text").style({
-				visibility: handleVisibility
-			});
-			d3.select(this).select("circle").style({
-				fill: function(n) { return fill(n.group); }
-			});
-			d3.select(this).select("circle").attr({
-				r: radius
-			});
-		});
-	
-	var nodeText = canvas.selectAll(".nodeText")
-		.data(force.nodes())
-		.enter()
-		.append("text");
-		
-	nodeText.style("visibility", handleNodeTextVisibility)
-		.style("fill", "#0000ff")
-		.attr("width", "10")
-		.attr("height", "10")
-		.text(function(d){ return d.name; });
-			
-	
-	function tick(e) {
-	
-		node.attr('cx', function(d) {return d.x; })
-			.attr('cy', function(d) {return d.y; })
-			.call(force.drag);
-			
-		link.attr('x1', function(d) {return d.source.x; })
-			.attr('y1', function(d) {return d.source.y; })
-			.attr('x2', function(d) {return d.target.x; })
-			.attr('y2', function(d) {return d.target.y; })
-			
-		nodeText.attr("x", function(d) { return d.x; })
-			.attr("y", function(d) { return d.y; });
-	}
-			
-	};
-	</script>
+    function update(data){
+            //console.log(data);
+            var cy = cytoscape({
+                container: document.getElementById('cy'),
+                elements: data,
+                style: [
+                    {
+                        selector: 'node',
+                        style: {
+                            'label': 'data(label)',
+                            'width': '30px',
+                            'height': '30px',
+                            'color': 'blue',
+                            'background-fit': 'contain',
+                            'background-clip': 'none',
+                            'background-color': 'red'
+                        }
+                    }, {
+                        selector: 'edge',
+                        style: {
+                           'text-background-color': 'yellow',
+                            'text-background-opacity': 0.4,
+                            'width': '3px',
+                            'target-arrow-shape': 'triangle',
+                            'control-point-step-size': '140px'
+                        }
+                    }
+                ],
+                /*
+                layout: { 
+                    name: 'preset'
+                } */
+                
+                layout: {
+                    name: 'cytoscape-ngraph.forcelayout',
+                    animate: 'false',
+                    refreshInterval: 1000, // in ms
+                    refreshIterations: 1000,
+                    fit: true,
+                    async: {
+                         // tell layout that we want to compute all at once:
+                         maxIterations: 1000,
+                         stepsPerCycle: 1000,
+
+                         // Run it till the end:
+                         waitForStep: true
+                     },
+                    physics: {
+                         /**
+                          * Ideal length for links (springs in physical model).
+                          */
+                         springLength: 100,
+
+                         /**
+                          * Hook's law coefficient. 1 - solid spring.
+                          */
+                         springCoeff: 0.0008,
+
+                         /**
+                          * Coulomb's law coefficient. It's used to repel nodes thus should be negative
+                          * if you make it positive nodes start attract each other :).
+                          */
+                         gravity: -12,
+
+                         /**
+                          * Theta coefficient from Barnes Hut simulation. Ranged between (0, 1).
+                          * The closer it's to 1 the more nodes algorithm will have to go through.
+                          * Setting it to one makes Barnes Hut simulation no different from
+                          * brute-force forces calculation (each node is considered).
+                          */
+                         theta: 0.8,
+
+                         /**
+                          * Drag force coefficient. Used to slow down system, thus should be less than 1.
+                          * The closer it is to 0 the less tight system will be.
+                          */
+                         dragCoeff: 0.02,
+
+                         /**
+                          * Default time step (dt) for forces integration
+                          */
+                         timeStep: 20,
+                         iterations: 1000,
+                         fit: true,
+
+                         /**
+                          * Maximum movement of the system which can be considered as stabilized
+                          */
+                         stableThreshold: 0.000009
+                     },
+                    //maxExpandIterations: 0,
+                    /*minDist: 20,
+                    gravity: 800,
+					nodeSpacing: 5,
+					edgeLengthVal: 50,
+					animate: true,
+					randomize: false,
+					maxSimulationTime: 10000,
+					avoidOverlaps: true,
+					//unconstrIter: 100,
+					userConstIter: 100,
+					fit: true,
+                    repulsion: 4000,
+					//infinite: true,
+					padding: 10*/
+                }
+            });
+            cy.elements().qtip({
+                content: function() {
+                  return 'PMID ' + this.id() + 
+                      '<br><a href="https://www.ncbi.nlm.nih.gov/pubmed/' + this.id() + '" target="_blank">Pubmed</a>'
+                },
+                position: {
+                  target: 'mouse',
+                  adjust: {
+                    mouse: false
+                  }
+                },
+                style: {
+                  classes: 'qtip-bootstrap',
+                  tip: {
+                    width: 16,
+                    height: 8
+                  }
+                }
+             });
+        };
+    
+</script>                   
+                   
+
 </body>
 
 
