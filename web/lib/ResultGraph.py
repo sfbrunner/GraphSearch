@@ -68,4 +68,19 @@ class ResultGraph():
         cy_dict = {'nodes': node_lst, 'edges': edge_lst}
 
         return jsonify(cy_dict)
-
+    
+    def extract_by_connectivity(self, connectivity=2):
+        '''
+        Removes nodes with < [connectivity] edges
+        
+        Args:
+        connectivity: cutoff for connectivity of node
+        '''
+        # Add the pre-calculated weights back to the graph
+        self._addWeightsToGraph()
+        
+        # Identify nodes that adhere to connectivity filter
+        new_nodes = [n for n, attrdict in self.G.node.items() if len(self.G.neighbors(n)) > connectivity]
+        
+        # Create new subgraph with filtered nodes
+        self.G = self.G.subgraph(new_nodes)
