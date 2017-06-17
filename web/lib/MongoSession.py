@@ -9,7 +9,7 @@ import json
 try:
     from pymongo import MongoClient
 except ImportError as e:
-    print("pymongo.MongoClient could not be imported: " + e)
+    print("pymongo.MongoClient could not be imported: " + str(e))
 
 #client = MongoClient()
 #client = MongoClient('localhost', 27017)

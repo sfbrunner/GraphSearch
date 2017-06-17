@@ -31,7 +31,7 @@ class ResultGraph():
     def populate_from_cite_dict(self, cite_dict):
         for pmid in cite_dict:
             self.add_publication(pmid, cite_dict[pmid])
-			
+
     def _addWeightsToGraph(self):
         for citation in self.citationWeight:
             self.G.node[citation]['weight'] = self.citationWeight[citation] 
@@ -45,3 +45,27 @@ class ResultGraph():
     def get_graph(self):
         self._addWeightsToGraph()
         return json_graph.node_link_data(self.G)
+
+    def get_cy_json(self):
+        self._addWeightsToGraph()
+        n_json = json_graph.node_link_data(self.G)
+
+        # Parse nodes
+        #from IPython.core.debugger import Tracer; Tracer()()
+        node_lst = []
+        id_lst = [] # Due to networkx' format, edges refer to nodes in the form of their list position, so we'll store their position here.
+        for node in n_json['nodes']:
+            node_lst.append({'data': {'id':node['id'], 'name': node['id']}}) #, 'label': node['id']}})
+            id_lst.append(node['id'])
+    
+        # Parse edges
+        #from IPython.core.debugger import Tracer; Tracer()()
+        edge_lst = []
+        for edge in n_json['links']:
+            edge_lst.append({'data':{'id':'{a:d}_{b:d}'.format(a=edge['source'], b=edge['target']), 
+                        'source':id_lst[edge['source']], 
+                        'target':id_lst[edge['target']] }})
+        cy_dict = {'nodes': node_lst, 'edges': edge_lst}
+
+        return jsonify(cy_dict)
+
