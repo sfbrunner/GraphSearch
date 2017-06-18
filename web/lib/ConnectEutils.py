@@ -78,9 +78,10 @@ class ConnectEutils():
         
         # Iterate through element tree to identify tags specifying PMIDs
         pmid_lst = []
-        for element in tree.iter():
-            if element.tag == 'Id':
-                pmid_lst.append(element.text)
+        for element in tree.iter('LinkSetDb'):
+            for link in element.iter('Link'):
+                for id in link.iter('Id'):
+                    pmid_lst.append(id.text)
         
         return pmid_lst
 
