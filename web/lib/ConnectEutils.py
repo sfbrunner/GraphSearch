@@ -129,6 +129,38 @@ class ConnectEutils():
                 counter += 1
         return searchResult
         
+    def get_docsummary_from_idList(self, idList):
+        search_url = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pmc&id=' + ','.join(idList)
+        print search_url
+        resultList = []
+        # Parse the Eutils XML as an element tree
+        root = ET.ElementTree(file=urllib2.urlopen(search_url))
+        for docSum in root.iter('DocSum'):
+            summaryDict = {}
+            for element in docSum:
+                if element.tag in ('Id',):
+                    summaryDict['Id'] = element.text
+                elif element.tag in ('Item',):
+                    if element.attrib['Name'] in ('Title',):
+                        summaryDict['Title'] = element.text
+                        
+                    elif element.attrib['Name'] in ('AuthorList',):
+                        authors = []
+                        for author in element:
+                            authors.append(author.text)
+                        summaryDict['Authors'] = authors
+                        
+                    elif element.attrib['Name'] in ('PubDate',):
+                        summaryDict['PubDate'] = element.text
+                        
+                    elif element.attrib['Name'] in ('FullJournalName',):
+                        summaryDict['Journal'] = element.text  
+            resultList.append(summaryDict)
+            
+        return resultList
+
+        
+        
         
 
     
