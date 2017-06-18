@@ -236,7 +236,10 @@
             cy.elements().qtip({
                 content: function() {
                   return 'PMID ' + this.id() + 
-                      '<br><a href="https://www.ncbi.nlm.nih.gov/pmc/' + this.id() + '" target="_blank">Pubmed</a>'
+                      '<br><b><a href="https://www.ncbi.nlm.nih.gov/pmc/' + this.id() + 
+                      '" target="_blank">' + this.data('Title') + '</b></a>' +
+                      '<br><i>' + this.data('Journal') + ', ' + this.data('PubDate') + '</i>' +
+                      '<br>' + this.data('Authors')
                 },
                 position: {
                   target: 'mouse',
