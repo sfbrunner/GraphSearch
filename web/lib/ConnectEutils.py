@@ -70,7 +70,7 @@ class ConnectEutils():
     
     def get_cited_PMID_elink(self, PMID):
         #search_url = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/elink.fcgi?dbfrom=pubmed&linkname=pubmed_pubmed_refs&id=" + PMID + "&tool=GraphSearch"
-        search_url = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/elink.fcgi?dbfrom=pubmed&linkname=pmc_refs_pubmed&id=" + PMID + "&tool=GraphSearch"
+        search_url = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/elink.fcgi?dbfrom=pubmed&linkname=pmc_pmc_cites&id=" + PMID + "&tool=GraphSearch"
         print search_url
         
         # Parse the Eutils XML as an element tree
