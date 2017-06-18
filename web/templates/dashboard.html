@@ -89,7 +89,7 @@
     <div class="row">
       <div class="col-lg-6">
         <div class="input-group" style="margin-top: 15px;">
-          <input type="text" class="form-control" name="searchInput" placeholder="Search for...">
+          <input id = 'searchfield' type="text" class="form-control" name="searchInput" placeholder="Search for...">
           <span class="input-group-btn">
             <a href='#' id=process_input><button class="btn btn-default" value="Send" type="submit">Search!</button></a>
           </span>
@@ -103,6 +103,13 @@
 <div id="cy"></div>
 <div id="loading"><span class="fa fa-refresh fa-spin"></span></div>
 <script>
+    document.getElementById("searchfield")
+        .addEventListener("keyup", function(event) {
+        event.preventDefault();
+        if (event.keyCode == 13) {
+            document.getElementById("process_input").click();
+        }
+    });
     $body = $("body");
                     
     $(document).on({
