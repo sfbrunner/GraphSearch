@@ -55,7 +55,7 @@ class ResultGraph():
         node_lst = []
         id_lst = [] # Due to networkx' format, edges refer to nodes in the form of their list position, so we'll store their position here.
         for node in n_json['nodes']:
-            node_lst.append({'data': {'id':node['id'], 'name': node['id']}}) #, 'label': node['id']}})
+            node_lst.append({'data': {'id':node['id'], 'name': node['id'], 'group':node['group']}}) #, 'label': node['id']}})
             id_lst.append(node['id'])
     
         # Parse edges
@@ -66,7 +66,8 @@ class ResultGraph():
                         'source':id_lst[edge['source']], 
                         'target':id_lst[edge['target']] }})
         cy_dict = {'nodes': node_lst, 'edges': edge_lst}
-
+        print jsonify(cy_dict)
+        
         return jsonify(cy_dict)
     
     def extract_by_connectivity(self, connectivity=2):
