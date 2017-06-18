@@ -59,11 +59,11 @@ class ResultGraph():
         for node in n_json['nodes']:
             node_lst.append({'data': {'id':node['id'], 
                                       'name': node['id'], 
-                                      'group':node['group']}})
-                                      #'Title':node['Title'],
-                                      #'Journal':node['Journal'],
-                                      #'PubDate':node['PubDate'],
-                                      #'Authors':node['Authors']}}) #, 'label': node['id']}})
+                                      'group':node['group'],
+                                      'title':node['title'],
+                                      'journal':node['journal'],
+                                      'pubDate':node['pubDate'],
+                                      'authors':node['authors'] + ' ...'}}) #, 'label': node['id']}})
             id_lst.append(node['id'])
     
         # Parse edges
@@ -98,7 +98,7 @@ class ResultGraph():
             self.G.node[node]['journal'] = dataDict['Journal']
             self.G.node[node]['title'] = dataDict['Title']
             self.G.node[node]['pubDate'] = dataDict['PubDate']
-            self.G.node[node]['authors'] = ','.join(dataDict['Authors'])
+            self.G.node[node]['authors'] = ', '.join(dataDict['Authors'][0:3])
             
     @property        
     def nodeIds(self):

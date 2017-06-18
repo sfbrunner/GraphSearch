@@ -59,7 +59,7 @@ def graphdata():
     citations = graphSession.get_citations_from_fulltext(userInput)
     resultGraph = ResultGraph()
     resultGraph.populate_from_cite_dict(citations)
-    resultGraph.extract_by_connectivity()
+    resultGraph.extract_by_connectivity(connectivity=1)
     resultGraph.extract_by_connectivity(connectivity=0)
     metadataList = graphSession.get_metadataList_from_idList(resultGraph.nodeIds)
     resultGraph.add_metadata_to_graph(metadataList)

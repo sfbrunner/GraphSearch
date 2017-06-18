@@ -225,7 +225,7 @@
                           * Coulomb's law coefficient. It's used to repel nodes thus should be negative
                           * if you make it positive nodes start attract each other :).
                           */
-                         gravity: -5,
+                         gravity: -2,
 
                          /**
                           * Theta coefficient from Barnes Hut simulation. Ranged between (0, 1).
@@ -273,10 +273,11 @@
             
             cy.elements().qtip({
                 content: function() {
-                  return '<br><b><a href="https://www.ncbi.nlm.nih.gov/pmc/' + this.id() + 
-                      '" target="_blank">' + this.data('Title') + '</b></a>' +
-                      '<br><i>' + this.data('Journal') + ', ' + this.data('PubDate') + '</i>' +
-                      '<br>' + this.data('Authors')
+                  return '<b><a href="https://www.ncbi.nlm.nih.gov/pmc/' + this.id() + 
+                      '" target="_blank">' + this.data('title') + '</b></a>' +
+                      '<br><i>' + this.data('journal') +
+                      '</i><br><i>' + this.data('pubDate') + '</i>' +
+                      '<br>' + this.data('authors')
                 },
                 position: {
                   target: 'mouse',
