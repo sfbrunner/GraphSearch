@@ -22,6 +22,8 @@
     <script src="https://cdn.rawgit.com/dhotson/springy/2.7.1/springy.js"></script>
     <script src="https://cdn.rawgit.com/cytoscape/cytoscape.js-springy/37dd0a9a/cytoscape-springy.js"></script>
     <script src="https://cdn.rawgit.com/Nickolasmv/cytoscape-ngraph.forcelayout/488e2340/cytoscape-ngraph.forcelayout.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" />
+
 </head>
 <style>
     body { 
@@ -41,6 +43,31 @@
         top: 80px;
         left: 0px;
         color: 'red';
+    }
+    active {
+    position: absolute;
+    display: block;
+    left: 0;
+    top: 50%;
+    width: 100%;
+    text-align: center;
+    margin-top: -0.5em;
+    font-size: 2em;
+    color: #000;
+    }
+    #loading.active {
+    position: absolute;
+    display: block;
+    left: 0;
+    top: 50%;
+    width: 100%;
+    text-align: center;
+    margin-top: -0.5em;
+    font-size: 2em;
+    color: #000;
+    }
+    #loading.loaded {
+    display: none;
     }
 </style>
 <header>
@@ -74,22 +101,31 @@
 <div class="loader"><!-- Place at bottom of page --></div>
 </div> 
 <div id="cy"></div>
+<div id="loading"><span class="fa fa-refresh fa-spin"></span></div>
 <script>
     $body = $("body");
                     
     $(document).on({
-		ajaxStart: function() { $body.addClass("loading");    },
-		ajaxStop: function() { $body.removeClass("loading"); }    
+        //ajaxStart: function() { $(".loading").addClass("active");    }
+		//ajaxStart: function() { $("div.loading").addClass("active");    },
+		//ajaxStop: function() { $("div.loading").removeClass("active"); }    
 	});
     $(function() {
         $('a#process_input').bind('click', function() {
+            var loading = document.getElementById('loading');
+            loading.classList.remove('loaded');
+            loading.classList.add('active');
             $.getJSON("{{ url_for('graphdata') }}", {
             searchInput: $('input[name="searchInput"]').val(),
             }, function(data) {
                 // d3.selectAll("svg > *").remove();
                 var jsonGraph = data;
                 console.log(jsonGraph);
+                var loading = document.getElementById('loading');
+                // loading.classList.add('active');
 		        update(jsonGraph);
+                loading.classList.remove('active');
+                loading.classList.add('loaded');
                 });
         return false;
         });
@@ -232,11 +268,12 @@
 					//infinite: true,
 					padding: 10*/
                 }
+                
             });
+            
             cy.elements().qtip({
                 content: function() {
-                  return 'PMID ' + this.id() + 
-                      '<br><b><a href="https://www.ncbi.nlm.nih.gov/pmc/' + this.id() + 
+                  return '<br><b><a href="https://www.ncbi.nlm.nih.gov/pmc/' + this.id() + 
                       '" target="_blank">' + this.data('Title') + '</b></a>' +
                       '<br><i>' + this.data('Journal') + ', ' + this.data('PubDate') + '</i>' +
                       '<br>' + this.data('Authors')
