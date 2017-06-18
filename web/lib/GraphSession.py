@@ -36,4 +36,8 @@ class GraphSession():
         parsed_input = GraphSession.parse_full_text_input(fulltext)
         eutils = ce.ConnectEutils()
         return GraphSession.loadCitations(eutils.get_pmid_from_fulltext(parsed_input))
+        
+    def get_metadataList_from_idList(self, idList):
+        eutils = ce.ConnectEutils()
+        return eutils.get_docsummary_from_idList(idList)
 

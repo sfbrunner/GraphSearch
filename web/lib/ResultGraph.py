@@ -85,3 +85,19 @@ class ResultGraph():
         
         # Create new subgraph with filtered nodes
         self.G = self.G.subgraph(new_nodes)
+        
+    def add_metadata_to_graph(self, metadataList):  
+        for node in self.G:
+            dataDict = [dict for dict in metadataList if dict['Id'] in (self.G.node[node]['name'],)][0]
+            self.G.node[node]['journal'] = dataDict['Journal']
+            self.G.node[node]['title'] = dataDict['Title']
+            self.G.node[node]['pubDate'] = dataDict['PubDate']
+            self.G.node[node]['authors'] = ','.join(dataDict['Authors'])
+            
+    @property        
+    def nodeIds(self):
+        return [self.G.node[n]['name'] for n in self.G]
+        
+            
+            
+            
