@@ -31,9 +31,12 @@ class ResultGraph():
     def populate_from_cite_dict(self, cite_dict):
         for pmid in cite_dict:
             self.add_publication(pmid, cite_dict[pmid])
+        # Add the pre-calculated weights back to the graph
+        self._addWeightsToGraph()
 
     def _addWeightsToGraph(self):
         for citation in self.citationWeight:
+            #from IPython.core.debugger import Tracer; Tracer()()
             self.G.node[citation]['weight'] = self.citationWeight[citation] 
 
     def get_json(self):
@@ -47,7 +50,6 @@ class ResultGraph():
         return json_graph.node_link_data(self.G)
 
     def get_cy_json(self):
-        self._addWeightsToGraph()
         n_json = json_graph.node_link_data(self.G)
 
         # Parse nodes
@@ -77,8 +79,6 @@ class ResultGraph():
         Args:
         connectivity: cutoff for connectivity of node
         '''
-        # Add the pre-calculated weights back to the graph
-        self._addWeightsToGraph()
         
         # Identify nodes that adhere to connectivity filter
         new_nodes = [n for n, attrdict in self.G.node.items() if len(self.G.neighbors(n)) > connectivity]
