@@ -57,7 +57,13 @@ class ResultGraph():
         node_lst = []
         id_lst = [] # Due to networkx' format, edges refer to nodes in the form of their list position, so we'll store their position here.
         for node in n_json['nodes']:
-            node_lst.append({'data': {'id':node['id'], 'name': node['id'], 'group':node['group']}}) #, 'label': node['id']}})
+            node_lst.append({'data': {'id':node['id'], 
+                                      'name': node['id'], 
+                                      'group':node['group']}})
+                                      #'Title':node['Title'],
+                                      #'Journal':node['Journal'],
+                                      #'PubDate':node['PubDate'],
+                                      #'Authors':node['Authors']}}) #, 'label': node['id']}})
             id_lst.append(node['id'])
     
         # Parse edges
