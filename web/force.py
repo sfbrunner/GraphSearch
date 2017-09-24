@@ -52,18 +52,10 @@ def dashboard_d3():
 
 @app.route("/_graphdata")
 def graphdata():
+    ''' Returns cytoscape JSON graph based on fulltext input'''
     userInput = request.args.get('searchInput', '', type=str)
-    print "User input: "
-    print userInput
-    graphSession = GraphSession()
-    citations = graphSession.get_citations_from_fulltext(userInput)
-    resultGraph = ResultGraph()
-    resultGraph.populate_from_cite_dict(citations)
-    resultGraph.extract_by_connectivity(connectivity=1)
-    resultGraph.extract_by_connectivity(connectivity=0)
-    metadataList = graphSession.get_metadataList_from_idList(resultGraph.nodeIds)
-    resultGraph.add_metadata_to_graph(metadataList)
-    return resultGraph.get_cy_json()
+    graphSession = GraphSession(userInput)
+    return graphSession.get_cy_json()
 
 @app.route("/_graphdata_d3")
 def graphdata_d3():
@@ -71,7 +63,7 @@ def graphdata_d3():
     searchInput = request.args.get('searchInput', '', type=str)
     print "User input: D3"
     print searchInput
-    graphSession = GraphSession()
+    graphSession = GraphSession(searchInput)
     citations = graphSession.get_citations_from_fulltext(searchInput)
     resultGraph = ResultGraph()
     resultGraph.populate_from_cite_dict(citations)
@@ -126,7 +118,7 @@ def graphtest_data():
 def getExampleData():
     userInput = "27729734,27785449,25995680"
     print userInput
-    graphSession = GraphSession()
+    graphSession = GraphSession(userInput)
     citations = graphSession.getCitationsFromPMIDString(userInput)
     resultGraph = ResultGraph()
     resultGraph.populate_from_cite_dict(citations)
@@ -156,7 +148,7 @@ def cyto_json():
 @app.route("/cy_json_data")
 def cy_json_data():
     userInput = "27729734,27785449,25995680"
-    graphSession = GraphSession()
+    graphSession = GraphSession(userInput)
     citations = graphSession.getCitationsFromPMIDString(userInput)
     resultGraph = ResultGraph()
     resultGraph.populate_from_cite_dict(citations)

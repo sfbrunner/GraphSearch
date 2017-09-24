@@ -5,6 +5,8 @@ on port 27017. Pymongo needs to be installed.
 '''
 import datetime
 import json
+from utils.logger import LogHandler
+log = LogHandler.get_logger('__name__', 'forceLog.log')
 
 try:
     from pymongo import MongoClient
@@ -25,9 +27,11 @@ class MongoSession(object):
         try:
             client = MongoClient(host, port)
         except Exception as e:
-            print("Connection failed: " + e)
+            msg = '{0}: Mongo db connection failed: {1}'
+            log.info(msg.format(cls.__name__, e))
         else:
-            print("Connection successful")
+            msg = '{0}: Mongo db connection successful'
+            log.info(msg.format(cls.__name__))
         return cls(client)
 
     @classmethod
@@ -37,9 +41,11 @@ class MongoSession(object):
         try:
             client = MongoClient(connectionString)
         except Exception as e:
-            print("mongodb Connection failed: " + e)
+            msg = '{0}: Mongo db connection failed: {1}'
+            log.info(msg.format(cls.__name__, e))
         else:
-            print("mongodb connection successful")
+            msg = '{0}: Mongo db connection successful'
+            log.info(msg.format(cls.__name__))
 
         return cls(client)
 

@@ -5,7 +5,13 @@ import pprint
 import xml.etree.ElementTree as ET
 import requests 
 import urllib2
+import eutilsConfig as cfg
+from decorators import singleton
+from utils.logger import LogHandler
+log = LogHandler.get_logger('__name__', 'forceLog.log')
 
+
+@singleton
 class ConnectEutils():
     '''This class interacts with the Eutils API.
     
@@ -71,7 +77,8 @@ class ConnectEutils():
     def get_cited_PMID_elink(self, PMID):
         #search_url = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/elink.fcgi?dbfrom=pubmed&linkname=pubmed_pubmed_refs&id=" + PMID + "&tool=GraphSearch"
         search_url = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/elink.fcgi?dbfrom=pubmed&linkname=pmc_pmc_cites&id=" + PMID + "&tool=GraphSearch"
-        print search_url
+        msg = '{0}: Connecting to eutils API:\n {1}'
+        log.info(msg.format(self.__class__.__name__, search_url))
         
         # Parse the Eutils XML as an element tree
         tree = ET.ElementTree(file=urllib2.urlopen(search_url))
@@ -114,17 +121,17 @@ class ConnectEutils():
         """
         searchResult = []
         search_url = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pmc&sort=relevance&term=' + fulltext
-        print search_url
+        msg = '{0}: Connecting to eutils API:\n {1}'
+        log.info(msg.format(self.__class__.__name__, search_url))
         # Parse the Eutils XML as an element tree
         root = ET.ElementTree(file=urllib2.urlopen(search_url))
         counter = 0
-        print root
         for idList in root.iter('IdList'):
             for id in idList.iter('Id'):
                 if counter >= 100:
                     break
-                print id
-                print id.text
+                msg = '{0}: Search result returned id {1}'
+                log.info(msg.format(self.__class__.__name__, id.text))
                 searchResult.append(id.text)
                 counter += 1
         return searchResult
@@ -158,9 +165,3 @@ class ConnectEutils():
             resultList.append(summaryDict)
             
         return resultList
-
-        
-        
-        
-
-    
