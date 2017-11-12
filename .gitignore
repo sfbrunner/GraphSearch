@@ -1,4 +1,6 @@
 env/*
+node_modules/*
+.vscode
 *.pyc
 *.swp
 *.log

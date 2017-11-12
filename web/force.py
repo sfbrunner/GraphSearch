@@ -1,58 +1,40 @@
+''' FLASK WEB SERVER '''
+
 import sys
-import os
-import networkx
-from flask import Flask
-from flask import flash
-from flask import render_template
-from flask import jsonify
-from flask import request
-from flask import session
-from flask import url_for, redirect
-import json
-import networkx
-from networkx.readwrite import json_graph
+
 sys.path.append('lib')
 from lib.ConnectEutils import ConnectEutils
 from lib.ResultGraph import ResultGraph
 from lib.GraphSession import GraphSession
-#import ConnectEutils
 
-#eutils = ConnectEutils.ConnectEutils()
+from flask import Flask
+from flask import render_template
+from flask import jsonify
+from flask import request
+from flask import session
+
 eutils = ConnectEutils()
 app = Flask(__name__)
 app.secret_key = 'big_secret'
 
+
 @app.route('/')
 def homepage():
+    '''Landing page'''
     return render_template("main.html")
-  #print sys.version
-  #return 'Hello from Flask!'
-  #return os.getcwd()
-  #return render_template('force/force.html')
-  #return app.send_static_file('force.html')
-  #return render_template("index.html")
-
-@app.route('/d3')
-def homepage_d3():
-    return render_template("main_d3.html")
-  #print sys.version
-  #return 'Hello from Flask!'
-  #return os.getcwd()
-  #return render_template('force/force.html')
-  #return app.send_static_file('force.html')
-  #return render_template("index.html")
 
 @app.route('/dashboard/', methods=["GET", "POST"])
 def dashboard():
+    '''Search dashboard'''
     return render_template("dashboard.html")
-
-@app.route('/dashboard_d3/', methods=["GET", "POST"])
-def dashboard_d3():
-    return render_template("dashboard_d3.html")
 
 @app.route("/_graphdata")
 def graphdata():
-    ''' Returns cytoscape JSON graph based on fulltext input'''
+    '''
+    Returns cytoscape JSON graph based on fulltext input
+    INPUT: request with searchInput string argument
+    OUTPUT: cytoscape formatted JSON graph
+    '''
     userInput = request.args.get('searchInput', '', type=str)
     graphSession = GraphSession(userInput)
     return graphSession.get_cy_json()
@@ -154,7 +136,5 @@ def cy_json_data():
     resultGraph.populate_from_cite_dict(citations)
     return resultGraph.get_cy_json()
 
-
-
 if __name__ == '__main__':
-  app.run()
+    app.run(debug=True)
