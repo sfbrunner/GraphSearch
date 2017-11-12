@@ -1,5 +1,7 @@
 env/*
 node_modules/*
+web/static/scripts/js/*
+web/static/bower_components/*
 .vscode
 *.pyc
 *.swp

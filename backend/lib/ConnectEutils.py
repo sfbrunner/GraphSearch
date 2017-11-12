@@ -128,7 +128,7 @@ class ConnectEutils():
         counter = 0
         for idList in root.iter('IdList'):
             for id in idList.iter('Id'):
-                if counter >= 3: # Search results limited to this value
+                if counter >= 100: # Search results limited to this value
                     break
                 msg = '{0}: Search result returned id {1}'
                 log.info(msg.format(self.__class__.__name__, id.text))
