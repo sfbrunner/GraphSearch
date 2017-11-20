@@ -6,7 +6,7 @@ on port 27017. Pymongo needs to be installed.
 import datetime
 import json
 from utils.logger import LogHandler
-log = LogHandler.get_logger('__name__', 'forceLog.log')
+log = LogHandler.get_logger('__name__')
 
 try:
     from pymongo import MongoClient
@@ -82,6 +82,62 @@ class MongoSession(object):
     def findPublicationByPMID(self, pmid):
         db = self.client.GraphSearch
         return db.publications.find_one({"pmid" : str(pmid)}, {"_id" : 0})
+    
+    def findRefsOfPMC(self, pmc_lst):
+        pmc_cl = []
+        for pmc in pmc_lst:
+            pmc_cl.append('PMC'+pmc)
+        log.debug(pmc_cl)
+        pmc_iter = self.client.gs.pmc.find({"article_pmc":{"$in": pmc_cl}})
+        pmid_refs = {}
+        for pmc in pmc_iter:
+            if 'article_pmid' in pmc:
+                pmid_refs[pmc['article_pmid']] = pmc['ref_pmid']
+        return pmid_refs
+    
+    def get_metadata_of_pmid_lst(self, pmid_lst):
+        log.debug(pmid_lst)
+        resultList = []
+        pmid_lst_int = [int(pmid) for pmid in pmid_lst]
+        pmid_iter = self.client.gs.pubmed1.find({"pmid":{"$in": pmid_lst_int}})
+        for doc in pmid_iter:
+            summaryDict = self._parse_meta_doc(doc)
+            resultList.append(summaryDict)
+            
+        pmid_iter = self.client.gs.pubmed2.find({"pmid":{"$in": pmid_lst_int}})
+        for doc in pmid_iter:
+            summaryDict = self._parse_meta_doc(doc)
+            resultList.append(summaryDict)
+            
+        return resultList
+    
+    def _parse_meta_doc(self, meta_doc):
+        summaryDict = {}
+        summaryDict['Id'] = meta_doc['pmid']
+        summaryDict['Title'] = ''
+        summaryDict['Journal'] = ''
+        summaryDict['Authors'] = []
+        summaryDict['PubDate'] = ''
+        
+        if 'title' in meta_doc:
+            summaryDict['Title'] = meta_doc['title']
+            
+        if 'journal' in meta_doc:
+                summaryDict['Journal'] = meta_doc['journal']
+        
+        if 'authors' in meta_doc:
+            if len(meta_doc['authors']) > 0:
+                for author in meta_doc['authors']:
+                    if 'last' in author:
+                        summaryDict['Authors'].append(author['last'])
+                        
+        if 'month' in meta_doc:
+            summaryDict['PubDate'] = summaryDict['PubDate'] + meta_doc['month']
+                
+        if 'year' in meta_doc:
+            summaryDict['PubDate'] = summaryDict['PubDate'] + ' ' + str(meta_doc['year'])
+            
+        return summaryDict
 
     def checkExistPublication(self, pmid):
         if self.findPublicationByPMID(pmid):
