@@ -12,7 +12,7 @@ celery -A worker worker --loglevel=debug -P solo &
 mongod &
 
 # we need our frontend to run
-python web/httpserver.py && fg
+python frontend/web/httpserver.py && fg
 
 # for editing jsx files we need gulp
 # web/gulp
