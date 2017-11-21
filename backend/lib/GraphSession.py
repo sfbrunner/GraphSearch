@@ -6,7 +6,7 @@ from MongoSession import MongoSession
 from ResultGraph import ResultGraph
 from requestFactory import createSearchRequest
 from utils.logger import LogHandler
-log = LogHandler.get_logger('__name__', 'forceLog.log')
+log = LogHandler.get_logger('__name__')
     
 
 class GraphSession(object):
@@ -20,20 +20,19 @@ class GraphSession(object):
         msg = '{0}: Search input received: {1}'
         log.info(msg.format(self.__class__.__name__, self.request.userInput))
 
-        citations = self.get_citations_from_fulltext(self.request.userInput)
+        citations = self.get_citations_from_fulltext_mongo(self.request.userInput, retmax=200)
         resultGraph = ResultGraph()
         resultGraph.populate_from_cite_dict(citations)
         
+        #resultGraph.extract_by_connectivity(connectivity=2)
         resultGraph.extract_by_connectivity(connectivity=1)
         resultGraph.extract_by_connectivity(connectivity=0)
-
-        metadataList = self.get_metadataList_from_idList(resultGraph.nodeIds)
+        
+        # Query metadata
+        metadataList = self.get_metadataList_from_mongo(resultGraph.nodeIds)
         resultGraph.add_metadata_to_graph(metadataList)
-
-        graphJSON = resultGraph.get_cy_json()
-        msg = '{0}: Graph: {1}'
-        log.info(msg.format(self.__class__.__name__, graphJSON))
-        return graphJSON
+        
+        return resultGraph.get_cy_json()
 
     @staticmethod
     def parseInput(userInput): #check user input with regex?
@@ -81,3 +80,20 @@ class GraphSession(object):
     def get_metadataList_from_idList(self, idList):
         eutils = ConnectEutils()
         return eutils.get_docsummary_from_idList(idList)
+    
+    def get_metadataList_from_mongo(self, pmid_lst):
+        mongoSession = MongoSession.fromConnectionString()
+        return mongoSession.get_metadata_of_pmid_lst(pmid_lst)
+    
+    def get_pubmed_results_from_fulltext(self, fulltext, retmax=20):
+        parsed_input = self.parse_full_text_input(fulltext)
+        eutils = ConnectEutils()
+        return eutils.get_pmid_from_fulltext(parsed_input, retmax=retmax)
+ 
+    def get_citations_from_fulltext_mongo(self, fulltext, retmax=20):
+        searched_pmc = self.get_pubmed_results_from_fulltext(fulltext, retmax)
+        mongoSession = MongoSession.fromConnectionString()
+        return mongoSession.findRefsOfPMC(searched_pmc)
+        
+        
+    

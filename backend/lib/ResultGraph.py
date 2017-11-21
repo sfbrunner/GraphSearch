@@ -2,6 +2,8 @@ import networkx as nx
 import json
 from flask import jsonify
 from networkx.readwrite import json_graph
+from utils.logger import LogHandler
+log = LogHandler.get_logger('__name__')
 
 class ResultGraph():
 
@@ -11,8 +13,9 @@ class ResultGraph():
         self.citationWeight = {}
 
     def add_publication(self, pmid, cite_lst):
+        
         for citation in cite_lst:
-            self.G.add_edge(pmid, citation)
+            self.G.add_edge(str(pmid), str(citation))
             if str(pmid) in self.citationWeight.keys():
                 self.citationWeight[str(pmid)] += 1
             else:
@@ -22,10 +25,9 @@ class ResultGraph():
             # Add 'name' tag to each node
             self.G.node[n]['name'] = str(n)
             
-            # Add group tag
-            if self.G.node[n]['name'] == str(pmid):
+            if str(self.G.node[n]['name']) == str(pmid):
                 self.G.node[n]['group'] = 'Searched'
-            elif str(self.G.node[n]['name']) in cite_lst:
+            elif int(self.G.node[n]['name']) in cite_lst:
                 self.G.node[n]['group'] = 'Cited'
     
     def populate_from_cite_dict(self, cite_dict):
@@ -36,13 +38,13 @@ class ResultGraph():
 
     def _addWeightsToGraph(self):
         for citation in self.citationWeight:
+            log.debug(citation)
             #from IPython.core.debugger import Tracer; Tracer()()
-            self.G.node[citation]['weight'] = self.citationWeight[citation] 
+            self.G.node[str(citation)]['weight'] = self.citationWeight[str(citation)] 
 
     def get_json(self):
         self._addWeightsToGraph()
         d = json_graph.node_link_data(self.G)
-        #return json.dumps(d)
         return jsonify(d) 
 
     def get_graph(self):
@@ -53,7 +55,6 @@ class ResultGraph():
         n_json = json_graph.node_link_data(self.G)
 
         # Parse nodes
-        #from IPython.core.debugger import Tracer; Tracer()()
         node_lst = []
         id_lst = [] # Due to networkx' format, edges refer to nodes in the form of their list position, so we'll store their position here.
         for node in n_json['nodes']:
@@ -67,14 +68,12 @@ class ResultGraph():
             id_lst.append(node['id'])
     
         # Parse edges
-        #from IPython.core.debugger import Tracer; Tracer()()
         edge_lst = []
         for edge in n_json['links']:
             edge_lst.append({'data':{'id':'{a:d}_{b:d}'.format(a=edge['source'], b=edge['target']), 
                         'source':id_lst[edge['source']], 
                         'target':id_lst[edge['target']] }})
         cy_dict = {'nodes': node_lst, 'edges': edge_lst}
-        # print jsonify(cy_dict)
         
         return json.dumps(cy_dict)
     
@@ -93,12 +92,27 @@ class ResultGraph():
         self.G = self.G.subgraph(new_nodes)
         
     def add_metadata_to_graph(self, metadataList):  
+        node_flag_lst = []
         for node in self.G:
-            dataDict = [dict for dict in metadataList if dict['Id'] in (self.G.node[node]['name'],)][0]
-            self.G.node[node]['journal'] = dataDict['Journal']
-            self.G.node[node]['title'] = dataDict['Title']
-            self.G.node[node]['pubDate'] = dataDict['PubDate']
-            self.G.node[node]['authors'] = ', '.join(dataDict['Authors'][0:3])
+            #print node
+            #print (self.G.node[node]['name'],)
+            #print self.G.node[node]
+            #print [dict for dict in metadataList if str(dict['Id']) == str(self.G.node[node]['name'])]
+            dataDict_lst = [dict for dict in metadataList if str(dict['Id']) == str(self.G.node[node]['name'])]
+            log.debug('dataDict_lst:')
+            log.debug(dataDict_lst)
+            if len(dataDict_lst)>0:
+                dataDict = dataDict_lst[0]
+                self.G.node[node]['journal'] = dataDict['Journal']
+                self.G.node[node]['title'] = dataDict['Title']
+                self.G.node[node]['pubDate'] = dataDict['PubDate']
+                self.G.node[node]['authors'] = ', '.join(dataDict['Authors'][0:3])
+            else:
+                node_flag_lst.append(node)
+        
+        # Remove nodes that do not have metadata
+        for node in node_flag_lst:
+            self.G.remove_node(node)
             
     @property        
     def nodeIds(self):

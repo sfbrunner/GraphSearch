@@ -277,10 +277,17 @@
                 }
                 
             });
+        
+        //
+        //cy.nodes().animate({
+        //      position: { x: 100, y: 100 },
+        //      duration: 1000
+        //    });
             
-            cy.elements().qtip({
+        //cy.elements().qtip({
+            cy.nodes().qtip({
                 content: function() {
-                  return '<b><a href="https://www.ncbi.nlm.nih.gov/pmc/' + this.id() + 
+                  return '<b><a href="https://www.ncbi.nlm.nih.gov/pubmed/' + this.id() + 
                       '" target="_blank">' + this.data('title') + '</b></a>' +
                       '<br><i>' + this.data('journal') +
                       '</i><br><i>' + this.data('pubDate') + '</i>' +
@@ -298,6 +305,12 @@
                     width: 16,
                     height: 8
                   }
+                },
+                show: {
+                    event: 'mouseover tap'
+                },
+                hide: {
+                    event: 'unfocus'
                 }
              });
         };
