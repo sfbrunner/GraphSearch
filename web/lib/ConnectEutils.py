@@ -8,8 +8,10 @@ import urllib2
 import eutilsConfig as cfg
 from decorators import singleton
 from utils.logger import LogHandler
-log = LogHandler.get_logger('__name__', 'forceLog.log')
-
+#log = LogHandler.get_logger('__name__', 'forceLog.log')
+#log = LogHandler.get_logger('__name__', '/home/ubuntu/GraphSearch/web/logs/forceLog.log')
+log = LogHandler.get_logger('__name__')
+#log = LogHandler.get_logger('__name__', 'logs/forceLog.log')
 
 @singleton
 class ConnectEutils():
@@ -114,13 +116,13 @@ class ConnectEutils():
         return pmid_lst
     
     
-    def get_pmid_from_fulltext(self, fulltext):
+    def get_pmid_from_fulltext(self, fulltext, retmax=20):
         """
         input: search string fulltext
         output: list of pmc ids queried from pmc database
         """
         searchResult = []
-        search_url = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pmc&sort=relevance&term=' + fulltext
+        search_url = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pmc&tool=graphsearch&sort=relevance&term=' + fulltext + '&retmax=' + str(retmax)
         msg = '{0}: Connecting to eutils API:\n {1}'
         log.info(msg.format(self.__class__.__name__, search_url))
         # Parse the Eutils XML as an element tree
@@ -128,17 +130,17 @@ class ConnectEutils():
         counter = 0
         for idList in root.iter('IdList'):
             for id in idList.iter('Id'):
-                if counter >= 100:
+                if counter >= retmax:
                     break
                 msg = '{0}: Search result returned id {1}'
-                log.info(msg.format(self.__class__.__name__, id.text))
+                log.debug(msg.format(self.__class__.__name__, id.text))
                 searchResult.append(id.text)
                 counter += 1
         return searchResult
         
     def get_docsummary_from_idList(self, idList):
         search_url = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pmc&id=' + ','.join(idList)
-        print search_url
+        log.info(search_url)
         resultList = []
         # Parse the Eutils XML as an element tree
         root = ET.ElementTree(file=urllib2.urlopen(search_url))

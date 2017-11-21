@@ -2,7 +2,7 @@
 
 import eutilsConfig as cfg
 from utils.logger import LogHandler
-log = LogHandler.get_logger('__name__', 'forceLog.log')
+log = LogHandler.get_logger('__name__')
 
     
 def createSearchRequest(requestType, userInput):
