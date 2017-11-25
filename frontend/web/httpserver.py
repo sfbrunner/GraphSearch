@@ -12,6 +12,7 @@ app.secret_key = 'big_secret'
 
 @app.route('/')
 def homepage():
+    print "hello world"
     '''Single page app'''
     return render_template("mainReact.html")
 

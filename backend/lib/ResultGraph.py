@@ -70,9 +70,13 @@ class ResultGraph():
         # Parse edges
         edge_lst = []
         for edge in n_json['links']:
-            edge_lst.append({'data':{'id':'{a:d}_{b:d}'.format(a=edge['source'], b=edge['target']), 
-                        'source':id_lst[edge['source']], 
-                        'target':id_lst[edge['target']] }})
+            #from IPython.core.debugger import Tracer; Tracer()()
+            #edge_lst.append({'data':{'id':'{a:s}_{b:s}'.format(a=edge['source'], b=edge['target']), 
+            #            'source':id_lst[int(edge['source'])], 
+            #            'target':id_lst[int(edge['target'])] }})
+            edge_lst.append({'data':{'id':'{a:s}_{b:s}'.format(a=edge['source'], b=edge['target']), 
+                        'source':edge['source'], 
+                        'target':edge['target'] }})
         cy_dict = {'nodes': node_lst, 'edges': edge_lst}
         
         return json.dumps(cy_dict)
@@ -86,10 +90,10 @@ class ResultGraph():
         '''
         
         # Identify nodes that adhere to connectivity filter
-        new_nodes = [n for n, attrdict in self.G.node.items() if len(self.G.neighbors(n)) > connectivity]
+        new_nodes = [n for n, attrdict in self.G.node.items() if len(list(self.G.neighbors(n))) > connectivity]
         
         # Create new subgraph with filtered nodes
-        self.G = self.G.subgraph(new_nodes)
+        self.G = nx.Graph(self.G.subgraph(new_nodes))
         
     def add_metadata_to_graph(self, metadataList):  
         node_flag_lst = []

@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import cytoscape from 'cytoscape'
 import cydagre from 'cytoscape-dagre'
 import cyqtip from 'cytoscape-qtip'
+import cyforcelayout from 'cytoscape-ngraph.forcelayout'
 
 cydagre( cytoscape );
 cyqtip( cytoscape ); // register extension
+cyforcelayout( cytoscape ); 
 
 let cyStyle = {
     height: '600px',
@@ -73,8 +75,172 @@ let conf = {
     ],
 
     layout: {
-        name: 'dagre'
-    }
+                    name: 'cytoscape-ngraph.forcelayout',
+                    animate: true,
+                    refreshInterval: 1000, // in ms
+                    refreshIterations: 1000,
+                    fit: true,
+                    async: {
+                         // tell layout that we want to compute all at once:
+                         maxIterations: 1000,
+                         stepsPerCycle: 1000,
+
+                         // Run it till the end:
+                         waitForStep: false
+                     },
+                    physics: {
+                         /**
+                          * Ideal length for links (springs in physical model).
+                          */
+                         springLength: 100,
+
+                         /**
+                          * Hook's law coefficient. 1 - solid spring.
+                          */
+                         springCoeff: 0.0008,
+
+                         /**
+                          * Coulomb's law coefficient. It's used to repel nodes thus should be negative
+                          * if you make it positive nodes start attract each other :).
+                          */
+                         gravity: -2,
+
+                         /**
+                          * Theta coefficient from Barnes Hut simulation. Ranged between (0, 1).
+                          * The closer it's to 1 the more nodes algorithm will have to go through.
+                          * Setting it to one makes Barnes Hut simulation no different from
+                          * brute-force forces calculation (each node is considered).
+                          */
+                         theta: 0.8,
+
+                         /**
+                          * Drag force coefficient. Used to slow down system, thus should be less than 1.
+                          * The closer it is to 0 the less tight system will be.
+                          */
+                         dragCoeff: 0.02,
+
+                            'width': '2px',
+                            'target-arrow-shape': 'triangle',
+                            'control-point-step-size': '140px',
+                            'opacity': 0.3
+                        }
+                    }
+                ],
+                /*
+                layout: {
+                    name: 'preset'
+                } */
+
+                layout: {
+                    name: 'forcelayout',
+                    animate: true,
+                    refreshInterval: 1000, // in ms
+                    refreshIterations: 1000,
+                    fit: true,
+                    async: {
+                         // tell layout that we want to compute all at once:
+                         maxIterations: 1000,
+                         stepsPerCycle: 1000,
+
+                         // Run it till the end:
+                         waitForStep: false
+                     },
+                    physics: {
+                         /**
+                          * Ideal length for links (springs in physical model).
+                          */
+                         springLength: 100,
+
+                         /**
+                          * Hook's law coefficient. 1 - solid spring.
+                          */
+                         springCoeff: 0.0008,
+
+                         /**
+                          * Coulomb's law coefficient. It's used to repel nodes thus should be negative
+                          * if you make it positive nodes start attract each other :).
+                          */
+                         gravity: -2,
+
+                         /**
+                          * Theta coefficient from Barnes Hut simulation. Ranged between (0, 1).
+                          * The closer it's to 1 the more nodes algorithm will have to go through.
+                          * Setting it to one makes Barnes Hut simulation no different from
+                          * brute-force forces calculation (each node is considered).
+                          */
+                         theta: 0.8,
+
+                         /**
+                          * Drag force coefficient. Used to slow down system, thus should be less than 1.
+                          * The closer it is to 0 the less tight system will be.
+                          */
+                         dragCoeff: 0.02,
+
+                         /**
+                          * Default time step (dt) for forces integration
+                          */
+                         timeStep: 20,
+                         iterations: 1000,
+                         fit: true,
+                         /**
+                          * Maximum movement of the system which can be considered as stabilized
+                          */
+                         stableThreshold: 0.000009
+                     },
+                    //maxExpandIterations: 0,
+                    /*minDist: 20,
+                    gravity: 800,
+                                        nodeSpacing: 5,
+                                        edgeLengthVal: 50,
+                                        animate: true,
+                                        randomize: false,
+                                        maxSimulationTime: 10000,
+                                        avoidOverlaps: true,
+                                        //unconstrIter: 100,
+                                        userConstIter: 100,
+                                        fit: true,
+                    repulsion: 4000,
+                                        //infinite: true,
+                                        padding: 10*/
+                }
+
+            });
+
+        //
+        //cy.nodes().animate({
+        //      position: { x: 100, y: 100 },
+        //      duration: 1000
+        //    });
+
+                         dragCoeff: 0.02,
+
+                         /**
+                          * Default time step (dt) for forces integration
+                          */
+                         timeStep: 20,
+                         iterations: 1000,
+                         fit: true,
+                         /**
+                          * Maximum movement of the system which can be considered as stabilized
+                          */
+                         stableThreshold: 0.000009
+                     },
+                    //maxExpandIterations: 0,
+                    /*minDist: 20,
+                    gravity: 800,
+                                        nodeSpacing: 5,
+                                        edgeLengthVal: 50,
+                                        animate: true,
+                                        randomize: false,
+                                        maxSimulationTime: 10000,
+                                        avoidOverlaps: true,
+                                        //unconstrIter: 100,
+                                        userConstIter: 100,
+                                        fit: true,
+                    repulsion: 4000,
+                                        //infinite: true,
+                                        padding: 10*/
+                }
 };
   
 class Cytoscape extends Component {
