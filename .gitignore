@@ -2,7 +2,7 @@ env/*
 frontend/node_modules/*
 frontend/web/static/scripts/js/*
 frontend/web/static/bower_components/*
-.vscode
+*.vscode
 *.pyc
 *.swp
 *.log
