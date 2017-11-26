@@ -4,11 +4,13 @@ import cydagre from 'cytoscape-dagre'
 import cyqtip from 'cytoscape-qtip'
 import cyforcelayout from 'cytoscape-ngraph.forcelayout'
 import {Sigma, RandomizeNodePositions, RelativeSize} from 'react-sigma';
+import Graph from "react-graph-vis";
 
 
 cydagre( cytoscape );
 cyqtip( cytoscape ); // register extension
-cyforcelayout( cytoscape ); 
+cyforcelayout( cytoscape );
+
 
 let cyStyle = {
     height: '1000px',

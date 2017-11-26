@@ -60,7 +60,8 @@
     "vinyl-source-stream": "^1.1.0",
     "watchify": "^3.9.0",
     "yargs": "^8.0.1",
-    "react-sigma": "1.2.29"
+    "react-sigma": "1.2.29",
+    "react-graph-vis": "1.0.2"
   },
   "dependencies": {
     "react-sigma": "^1.2.29"
