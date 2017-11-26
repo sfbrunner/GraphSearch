@@ -81,6 +81,66 @@ class ResultGraph():
         
         return json.dumps(cy_dict)
     
+    def get_sigma_json(self):
+        n_json = json_graph.node_link_data(self.G)
+
+        # Parse nodes
+        node_lst = []
+        id_lst = [] # Due to networkx' format, edges refer to nodes in the form of their list position, so we'll store their position here.
+        for node in n_json['nodes']:
+            node_lst.append({'id':node['id'], 
+                                      'label': node['id'], 
+                                      'group':node['group'],
+                                      'title':node['title'],
+                                      'journal':node['journal'],
+                                      'pubDate':node['pubDate'],
+                                      'authors':node['authors'] + ' ...'}) #, 'label': node['id']}})
+            id_lst.append(node['id'])
+    
+        # Parse edges
+        edge_lst = []
+        for edge in n_json['links']:
+            #from IPython.core.debugger import Tracer; Tracer()()
+            #edge_lst.append({'data':{'id':'{a:s}_{b:s}'.format(a=edge['source'], b=edge['target']), 
+            #            'source':id_lst[int(edge['source'])], 
+            #            'target':id_lst[int(edge['target'])] }})
+            edge_lst.append({'id':'{a:s}_{b:s}'.format(a=edge['source'], b=edge['target']), 
+                        'source':edge['source'], 
+                        'target':edge['target'], 'label':'CITES' })
+        cy_dict = {'nodes': node_lst, 'edges': edge_lst}
+        
+        return json.dumps(cy_dict)
+    
+    def get_vis_json(self):
+        n_json = json_graph.node_link_data(self.G)
+
+        # Parse nodes
+        node_lst = []
+        id_lst = [] # Due to networkx' format, edges refer to nodes in the form of their list position, so we'll store their position here.
+        for node in n_json['nodes']:
+            node_lst.append({'id':node['id'], 
+                                      'label': node['id'], 
+                                      'group':node['group'],
+                                      'title':node['title'],
+                                      'journal':node['journal'],
+                                      'pubDate':node['pubDate'],
+                                      'authors':node['authors'] + ' ...'}) #, 'label': node['id']}})
+            id_lst.append(node['id'])
+    
+        # Parse edges
+        edge_lst = []
+        for edge in n_json['links']:
+            #from IPython.core.debugger import Tracer; Tracer()()
+            #edge_lst.append({'data':{'id':'{a:s}_{b:s}'.format(a=edge['source'], b=edge['target']), 
+            #            'source':id_lst[int(edge['source'])], 
+            #            'target':id_lst[int(edge['target'])] }})
+            edge_lst.append({'id':'{a:s}_{b:s}'.format(a=edge['source'], b=edge['target']), 
+                        'from':edge['source'], 
+                        'to':edge['target'] })
+        cy_dict = {'nodes': node_lst, 'edges': edge_lst}
+        
+        return json.dumps(cy_dict)
+    
     def extract_by_connectivity(self, connectivity=2):
         '''
         Removes nodes with < [connectivity] edges

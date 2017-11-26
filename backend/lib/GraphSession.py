@@ -32,7 +32,7 @@ class GraphSession(object):
         metadataList = self.get_metadataList_from_mongo(resultGraph.nodeIds)
         resultGraph.add_metadata_to_graph(metadataList)
         
-        return resultGraph.get_cy_json()
+        return resultGraph.get_sigma_json()
 
     @staticmethod
     def parseInput(userInput): #check user input with regex?
