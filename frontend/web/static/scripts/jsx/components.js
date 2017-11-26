@@ -3,15 +3,16 @@ import cytoscape from 'cytoscape'
 import cydagre from 'cytoscape-dagre'
 import cyqtip from 'cytoscape-qtip'
 import cyforcelayout from 'cytoscape-ngraph.forcelayout'
+import {Sigma, RandomizeNodePositions, RelativeSize} from 'react-sigma';
+
 
 cydagre( cytoscape );
 cyqtip( cytoscape ); // register extension
 cyforcelayout( cytoscape ); 
 
-
 let cyStyle = {
-    height: '600px',
-    width: '1200px',
+    height: '1000px',
+    width: '1000px',
     display: 'block'
   };
   
@@ -24,8 +25,8 @@ let conf = {
             selector: "node[group = 'Searched']",
             style: {
                 'label': 'data(group)',
-                'width': '20px',
-                'height': '20px',
+                'width': '2px',
+                'height': '2px',
                 'color': 'white',
                 'background-fit': 'contain',
                 'background-clip': 'none',
