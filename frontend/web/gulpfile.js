@@ -13,6 +13,7 @@ var argv = require('yargs').argv
 var gulpif = require('gulp-if')
 var uglify = require('gulp-uglify')
 var envify = require('envify/custom')
+var sass = require('gulp-sass')
  
 function handleErrors(error) {
     notify.onError({
@@ -66,14 +67,22 @@ function build() {
         onLast:   true
     }))
 }
- 
+
+function watch_sass() {
+	return gulp.src('./static/scss/*.scss')
+	.pipe(sass().on('error', sass.logError))
+	.pipe(gulp.dest('./static/css'))
+}
+
 function watch() {
     gulp.watch('./static/scripts/jsx/*.js', ['build'])
 }
  
 gulp.task('build', build)
 gulp.task('watch', function() {
+	gulp.watch('./static/scss/*.scss', ['sass'])
     build()
     watch()
 })
 gulp.task('default', ['watch'])
+gulp.task('sass', watch_sass);

@@ -5,61 +5,102 @@ import request from 'superagent'
 import Cytoscape from './components'
 import FRC, { Checkbox, CheckboxGroup, Input, RadioGroup, Row, Select, File, Textarea } from 'formsy-react-components'
 import { keys, map, isArray, sortBy } from 'lodash'
+import { BurgerTest } from './burgercomponent'
+{/* import 'static/scripts/jsx/styles3.css' */}
+ 
+var divContentLanding = {
+  contenttest: {
+    position: 'relative',
+	left: '20%',
+	right: '20%',
+	top: '36px',
+	height: '1000px',
+	border: '3px',
+	borderColor: 'black',
+	borderStyle: '',
+  },
+  marginfree: {
+    marginLeft: '0px'
+  },
+  contentdiv: {
+	position:'relative',
+	top:'40%'
+  },
+  h2: {
+	verticalAlign:'bottom',
+	lineHeight:'30px',
+	position:'relative',
+	top:'100%',
+	textAlign:'center'
+  },
+  p: {
+	textAlign:'center',
+	color:'gray'
+  }
+}
 
-const Layout = ({ main, navbar, debug}) => (
-    <div className="container-fluid">
-        <div className="row">
-            <div className="col-xs navbar">
-                { navbar }
-            </div>
-        </div>
-        <div className="row content">
-            <div className="col-xs main">
-                { main }
-            </div>
-            { debug }
-        </div>
-        <div className="row content">
-            <div className="col-xs about">
-                { About }
-            </div>
-        </div>
-    </div>
-)
-  
-const Navbar = () => (
-    <nav className="navbar navbar-fixed-top bg-inverse navbar-dark">
-        <a className="navbar-brand" href="">GraphSearch</a>
-        <ul className="nav navbar-nav">
-            <li className="nav-item">
-                <a className="nav-link" href="#">About</a>
-            </li>
-            <li className="nav-item">
-                <a className="nav-link" href="#">Help</a>
-            </li>
-            <li className="nav-item">
-                <a className="nav-link" href="#">Report a bug</a>
-            </li>
-        </ul>
-    </nav>
-)
+var divContentSearch = {
+  contenttest: {
+    position: 'relative',
+	left: '20%',
+	right: '20%',
+	top: '36px',
+	height: '300px',
+	border: '3px',
+	borderColor: 'black',
+	borderStyle: '',
+  },
+  marginfree: {
+    marginLeft: '0px'
+  },
+  h2: {
+	marginLeft:'-30px',
+	verticalAlign:'top',
+	lineHeight:'30px',
+	position:'fixed',
+	top:'15px'
+  }
+}
+
+const Layout = ({ burger, main, navbar, debug}) => (
+    <div className="container-fluid" id="outer-container">
+		{burger}
+		<main id="page-wrap">
+          <div className="row" style={divContentLanding.contenttest}>
+              	<div className="row align-items-end" style={{height:'40%'}}>
+				  <div style={divContentLanding.contentdiv}>
+				  <div className="col col-lg-6" style={{height:'70%'}}>
+            		<h2 style={divContentLanding.h2}>GraphSearch</h2>
+					<p></p>
+					<p style={divContentLanding.p}>Welcome to the GraphSearch platform. Our mission is to make your biomedical literature search experience the best it can be. We take your search query and return a network of publications to you. The network contains the direct results of your search (in blue) as well as the publications they cite (in red). The structure of the network helps you to find highly cited publications and quickly identify publications that belong together.</p>
+				  </div>
+				  </div>
+              	</div>
+		  		<div className="row">
+				  <div className="col col-lg-6">
+			  		{ main }
+			      </div>
+	      		</div>
+		  </div>
+		</main>
+	</div>
+) 
 
 const Request = ({ onSubmit }) => (
    <FRC.Form onSubmit={onSubmit}>
        <fieldset>
-           <legend>Fulltext search request</legend>
-           <Input name="search_string" id="search_string" value="Stratton Cancer Breast" label="Search input:" type="text" help="Enter keywords separated by space" required />
-       </fieldset>
-       <fieldset>
+		   <Input name="addon-after" layout="vertical" id="search_string" value="epigenetics idh oncogenic" type="text" help="Let us create a network of your search results." addonAfter={<span type="submit" className="glyphicon glyphicon-search"/>} />
+	   </fieldset>
+	   {/*<fieldset>
            <Row>
                <input className="btn btn-primary" type="submit" defaultValue="Submit" />
            </Row>
-       </fieldset>
+       </fieldset>*/}
    </FRC.Form>
 )
 
 const Pending = ({ id }) => <h2>Pending #{id}</h2>
-const About = "This page is about visualizing graphs"
+const About = ""
 const rootUrl = new URL(window.location.origin)
 rootUrl.port = 8080
 
@@ -101,7 +142,7 @@ class Main extends Component {
       const { results, pending } = this.state
       return (
           <div className="row">
-              <div className="col-xs-6 offset-xs-3">
+              <div>
                   <Request onSubmit={this.onSubmit} />
                   { map(sortBy(keys(pending), [x => -x]), id => <Pending key={id} id={id} />) }
                   { map(sortBy(keys(results), [x => -x]), id => <Cytoscape data={results[id]} />) }
@@ -112,7 +153,8 @@ class Main extends Component {
   }
 }
 
+
 render(
-<Layout main={<Main />} navbar={<Navbar />} />,
-  document.getElementById('root')
+<Layout burger={<BurgerTest />} main={<Main id="page-wrap" />} />,
+  document.getElementById('app')
 );

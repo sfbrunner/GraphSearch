@@ -5,7 +5,7 @@ import cyqtip from 'cytoscape-qtip'
 import cyforcelayout from 'cytoscape-ngraph.forcelayout'
 import {Sigma, RandomizeNodePositions, RelativeSize} from 'react-sigma';
 import Graph from "react-graph-vis";
-
+import { slide as Menu } from 'react-burger-menu'
 
 cydagre( cytoscape );
 cyqtip( cytoscape ); // register extension
@@ -214,6 +214,24 @@ class Cytoscape extends Component {
             this.cyRef = cyRef;
         }}/>
     }
+}
+
+class BurgerTest extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+	
+	showSettings (event) {
+		event.preventDefault();
+	}
+
+	render() {
+		return (
+			<Menu>
+				<a id="home" className="menu-item" href="/">Home</a>
+			</Menu>
+		);
+	}
 }
 
 export default Cytoscape;   

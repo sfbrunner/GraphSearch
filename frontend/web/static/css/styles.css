@@ -58,3 +58,55 @@ text {
   pointer-events: none;
   text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
 }
+
+.bm-burger-button: {
+    position: fixed;
+        width: 36px;
+        height: 30px;
+    left: 36px;
+    top: 36px;
+}
+.bm-burger-bars: {
+    background: #373a47;
+}
+.bm-cross-button: {
+    height: 24px;
+    width: 24px;
+}
+.bm-cross: {
+    background: #bdc3c7;
+}
+.bm-menu: {
+    background: #ffffff;
+    padding: 2.5em 1.5em 0;
+    font-size: 1.15em;
+        color: #000000;
+        a {
+                color: #000000;
+        }
+}
+.bm-morph-shape: {
+    fill: #373a47;
+  }
+.bm-item-list: {
+    color: #000000;
+    padding: 0.8em;
+    font-weight: 700;
+    span {
+                color: #000000;
+        },
+    a {
+            color: #000000;
+        }
+}
+.bm-overlay: {
+    background: 'rgba(0, 0, 0, 0.3)'
+  }
+.bm-menu-wrap: {
+        bottom: 0px;
+        left: 0px;
+        width: 20%;
+  a {
+        color: #000000;
+  }
+}
