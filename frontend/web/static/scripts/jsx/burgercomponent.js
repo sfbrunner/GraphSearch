@@ -114,11 +114,8 @@ getItems() {
     let items;
 
         items = [
-          <a key="0" href="" style={styles.a}><i className="fa fa-fw fa-star-o" /><span>Favorites</span></a>,
-          <a key="1" href="" style={styles.a}><i className="fa fa-fw fa-bell-o" /><span>Alerts</span></a>,
-          <a key="2" href="" style={styles.a}><i className="fa fa-fw fa-envelope-o" /><span>Messages</span></a>,
-          <a key="3" href="" style={styles.a}><i className="fa fa-fw fa-comment-o" /><span>Comments</span></a>,
-          <a key="4" href="" style={styles.a}><i className="fa fa-fw fa-bar-chart-o" /><span>Analytics</span></a>,
+          <a key="0" href="searchlanding" style={styles.a}><i className="fa fa-fw fa-star-o" /><span>Home</span></a>,
+          <a key="1" href="about" style={styles.a}><i className="fa fa-fw fa-star-o" /><span>About</span></a>
         ];
 
     	return items;

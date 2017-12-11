@@ -1,13 +1,11 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import { render } from 'react-dom'
 import numeral from 'numeral'
 import request from 'superagent'
 import Cytoscape from './components'
 import FRC, { Checkbox, CheckboxGroup, Input, RadioGroup, Row, Select, File, Textarea } from 'formsy-react-components'
 import { keys, map, isArray, sortBy } from 'lodash'
-import { BurgerTest } from './burgercomponent'
-{/* import 'static/scripts/jsx/styles3.css' */}
- 
+
 var divContentLanding = {
   contenttest: {
     position: 'relative',
@@ -62,34 +60,20 @@ var divContentSearch = {
   }
 }
 
-const Layout = ({ burger, main, navbar, debug}) => (
-    <div className="container-fluid" id="outer-container">
-		{burger}
-		<main id="page-wrap">
+export class Search extends Component {
+	render() {
+		return (
           <div className="row" style={divContentLanding.contenttest}>
-              	<div className="row align-items-end" style={{height:'30%'}}>
-				  <div style={divContentLanding.contentdiv}>
-				  <div className="col col-lg-6" style={{height:'70%'}}>
-            		<h2 style={divContentLanding.h2}>GraphSearch</h2>
-					<p></p>
-					<p style={divContentLanding.p}>Welcome to the GraphSearch platform. Our mission is to make your biomedical literature search experience the best it can be. We take your search query and return a network of publications to you. The network contains the direct results of your search (in blue) as well as the publications they cite (in red). The structure of the network helps you to find highly cited publications and quickly identify publications that belong together.</p>
-				  </div>
-				  </div>
-              	</div>
-		  		<div className="row">
-				  <div className="col col-lg-6">
-			  		{ main }
-			      </div>
-	      		</div>
+			<h2>SearchDiv</h2>
 		  </div>
-		</main>
-	</div>
-) 
+		)
+	}
+}
 
 const Request = ({ onSubmit }) => (
    <FRC.Form onSubmit={onSubmit}>
        <fieldset>
-		   <Input name="addon-after" layout="vertical" id="search_string" value="epigenetics idh oncogenic" type="text" help="Let us create a network of your search results." addonAfter={<span type="submit" className="glyphicon glyphicon-search"/>} />
+		   <Input name="addon-after" layout="vertical" id="search_string" value="epigenetics idh oncogenic" type="text" help="Let us create a network of your search results." addonAfter={<span type="submit" className="glyphicon glyphicon-search" type="submit"/>} />
 	   </fieldset>
 	   {/*<fieldset>
            <Row>
@@ -104,7 +88,7 @@ const About = ""
 const rootUrl = new URL(window.location.origin)
 rootUrl.port = 8080
 
-class Main extends Component {
+export class Main extends Component {
   constructor(props) {
       super(props);
       this.state = { results: {}, pending: {} };
@@ -153,8 +137,3 @@ class Main extends Component {
   }
 }
 
-
-render(
-<Layout burger={<BurgerTest />} main={<Main id="page-wrap" />} />,
-  document.getElementById('app')
-);

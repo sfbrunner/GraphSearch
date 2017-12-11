@@ -136,5 +136,9 @@ def cy_json_data():
     resultGraph.populate_from_cite_dict(citations)
     return resultGraph.get_cy_json()
 
+@app.route('/<path:path>')
+def handle_content(path):
+    return 'You want path: %s' % path
+
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False)

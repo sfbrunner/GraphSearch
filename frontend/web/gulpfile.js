@@ -66,6 +66,27 @@ function build() {
         message: 'Built at <%= new Date() %>!',
         onLast:   true
     }))
+    del(['./static/scripts/js/routehandler.*'])
+    browserify({
+        entries: './static/scripts/jsx/routehandler.js',
+        debug: !argv.prod,
+    })
+    .transform(babelify)
+    .transform(envify({'NODE_ENV': argv.prod ? 'production' : 'development'}), {global: true})
+    .bundle()
+    .on('error', handleErrors)
+    .pipe(source('routehandler.js'))
+    .pipe(duration('main time'))
+    .pipe(buffer())
+    .pipe(gulpif(argv.prod, uglify()))
+    .pipe(sourcemaps.init({ loadMaps: true }))
+    .pipe(sourcemaps.write('.'))
+    .pipe(gulp.dest('./static/scripts/js'))
+    .pipe(notify({
+        title:   'Build Success',
+        message: 'Built at <%= new Date() %>!',
+        onLast:   true
+    }))
 }
 
 function watch_sass() {
