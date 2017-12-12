@@ -2,7 +2,9 @@ import React, { Component } from 'react'
 import { render } from 'react-dom'
 import numeral from 'numeral'
 import request from 'superagent'
-import Cytoscape from './components'
+import CytoGraph from './components'
+
+
 import FRC, { Checkbox, CheckboxGroup, Input, RadioGroup, Row, Select, File, Textarea } from 'formsy-react-components'
 import { keys, map, isArray, sortBy } from 'lodash'
 
@@ -18,11 +20,6 @@ const Layout = ({ main, navbar, debug}) => (
                 { main }
             </div>
             { debug }
-        </div>
-        <div className="row content">
-            <div className="col-xs about">
-                { About }
-            </div>
         </div>
     </div>
 )
@@ -59,57 +56,55 @@ const Request = ({ onSubmit }) => (
 )
 
 const Pending = ({ id }) => <h2>Pending #{id}</h2>
-const About = "This page is about visualizing graphs"
 const rootUrl = new URL(window.location.origin)
 rootUrl.port = 8080
 
 class Main extends Component {
-  constructor(props) {
-      super(props);
-      this.state = { results: {}, pending: {} };
-      this.onSubmit = this.onSubmit.bind(this)   
-  }
+    constructor(props) {
+        super(props);
+        this.state = { results: {}, pending: {} };
+        this.onSubmit = this.onSubmit.bind(this)   
+    }
 
-  poll(id) {
-      return () => {
-          request.get(new URL(id, rootUrl)).end( (err, res) => { // call api with id -> will return task_id and if ready result
-              if (err) return
-              const { result } = res.body
-              if (!result) return
-              const { results, pending } = this.state
-              clearInterval(pending[id])
-              delete pending[id]
-              this.setState({ results: { ...results, [id]: result } })
-          })
-      }
-  }
+    poll(id) {
+        return () => {
+            request.get(new URL(id, rootUrl)).end( (err, res) => { // call api with id -> will return task_id and if ready result
+                if (err) return
+                const { result } = res.body
+                if (!result) return
+                const { results, pending } = this.state
+                clearInterval(pending[id])
+                delete pending[id]
+                this.setState({ results: { ...results, [id]: result } })
+            })
+        }
+    }
 
-  onSubmit({ search_string }) {
-      const payload = { search_string:    search_string, }
-      request.put(rootUrl).send(payload).end( (err, res) => {
-          if (err) return
-          console.log(this.state)
-          const { results, pending } = this.state
-          console.log(res.body)
-          const { result: id } = res.body
-          const timers = {[id]:  setInterval(this.poll(id),  500)}
-          this.setState({ pending: {...pending, ...timers} })
-      })
-  }
+    onSubmit({ search_string }) {
+        const payload = { search_string:    search_string, }
+        request.put(rootUrl).send(payload).end( (err, res) => {
+            if (err) return
+            console.log(this.state)
+            const { results, pending } = this.state
+            console.log(res.body)
+            const { result: id } = res.body
+            const timers = {[id]:  setInterval(this.poll(id),  500)}
+            this.setState({ pending: {...pending, ...timers} })
+        })
+    }
 
-  render() {
-      const { results, pending } = this.state
-      return (
-          <div className="row">
-              <div className="col-xs-6 offset-xs-3">
-                  <Request onSubmit={this.onSubmit} />
-                  { map(sortBy(keys(pending), [x => -x]), id => <Pending key={id} id={id} />) }
-                  { map(sortBy(keys(results), [x => -x]), id => <Cytoscape data={results[id]} />) }
-                  
-              </div>
-          </div>
-      )
-  }
+    render() {
+        const { results, pending } = this.state
+        return (
+            <div className="row">
+                <div className="col-xs-6 offset-xs-3">
+                    <Request onSubmit={this.onSubmit} />
+                    { map(sortBy(keys(pending), [x => -x]), id => <Pending key={id} id={id} />) }
+                    { map(sortBy(keys(results), [x => -x]), id => <CytoGraph graph={results[id]}/>) }
+                </div>     
+            </div>
+        )
+    }
 }
 
 render(

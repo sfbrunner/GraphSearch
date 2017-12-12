@@ -66,14 +66,14 @@
     "build",
     "node_modules"
   ],
-  "version": "3.2.5",
-  "_release": "3.2.5",
+  "version": "3.2.6",
+  "_release": "3.2.6",
   "_resolution": {
     "type": "version",
-    "tag": "v3.2.5",
-    "commit": "6ed0469bd68ed3446c5fbcce7279a845b8f02ad7"
+    "tag": "v3.2.6",
+    "commit": "18fa7c8c877abc61520c796c9858e05d5d94ffb8"
   },
   "_source": "https://github.com/cytoscape/cytoscape.js.git",
-  "_target": "^3.2.5",
+  "_target": "^3.2.0",
   "_originalSource": "cytoscape"
 }
