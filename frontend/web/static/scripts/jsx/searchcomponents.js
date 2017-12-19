@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { render } from 'react-dom'
 import numeral from 'numeral'
 import request from 'superagent'
-import Cytoscape from './components'
+import CytoGraph from './cytoComponents'
 import FRC, { Checkbox, CheckboxGroup, Input, RadioGroup, Row, Select, File, Textarea } from 'formsy-react-components'
 import { keys, map, isArray, sortBy } from 'lodash'
 
@@ -75,11 +75,11 @@ const Request = ({ onSubmit }) => (
        <fieldset>
 		   <Input name="addon-after" layout="vertical" id="search_string" value="epigenetics idh oncogenic" type="text" help="Let us create a network of your search results." addonAfter={<span type="submit" className="glyphicon glyphicon-search" type="submit"/>} />
 	   </fieldset>
-	   {/*<fieldset>
+	   {<fieldset>
            <Row>
                <input className="btn btn-primary" type="submit" defaultValue="Submit" />
            </Row>
-       </fieldset>*/}
+       </fieldset>}
    </FRC.Form>
 )
 
