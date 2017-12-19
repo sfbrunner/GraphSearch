@@ -1,23 +1,25 @@
 <!DOCTYPE html>
-<html>
+<html style="height: 100%">
   <head lang="en">
     <meta charset="UTF-8">
     <title>GraphSearch React</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- styles -->
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bower_components/bootstrap/dist/css/bootstrap.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
+    <!--
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/teststyle.css') }}">
+	-->
   </head>
   <header>
   </header>
-  <body>
-    <div class="container">
-      <div id="app"></div>
+  <body style="height: 100%">
+	<div class="container" style="height: 100%">
+      <div id="app" style="height: 100%"></div>
     </div>
     <!-- scripts -->
     <script src="{{ url_for('static', filename='bower_components/react/react.min.js') }}"></script>
     <script src="{{ url_for('static', filename='bower_components/react/react-dom.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='scripts/js/main.js') }}"></script>
+    <script src="{{ url_for('static', filename='scripts/js/routehandler.js') }}"></script>
   </body>
 </html>

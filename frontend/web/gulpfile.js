@@ -13,6 +13,7 @@ var argv = require('yargs').argv
 var gulpif = require('gulp-if')
 var uglify = require('gulp-uglify')
 var envify = require('envify/custom')
+var sass = require('gulp-sass')
  
 function handleErrors(error) {
     notify.onError({
@@ -65,15 +66,44 @@ function build() {
         message: 'Built at <%= new Date() %>!',
         onLast:   true
     }))
+    del(['./static/scripts/js/routehandler.*'])
+    browserify({
+        entries: './static/scripts/jsx/routehandler.js',
+        debug: !argv.prod,
+    })
+    .transform(babelify)
+    .transform(envify({'NODE_ENV': argv.prod ? 'production' : 'development'}), {global: true})
+    .bundle()
+    .on('error', handleErrors)
+    .pipe(source('routehandler.js'))
+    .pipe(duration('main time'))
+    .pipe(buffer())
+    .pipe(gulpif(argv.prod, uglify()))
+    .pipe(sourcemaps.init({ loadMaps: true }))
+    .pipe(sourcemaps.write('.'))
+    .pipe(gulp.dest('./static/scripts/js'))
+    .pipe(notify({
+        title:   'Build Success',
+        message: 'Built at <%= new Date() %>!',
+        onLast:   true
+    }))
 }
- 
+
+function watch_sass() {
+	return gulp.src('./static/scss/*.scss')
+	.pipe(sass().on('error', sass.logError))
+	.pipe(gulp.dest('./static/css'))
+}
+
 function watch() {
     gulp.watch('./static/scripts/jsx/*.js', ['build'])
 }
  
 gulp.task('build', build)
 gulp.task('watch', function() {
+	gulp.watch('./static/scss/*.scss', ['sass'])
     build()
     watch()
 })
 gulp.task('default', ['watch'])
+gulp.task('sass', watch_sass);
