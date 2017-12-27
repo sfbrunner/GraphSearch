@@ -7,35 +7,64 @@ import request from 'superagent'
 import { render } from 'react-dom'
 import { Image, Grid, Col, Clearfix, Row } from 'react-bootstrap'
 import CytoGraph from './cytoComponents'
-import d3 from 'd3-force'
+import { Graph } from 'react-d3-graph'
+import ReactToolip from 'react-tooltip'
+var $ = require('jquery');
 
-var width = 960;
-var height = 500;
-var force = d3.layout.force()
-  .charge(-300)
-  .linkDistance(50)
-  .size([width, height]);
+// the graph configuration, you only need to pass down properties
+// that you want to override, otherwise default ones will be used
+const myConfig = {
+    nodeHighlightBehavior: true,
+    node: {
+        color: 'lightgreen',
+        size: 120,
+        highlightStrokeColor: 'blue'
+    },
+    link: {
+        highlightColor: 'lightblue'
+    },
+    staticGraph: false
+};
 
-class d3Graph extends Component {
-    componentDidMount() {
-        this.d3Graph = d3.select(ReactDOM.findDOMNode(this.refs.graph));
-        force.on('tick', () => {
-          // after force calculation starts, call updateGraph
-          // which uses d3 to manipulate the attributes,
-          // and React doesn't have to go through lifecycle on each tick
-          this.d3Graph.call(updateGraph);
-        });
-    }
-    
-    render() {
+class MyTooltip extends Component {
+
+    render(){
         return (
-          <svg width={width} height={height}>
-            <g ref='graph' />
-          </svg>
+            <div>
+            <p data-tip="hello world">Tooltip</p>
+            <ReactTooltip /> 
+            </div>
         );
-      }
-
+        }
 }
+
+// graph event callbacks
+const onClickNode = function(nodeId) {
+     window.alert(`Clicked node ${nodeId}.fill`);
+     //return <MyTooltip/>
+     
+};
+
+const onMouseOverNode = function(nodeId) {
+
+     //window.alert(`Mouse over node ${nodeId}`);
+};
+
+const onMouseOutNode = function(nodeId) {
+     //window.alert(`Mouse out node ${nodeId}`);
+};
+
+const onClickLink = function(source, target) {
+     //window.alert(`Clicked link between ${source} and ${target}`);
+};
+
+const onMouseOverLink = function(source, target) {
+     //window.alert(`Mouse over in link between ${source} and ${target}`);
+};
+
+const onMouseOutLink = function(source, target) {
+     //window.alert(`Mouse out link between ${source} and ${target}`);
+};
 
 var divContentLanding = {
     contenttest: {
@@ -152,7 +181,16 @@ class Main extends Component {
                 <div>
                     <Request onSubmit={this.onSubmit} />
                     { map(sortBy(keys(pending), [x => -x]), id => <Pending key={id} id={id} />) }
-                    { map(sortBy(keys(results), [x => -x]), id => <ForceDirectedGraph data={results[id]} width={500} height={500}/>) }
+                    { map(sortBy(keys(results), [x => -x]), id => <Graph
+     id='graph-id' // id is mandatory, if no id is defined rd3g will throw an error
+     data={results[id]}
+     config={myConfig}
+     onClickNode={onClickNode}
+     onClickLink={onClickLink}
+     onMouseOverNode={onMouseOverNode}
+     onMouseOutNode={onMouseOutNode}
+     onMouseOverLink={onMouseOverLink}
+     onMouseOutLink={onMouseOutLink}/>) }
                 </div>
             </div>
         )
