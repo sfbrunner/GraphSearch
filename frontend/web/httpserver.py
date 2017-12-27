@@ -1,11 +1,7 @@
 ''' FLASK WEB SERVER '''
 
-import sys
-
 from flask import Flask
 from flask import render_template
-from flask import jsonify
-from flask import request
 
 app = Flask(__name__)
 app.secret_key = 'big_secret'

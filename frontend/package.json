@@ -75,7 +75,11 @@
     "cytoscape-cola": "2.0.1",
     "react-qtip": "1.0.2",
     "react-router": "^4.2.0",
-    "react-router-dom": "^4.2.2"
+    "react-router-dom": "^4.2.2",
+    "react-vis-force": "0.3.1",
+    "react-vis": "1.8.1",
+    "d3-force": "1.1.0",
+    "index": "0.4.0"
   },
   "dependencies": {
     "react-sigma": "^1.2.29"

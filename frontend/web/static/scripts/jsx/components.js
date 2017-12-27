@@ -1,10 +1,4 @@
 import React, { Component } from 'react';
-import cytoscape from 'cytoscape'
-import cydagre from 'cytoscape-dagre'
-import cyqtip from 'cytoscape-qtip'
-import cyforcelayout from 'cytoscape-ngraph.forcelayout'
-import {Sigma, RandomizeNodePositions, RelativeSize} from 'react-sigma';
-import Graph from "react-graph-vis";
 import { slide as Menu } from 'react-burger-menu'
 import { keys, map, isArray, sortBy } from 'lodash'
 import FRC, { Checkbox, CheckboxGroup, Input, RadioGroup, Row as FormsyRow, Select, File, Textarea } from 'formsy-react-components'
@@ -12,153 +6,275 @@ import numeral from 'numeral'
 import request from 'superagent'
 import { render } from 'react-dom'
 import { Image, Grid, Col, Clearfix, Row } from 'react-bootstrap'
+import CytoGraph from './cytoComponents'
+import PropTypes from 'prop-types';
+import {
+  forceSimulation,
+  forceLink,
+  forceManyBody,
+  forceCenter
+} from 'd3-force';
+import {XYPlot, XAxis, YAxis, HorizontalGridLines, LineSeries,  MarkSeriesCanvas, LineSeriesCanvas} from 'react-vis';
+
+
+  const colors = [
+    '#19CDD7',
+    '#DDB27C',
+    '#88572C',
+    '#FF991F',
+    '#F15C17',
+    '#223F9A',
+    '#DA70BF',
+    '#4DC19C',
+    '#12939A',
+    '#B7885E',
+    '#FFCB99',
+    '#F89570',
+    '#E79FD5',
+    '#89DAC1'
+  ];
+  
+  /**
+   * Create the list of nodes to render.
+   * @returns {Array} Array of nodes.
+   * @private
+   */
+  function generateSimulation(props) {
+    const {data, height, width, maxSteps, strength} = props;
+    if (!data) {
+      return {nodes: [], links: []};
+    }
+    // copy the data
+    const nodes = data.nodes.map(d => ({...d}));
+    const links = data.links.map(d => ({...d}));
+    // build the simuatation
+    const simulation = forceSimulation(nodes)
+      .force('link', forceLink().id(d => d.id))
+      .force('charge', forceManyBody().strength(strength))
+      .force('center', forceCenter(width / 2, height / 2))
+      .stop();
+  
+    simulation.force('link').links(links);
+  
+    const upperBound = Math.ceil(Math.log(simulation.alphaMin()) / Math.log(1 - simulation.alphaDecay()));
+    for (let i = 0; i < Math.min(maxSteps, upperBound); ++i) {
+      simulation.tick();
+    }
+  
+    return {nodes, links};
+  }
+  
+  class ForceDirectedGraph extends React.Component {
+  
+    static get propTypes() {
+      return {
+        className: PropTypes.string,
+        data: PropTypes.object.isRequired,
+        height: PropTypes.number.isRequired,
+        width: PropTypes.number.isRequired,
+        steps: PropTypes.number
+      };
+    }
+  
+    static get defaultProps() {
+      return {
+        className: '',
+        data: {nodes: [], links: []},
+        maxSteps: 50
+      };
+    }
+  
+    constructor(props) {
+      super(props);
+      this.state = {
+        data: generateSimulation(props)
+      };
+    }
+  
+    componentWillReceiveProps(nextProps) {
+      this.setState({
+        data: generateSimulation(nextProps)
+      });
+    }
+  
+    render() {
+      const {className, height, width, animation} = this.props;
+      const {data} = this.state;
+      const {nodes, links} = data;
+      return (
+        <XYPlot width={width} height={height} className={className}>
+          {links.map(({source, target}, index) => {
+            return (
+              <LineSeriesCanvas
+                animation={animation}
+                color={'#B3AD9E'}
+                key={`link-${index}`}
+                opacity={0.3}
+                data={[{...source, color: null}, {...target, color: null}]}
+                />
+            );
+          })}
+          <MarkSeriesCanvas
+            data={nodes}
+            animation={animation}
+            colorType={'category'}
+            stroke={'#ddd'}
+            strokeWidth={2}
+            colorRange={colors}
+            />
+        </XYPlot>
+      );
+    }
+  
+  }
+  
+  ForceDirectedGraph.displayName = 'ForceDirectedGraph';
+  
+
+
 
 var divContentLanding = {
-  contenttest: {
-    position: 'relative',
-	left: '20%',
-	right: '20%',
-	top: '36px',
-	height: '1000px',
-	border: '3px',
-	borderColor: 'black',
-	borderStyle: '',
-  },
-  contenttest2: {
-    position: 'relative',
-	height: '1000px',
-	border: '3px',
-	borderColor: 'black',
-	borderStyle: '',
-  },
-  marginfree: {
-    marginLeft: '0px'
-  },
-  contentdiv: {
-	position:'relative',
-	top:'30%'
-  },
-  h2: {
-	verticalAlign:'bottom',
-	lineHeight:'30px',
-	position:'relative',
-	top:'100%',
-	textAlign:'center'
-  },
-  p: {
-	textAlign:'center',
-	color:'gray'
-  }
+    contenttest: {
+        position: 'relative',
+        left: '20%',
+        right: '20%',
+        top: '36px',
+        height: '1000px',
+        border: '3px',
+        borderColor: 'black',
+        borderStyle: '',
+    },
+    contenttest2: {
+        position: 'relative',
+        height: '1000px',
+        border: '3px',
+        borderColor: 'black',
+        borderStyle: '',
+    },
+    marginfree: {
+        marginLeft: '0px'
+    },
+    contentdiv: {
+        position:'relative',
+        top:'30%'
+    },
+    h2: {
+        verticalAlign:'bottom',
+        lineHeight:'30px',
+        position:'relative',
+        top:'100%',
+        textAlign:'center'
+    },
+    p: {
+        textAlign:'center',
+        color:'gray'
+    }
 }
 
 var divContentSearch = {
-  contenttest: {
-	left: '10%',
-	right: '10%',
-	height: '300px',
-	border: '3px',
-	borderColor: 'black',
-	borderStyle: '',
-  },
-  marginfree: {
-    marginLeft: '0px'
-  },
-  h2: {
-	marginLeft:'-30px',
-	verticalAlign:'top',
-	lineHeight:'30px',
-	position:'fixed',
-	top:'15px'
-  }
+    contenttest: {
+        left: '10%',
+        right: '10%',
+        height: '300px',
+        border: '3px',
+        borderColor: 'black',
+        borderStyle: '',
+    },
+    marginfree: {
+        marginLeft: '0px'
+    },
+    h2: {
+        marginLeft:'-30px',
+        verticalAlign:'top',
+        lineHeight:'30px',
+        position:'fixed',
+        top:'15px'
+    }
 }
 
 const Request = ({ onSubmit }) => (
    <FRC.Form onSubmit={onSubmit}>
        <fieldset>
-		   <Input name="addon-after" layout="vertical" id="search_string" value="epigenetics idh oncogenic" type="text" help="Let us create a network of your search results." addonAfter={<span type="submit" className="glyphicon glyphicon-search"/>} />
+		   <Input name="search_string" layout="vertical" id="search_string" value="epigenetics idh oncogenic" type="text" help="Let us create a network of your search results." addonAfter={<span type="submit" className="glyphicon glyphicon-search" defaultValue="Submit"/>} />
 	   </fieldset>
-	   {/*<fieldset>
-           <Row>
-               <input className="btn btn-primary" type="submit" defaultValue="Submit" />
-           </Row>
-       </fieldset>*/}
    </FRC.Form>
 )
 
 const Pending = ({ id }) => <h2>Pending #{id}</h2>
-{/** const About = "" **/}
 const rootUrl = new URL(window.location.origin)
 rootUrl.port = 8080
+const apiUrl = new URL("/api/", rootUrl)
 
 class Main extends Component {
-  constructor(props) {
-      super(props);
-      this.state = { results: {}, pending: {} };
-      this.onSubmit = this.onSubmit.bind(this)   
-  }
+    constructor(props) {
+        super(props);
+        this.state = { results: {}, pending: {} };
+        this.onSubmit = this.onSubmit.bind(this)   
+    }
 
-  poll(id) {
-      return () => {
-          request.get(new URL(id, rootUrl)).end( (err, res) => { // call api with id -> will return task_id and if ready result
-              if (err) return
-              const { result } = res.body
-              if (!result) return
-              const { results, pending } = this.state
-              clearInterval(pending[id])
-              delete pending[id]
-              this.setState({ results: { ...results, [id]: result } })
-          })
-      }
-  }
+    poll(id) {
+        return () => {
+            request.get(new URL(id, apiUrl))
+            .end( (err, res) => { // call api with id -> will return task_id and if ready result
+                if (err) return
+                const { result } = res.body
+                if (!result) return
+                const { results, pending } = this.state
+                clearInterval(pending[id])
+                delete pending[id]
+                this.setState({ results: { ...results, [id]: result } })
+            })
+        }
+    }
 
-  onSubmit({ search_string }) {
-      const payload = { search_string:    search_string, }
-      request.put(rootUrl).send(payload).end( (err, res) => {
-          if (err) return
-          console.log(this.state)
-          const { results, pending } = this.state
-          console.log(res.body)
-          const { result: id } = res.body
-          const timers = {[id]:  setInterval(this.poll(id),  500)}
-          this.setState({ pending: {...pending, ...timers} })
-      })
-  }
+    onSubmit({ search_string }) {
+        const payload = { 'search_string': search_string }
+        request.put(apiUrl).send(payload)
+        .end( (err, res) => {
+            if (err) return
+            console.log(this.state)
+            const { results, pending } = this.state
+            console.log(res.body)
+            const { result: id } = res.body
+            const timers = {[id]:  setInterval(this.poll(id),  500)}
+            this.setState({ pending: {...pending, ...timers} })
+        })
+    }
 
-  render() {
-      const { results, pending } = this.state
-      return (
-          <div className="row">
-              <div>
-                  <Request onSubmit={this.onSubmit} />
-                  { map(sortBy(keys(pending), [x => -x]), id => <Pending key={id} id={id} />) }
-                  { map(sortBy(keys(results), [x => -x]), id => <Cytoscape data={results[id]} />) }
-                  
-              </div>
-          </div>
-      )
-  }
+    render() {
+        const { results, pending } = this.state
+        return (
+            <div className="row">
+                <div>
+                    <Request onSubmit={this.onSubmit} />
+                    { map(sortBy(keys(pending), [x => -x]), id => <Pending key={id} id={id} />) }
+                    { map(sortBy(keys(results), [x => -x]), id => <ForceDirectedGraph data={results[id]} width={500} height={500}/>) }
+                </div>
+            </div>
+        )
+    }
 }
 
 export class SearchLanding extends Component {
 	render() {
 		return (
-		  		  <Grid>
+		  		<Grid>
 				  <Row className="show-grid">
-				  <Col md={8} xs={6}>
-				  <div class="col-xs-12" style={{height:"10vh"}}></div>
-				  </Col>
+				    <Col md={8} xs={6}>
+				        <div class="col-xs-12" style={{height:"10vh"}}></div>
+				    </Col>
 				  </Row>
 				  <Row className="show-grid">
 				  <Col md={8} xs={12}>
             		<h2 style={divContentLanding.h2}>GraphSearch</h2>
 					<p></p>
 					<p style={divContentLanding.p}>Welcome to the GraphSearch platform. Our mission is to make your biomedical literature search experience the best it can be. We take your search query and return a network of publications to you. The network contains the direct results of your search (in blue) as well as the publications they cite (in red). The structure of the network helps you to find highly cited publications and quickly identify publications that belong together.</p>
-				</Col>
-				</Row>
+				    </Col>
+				    </Row>
 				<Row className="show-grid">
-				<Col md={8} xs={12}>
-					<Main />
-				</Col>
+                    <Col md={8} xs={12}>
+                        <Main />
+                    </Col>
 				</Row>
 				</Grid>
 		)
@@ -180,215 +296,6 @@ export class About extends Component {
 	) }
 }
 
-// The Cytoscape components
-cydagre( cytoscape );
-cyqtip( cytoscape ); // register extension
-cyforcelayout( cytoscape );
-
-let cyStyle = {
-    height: '1000px',
-    width: '1000px',
-    display: 'block'
-  };
-  
-let conf = {
-    boxSelectionEnabled: false,
-    autounselectify: true,
-    zoomingEnabled: true,
-    style: [
-        {
-            selector: "node[group = 'Searched']",
-            style: {
-                'label': 'data(group)',
-                'width': '2px',
-                'height': '2px',
-                'color': 'white',
-                'background-fit': 'contain',
-                'background-clip': 'none',
-                'background-color': 'blue',
-                'border-color': 'gray',
-                'border-width': 0.5,
-                'opacity': 0.8,
-                'font-size': '4pt',
-                'text-transform': 'uppercase',
-                //'text-background-color': 'white',
-                //'text-background-opacity': 0.8,
-                //'text-background-shape': 'roundrectangle',
-                //'text-outline-color': 'white',
-                "text-valign" : "center"
-            },
-        }, {
-            selector: "node[group = 'Cited']",
-            style: {
-                'label': 'data(group)',
-                'width': '15px',
-                'height': '15px',
-                'color': 'white',
-                'background-fit': 'contain',
-                'background-clip': 'none',
-                'background-color': 'red',
-                'border-color': 'gray',
-                'border-width': 0.5,
-                'opacity': 0.8,
-                'font-size': '4pt',
-                'text-transform': 'uppercase',
-                //'text-background-color': 'white',
-                //'text-background-opacity': 0.8,
-                //'text-background-shape': 'roundrectangle',
-                //'text-outline-color': 'white',
-                "text-valign" : "center"
-            }
-        }, {
-            selector: 'edge',
-            style: {
-                'text-background-color': 'yellow',
-                'text-background-opacity': 0.4,
-                'width': '2px',
-                'target-arrow-shape': 'triangle',
-                'control-point-step-size': '140px',
-                'opacity': 0.3
-            }
-        }
-    ],
-
-    layout: {
-        name: 'cytoscape-ngraph.forcelayout',
-        animate: true,
-        refreshInterval: 1000, // in ms
-        refreshIterations: 1000,
-        fit: true,
-        async: {
-             // tell layout that we want to compute all at once:
-             maxIterations: 1000,
-             stepsPerCycle: 1000,
-
-             // Run it till the end:
-             waitForStep: false
-         },
-        physics: {
-             /**
-              * Ideal length for links (springs in physical model).
-              */
-             springLength: 100,
-
-             /**
-              * Hook's law coefficient. 1 - solid spring.
-              */
-             springCoeff: 0.0008,
-
-             /**
-              * Coulomb's law coefficient. It's used to repel nodes thus should be negative
-              * if you make it positive nodes start attract each other :).
-              */
-             gravity: -2,
-
-             /**
-              * Theta coefficient from Barnes Hut simulation. Ranged between (0, 1).
-              * The closer it's to 1 the more nodes algorithm will have to go through.
-              * Setting it to one makes Barnes Hut simulation no different from
-              * brute-force forces calculation (each node is considered).
-              */
-             theta: 0.8,
-
-             /**
-              * Drag force coefficient. Used to slow down system, thus should be less than 1.
-              * The closer it is to 0 the less tight system will be.
-              */
-             dragCoeff: 0.02,
-
-             /**
-              * Default time step (dt) for forces integration
-              */
-             timeStep: 20,
-             iterations: 1000,
-             fit: true,
-             /**
-              * Maximum movement of the system which can be considered as stabilized
-              */
-             stableThreshold: 0.000009
-         },
-        //maxExpandIterations: 0,
-        /*minDist: 20,
-        gravity: 800,
-        nodeSpacing: 5,
-        edgeLengthVal: 50,
-        animate: true,
-        randomize: false,
-        maxSimulationTime: 10000,
-        avoidOverlaps: true,
-        //unconstrIter: 100,
-        userConstIter: 100,
-        fit: true,
-        repulsion: 4000,
-        //infinite: true,
-        padding: 10*/
-    }
-};
-  
-class Cytoscape extends Component {
-    constructor(props) {
-        super(props);
-        this.state = { cy: {} }
-    }
-
-    componentDidMount() {
-        conf.container = this.cyRef;
-        conf.elements = this.props.data;
-        const cy = cytoscape(conf);
-        cy.elements().qtip({
-            content: function() {
-                return '<b><a href="https://www.ncbi.nlm.nih.gov/pmc/' + this.id() + 
-                    '" target="_blank">' + this.data('title') + '</b></a>' +
-                    '<br><i>' + this.data('journal') +
-                    '</i><br><i>' + this.data('pubDate') + '</i>' +
-                    '<br>' + this.data('authors')
-                },
-            position: {
-                target: 'mouse',
-                adjust: {
-                    mouse: false
-                }
-            },
-            style: {
-                classes: 'qtip-bootstrap',
-                tip: {
-                    width: 16,
-                    height: 8
-                    }
-            }
-        });
-        this.state = { cy };
-        //cy.json();
-    }
-
-    shouldComponentUpdate() {
-        return false;
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if (this.state.cy) {
-            this.state.cy.destroy();
-        }
-        conf.container = this.cyRef;
-        conf.elements = nextProps.data;
-        const cy = cytoscape(conf);
-
-        this.state = { cy };
-    }
-
-    componentWillUnmount() {
-        if (this.state.cy) {
-            this.state.cy.destroy();
-        }
-    }
-
-    render() {
-        return <div style={cyStyle} ref={(cyRef) => {
-            this.cyRef = cyRef;
-        }}/>
-    }
-}
-
 class BurgerTest extends React.Component {
     constructor(props) {
         super(props);
@@ -406,5 +313,3 @@ class BurgerTest extends React.Component {
 		);
 	}
 }
-
-export default Cytoscape;   

@@ -182,7 +182,7 @@ class CytoGraph extends React.Component {
     }
 
     shouldComponentUpdate(){
-        return false;
+        return true;
     }
 
     componentWillReceiveProps(nextProps){

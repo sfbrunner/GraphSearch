@@ -3,8 +3,6 @@ import { render } from 'react-dom'
 import { BrowserRouter, Route, Link, Switch, hashHistory } from 'react-router-dom'
 import numeral from 'numeral'
 import request from 'superagent'
-import CytoGraph from './cytoComponents'
-{/**import FRC, { Checkbox, CheckboxGroup, Input, RadioGroup, Select, File, Textarea } from 'formsy-react-components' **/}
 import { keys, map, isArray, sortBy } from 'lodash'
 import { BurgerTest } from './burgercomponent'
 import { SearchLanding, About } from './components'
@@ -53,9 +51,6 @@ class RouteHandler extends Component {
 			)
 	}
 }
-
-const Home = () => <h1>Hello from Home!</h1>
-const Address = () => <h1>We are located at 555 Jackson St.</h1>
 
 render(
 <Layout burger={<BurgerTest />} routehandler={<RouteHandler />}/>,

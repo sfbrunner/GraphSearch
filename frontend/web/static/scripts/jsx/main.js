@@ -3,6 +3,7 @@ import { render } from 'react-dom'
 import numeral from 'numeral'
 import request from 'superagent'
 import CytoGraph from './cytoComponents'
+import ForceDirectedGraph from 'react-vis'
 
 
 import FRC, { Checkbox, CheckboxGroup, Input, RadioGroup, Row, Select, File, Textarea } from 'formsy-react-components'
@@ -147,7 +148,7 @@ class Main extends Component {
                 <div className="col-xs-6 offset-xs-3">
                     <Request onSubmit={this.onSubmit} />
                     { map(sortBy(keys(pending), [x => -x]), id => <Pending key={id} id={id} />) }
-                    { map(sortBy(keys(results), [x => -x]), id => <CytoGraph graph={results[id]}/>) }
+                    { map(sortBy(keys(results), [x => -x]), id => <ForceDirectedGraph data={results[id]} height={500} width={500} animation strength={30}/>) }
                 </div>     
             </div>
         )
