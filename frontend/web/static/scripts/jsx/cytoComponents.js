@@ -222,12 +222,7 @@ class CytoGraph extends React.Component {
                 viewport: $('#MyGraph'),
                 container: $('#MyGraph'),
                 my: 'top center',
-                at: 'bottom center',
-                //target: this.position
-                target: 'mouse'
-                //adjust: {
-                    //mouse: false
-                //}
+                at: 'bottom center'
             },
             style: {
                 classes: 'qtip-bootstrap',

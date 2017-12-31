@@ -9,6 +9,7 @@ import { Image, Grid, Col, Clearfix, Row } from 'react-bootstrap'
 import CytoGraph from './cytoComponents'
 import { Graph } from 'react-d3-graph'
 import ReactToolip from 'react-tooltip'
+import { Tooltip } from 'react-lightweight-tooltip'
 var $ = require('jquery');
 
 // the graph configuration, you only need to pass down properties
@@ -40,8 +41,10 @@ class MyTooltip extends Component {
 
 // graph event callbacks
 const onClickNode = function(nodeId) {
-     window.alert(`Clicked node ${nodeId}.fill`);
+     //window.alert(`Clicked node ${nodeId}.fill`);
+     //document.getElementById(nodeId)
      //return <MyTooltip/>
+     console.log(nodeId)
      
 };
 
@@ -121,7 +124,7 @@ var divContentSearch = {
         verticalAlign:'top',
         lineHeight:'30px',
         position:'fixed',
-        top:'15px'
+        top:'5px'
     }
 }
 
@@ -180,17 +183,18 @@ class Main extends Component {
             <div className="row">
                 <div>
                     <Request onSubmit={this.onSubmit} />
-                    { map(sortBy(keys(pending), [x => -x]), id => <Pending key={id} id={id} />) }
-                    { map(sortBy(keys(results), [x => -x]), id => <Graph
-     id='graph-id' // id is mandatory, if no id is defined rd3g will throw an error
-     data={results[id]}
-     config={myConfig}
-     onClickNode={onClickNode}
-     onClickLink={onClickLink}
-     onMouseOverNode={onMouseOverNode}
-     onMouseOutNode={onMouseOutNode}
-     onMouseOverLink={onMouseOverLink}
-     onMouseOutLink={onMouseOutLink}/>) }
+                    { map(sortBy(keys(pending), [x => -x]), id => <Pending key={id} id={id} />) }         
+                    { map(sortBy(keys(results), [x => -x]), id => 
+                        <Graph
+                            id='graphSearchResult' // id is mandatory, if no id is defined rd3g will throw an error
+                            data={results[id]}
+                            config={myConfig}
+                            onClickNode={onClickNode}
+                            onClickLink={onClickLink}
+                            onMouseOverNode={onMouseOverNode}
+                            onMouseOutNode={onMouseOutNode}
+                            onMouseOverLink={onMouseOverLink}
+                            onMouseOutLink={onMouseOutLink}/>) }
                 </div>
             </div>
         )
@@ -203,7 +207,7 @@ export class SearchLanding extends Component {
 		  		<Grid>
 				  <Row className="show-grid">
 				    <Col md={8} xs={6}>
-				        <div class="col-xs-12" style={{height:"10vh"}}></div>
+				        <div class="col-xs-12" style={{height:"2vh"}}></div>
 				    </Col>
 				  </Row>
 				  <Row className="show-grid">
