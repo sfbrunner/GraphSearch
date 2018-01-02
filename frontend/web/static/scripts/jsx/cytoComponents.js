@@ -1,17 +1,22 @@
 import React, { Component } from 'react';
 
-var $ = require('jquery');
-var qtip = require('qtip');
+
+window.$ = window.jQuery = require('jquery');
+//require('qtip2');
+
+//import $ from 'jquery';
+var qtip = require('qtip2');
 //var reactqtip = require('react-qtip');
 var cytoscape = require('cytoscape');
 var cyforcelayout = require('cytoscape-ngraph.forcelayout');
-var cyqtip = require('cytoscape-qtip');
-var cycola = require('cytoscape-cola');
- 
+//var cyqtip = require('cytoscape-qtip');
+//var cycola = require('cytoscape-cola');
+
 // register extensions
-cyqtip( cytoscape, $ );
-//cyforcelayout( cytoscape );
-cycola(cytoscape);
+cyforcelayout( cytoscape );
+//cyqtip( cytoscape );
+
+//cycola(cytoscape);
 
 var searchedNodeStyle = {
     selector: "node[group = 'Searched']",
@@ -127,10 +132,10 @@ var cytoForceLayout = {
         stableThreshold: 0.000009
     },
     iterations: 10000,
-    refreshInterval: 16, // in ms
-    refreshIterations: 10, // iterations until thread sends an update
+    refreshInterval: 16000, // in ms
+    refreshIterations: 100000, // iterations until thread sends an update
     stableThreshold: 2,
-    animate: true,
+    animate: false,
     fit: true
 }
 
@@ -143,7 +148,7 @@ var cytoColaLayout = {
     fit: true, // on every layout reposition of nodes, fit the viewport
     padding: 30, // padding around the simulation
     boundingBox: undefined, // constrain layout bounds; { x1, y1, x2, y2 } or { x1, y1, w, h }
-    nodeDimensionsIncludeLabels: undefined, // whether labels should be included in determining the space used by a node (default true)
+    nodeDimensionsIncludeLabels: true, // whether labels should be included in determining the space used by a node (default true)
   
     // layout event callbacks
     ready: function(){}, // on layoutready
@@ -177,8 +182,9 @@ var cytoDefaultLayout = { name: 'random' }
 class CytoGraph extends React.Component {
 
 	constructor(props){
-        super(props)
-        this.myGraph = props.graph
+        super(props);
+        this.state = {graph: props.data};
+        this.myGraph = props.data
     }
 
     shouldComponentUpdate(){
@@ -198,80 +204,51 @@ class CytoGraph extends React.Component {
     }
 
     componentDidMount(){
-        this.cy = cytoscape({
-            container: document.getElementById('MyGraph'),
+        var cy = window.cy = cytoscape({
+            container: document.getElementById('cy'),
             elements: this.myGraph,
             style: cytoStyle,
-            layout: cytoColaLayout,
-            zoomingEnabled: false,
-            userZoomingEnabled: false,
-            zoom: 1.0
+            layout: cytoDefaultLayout,
+            minZoom: 0.5,
+            maxZoom: 1.5,
+            zoomingEnabled: true,
+            userZoomingEnabled: true,
         });
 
-        this.cy.nodes().qtip({
-            content: function() {
-                return '<b><a href="https://www.ncbi.nlm.nih.gov/pubmed/' + this.id() + 
-                    '" target="_blank">' + this.data('title') + '</b></a>' +
-                    '<br><i>' + this.data('journal') +
-                    '</i><br><i>' + this.data('pubDate') + '</i>' +
-                    '<br>' + this.data('authors')
-            },
-            position: {
-                //viewport: $(this),
-                //container: $(this),
-                viewport: $('#MyGraph'),
-                container: $('#MyGraph'),
-                my: 'top center',
-                at: 'bottom center'
-            },
-            style: {
-                classes: 'qtip-bootstrap',
-                tip: {
-                    width: 16,
-                    height: 8
+        cy.on('click', 'node', function(e){
+            console.log(e);
+              $(document.getElementById('cy')).qtip({
+                overwrite: false,
+                content:  '<b><a href="https://www.ncbi.nlm.nih.gov/pubmed/' + e.cyTarget.id() + 
+                        '" target="_blank">' + e.cyTarget.data('title') + '</b></a>' +
+                        '<br><i>' + e.cyTarget.data('journal') +
+                        '</i><br><i>' + e.cyTarget.data('pubDate') + '</i>' +
+                        '<br>' + e.cyTarget.data('authors'),
+                position: {
+                    target: $(document.getElementById('cy')),
+                    adjust: {x: e.cyPosition.x, y:  e.cyPosition.y}    
+                },
+                hide: {
+                  event: 'unfocus',
+                },
+                style: {
+                  classes: 'qtip-bootstrap',
+                  width: 200,
+                  tip: {
+                    corner: false,
+                    width: 24,
+                    height: 24
+                  }
                 }
-            },
-            show: {
-                event: 'click',
-                solo: true,
-                effect: function(offset) { $(this).slideDown(100) }
-                //event: 'mouseover tap'
-            },
-            hide: {
-                event: 'unfocus'
-            }
-        });
+            })});
+        this.state = { cy };
 
-        this.cy.edges().qtip({
-            content: function() {
-                return 'Citation'
-            },
-            position: {
-                my: 'right center',
-                at: 'right center'
-            },
-            style: {
-                classes: 'qtip-bootstrap',
-                tip: {
-                    width: 16,
-                    height: 8
-                }
-            },
-            show: {
-                event: 'click',
-                solo: true,
-                effect: function(offset) { $(this).slideDown(100) }
-            }
-        });
+
     }
+
     
     render() {
-        return(
-            <div>
-                <div id="Tooltip" style={{height:'100px', width: '800px'}}> </div>
-                <div className="col-xs-6 offset-xs-3" id="MyGraph" style={{height:'400px', width: '800px'}}></div>
-            </div>
-        )
+        return( <div id="cy" name="cy" style={{position: 'absolute', height:'600px', width: '800px'}} /> )
     }
 }
 

@@ -11,6 +11,7 @@ import { Graph } from 'react-d3-graph'
 import ReactToolip from 'react-tooltip'
 import { Tooltip } from 'react-lightweight-tooltip'
 var $ = require('jquery');
+import { Network, WithTooltip, Nodes, Links } from '@data-ui/network'
 
 // the graph configuration, you only need to pass down properties
 // that you want to override, otherwise default ones will be used
@@ -141,6 +142,10 @@ const rootUrl = new URL(window.location.origin)
 rootUrl.port = 8080
 const apiUrl = new URL("/api/", rootUrl)
 
+class DataUI extends Component {
+
+}
+
 class Main extends Component {
     constructor(props) {
         super(props);
@@ -179,22 +184,91 @@ class Main extends Component {
 
     render() {
         const { results, pending } = this.state
+        function getRandomID() {
+            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (char) => {
+              const randomNumber = Math.random() * 16 | 0;
+              const value = char === 'x' ? randomNumber : ((randomNumber & 0x3) | 0x8);
+              return value.toString(16);
+            });
+          }
+        const defaultNodes = [
+            {
+              x: 100,
+              y: 200,
+              id: '1',
+              size: 10,
+              opacity: 1,
+              fill: '#e03131',
+              label: <a href="https://www.google.com">User A</a>,
+              type: 'Attr',
+            },
+            {
+              x: 200,
+              y: 200,
+              id: '2',
+              size: 10,
+              opacity: 0.3,
+              fill: '#5f3dc4',
+              label: 'User B',
+              type: 'User',
+            },
+            {
+              x: 200,
+              y: 100,
+              id: '3',
+              size: 15,
+              opacity: 0.8,
+              label: 'User C',
+              type: 'User',
+            },
+          ];
+          
+          const defaultLinks = [
+            {
+              source: defaultNodes[1],
+              target: defaultNodes[2],
+              id: '4',
+            },
+            {
+              source: defaultNodes[0],
+              target: defaultNodes[2],
+              id: '5',
+            },
+            {
+              source: defaultNodes[0],
+              target: defaultNodes[1],
+              id: '6',
+            },
+          ];
+          
+          const defaultGraph = {
+            nodes: defaultNodes,
+            links: defaultLinks,
+          };
+
+          const renderTooltip = function(){
+              return "Hello"
+          }
+
+          const tooltipData = {
+              event: "click",
+              index: 1,
+              id: 2,
+              data: 3 
+          };
         return (
             <div className="row">
                 <div>
                     <Request onSubmit={this.onSubmit} />
                     { map(sortBy(keys(pending), [x => -x]), id => <Pending key={id} id={id} />) }         
-                    { map(sortBy(keys(results), [x => -x]), id => 
-                        <Graph
-                            id='graphSearchResult' // id is mandatory, if no id is defined rd3g will throw an error
-                            data={results[id]}
-                            config={myConfig}
-                            onClickNode={onClickNode}
-                            onClickLink={onClickLink}
-                            onMouseOverNode={onMouseOverNode}
-                            onMouseOutNode={onMouseOutNode}
-                            onMouseOverLink={onMouseOverLink}
-                            onMouseOutLink={onMouseOutLink}/>) }
+                    { map(sortBy(keys(results), [x => -x]), id => <Network 
+                        graph={defaultGraph} 
+                        animated={true} 
+                        height={200}  
+                        width={400} 
+                        ariaLabel={"myGraph"}
+                        tooltipData={tooltipData}
+                        renderTooltip={renderTooltip}/>) }
                 </div>
             </div>
         )

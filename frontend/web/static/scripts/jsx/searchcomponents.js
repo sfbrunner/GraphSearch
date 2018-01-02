@@ -5,6 +5,7 @@ import request from 'superagent'
 import CytoGraph from './cytoComponents'
 import FRC, { Checkbox, CheckboxGroup, Input, RadioGroup, Row, Select, File, Textarea } from 'formsy-react-components'
 import { keys, map, isArray, sortBy } from 'lodash'
+import Network from '@data-ui/network'
 
 var divContentLanding = {
   contenttest: {
@@ -129,7 +130,9 @@ export class Main extends Component {
               <div>
                   <Request onSubmit={this.onSubmit} />
                   { map(sortBy(keys(pending), [x => -x]), id => <Pending key={id} id={id} />) }
-                  { map(sortBy(keys(results), [x => -x]), id => <Cytoscape data={results[id]} />) }
+                  { map(sortBy(keys(results), [x => -x]), id => <Network
+  graph={{ nodes: [ { x: 431.7899967290973, y: 256.31427947596484, id: "2699d671-2905-4a50-a5d9-a352c54ed563"},{ x: 464.5846355646493, y: 262.557282014641, id: "5c973dc0-d34a-4781-9985-ce80f7177bbe" } ], links: [ { source: { x: 464.5846355646493, y: 262.557282014641, id: "5c973dc0-d34a-4781-9985-ce80f7177bbe" }, target: { x: 453.62536770625337, y: 231.1284385093941, id: "3968bda4-bb4d-445c-86d2-f724b07219d3"}, id: "54e3a565-74f3-475b-a0ea-711055e2f66b"},{ source: { x: 431.7899967290973, y: 256.31427947596484, id: "2699d671-2905-4a50-a5d9-a352c54ed563"}, target: { x: 453.62536770625337, y: 231.1284385093941, id: "3968bda4-bb4d-445c-86d2-f724b07219d3" }, id: "be1b090a-b4be-4920-96c5-63beac0a997e"} ] }}
+  networkComponent={Network()} />) }
                   
               </div>
           </div>
