@@ -247,8 +247,8 @@ class Main extends Component {
           };
 
           const renderTooltip = function(){
-              return "Hello"
-          }
+              return <p>Hello Hello2 <br/><li> dfdfd</li></p>
+          };
 
           const tooltipData = {
               event: "click",
