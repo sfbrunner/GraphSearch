@@ -1,3 +1,5 @@
+import sys
+sys.path.append('../utils')
 import requests
 import untangle
 import pprint
@@ -8,6 +10,8 @@ import urllib2
 import eutilsConfig as cfg
 from decorators import singleton
 from utils.logger import LogHandler
+#from logger import LogHandler
+
 #log = LogHandler.get_logger('__name__', 'forceLog.log')
 #log = LogHandler.get_logger('__name__', '/home/ubuntu/GraphSearch/web/logs/forceLog.log')
 log = LogHandler.get_logger('__name__')

@@ -1,57 +1,41 @@
-'use strict';
+let Set = require('../set');
 
-var util = require( '../util' );
-
-var elesfn = ({
+let elesfn = ({
   classes: function( classes ){
     classes = ( classes || '' ).match( /\S+/g ) || [];
-    var self = this;
-    var changed = [];
-    var classesMap = {};
-
-    // fill in classes map
-    for( var i = 0; i < classes.length; i++ ){
-      var cls = classes[ i ];
-
-      classesMap[ cls ] = true;
-    }
+    let self = this;
+    let changed = [];
+    let classesMap = new Set( classes );
 
     // check and update each ele
-    for( var j = 0; j < self.length; j++ ){
-      var ele = self[ j ];
-      var _p = ele._private;
-      var eleClasses = _p.classes;
-      var changedEle = false;
+    for( let j = 0; j < self.length; j++ ){
+      let ele = self[ j ];
+      let _p = ele._private;
+      let eleClasses = _p.classes;
+      let changedEle = false;
 
       // check if ele has all of the passed classes
-      for( var i = 0; i < classes.length; i++ ){
-        var cls = classes[ i ];
-        var eleHasClass = eleClasses[ cls ];
+      classesMap.forEach( cls => {
+        let eleHasClass = eleClasses.has(cls);
 
         if( !eleHasClass ){
           changedEle = true;
-          break;
         }
-      }
+      });
 
       // check if ele has classes outside of those passed
       if( !changedEle ){
-        var classes = Object.keys( eleClasses );
+        eleClasses.forEach( eleCls => {
+          let specdClass = classesMap.has(eleCls);
 
-        for( var i = 0; i < classes.length; i++ ){
-          var eleCls = classes[i];
-          var eleHasClass = eleClasses[ eleCls ];
-          var specdClass = classesMap[ eleCls ]; // i.e. this class is passed to the function
-
-          if( eleHasClass && !specdClass ){
+          if( !specdClass ){
             changedEle = true;
-            break;
           }
-        }
+        });
       }
 
       if( changedEle ){
-        _p.classes = util.copy( classesMap );
+        _p.classes = new Set( classesMap );
 
         changed.push( ele );
       }
@@ -61,7 +45,7 @@ var elesfn = ({
     if( changed.length > 0 ){
       this.spawn( changed )
         .updateStyle()
-        .trigger( 'class' )
+        .emit( 'class' )
       ;
     }
 
@@ -73,34 +57,34 @@ var elesfn = ({
   },
 
   hasClass: function( className ){
-    var ele = this[0];
-    return ( ele != null && ele._private.classes[ className ] ) ? true : false;
+    let ele = this[0];
+    return ( ele != null && ele._private.classes.has(className) );
   },
 
   toggleClass: function( classesStr, toggle ){
-    var classes = classesStr.match( /\S+/g ) || [];
-    var self = this;
-    var changed = []; // eles who had classes changed
+    let classes = classesStr.match( /\S+/g ) || [];
+    let self = this;
+    let changed = []; // eles who had classes changed
 
-    for( var i = 0, il = self.length; i < il; i++ ){
-      var ele = self[ i ];
-      var changedEle = false;
+    for( let i = 0, il = self.length; i < il; i++ ){
+      let ele = self[ i ];
+      let changedEle = false;
 
-      for( var j = 0; j < classes.length; j++ ){
-        var cls = classes[ j ];
-        var eleClasses = ele._private.classes;
-        var hasClass = eleClasses[ cls ];
-        var shouldAdd = toggle || (toggle === undefined && !hasClass);
+      for( let j = 0; j < classes.length; j++ ){
+        let cls = classes[ j ];
+        let eleClasses = ele._private.classes;
+        let hasClass = eleClasses.has(cls);
+        let shouldAdd = toggle || (toggle === undefined && !hasClass);
 
         if( shouldAdd ){
-          eleClasses[ cls ] = true;
+          eleClasses.add(cls);
 
           if( !hasClass && !changedEle ){
             changed.push( ele );
             changedEle = true;
           }
         } else { // then remove
-          eleClasses[ cls ] = false;
+          eleClasses.delete(cls);
 
           if( hasClass && !changedEle ){
             changed.push( ele );
@@ -115,7 +99,7 @@ var elesfn = ({
     if( changed.length > 0 ){
       this.spawn( changed )
         .updateStyle()
-        .trigger( 'class' )
+        .emit( 'class' )
       ;
     }
 
@@ -127,7 +111,7 @@ var elesfn = ({
   },
 
   flashClass: function( classes, duration ){
-    var self = this;
+    let self = this;
 
     if( duration == null ){
       duration = 250;

@@ -4,6 +4,7 @@ from flask import jsonify
 from networkx.readwrite import json_graph
 from utils.logger import LogHandler
 log = LogHandler.get_logger('__name__')
+from numpy import sqrt
 
 class ResultGraph():
 
@@ -141,6 +142,44 @@ class ResultGraph():
         
         return json.dumps(cy_dict)
     
+    def get_dataui_json(self):
+        n_json = json_graph.node_link_data(self.G)
+        
+        # Calculate coordinates
+        coordinates = self.calculate_coords()
+        
+        # Parse nodes
+        node_lst = []
+        id_lst = [] # Due to networkx' format, edges refer to nodes in the form of their list position, so we'll store their position here.
+        for node in n_json['nodes']:
+            node_lst.append({'id':node['id'], 
+                             'x':coordinates[node['id']][0],
+                             'y':coordinates[node['id']][1],
+                             'size':10,
+                             'opacity':0.8,
+                             'type':'ref',
+                                      'label': node['id'], 
+                                      'group':node['group'],
+                                      'title':node['title'],
+                                      'journal':node['journal'],
+                                      'pubDate':node['pubDate'],
+                                      'authors':node['authors'] + ' ...'}) #, 'label': node['id']}})
+            id_lst.append(node['id'])
+    
+        # Parse edges
+        edge_lst = []
+        for edge in n_json['links']:
+            #from IPython.core.debugger import Tracer; Tracer()()
+            #edge_lst.append({'data':{'id':'{a:s}_{b:s}'.format(a=edge['source'], b=edge['target']), 
+            #            'source':id_lst[int(edge['source'])], 
+            #            'target':id_lst[int(edge['target'])] }})
+            edge_lst.append({'id':'{a:s}_{b:s}'.format(a=edge['source'], b=edge['target']), 
+                        'source':edge['source'], 
+                        'target':edge['target'] })
+        cy_dict = {'nodes': node_lst, 'edges': edge_lst}
+        
+        return json.dumps(cy_dict)
+    
     def extract_by_connectivity(self, connectivity=2):
         '''
         Removes nodes with < [connectivity] edges
@@ -178,6 +217,15 @@ class ResultGraph():
         for node in node_flag_lst:
             self.G.remove_node(node)
             
+    def calculate_coords(self):
+        '''
+        Calculate network coordinates using NetworkX
+        '''
+        log.info('Calculating network coordinates...')
+        coordinates = nx.spring_layout(self.G, k=1/(sqrt(nx.number_of_nodes(self.G))*0.3), iterations=50)
+        log.info('... done calculating network coordinates.')
+        return coordinates
+    
     @property        
     def nodeIds(self):
         return [self.G.node[n]['name'] for n in self.G]

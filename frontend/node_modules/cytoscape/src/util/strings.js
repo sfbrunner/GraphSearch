@@ -1,7 +1,5 @@
-'use strict';
-
-var memoize = require( './memoize' );
-var is = require( '../is' );
+let memoize = require( './memoize' );
+let is = require( '../is' );
 
 module.exports = {
 

@@ -1,6 +1,4 @@
-'use strict';
-
-var elesfn = ({
+let elesfn = ({
   isNode: function(){
     return this.group() === 'nodes';
   },
@@ -18,7 +16,7 @@ var elesfn = ({
   },
 
   group: function(){
-    var ele = this[0];
+    let ele = this[0];
 
     if( ele ){
       return ele._private.group;

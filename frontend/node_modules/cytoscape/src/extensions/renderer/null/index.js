@@ -1,11 +1,9 @@
-'use strict';
-
 function NullRenderer( options ){
   this.options = options;
   this.notifications = 0; // for testing
 }
 
-var noop = function(){};
+let noop = function(){};
 
 NullRenderer.prototype = {
   recalculateRenderedStyle: noop,

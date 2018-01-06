@@ -1,8 +1,6 @@
-'use strict';
+let define = require( '../define' );
 
-var define = require( '../define' );
-
-var elesfn = ({
+let elesfn = ({
   animate: define.animate(),
   animation: define.animation(),
   animated: define.animated(),
