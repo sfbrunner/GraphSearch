@@ -87,7 +87,6 @@
     "yargs": "^8.0.1"
   },
   "dependencies": {
-    "package.json": "^2.0.1",
-    "react-sigma": "^1.2.29"
+    "package.json": "^2.0.1"
   }
 }

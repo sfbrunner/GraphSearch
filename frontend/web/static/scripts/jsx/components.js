@@ -191,64 +191,6 @@ class Main extends Component {
               return value.toString(16);
             });
           }
-        const defaultNodes = [
-            {
-              x: 100,
-              y: 200,
-              id: '1',
-              size: 10,
-              opacity: 1,
-              fill: '#e03131',
-              label: <a href="https://www.google.com">User A</a>,
-              type: 'Attr',
-              journal: 'Nature',
-              title: 'Blag',
-              authors: 'blah blah',
-              pubDate: '12.34.2333'
-            },
-            {
-              x: 200,
-              y: 200,
-              id: '2',
-              size: 10,
-              opacity: 0.3,
-              fill: '#5f3dc4',
-              label: 'User B',
-              type: 'User',
-            },
-            {
-              x: 200,
-              y: 100,
-              id: '3',
-              size: 15,
-              opacity: 0.8,
-              label: 'User C',
-              type: 'User',
-            },
-          ];
-          
-          const defaultLinks = [
-            {
-              source: defaultNodes[1],
-              target: defaultNodes[2],
-              id: '4',
-            },
-            {
-              source: defaultNodes[0],
-              target: defaultNodes[2],
-              id: '5',
-            },
-            {
-              source: defaultNodes[0],
-              target: defaultNodes[1],
-              id: '6',
-            },
-          ];
-          
-          const defaultGraph = {
-            nodes: defaultNodes,
-            links: defaultLinks,
-          };
 
           const renderTooltip = function( obj ){
             var { event, index, id, data } = obj;
