@@ -201,6 +201,10 @@ class Main extends Component {
               fill: '#e03131',
               label: <a href="https://www.google.com">User A</a>,
               type: 'Attr',
+              journal: 'Nature',
+              title: 'Blag',
+              authors: 'blah blah',
+              pubDate: '12.34.2333'
             },
             {
               x: 200,
@@ -246,8 +250,11 @@ class Main extends Component {
             links: defaultLinks,
           };
 
-          const renderTooltip = function(){
-              return <p>Hello Hello2 <br/><li> dfdfd</li></p>
+          const renderTooltip = function( obj ){
+            var { event, index, id, data } = obj;
+            console.log(data);
+            var url = "https://www.ncbi.nlm.nih.gov/pubmed/" + data.id + "target=_blank"
+            return <div><b><a href={url}> {data.title}</a></b><br/><i> {data.journal}</i><br/><i> {data.pubDate} </i> <br/>{data.authors}</div>
           };
 
           const tooltipData = {
@@ -262,7 +269,7 @@ class Main extends Component {
                     <Request onSubmit={this.onSubmit} />
                     { map(sortBy(keys(pending), [x => -x]), id => <Pending key={id} id={id} />) }         
                     { map(sortBy(keys(results), [x => -x]), id => <Network 
-                        graph={defaultGraph} 
+                        graph={results[id]} 
                         animated={true} 
                         height={200}  
                         width={400} 

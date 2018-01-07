@@ -5,7 +5,7 @@ window.$ = window.jQuery = require('jquery');
 //require('qtip2');
 
 //import $ from 'jquery';
-var qtip = require('qtip2');
+//var qtip = require('qtip2');
 //var reactqtip = require('react-qtip');
 var cytoscape = require('cytoscape');
 var cyforcelayout = require('cytoscape-ngraph.forcelayout');
