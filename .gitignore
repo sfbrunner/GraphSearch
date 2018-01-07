@@ -1,4 +1,8 @@
 env/*
+frontend/node_modules/*
+frontend/web/static/scripts/js/*
+frontend/web/static/bower_components/*
+*.vscode
 *.pyc
 *.swp
 *.log
