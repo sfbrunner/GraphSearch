@@ -27,7 +27,7 @@ screen -S httpserver -d -m python frontend/web/httpserver.py
 # for editing jsx files we need gulp
 # web/gulp
 cd frontend/web
-screen -S gulp -d -m gulp
+screen -S gulp -d -m webpack --watch
 cd ../..
 
 # test the backend:

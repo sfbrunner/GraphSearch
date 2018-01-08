@@ -21,6 +21,9 @@ conda install -c conda-forge nodejs
 pip install 'celery[redis]'
 pip install httpie
 
+# WEBPACK
+npm install -g webpack
+
 # GET REPO
 mkdir git
 cd git
