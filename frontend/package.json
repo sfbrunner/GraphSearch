@@ -87,6 +87,10 @@
     "yargs": "^8.0.1"
   },
   "dependencies": {
-    "package.json": "^2.0.1"
+    "babel-loader": "^7.1.2",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-plugin-react-html-attrs": "^2.1.0",
+    "package.json": "^2.0.1",
+    "webpack": "^3.10.0"
   }
 }
