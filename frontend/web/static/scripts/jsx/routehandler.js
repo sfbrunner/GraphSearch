@@ -7,7 +7,7 @@ import Cytoscape from './components'
 {/**import FRC, { Checkbox, CheckboxGroup, Input, RadioGroup, Select, File, Textarea } from 'formsy-react-components' **/}
 import { keys, map, isArray, sortBy } from 'lodash'
 import { BurgerTest } from './burgercomponent'
-import { SearchLanding, About } from './components'
+import { SearchLanding, SearchActive, About } from './components'
 import { Image, Grid, Row, Col, Clearfix } from 'react-bootstrap'
 
 var divContentMain = {
@@ -32,6 +32,7 @@ const Layout = ({ burger, routehandler}) => (
 		</Row>
 		<Row className="show-grid">
 		<Col md={10} xs={12}>
+		<Row className="show-grid"><Col style={{height:"3vh"}}></Col></Row>
 		{routehandler}
 		</Col>
 		</Row>
@@ -48,7 +49,7 @@ return (
 		<Route exact path='/' component={SearchLanding} />
 		<Route path='/about' component={About} />
 		<Route path='/searchlanding' component={SearchLanding} />
-		<Route path='/searchlanding2' component={SearchLanding} />
+		<Route path='/searchactive' component={SearchActive} />
 		</Switch>
 	</BrowserRouter>
 )

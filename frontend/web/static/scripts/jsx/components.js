@@ -250,18 +250,48 @@ export class SearchLanding extends Component {
 	}
 }
 
+export class SearchActive extends Component {
+	render() {
+		return (
+            <Grid>
+                <Row className="show-grid">
+                    <Col md={8} xs={12}>
+                        <h2>SearchActive</h2>
+                    </Col>
+                </Row>
+                <Row className="show-grid">
+                    <Col md={8} xs={12} style={{marginLeft:"20px"}}>
+                        <Main />
+                    </Col>
+                </Row>
+            </Grid>
+	) }
+}
+
 export class About extends Component {
 	render() {
 		return (
-          <div className="row">
-				<h2>About</h2>
-				<p>{"We are a team of two: Ravi Mishra and Simon Brunner. Our mission is to improve how we explore the biomedical literature. As a researcher, you are used to receiving search results in the form of lists. In some cases, that is all you need. In many cases, a list hides a lot of information. What if you knew how each research publication connects with others through citations and authors? Can we help you find what you are looking for by displaying search results in the form of a network? Currently, it is our hypothesis that we can. Please let us know if we are succeeding or if you have other thoughts about our mission and project: contact@contact.com"}</p>
-				<div class="col-xs-12" style={{height:"20px"}}></div>
+            <Grid>
+                <Row className="show-grid">
+                    <Col md={8} xs={12}>
+                        <h2>About</h2>
+                    </Col>
+                </Row>
+                <Row className="show-grid"><Col md={8} xs={12}>
+                <p>{"We are a team of two: Ravi Mishra and Simon Brunner. Our mission is to improve how we explore the biomedical literature. As a researcher, you are used to receiving search results in the form of lists. In some cases, that is all you need. In many cases, a list hides a lot of information. What if you knew how each research publication connects with others through citations and authors? Can we help you find what you are looking for by displaying search results in the form of a network? Currently, it is our hypothesis that we can. Please let us know if we are succeeding or if you have other thoughts about our mission and project: contact@contact.com"}</p>
+                </Col></Row>
+                <div class="col-xs-12" style={{height:"20px"}}></div>
+                <Row className="show-grid"><Col md={8} xs={12}>
 				<Image src="/static/images/image_about.JPG" responsive />
+                </Col></Row>
 				<div class="col-xs-12" style={{height:"30px"}}></div>
+                <Row className="show-grid"><Col md={8} xs={12}>
 				<p><strong><a href="https://www.linkedin.com/in/ravi-mishra-1a2160153/" target="_blank">Ravi Mishra.</a> </strong>{"Ravi holds a Bachelor's degree in Economics from the University of Zurich. Realising that all the smart jobs go to mathematicians, he went on to obtain a Bachelor's in Math from the University of Zurich and a Master's in Math from ETH Zurich. He currently pursues a technical graduate training program at a leading finance institution in Zurich, Switzerland."}</p>
-				<p><strong><a href="https://www.linkedin.com/in/simon-brunner-3631521a/" target="_blank">Simon Brunner.</a> </strong>{"Simon holds a Bachelor's degree in Biochemistry and a Master's degree in Systems Biology from ETH Zurich. He then pursued doctoral studies at the Lab of Molecular Biology (MRC-LMB) in Cambridge, United Kingdom and graduated with a PhD from the University of Cambridge. He currently pursues post-doctoral research at The Sanger Wellcome Trust Institute in Cambridge, UK."}</p>
-		  </div>
+				</Col></Row>
+                <Row className="show-grid"><Col md={8} xs={12}>
+                <p><strong><a href="https://www.linkedin.com/in/simon-brunner-3631521a/" target="_blank">Simon Brunner.</a> </strong>{"Simon holds a Bachelor's degree in Biochemistry and a Master's degree in Systems Biology from ETH Zurich. He then pursued doctoral studies at the Lab of Molecular Biology (MRC-LMB) in Cambridge, United Kingdom and graduated with a PhD from the University of Cambridge. He currently pursues post-doctoral research at The Sanger Wellcome Trust Institute in Cambridge, UK."}</p>
+                </Col></Row>
+            </Grid>
 	) }
 }
 

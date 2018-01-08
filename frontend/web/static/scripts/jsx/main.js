@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import { render } from 'react-dom'
 import numeral from 'numeral'
 import request from 'superagent'
-import CytoGraph from './cytoComponents'
-import ForceDirectedGraph from 'react-vis'
+//import CytoGraph from './cytoComponents'
+//import ForceDirectedGraph from 'react-vis'
 
 
 import FRC, { Checkbox, CheckboxGroup, Input, RadioGroup, Row, Select, File, Textarea } from 'formsy-react-components'
