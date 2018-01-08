@@ -6,11 +6,11 @@ import numeral from 'numeral'
 import request from 'superagent'
 import { render } from 'react-dom'
 import { Image, Grid, Col, Clearfix, Row } from 'react-bootstrap'
-import CytoGraph from './cytoComponents'
-import { Graph } from 'react-d3-graph'
+//import CytoGraph from './cytoComponents'
+//import { Graph } from 'react-d3-graph'
 import ReactToolip from 'react-tooltip'
 import { Tooltip } from 'react-lightweight-tooltip'
-var $ = require('jquery');
+//var $ = require('jquery');
 import { Network, WithTooltip, Nodes, Links } from '@data-ui/network'
 
 // the graph configuration, you only need to pass down properties
