@@ -176,7 +176,7 @@ class ResultGraph():
             edge_lst.append({'id':'{a:s}_{b:s}'.format(a=edge['source'], b=edge['target']), 
                         'source':edge['source'], 
                         'target':edge['target'] })
-        cy_dict = {'nodes': node_lst, 'edges': edge_lst}
+        cy_dict = {'nodes': node_lst, 'links': edge_lst}
         
         return json.dumps(cy_dict)
     
