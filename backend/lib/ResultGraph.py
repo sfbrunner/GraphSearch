@@ -163,7 +163,7 @@ class ResultGraph():
                     'type': 'ref',
                     'label': '<a href=\"https://www.ncbi.nlm.nih.gov/pubmed/{a:s}\">{a:s}</a>'.format(a=node['id']), 
                     'group': node['group'],
-                    'fill': fillColor,
+                    'fill': nodeFillColor,
                     'title': node['title'],
                     'journal': node['journal'],
                     'pubDate': node['pubDate'],
