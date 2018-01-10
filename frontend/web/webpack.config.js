@@ -2,6 +2,8 @@ var debug = process.env.NODE_ENV !== "production";
 var webpack = require('webpack');
 var path = require('path');
 
+const WatchTimePlugin = require('webpack-watch-time-plugin');
+
 module.exports = {
   context: path.join(__dirname, "static/scripts"),
   devtool: debug ? "inline-sourcemap" : false,
@@ -24,6 +26,7 @@ module.exports = {
     filename: "routehandler.js"
   },
   plugins: debug ? [] : [
+    WatchTimePlugin,
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.optimize.UglifyJsPlugin({ mangle: false, sourcemap: false }),

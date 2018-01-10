@@ -169,6 +169,7 @@ class Main extends Component {
     }
 
     onSubmit({ search_string }) {
+        this.state.searchstate = 'active'
         const payload = { 'search_string': search_string }
         request.put(apiUrl).send(payload)
         .end( (err, res) => {
@@ -266,6 +267,23 @@ export class SearchActive extends Component {
                 </Row>
             </Grid>
 	) }
+}
+
+export class SearchEntry extends Component {
+    constructor(props){
+        super(props);
+        this.props.handleSearchState('landing');
+    }
+
+    render() {
+        return (
+            <div>
+            <p>hello</p>
+            <h2>{this.props.searchstate}</h2>
+            <SearchLanding />
+            </div>
+        );
+    }
 }
 
 export class About extends Component {

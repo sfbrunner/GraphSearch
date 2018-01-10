@@ -7,7 +7,7 @@ import Cytoscape from './components'
 {/**import FRC, { Checkbox, CheckboxGroup, Input, RadioGroup, Select, File, Textarea } from 'formsy-react-components' **/}
 import { keys, map, isArray, sortBy } from 'lodash'
 import { BurgerTest } from './burgercomponent'
-import { SearchLanding, SearchActive, About } from './components'
+import { SearchLanding, SearchActive, SearchEntry, About } from './components'
 import { Image, Grid, Row, Col, Clearfix } from 'react-bootstrap'
 
 var divContentMain = {
@@ -42,18 +42,26 @@ const Layout = ({ burger, routehandler}) => (
 ) 
 
 class RouteHandler extends Component {
-render() {
-return (
-	<BrowserRouter history={hashHistory}>
-		<Switch>
-		<Route exact path='/' component={SearchLanding} />
-		<Route path='/about' component={About} />
-		<Route path='/searchlanding' component={SearchLanding} />
-		<Route path='/searchactive' component={SearchActive} />
-		</Switch>
-	</BrowserRouter>
-)
-}
+	constructor() {
+		super();
+	}
+
+	handleSearchState(searchstate) {
+		this.setState({ searchstate })
+	}
+	render() {
+		return (
+			<BrowserRouter history={hashHistory}>
+				<Switch>
+					<Route exact path='/' component={SearchLanding} />
+					<Route path='/about' component={About} />
+					<Route path='/searchlanding' component={SearchLanding} />
+					<Route path='/searchactive' component={SearchActive} />
+					<Route path='/searchtest'><SearchEntry handleSearchState={this.handleSearchState.bind(this)} /></Route>
+				</Switch>
+			</BrowserRouter>
+		)
+	}
 }
 
 const Home = () => <h1>Hello from Home!</h1>
