@@ -153,18 +153,21 @@ class ResultGraph():
         node_dict = {}
         id_lst = [] # Due to networkx' format, edges refer to nodes in the form of their list position, so we'll store their position here.
         for node in n_json['nodes']:
-            node = {'id':node['id'], 
-                             'x':coordinates[node['id']][0]*3,
-                             'y':coordinates[node['id']][1]*3,
-                             'size':10,
-                             'opacity':0.8,
-                             'type':'ref',
-                                      'label': node['id'], 
-                                      'group':node['group'],
-                                      'title':node['title'],
-                                      'journal':node['journal'],
-                                      'pubDate':node['pubDate'],
-                                      'authors':node['authors'] + ' ...'}
+            nodeFillColor = '#e03131' if node['group'] == 'Searched' else '#5f3dc4'
+            nodeSize = 10 if node['group'] == 'Searched' else 8
+            node = {'id': node['id'], 
+                    'x': coordinates[node['id']][0]*3,
+                    'y': coordinates[node['id']][1]*3,
+                    'size': nodeSize,
+                    'opacity': 0.8,
+                    'type': 'ref',
+                    'label': '<a href=\"https://www.ncbi.nlm.nih.gov/pubmed/{a:s}\">{a:s}</a>'.format(a=node['id']), 
+                    'group': node['group'],
+                    'fill': fillColor,
+                    'title': node['title'],
+                    'journal': node['journal'],
+                    'pubDate': node['pubDate'],
+                    'authors': node['authors'] + ' ...'}
             node_lst.append(node) #, 'label': node['id']}})
             #id_lst.append(node['id'])
             node_dict[node['id']] = node
@@ -176,9 +179,9 @@ class ResultGraph():
             #edge_lst.append({'data':{'id':'{a:s}_{b:s}'.format(a=edge['source'], b=edge['target']), 
             #            'source':id_lst[int(edge['source'])], 
             #            'target':id_lst[int(edge['target'])] }})
-            edge_lst.append({'id':'{a:s}_{b:s}'.format(a=edge['source'], b=edge['target']), 
-                        'source':node_dict[edge['source']], 
-                        'target':node_dict[edge['target']] })
+            edge_lst.append({'id': '{a:s}_{b:s}'.format(a=edge['source'], b=edge['target']), 
+                        'source': node_dict[edge['source']], 
+                        'target': node_dict[edge['target']] })
         cy_dict = {'nodes': node_lst, 'links': edge_lst}
         
         return json.dumps(cy_dict)
