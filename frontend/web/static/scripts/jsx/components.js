@@ -213,8 +213,8 @@ class Main extends Component {
                     { map(sortBy(keys(results), [x => -x]), id => <Network 
                         graph={results[id]} 
                         animated={true} 
-                        height={200}  
-                        width={400} 
+                        height={800}  
+                        width={1000} 
                         ariaLabel={"myGraph"}
                         tooltipData={tooltipData}
                         renderTooltip={renderTooltip}/>) }

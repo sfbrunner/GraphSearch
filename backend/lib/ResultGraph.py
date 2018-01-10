@@ -146,15 +146,16 @@ class ResultGraph():
         n_json = json_graph.node_link_data(self.G)
         
         # Calculate coordinates
-        coordinates = self.calculate_coords()
+        coordinates = self.calculate_coords(scale=3)
         
         # Parse nodes
         node_lst = []
+        node_dict = {}
         id_lst = [] # Due to networkx' format, edges refer to nodes in the form of their list position, so we'll store their position here.
         for node in n_json['nodes']:
-            node_lst.append({'id':node['id'], 
-                             'x':coordinates[node['id']][0],
-                             'y':coordinates[node['id']][1],
+            node = {'id':node['id'], 
+                             'x':coordinates[node['id']][0]*3,
+                             'y':coordinates[node['id']][1]*3,
                              'size':10,
                              'opacity':0.8,
                              'type':'ref',
@@ -163,8 +164,10 @@ class ResultGraph():
                                       'title':node['title'],
                                       'journal':node['journal'],
                                       'pubDate':node['pubDate'],
-                                      'authors':node['authors'] + ' ...'}) #, 'label': node['id']}})
-            id_lst.append(node['id'])
+                                      'authors':node['authors'] + ' ...'}
+            node_lst.append(node) #, 'label': node['id']}})
+            #id_lst.append(node['id'])
+            node_dict[node['id']] = node
     
         # Parse edges
         edge_lst = []
@@ -174,8 +177,8 @@ class ResultGraph():
             #            'source':id_lst[int(edge['source'])], 
             #            'target':id_lst[int(edge['target'])] }})
             edge_lst.append({'id':'{a:s}_{b:s}'.format(a=edge['source'], b=edge['target']), 
-                        'source':id_lst[int(edge['source'])], 
-                        'target':id_lst[int(edge['target'])] })
+                        'source':node_dict[edge['source']], 
+                        'target':node_dict[edge['target']] })
         cy_dict = {'nodes': node_lst, 'links': edge_lst}
         
         return json.dumps(cy_dict)
@@ -217,12 +220,15 @@ class ResultGraph():
         for node in node_flag_lst:
             self.G.remove_node(node)
             
-    def calculate_coords(self):
+    def calculate_coords(self, scale=1.0):
         '''
         Calculate network coordinates using NetworkX
+        
+        Args:
+        scaling: factor for scaling. Each coordinate is multiplied by this factor.
         '''
         log.info('Calculating network coordinates...')
-        coordinates = nx.spring_layout(self.G, k=1/(sqrt(nx.number_of_nodes(self.G))*0.3), iterations=50)
+        coordinates = nx.spring_layout(self.G, k=1/(sqrt(nx.number_of_nodes(self.G))*0.3), iterations=50, scale=scale)
         log.info('... done calculating network coordinates.')
         return coordinates
     
