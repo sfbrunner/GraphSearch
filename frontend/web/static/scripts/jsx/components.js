@@ -144,10 +144,6 @@ const rootUrl = new URL(window.location.origin)
 rootUrl.port = 8080
 const apiUrl = new URL("/api/", rootUrl)
 
-class DataUI extends Component {
-
-}
-
 class Main extends Component {
     constructor(props) {
         super(props);
@@ -186,19 +182,12 @@ class Main extends Component {
 
     render() {
         const { results, pending } = this.state
-        function getRandomID() {
-            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (char) => {
-              const randomNumber = Math.random() * 16 | 0;
-              const value = char === 'x' ? randomNumber : ((randomNumber & 0x3) | 0x8);
-              return value.toString(16);
-            });
-          }
 
           const renderTooltip = function( obj ){
             var { event, index, id, data } = obj;
             console.log(data);
             var url = "https://www.ncbi.nlm.nih.gov/pubmed/" + data.id + "target=_blank"
-            return <div><b><a href={url}> {data.title}</a></b><br/><i> {data.journal}</i><br/><i> {data.pubDate} </i> <br/>{data.authors}</div>
+            return <div width="150px"><b><a href={url}> {data.title}</a></b><br/><i> {data.journal}</i><br/><i> {data.pubDate} </i> <br/>{data.authors}</div>
           };
 
           const tooltipData = {
