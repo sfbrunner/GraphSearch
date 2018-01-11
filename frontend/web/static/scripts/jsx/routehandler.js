@@ -3,11 +3,11 @@ import { render } from 'react-dom'
 import { BrowserRouter, Route, Link, Switch, hashHistory } from 'react-router-dom'
 import numeral from 'numeral'
 import request from 'superagent'
-import Cytoscape from './components'
+//import Cytoscape from './components'
 {/**import FRC, { Checkbox, CheckboxGroup, Input, RadioGroup, Select, File, Textarea } from 'formsy-react-components' **/}
 import { keys, map, isArray, sortBy } from 'lodash'
 import { BurgerTest } from './burgercomponent'
-import { SearchLanding, SearchActive, About } from './components'
+import { SearchLanding, SearchActive, About, ReactCytoDisp, ReactVisDisp } from './components'
 import { Image, Grid, Row, Col, Clearfix } from 'react-bootstrap'
 
 var divContentMain = {
@@ -50,6 +50,8 @@ return (
 		<Route path='/about' component={About} />
 		<Route path='/searchlanding' component={SearchLanding} />
 		<Route path='/searchactive' component={SearchActive} />
+		<Route path='/reactcyto' component={ReactCytoDisp} />
+		<Route path='/reactvisjs' component={ReactVisDisp} />
 		</Switch>
 	</BrowserRouter>
 )

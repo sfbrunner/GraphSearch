@@ -116,7 +116,9 @@ getItems() {
         items = [
           <a key="0" href="searchlanding" style={styles.a}><i className="fa fa-fw fa-star-o" /><span>Home</span></a>,
           <a key="1" href="about" style={styles.a}><i className="fa fa-fw fa-star-o" /><span>About</span></a>,
-          <a key="2" href="searchactive" style={styles.a}><i className="fa fa-fw fa-star-o" /><span>Search active</span></a>
+          <a key="2" href="searchactive" style={styles.a}><i className="fa fa-fw fa-star-o" /><span>Search active</span></a>,
+          <a key="3" href="reactcyto" style={styles.a}><i className="fa fa-fw fa-star-o" /><span>ReactCyto</span></a>,
+          <a key="4" href="reactvisjs" style={styles.a}><i className="fa fa-fw fa-star-o" /><span>ReactVisJS</span></a>
         ];
 
     	return items;

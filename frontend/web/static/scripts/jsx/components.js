@@ -7,6 +7,8 @@ import request from 'superagent'
 import { render } from 'react-dom'
 import { Image, Grid, Col, Clearfix, Row } from 'react-bootstrap'
 //import CytoGraph from './cytoComponents'
+import ReactCytoComp from './reactcytocomp.js'
+import ReactVisComp from './reactviscomp.js'
 //import { Graph } from 'react-d3-graph'
 import ReactToolip from 'react-tooltip'
 import { Tooltip } from 'react-lightweight-tooltip'
@@ -291,6 +293,36 @@ export class About extends Component {
                 <Row className="show-grid"><Col md={8} xs={12}>
                 <p><strong><a href="https://www.linkedin.com/in/simon-brunner-3631521a/" target="_blank">Simon Brunner.</a> </strong>{"Simon holds a Bachelor's degree in Biochemistry and a Master's degree in Systems Biology from ETH Zurich. He then pursued doctoral studies at the Lab of Molecular Biology (MRC-LMB) in Cambridge, United Kingdom and graduated with a PhD from the University of Cambridge. He currently pursues post-doctoral research at The Sanger Wellcome Trust Institute in Cambridge, UK."}</p>
                 </Col></Row>
+            </Grid>
+	) }
+}
+
+export class ReactCytoDisp extends Component {
+	render() {
+		return (
+            <Grid>
+                <Row className="show-grid">
+                    <Col md={8} xs={12}>
+                        <div style={{width:"1000px", height:"1000px"}}>
+                            <ReactCytoComp/>
+                        </div>
+                    </Col>
+                </Row>
+            </Grid>
+	) }
+}
+
+export class ReactVisDisp extends Component {
+	render() {
+		return (
+            <Grid>
+                <Row className="show-grid">
+                    <Col md={8} xs={12}>
+                        <div style={{width:"1000px", height:"1000px"}}>
+                            <ReactVisComp/>
+                        </div>
+                    </Col>
+                </Row>
             </Grid>
 	) }
 }
