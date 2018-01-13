@@ -144,7 +144,7 @@ const rootUrl = new URL(window.location.origin)
 rootUrl.port = 8080
 const apiUrl = new URL("/api/", rootUrl)
 
-class Main extends Component {
+class MainVis extends Component {
     constructor(props) {
         super(props);
         this.state = { results: {}, pending: {} };
@@ -179,6 +179,60 @@ class Main extends Component {
             this.setState({ pending: {...pending, ...timers} })
         })
     }
+    
+    getGraph() {
+        return {
+            nodes: [
+                { id: 1, label: 'Node 1', title: 'NodeT 1' },
+                { id: 2, label: 'Node 2', title: 'NodeT 2' },
+                { id: 3, label: 'Node 3', title: 'NodeT 3' },
+                { id: 4, label: 'Node 4', title: 'NodeT 4' },
+                { id: 5, label: 'Node 5', title: 'NodeT 5' }
+            ],
+            edges: [
+                { from: 1, to: 2 },
+                { from: 1, to: 3 },
+                { from: 2, to: 4 },
+                { from: 2, to: 5 }
+            ]
+        };
+    }
+
+    getOptions() {
+        return {
+            edges: {
+                color: "#000000"
+            },
+            nodes: {
+                color: "red"
+            },
+            physics:{
+                enabled: true,
+                barnesHut: {
+                  gravitationalConstant: -2000,
+                  centralGravity: 0.3,
+                  springLength: 95,
+                  springConstant: 0.04,
+                  damping: 0.09,
+                  avoidOverlap: 0
+                }
+            },
+            interaction: {
+                hover: true,
+                tooltipDelay: 1
+            }
+        };
+    }
+
+    getEvents() {
+        return {
+            select: function (event) {
+                var { nodes, edges } = event;
+                console.log(event);
+                <TestTooltip />
+            }
+        };
+    }
 
     render() {
         const { results, pending } = this.state
@@ -201,14 +255,10 @@ class Main extends Component {
                 <div>
                     <Request onSubmit={this.onSubmit} />
                     { map(sortBy(keys(pending), [x => -x]), id => <Pending key={id} id={id} />) }         
-                    { map(sortBy(keys(results), [x => -x]), id => <Network 
+                    { map(sortBy(keys(results), [x => -x]), id => <Graph 
                         graph={results[id]} 
-                        animated={true} 
-                        height={800}  
-                        width={1000} 
-                        ariaLabel={"myGraph"}
-                        tooltipData={tooltipData}
-                        renderTooltip={renderTooltip}/>) }
+                        options={this.getOptions()} 
+                        events={this.getEvents()} />) }
                 </div>
             </div>
         )
@@ -233,7 +283,7 @@ export class SearchLanding extends Component {
 				    </Row>
 				<Row className="show-grid">
                     <Col md={8} xs={12}>
-                        <Main />
+                        <MainVis />
                     </Col>
 				</Row>
 				</Grid>
