@@ -14,6 +14,7 @@ import ReactToolip from 'react-tooltip'
 import { Tooltip } from 'react-lightweight-tooltip'
 //var $ = require('jquery');
 import { Network, WithTooltip, Nodes, Links } from '@data-ui/network'
+import Graph from 'react-graph-vis';
 
 // the graph configuration, you only need to pass down properties
 // that you want to override, otherwise default ones will be used
@@ -206,16 +207,46 @@ class MainVis extends Component {
             nodes: {
                 color: "red"
             },
+			layout: {
+				improvedLayout: false,
+				scale: 0.1
+			},
             physics:{
                 enabled: true,
+				solver: 'barnesHut',
+				scale: 0.1,
                 barnesHut: {
                   gravitationalConstant: -2000,
-                  centralGravity: 0.3,
-                  springLength: 95,
-                  springConstant: 0.04,
-                  damping: 0.09,
-                  avoidOverlap: 0
-                }
+                  springLength: 10,
+                  springConstant: 0.01
+                },
+				forceAtlas2Based: {
+					gravitationalConstant: -50,
+					centralGravity: 0.01,
+					springConstant: 0.08,
+					springLength: 100,
+					damping: 0.4,
+					avoidOverlap: 0.5
+				},
+				repulsion: {
+					centralGravity: 0.2,
+					springLength: 200,
+					springConstant: 0.05,
+					nodeDistance: 100,
+					damping: 0.09
+				},
+				hierarchicalRepulsion: {
+					centralGravity: 0.0,
+					springLength: 100,
+					springConstant: 0.01,
+					nodeDistance: 120,
+					damping: 0.09
+				},
+				stabilization: {
+					enabled: false,
+					iterations: 1000,
+					updateInterval: 25
+				}
             },
             interaction: {
                 hover: true,
@@ -252,7 +283,7 @@ class MainVis extends Component {
           };
         return (
             <div className="row">
-                <div>
+                <div style={{width:"1000px", height:"1000px"}}>
                     <Request onSubmit={this.onSubmit} />
                     { map(sortBy(keys(pending), [x => -x]), id => <Pending key={id} id={id} />) }         
                     { map(sortBy(keys(results), [x => -x]), id => <Graph 
