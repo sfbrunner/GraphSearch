@@ -48,9 +48,20 @@ class ResultGraph():
         d = json_graph.node_link_data(self.G)
         return jsonify(d) 
 
-    def get_graph(self):
-        self._addWeightsToGraph()
-        return json_graph.node_link_data(self.G)
+    def get_graph(self, graph_format=None):
+        if graph_format == None:
+            self._addWeightsToGraph()
+            return json_graph.node_link_data(self.G)
+        elif graph_format == "cytoscape":
+            return self.get_cy_json()
+        elif graph_format == "sigma":
+            return self.get_sigma_json()
+        elif graph_format == "visjs":
+            return self.get_vis_json()
+        elif graph_format == "dataui":
+            return self.get_dataui_json()
+        else:
+            raise Exception("Graph format not known")
 
     def get_cy_json(self):
         n_json = json_graph.node_link_data(self.G)

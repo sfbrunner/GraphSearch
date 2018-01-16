@@ -12,10 +12,10 @@ log = LogHandler.get_logger('__name__')
 
 class GraphSession(object):
 
-    def __init__(self, userInput):
+    def __init__(self, userInput, **kwargs):
         self.request = createSearchRequest('Fulltext', userInput)
 
-    def get_cy_json(self):
+    def get_cy_json(self, graph_format=None):
         '''Creates cytoscape JSON graph'''
 
         msg = '{0}: Search input received: {1}'
@@ -33,7 +33,7 @@ class GraphSession(object):
         metadataList = self.get_metadataList_from_mongo(resultGraph.nodeIds)
         resultGraph.add_metadata_to_graph(metadataList)
         
-        return resultGraph.get_vis_json()
+        return resultGraph.get_graph(graph_format=graph_format)
 
     @staticmethod
     def parseInput(userInput): #check user input with regex?

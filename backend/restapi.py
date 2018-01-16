@@ -34,8 +34,9 @@ def get_task(task_id):
 def put_task():
     '''calls worker and returns task id'''
     search_string = request.json['search_string']
+    graph_format = request.json['graph_format']
     task_id = len(TASKS)
-    TASKS[task_id] = getGraph.delay(search_string)
+    TASKS[task_id] = getGraph.delay(search_string, graph_format=graph_format)
     response = {'result': task_id}
     return jsonify(response)
 
