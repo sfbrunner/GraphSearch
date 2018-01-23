@@ -168,7 +168,7 @@ class MainVis extends Component {
     }
 
     onSubmit({ search_string }) {
-        const payload = { 'search_string': search_string }
+        const payload = { 'search_string': search_string, 'graph_format': 'visjs' }
         request.put(apiUrl).send(payload)
         .end( (err, res) => {
             if (err) return

@@ -20,7 +20,7 @@ def getGraph(*args, **kwargs):
     '''returns the graph json in cytoscape format'''
     try:
         graphSession = GraphSession(*args, **kwargs)
-        graphJSON = json.loads(graphSession.get_cy_json(graph_format=kwargs['graph_format']))
+        graphJSON = json.loads(graphSession.get_cy_json(graph_format=kwargs['graph_format'], mode=kwargs['mode']))
         return graphJSON
     except Exception:
         return traceback.print_exc()

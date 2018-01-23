@@ -36,7 +36,7 @@ def put_task():
     search_string = request.json['search_string']
     graph_format = request.json['graph_format']
     task_id = len(TASKS)
-    TASKS[task_id] = getGraph.delay(search_string, graph_format=graph_format)
+    TASKS[task_id] = getGraph.delay(search_string, graph_format=graph_format, mode='demo')
     response = {'result': task_id}
     return jsonify(response)
 

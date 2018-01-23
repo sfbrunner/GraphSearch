@@ -248,6 +248,11 @@ class ResultGraph():
     @property        
     def nodeIds(self):
         return [self.G.node[n]['name'] for n in self.G]
+
+    def read_json_file(self, filename):
+        with open(filename) as f:
+            js_graph = json.load(f)
+        return json_graph.node_link_graph(js_graph)
         
             
             
