@@ -8,6 +8,7 @@ import { render } from 'react-dom'
 import { Image, Grid, Col, Clearfix, Row } from 'react-bootstrap'
 //import CytoGraph from './cytoComponents'
 import { MainCyto } from './reactcytocomp.js'
+import { MainSigma } from './reactsigmacomp.js'
 import ReactVisComp from './reactviscomp.js'
 //import { Graph } from 'react-d3-graph'
 import ReactToolip from 'react-tooltip'
@@ -389,7 +390,22 @@ export class ReactVisDisp extends Component {
                 <Row className="show-grid">
                     <Col md={8} xs={12}>
                         <div style={{width:"1000px", height:"1000px"}}>
-                            <MainVis/>
+                            <MainSigma/>
+                        </div>
+                    </Col>
+                </Row>
+            </Grid>
+	) }
+}
+
+export class ReactSigmaDisp extends Component {
+	render() {
+		return (
+            <Grid>
+                <Row className="show-grid">
+                    <Col md={8} xs={12}>
+                        <div style={{width:"1000px", height:"1000px"}}>
+                            <MainSigma/>
                         </div>
                     </Col>
                 </Row>
