@@ -50,7 +50,7 @@ return (
 		<Route path='/about' component={About} />
 		<Route path='/searchlanding' component={SearchLanding} />
 		<Route path='/searchactive' component={SearchActive} />
-		<Route path='/reactcyto' component={ReactCytoDisp} />
+		<Route path='/reactcytosimple' component={ReactCytoDisp} />
 		<Route path='/reactvisjs' component={ReactVisDisp} />
 		</Switch>
 	</BrowserRouter>

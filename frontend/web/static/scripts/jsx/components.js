@@ -7,7 +7,7 @@ import request from 'superagent'
 import { render } from 'react-dom'
 import { Image, Grid, Col, Clearfix, Row } from 'react-bootstrap'
 //import CytoGraph from './cytoComponents'
-import ReactCytoComp from './reactcytocomp.js'
+import { MainCyto } from './reactcytocomp.js'
 import ReactVisComp from './reactviscomp.js'
 //import { Graph } from 'react-d3-graph'
 import ReactToolip from 'react-tooltip'
@@ -374,7 +374,7 @@ export class ReactCytoDisp extends Component {
                 <Row className="show-grid">
                     <Col md={8} xs={12}>
                         <div style={{width:"1000px", height:"1000px"}}>
-                            <ReactCytoComp/>
+                            <MainCyto/>
                         </div>
                     </Col>
                 </Row>
