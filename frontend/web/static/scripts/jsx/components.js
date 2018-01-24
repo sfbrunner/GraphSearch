@@ -389,7 +389,7 @@ export class ReactVisDisp extends Component {
                 <Row className="show-grid">
                     <Col md={8} xs={12}>
                         <div style={{width:"1000px", height:"1000px"}}>
-                            <ReactVisComp/>
+                            <MainVis/>
                         </div>
                     </Col>
                 </Row>
