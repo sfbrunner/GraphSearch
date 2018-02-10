@@ -6,22 +6,20 @@ import request from 'superagent'
 import { render } from 'react-dom'
 import { Image, Grid, Col, Clearfix, Row } from 'react-bootstrap'
 
-
 window.$ = window.jQuery = require('jquery');
 //require('qtip2');
 
-//import $ from 'jquery';
 //var qtip = require('qtip2');
 //var reactqtip = require('react-qtip');
 var cytoscape = require('cytoscape');
 //var cyforcelayout = require('cytoscape-ngraph.forcelayout');
-//var cyqtip = require('cytoscape-qtip');
+var cyqtip = require('cytoscape-qtip');
 var cycola = require('cytoscape-cola');
 
 // register extensions
 //cyforcelayout( cytoscape );
-//cyqtip( cytoscape );
-
+//cytoscape.use( qtip );
+cyqtip( cytoscape );
 cycola(cytoscape);
 
 var searchedNodeStyle = {
@@ -305,18 +303,46 @@ class CytoGraph extends React.Component {
             userZoomingEnabled: true,
         });
 
+        cy.on('tap', 'node', function(event) {
+
+            const node_data = event.target.data().id
+   
+               $('#cy').qtip({
+                    content: {
+                     text: event.target.data().id
+                    },
+                    show: {
+                    event: 'click'
+                    },
+                    position: {
+                        my: 'top center',
+                        at: 'bottom center'
+                     },
+                    style: {
+                     classes: 'qtip-bootstrap',
+                      tip: {
+                        width: 16,
+                        height: 8
+                      }
+                    },
+                });
+       
+   
+         });
+
         cy.on('click', 'node', function(e){
             console.log(e);
-              $(document.getElementById('cy')).qtip({
-                overwrite: false,
-                content:  '<b><a href="https://www.ncbi.nlm.nih.gov/pubmed/' + e.cyTarget.id() + 
-                        '" target="_blank">' + e.cyTarget.data('title') + '</b></a>' +
-                        '<br><i>' + e.cyTarget.data('journal') +
-                        '</i><br><i>' + e.cyTarget.data('pubDate') + '</i>' +
-                        '<br>' + e.cyTarget.data('authors'),
+            console.log($('#cy'));
+              $('#cy').qtip({
+                overwrite: true,
+                content:  '<b><a href="https://www.ncbi.nlm.nih.gov/pubmed/' + e.target.id() + 
+                        '" target="_blank">' + e.target.data('title') + '</b></a>' +
+                        '<br><i>' + e.target.data('journal') +
+                        '</i><br><i>' + e.target.data('pubDate') + '</i>' +
+                        '<br>' + e.target.data('authors'),
                 position: {
-                    target: $(document.getElementById('cy')),
-                    adjust: {x: e.cyPosition.x, y:  e.cyPosition.y}    
+                    target: $('#cy'),
+                    adjust: {x: e.position.x, y:  e.position.y}    
                 },
                 hide: {
                   event: 'unfocus',
