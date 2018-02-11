@@ -171,7 +171,7 @@ class ResultGraph():
                     'size': nodeSize,
                     'opacity': 0.8,
                     'type': 'ref',
-                    'label': '<a href=\"https://www.ncbi.nlm.nih.gov/pubmed/{a:s}\">{a:s}</a>'.format(a=node['id']), 
+                    'label': "", #'<a href=\"https://www.ncbi.nlm.nih.gov/pubmed/{a:s}\">{a:s}</a>'.format(a=node['id']), 
                     'group': node['group'],
                     'fill': nodeFillColor,
                     'title': node['title'],

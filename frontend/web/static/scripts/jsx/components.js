@@ -10,6 +10,7 @@ import { CytoMain } from './cytoComponents'
 import { MainCyto } from './reactcytocomp.js'
 import { MainSigma } from './reactsigmacomp.js'
 import ReactVisComp from './reactviscomp.js'
+import { DataUIMain } from './searchcomponents.js'
 //import { Graph } from 'react-d3-graph'
 import ReactToolip from 'react-tooltip'
 import { Tooltip } from 'react-lightweight-tooltip'
@@ -421,6 +422,21 @@ export class CytoscapeDisp extends Component {
                     <Col md={8} xs={12}>
                         <div style={{width:"1000px", height:"1000px"}}>
                             <CytoMain/>
+                        </div>
+                    </Col>
+                </Row>
+            </Grid>
+	) }
+}
+
+export class DataUIDisp extends Component {
+	render() {
+		return (
+            <Grid>
+                <Row className="show-grid">
+                    <Col md={8} xs={12}>
+                        <div style={{width:"1000px", height:"1000px"}}>
+                            <DataUIMain/>
                         </div>
                     </Col>
                 </Row>
