@@ -1,22 +1,26 @@
 import React, { Component } from 'react';
-
+import { keys, map, isArray, sortBy } from 'lodash';
+import FRC, { Checkbox, CheckboxGroup, Input, RadioGroup, Row as FormsyRow, Select, File, Textarea } from 'formsy-react-components'
+import numeral from 'numeral'
+import request from 'superagent'
+import { render } from 'react-dom'
+import { Image, Grid, Col, Clearfix, Row } from 'react-bootstrap'
 
 window.$ = window.jQuery = require('jquery');
 //require('qtip2');
 
-//import $ from 'jquery';
 //var qtip = require('qtip2');
 //var reactqtip = require('react-qtip');
-//var cytoscape = require('cytoscape');
+var cytoscape = require('cytoscape');
 //var cyforcelayout = require('cytoscape-ngraph.forcelayout');
-//var cyqtip = require('cytoscape-qtip');
-//var cycola = require('cytoscape-cola');
+var cyqtip = require('cytoscape-qtip');
+var cycola = require('cytoscape-cola');
 
 // register extensions
-cyforcelayout( cytoscape );
-//cyqtip( cytoscape );
-
-//cycola(cytoscape);
+//cyforcelayout( cytoscape );
+//cytoscape.use( qtip );
+cyqtip( cytoscape );
+cycola(cytoscape);
 
 var searchedNodeStyle = {
     selector: "node[group = 'Searched']",
@@ -179,6 +183,90 @@ var cytoColaLayout = {
 
 var cytoDefaultLayout = { name: 'random' }
 
+var divContentSearch = {
+    contenttest: {
+        left: '10%',
+        right: '10%',
+        height: '300px',
+        border: '3px',
+        borderColor: 'black',
+        borderStyle: '',
+    },
+    marginfree: {
+        marginLeft: '0px'
+    },
+    h2: {
+        marginLeft:'-30px',
+        verticalAlign:'top',
+        lineHeight:'30px',
+        position:'fixed',
+        top:'5px'
+    }
+}
+
+const Request = ({ onSubmit }) => (
+   <FRC.Form onSubmit={onSubmit}>
+       <fieldset>
+		   <Input name="search_string" layout="vertical" id="search_string" value="epigenetics idh oncogenic" type="text" help="Let us create a network of your search results." addonAfter={<span type="submit" className="glyphicon glyphicon-search" defaultValue="Submit"/>} />
+	   </fieldset>
+   </FRC.Form>
+)
+
+const Pending = ({ id }) => <h2>Pending #{id}</h2>
+const rootUrl = new URL(window.location.origin)
+rootUrl.port = 8080
+const apiUrl = new URL("/api/", rootUrl)
+
+export class CytoMain extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = { results: {}, pending: {} };
+        this.onSubmit = this.onSubmit.bind(this)   
+    }
+
+    poll(id) {
+        return () => {
+            request.get(new URL(id, apiUrl))
+            .end( (err, res) => { // call api with id -> will return task_id and if ready result
+                if (err) return
+                const { result } = res.body
+                if (!result) return
+                const { results, pending } = this.state
+                clearInterval(pending[id])
+                delete pending[id]
+                this.setState({ results: { ...results, [id]: result } })
+            })
+        }
+    }
+
+    onSubmit({ search_string }) {
+        const payload = { 'search_string': search_string, 'graph_format': 'cytoscape' }
+        request.put(apiUrl).send(payload)
+        .end( (err, res) => {
+            if (err) return
+            console.log(this.state)
+            const { results, pending } = this.state
+            console.log(res.body)
+            const { result: id } = res.body
+            const timers = {[id]:  setInterval(this.poll(id),  500)}
+            this.setState({ pending: {...pending, ...timers} })
+        })
+    }
+
+    render() {
+        const { results, pending } = this.state
+        return (
+            <div className="row">
+                <div className="col-xs-6 offset-xs-3">
+                    <Request onSubmit={this.onSubmit} />
+                    { map(sortBy(keys(pending), [x => -x]), id => <Pending key={id} id={id} />) }
+                    { map(sortBy(keys(results), [x => -x]), id => <CytoGraph data={results[id]}/>) }
+                </div>     
+            </div>
+        )
+    }
+
+}
 class CytoGraph extends React.Component {
 
 	constructor(props){
@@ -208,25 +296,53 @@ class CytoGraph extends React.Component {
             container: document.getElementById('cy'),
             elements: this.myGraph,
             style: cytoStyle,
-            layout: cytoDefaultLayout,
+            layout: cytoColaLayout,
             minZoom: 0.5,
             maxZoom: 1.5,
             zoomingEnabled: true,
             userZoomingEnabled: true,
         });
 
+        cy.on('tap', 'node', function(event) {
+
+            const node_data = event.target.data().id
+   
+               $('#cy').qtip({
+                    content: {
+                     text: event.target.data().id
+                    },
+                    show: {
+                    event: 'click'
+                    },
+                    position: {
+                        my: 'top center',
+                        at: 'bottom center'
+                     },
+                    style: {
+                     classes: 'qtip-bootstrap',
+                      tip: {
+                        width: 16,
+                        height: 8
+                      }
+                    },
+                });
+       
+   
+         });
+
         cy.on('click', 'node', function(e){
             console.log(e);
-              $(document.getElementById('cy')).qtip({
-                overwrite: false,
-                content:  '<b><a href="https://www.ncbi.nlm.nih.gov/pubmed/' + e.cyTarget.id() + 
-                        '" target="_blank">' + e.cyTarget.data('title') + '</b></a>' +
-                        '<br><i>' + e.cyTarget.data('journal') +
-                        '</i><br><i>' + e.cyTarget.data('pubDate') + '</i>' +
-                        '<br>' + e.cyTarget.data('authors'),
+            console.log($('#cy'));
+              $('#cy').qtip({
+                overwrite: true,
+                content:  '<b><a href="https://www.ncbi.nlm.nih.gov/pubmed/' + e.target.id() + 
+                        '" target="_blank">' + e.target.data('title') + '</b></a>' +
+                        '<br><i>' + e.target.data('journal') +
+                        '</i><br><i>' + e.target.data('pubDate') + '</i>' +
+                        '<br>' + e.target.data('authors'),
                 position: {
-                    target: $(document.getElementById('cy')),
-                    adjust: {x: e.cyPosition.x, y:  e.cyPosition.y}    
+                    target: $('#cy'),
+                    adjust: {x: e.position.x, y:  e.position.y}    
                 },
                 hide: {
                   event: 'unfocus',
@@ -252,4 +368,4 @@ class CytoGraph extends React.Component {
     }
 }
 
-export default CytoGraph;   
+  

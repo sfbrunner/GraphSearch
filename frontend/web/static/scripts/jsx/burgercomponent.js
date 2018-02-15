@@ -119,7 +119,9 @@ getItems() {
           <a key="2" href="searchactive" style={styles.a}><i className="fa fa-fw fa-star-o" /><span>Search active</span></a>,
           <a key="3" href="reactcytosimple" style={styles.a}><i className="fa fa-fw fa-star-o" /><span>ReactCytoSimple</span></a>,
           <a key="4" href="reactvisjs" style={styles.a}><i className="fa fa-fw fa-star-o" /><span>ReactVisJS</span></a>,
-          <a key="4" href="reactsigma" style={styles.a}><i className="fa fa-fw fa-star-o" /><span>ReactSigma</span></a>
+          <a key="5" href="reactsigma" style={styles.a}><i className="fa fa-fw fa-star-o" /><span>ReactSigma</span></a>,
+          <a key="6" href="cytoNative" style={styles.a}><i className="fa fa-fw fa-star-o" /><span>CytoscapeNative</span></a>,
+          <a key="7" href="dataui" style={styles.a}><i className="fa fa-fw fa-star-o" /><span>data-ui</span></a>
         ];
 
     	return items;

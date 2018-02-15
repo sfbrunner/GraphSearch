@@ -15,7 +15,7 @@ class GraphSession(object):
     def __init__(self, userInput, **kwargs):
         self.request = createSearchRequest('Fulltext', userInput)
 
-    def get_cy_json(self, graph_format=None, mode='live'):
+    def get_cy_json(self, graph_format=None, mode='demo'):
         '''Creates cytoscape JSON graph
 
         Args:
