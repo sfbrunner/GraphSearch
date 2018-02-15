@@ -106,7 +106,12 @@ class ResultGraph():
                                       'title':node['title'],
                                       'journal':node['journal'],
                                       'pubDate':node['pubDate'],
-                                      'authors':node['authors'] + ' ...'}) #, 'label': node['id']}})
+                                      'authors':node['authors'],
+                                      'key':node['id'],
+                                      'x':0,
+                                      'y':0,
+                                      'size':20,
+                                      'color':'#ff0000' + ' ...'}) #, 'label': node['id']}})
             id_lst.append(node['id'])
     
         # Parse edges
@@ -251,7 +256,7 @@ class ResultGraph():
 
     def read_json_file(self, filename):
         with open(filename) as f:
-            js_graph = json.load(f)
+            js_graph = json.load(f, encoding='utf-8')
         return json_graph.node_link_graph(js_graph)
         
             
