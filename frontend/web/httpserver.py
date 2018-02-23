@@ -17,5 +17,9 @@ def handle_content(path):
     print "Site entry from %s" % path
     return render_template("routehandler.html")
 
+@app.route('/simpletest')
+def show_simpletest():
+    return render_template('simple_test.html')
+
 if __name__ == '__main__':
     app.run(debug=True)

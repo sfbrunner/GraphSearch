@@ -140,5 +140,9 @@ def cy_json_data():
 def handle_content(path):
     return 'You want path: %s' % path
 
+@app.route('/simpletest')
+def show_simpletest():
+    return render_template('simple_test.html')
+
 if __name__ == '__main__':
     app.run(debug=False)

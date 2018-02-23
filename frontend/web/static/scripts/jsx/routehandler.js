@@ -7,7 +7,7 @@ import request from 'superagent'
 {/**import FRC, { Checkbox, CheckboxGroup, Input, RadioGroup, Select, File, Textarea } from 'formsy-react-components' **/}
 import { keys, map, isArray, sortBy } from 'lodash'
 import { BurgerTest } from './burgercomponent'
-import { SearchLanding, SearchActive, About, ReactCytoDisp, ReactVisDisp, ReactSigmaDisp, CytoscapeDisp, DataUIDisp } from './components'
+import { SearchLanding, SearchActive, About, ReactCytoDisp, ReactVisDisp, ReactSigmaDisp, CytoscapeDisp, DataUIDisp, ReactCytoWrapperDisp, ReactD3GraphDisp } from './components'
 import { Image, Grid, Row, Col, Clearfix } from 'react-bootstrap'
 
 var divContentMain = {
@@ -55,6 +55,8 @@ return (
 		<Route path='/reactsigma' component={ReactSigmaDisp} />
 		<Route path='/cytoNative' component={CytoscapeDisp} />
 		<Route path='/dataui' component={DataUIDisp} />
+		<Route path='/reactcytowrapper' component={ReactCytoWrapperDisp} />
+		<Route path='/reactd3graph' component={ReactD3GraphDisp} />
 		</Switch>
 	</BrowserRouter>
 )

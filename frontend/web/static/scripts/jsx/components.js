@@ -17,6 +17,8 @@ import { Tooltip } from 'react-lightweight-tooltip'
 //var $ = require('jquery');
 import { Network, WithTooltip, Nodes, Links } from '@data-ui/network'
 import Graph from 'react-graph-vis';
+import { Graph as D3Graph } from 'react-d3-graph';
+import ReactCytoscapeWrapper from './reactwrapper.js';
 
 // the graph configuration, you only need to pass down properties
 // that you want to override, otherwise default ones will be used
@@ -298,6 +300,240 @@ class MainVis extends Component {
     }
 }
 
+class MainReactD3Graph extends Component {
+    constructor(props) {
+        super(props);
+        this.state = { results: {}, pending: {} };
+        this.onSubmit = this.onSubmit.bind(this)   
+    }
+
+    poll(id) {
+        return () => {
+            request.get(new URL(id, apiUrl))
+            .end( (err, res) => { // call api with id -> will return task_id and if ready result
+                if (err) return
+                const { result } = res.body
+                if (!result) return
+                const { results, pending } = this.state
+                clearInterval(pending[id])
+                delete pending[id]
+                this.setState({ results: { ...results, [id]: result } })
+            })
+        }
+    }
+
+    onSubmit({ search_string }) {
+        const payload = { 'search_string': search_string, 'graph_format': 'reactd3graph' }
+        request.put(apiUrl).send(payload)
+        .end( (err, res) => {
+            if (err) return
+            console.log(this.state)
+            const { results, pending } = this.state
+            console.log(res.body)
+            const { result: id } = res.body
+            const timers = {[id]:  setInterval(this.poll(id),  500)}
+            this.setState({ pending: {...pending, ...timers} })
+        })
+    }
+
+    getEvents() {
+        return {
+            select: function (event) {
+                var { nodes, edges } = event;
+                console.log(event);
+                <TestTooltip />
+            }
+        };
+    }
+
+    render() {
+        const { results, pending } = this.state
+        
+        const myConfig = {
+            nodeHighlightBehavior: true,
+            node: {
+                color: 'lightgreen',
+                size: 120,
+                highlightStrokeColor: 'blue'
+            },
+            link: {
+                highlightColor: 'lightblue'
+            }
+        };
+
+        return (
+            <div className="row">
+                <div style={{width:"1000px", height:"1000px"}}>
+                    <Request onSubmit={this.onSubmit} />
+                    { map(sortBy(keys(pending), [x => -x]), idg => <Pending key={idg} id={idg} />) }         
+                    { map(sortBy(keys(results), [x => -x]), idg => 
+                        <D3Graph 
+                        id='reactd3graph'
+                        data={results[idg]}
+                        config={myConfig} /> 
+                    ) }
+                </div>
+            </div>
+        )
+    }
+}
+
+class MainReactCytoWrapper extends Component {
+    constructor(props) {
+        super(props);
+        this.state = { results: {}, pending: {} };
+        this.onSubmit = this.onSubmit.bind(this)   
+    }
+
+    getElements() {
+        return {
+            nodes: [
+                { data: { id: 'a', parent: 'b' }, position: { x: 215, y: 85 } },
+                { data: { id: 'b' } },
+                { data: { id: 'c', parent: 'b' }, position: { x: 300, y: 85 } },
+                { data: { id: 'd' }, position: { x: 215, y: 175 } },
+                { data: { id: 'e' } },
+                { data: { id: 'f', parent: 'e' }, position: { x: 300, y: 175 } }
+            ],
+            edges: [
+                { data: { id: 'ad', source: 'a', target: 'd' } },
+                { data: { id: 'eb', source: 'e', target: 'b' } }
+            ]
+        };
+    }
+
+    cyRef(cy) {
+		this.cy = cy;
+		cy.on('tap', 'node', function (evt) {
+			var node = evt.target;
+			console.log('tapped ' + node.id());
+		});
+	}
+    
+    poll(id) {
+        return () => {
+            request.get(new URL(id, apiUrl))
+            .end( (err, res) => { // call api with id -> will return task_id and if ready result
+                if (err) return
+                const { result } = res.body
+                if (!result) return
+                const { results, pending } = this.state
+                clearInterval(pending[id])
+                delete pending[id]
+                this.setState({ results: { ...results, [id]: result } })
+            })
+        }
+    }
+
+    onSubmit({ search_string }) {
+        const payload = { 'search_string': search_string, 'graph_format': 'visjs' }
+        request.put(apiUrl).send(payload)
+        .end( (err, res) => {
+            if (err) return
+            console.log(this.state)
+            const { results, pending } = this.state
+            console.log(res.body)
+            const { result: id } = res.body
+            const timers = {[id]:  setInterval(this.poll(id),  500)}
+            this.setState({ pending: {...pending, ...timers} })
+        })
+    }
+    
+    getGraph() {
+        return {
+            nodes: [
+                { id: 1, label: 'Node 1', title: 'NodeT 1' },
+                { id: 2, label: 'Node 2', title: 'NodeT 2' },
+                { id: 3, label: 'Node 3', title: 'NodeT 3' },
+                { id: 4, label: 'Node 4', title: 'NodeT 4' },
+                { id: 5, label: 'Node 5', title: 'NodeT 5' }
+            ],
+            edges: [
+                { from: 1, to: 2 },
+                { from: 1, to: 3 },
+                { from: 2, to: 4 },
+                { from: 2, to: 5 }
+            ]
+        };
+    }
+
+    getOptions() {
+        return {
+            edges: {
+                color: "#000000"
+            },
+            nodes: {
+                color: "red"
+            },
+			layout: {
+				improvedLayout: false,
+				scale: 0.1
+			},
+            physics:{
+                enabled: true,
+				solver: 'barnesHut',
+				scale: 0.1,
+                barnesHut: {
+                  gravitationalConstant: -2000,
+                  springLength: 10,
+                  springConstant: 0.01
+                },
+				forceAtlas2Based: {
+					gravitationalConstant: -50,
+					centralGravity: 0.01,
+					springConstant: 0.08,
+					springLength: 100,
+					damping: 0.4,
+					avoidOverlap: 0.5
+				},
+				repulsion: {
+					centralGravity: 0.2,
+					springLength: 200,
+					springConstant: 0.05,
+					nodeDistance: 100,
+					damping: 0.09
+				},
+				hierarchicalRepulsion: {
+					centralGravity: 0.0,
+					springLength: 100,
+					springConstant: 0.01,
+					nodeDistance: 120,
+					damping: 0.09
+				},
+				stabilization: {
+					enabled: false,
+					iterations: 1000,
+					updateInterval: 25
+				}
+            },
+            interaction: {
+                hover: true,
+                tooltipDelay: 1
+            }
+        };
+    }
+
+    getEvents() {
+        return {
+            select: function (event) {
+                var { nodes, edges } = event;
+                console.log(event);
+                <TestTooltip />
+            }
+        };
+    }
+
+    render() {
+        return(
+            <ReactCytoscapeWrapper containerID="cy" 
+                elements={ this.getElements() } 
+                cyRef={(cy) => { this.cyRef(cy) }} 
+                cytoscapeOptions={{wheelSensitivity: 0.1}} 
+                layout={{name: 'cyforcelayout'}} />
+        );
+    }
+}
+
 export class SearchLanding extends Component {
 	render() {
 		return (
@@ -384,6 +620,36 @@ export class ReactCytoDisp extends Component {
 	) }
 }
 
+export class ReactCytoWrapperDisp extends Component {
+	render() {
+		return (
+            <Grid>
+                <Row className="show-grid">
+                    <Col md={8} xs={12}>
+                        <div style={{width:"1000px", height:"1000px"}}>
+                            <MainReactCytoWrapper/>
+                        </div>
+                    </Col>
+                </Row>
+            </Grid>
+	) }
+}
+
+export class ReactD3GraphDisp extends Component {
+	render() {
+		return (
+            <Grid>
+                <Row className="show-grid">
+                    <Col md={8} xs={12}>
+                        <div style={{width:"1000px", height:"1000px"}}>
+                            <MainReactD3Graph/>
+                        </div>
+                    </Col>
+                </Row>
+            </Grid>
+	) }
+}
+
 export class ReactVisDisp extends Component {
 	render() {
 		return (
@@ -391,7 +657,7 @@ export class ReactVisDisp extends Component {
                 <Row className="show-grid">
                     <Col md={8} xs={12}>
                         <div style={{width:"1000px", height:"1000px"}}>
-                            <MainSigma/>
+                            <MainVis/>
                         </div>
                     </Col>
                 </Row>

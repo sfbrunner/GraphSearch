@@ -5,7 +5,7 @@ import numeral from 'numeral'
 import request from 'superagent'
 import { render } from 'react-dom'
 import { Image, Grid, Col, Clearfix, Row } from 'react-bootstrap'
-import {Sigma, RandomizeNodePositions, RelativeSize} from 'react-sigma';
+import {Sigma, RandomizeNodePositions, RelativeSize, NOverlap, ForceAtlas2, SigmaEnableWebGL} from 'react-sigma';
 import ForceLink from 'react-sigma/lib/ForceLink';
 
 var divContentSearch = {
@@ -100,9 +100,9 @@ export class MainSigma extends Component {
                     <Request onSubmit={this.onSubmit} />
                     { map(sortBy(keys(pending), [x => -x]), id => <Pending key={id} id={id} />) }         
                     { map(sortBy(keys(results), [x => -x]), id => 
-                        <Sigma graph={results[id]} settings={{drawEdges: true, clone: false}}>
+                        <Sigma renderer="webgl" graph={results[id]} settings={{drawEdges: true, clone: false, animationsTime: 1000, defaultNodeColor:"#F00", minNodeSize:"5"}}>
                         <RelativeSize initialSize={15}/>
-                        <ForceLink background easing="cubicInOut" randomize='globally'/>
+                        <ForceLink strongGravityMode linLogMode gravity={0.001} easing="cubicInOut" avgDistanceThreshold={0.5} randomize='locally' barnesHutOptimize barnesHutTheta={0.6} alignNodeSiblings/>
                       </Sigma>
                         ) }
                 </div>
@@ -110,3 +110,9 @@ export class MainSigma extends Component {
         )
     }
 }
+
+// Other things tried:
+//<RandomizeNodePositions/>
+//<ForceLink background easing="cubicInOut" randomize='globally'/>
+//<NOverlap gridSize={10} maxIterations={100}/>
+//<ForceLink background easing="cubicInOut" randomize='globally' barnesHutOptimize/>
