@@ -19,6 +19,7 @@ import { Network, WithTooltip, Nodes, Links } from '@data-ui/network'
 import Graph from 'react-graph-vis';
 import { Graph as D3Graph } from 'react-d3-graph';
 import ReactCytoscapeWrapper from './reactwrapper.js';
+import {findDOMNode} from 'react-dom';
 
 // the graph configuration, you only need to pass down properties
 // that you want to override, otherwise default ones will be used
@@ -149,11 +150,15 @@ const rootUrl = new URL(window.location.origin)
 rootUrl.port = 8080
 const apiUrl = new URL("/api/", rootUrl)
 
-class MainVis extends Component {
+class MainVis extends Component {    
     constructor(props) {
         super(props);
-        this.state = { results: {}, pending: {} };
-        this.onSubmit = this.onSubmit.bind(this)   
+        this.state = { results: {}, pending: {}, selectedNodes: ["zuppp"] };
+        this.onSubmit = this.onSubmit.bind(this);
+        this.getEvents = this.getEvents.bind(this);
+        this.handleClick = this.handleClick.bind(this);
+        this.getNodeInfo = this.getNodeInfo.bind(this);
+        
     }
 
     poll(id) {
@@ -166,7 +171,7 @@ class MainVis extends Component {
                 const { results, pending } = this.state
                 clearInterval(pending[id])
                 delete pending[id]
-                this.setState({ results: { ...results, [id]: result } })
+                this.setState({ results: { ...results, [id]: result }, data: result})
             })
         }
     }
@@ -259,25 +264,55 @@ class MainVis extends Component {
         };
     }
 
+    handleClick(event){
+        console.log(event);
+        if(true){
+            //this.setState({ selectedNodes: [event.currentTarget.innerText] });
+            //this.state.selectedNodes[0] = event.target.data('title');
+            console.log("in if branch");
+        }
+    }
+
+    getNodeInfo = () => {
+        console.log("inside getNodeInfo");
+        //console.log(this.state);
+        return this.state.selectedNodes[0];
+    }
+
     getEvents() {
+        console.log("brazz");
+        console.log(this.state);
+        var boundEventHandler = function(binding) {
+            return function(event) {
+                var { nodes, edges, center } = event;
+                var node = binding.state.data.nodes.filter(function(obj) {return obj.id == nodes[0]})[0];
+                binding.state.selectedNodes[0] = '<b><a href="https://www.ncbi.nlm.nih.gov/pubmed/' + node.id + 
+                '" target="_blank">' + node.title + '</b></a>' +
+                '<br><i>' + node.journal +
+                '</i><br><i>' + node.pubDate + '</i>' +
+                '<br>' + node.authors
+            }
+        }
         return {
-            select: function (event) {
-                var { nodes, edges } = event;
-                console.log(event);
-                <TestTooltip />
+            select: boundEventHandler(this),
+            hold: function (event) {
+                    var { nodes, edges, center } = event;
+                     console.log(nodes);
+            // select: function (event) {
+            //     var { nodes, edges, center } = event;
+            //     console.log(nodes);
+                //document.getElementById("mainVis").setState({ selectedNodes: { nodes } });
+                //this.setState({ selectedNodes: { nodes } });
             }
         };
     }
 
+    renderTooltip () {
+        return this.selectedNodes[0]
+      };
+
     render() {
         const { results, pending } = this.state
-
-          const renderTooltip = function( obj ){
-            var { event, index, id, data } = obj;
-            console.log(data);
-            var url = "https://www.ncbi.nlm.nih.gov/pubmed/" + data.id + "target=_blank"
-            return <div width="150px"><b><a href={url}> {data.title}</a></b><br/><i> {data.journal}</i><br/><i> {data.pubDate} </i> <br/>{data.authors}</div>
-          };
 
           const tooltipData = {
               event: "click",
@@ -287,13 +322,11 @@ class MainVis extends Component {
           };
         return (
             <div className="row">
-                <div style={{width:"1000px", height:"1000px"}}>
-                    <Request onSubmit={this.onSubmit} />
-                    { map(sortBy(keys(pending), [x => -x]), id => <Pending key={id} id={id} />) }         
-                    { map(sortBy(keys(results), [x => -x]), id => <Graph 
-                        graph={results[id]} 
-                        options={this.getOptions()} 
-                        events={this.getEvents()} />) }
+                <Request onSubmit={this.onSubmit} />
+                    { map(sortBy(keys(pending), [x => -x]), id => <Pending key={id} id={id} />) }  
+                <div style={{width:"1000px", height:"1000px"}} data-tip data-for='nodeTooltip' data-html={true} >
+                <ReactToolip ref="nodeTooltip" id="nodeTooltip" event="click" getContent={this.getNodeInfo} isCapture={true} />
+                    { map(sortBy(keys(results), [x => -x]), id => <Graph graph={results[id]} options={this.getOptions()} events={this.getEvents()} />) }
                 </div>
             </div>
         )
@@ -552,7 +585,7 @@ export class SearchLanding extends Component {
 				    </Row>
 				<Row className="show-grid">
                     <Col md={8} xs={12}>
-                        <MainVis />
+                        <MainVis id="mainVis"/>
                     </Col>
 				</Row>
 				</Grid>

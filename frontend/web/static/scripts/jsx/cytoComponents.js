@@ -5,6 +5,8 @@ import numeral from 'numeral'
 import request from 'superagent'
 import { render } from 'react-dom'
 import { Image, Grid, Col, Clearfix, Row } from 'react-bootstrap'
+import ReactToolip from 'react-tooltip';
+
 
 window.$ = window.jQuery = require('jquery');
 //require('qtip2');
@@ -257,7 +259,7 @@ export class CytoMain extends React.Component {
         const { results, pending } = this.state
         return (
             <div className="row">
-                <div className="col-xs-6 offset-xs-3">
+                <div className="col-xs-6 offset-xs-3" >
                     <Request onSubmit={this.onSubmit} />
                     { map(sortBy(keys(pending), [x => -x]), id => <Pending key={id} id={id} />) }
                     { map(sortBy(keys(results), [x => -x]), id => <CytoGraph data={results[id]}/>) }
@@ -271,8 +273,11 @@ class CytoGraph extends React.Component {
 
 	constructor(props){
         super(props);
-        this.state = {graph: props.data};
-        this.myGraph = props.data
+        this.state = {graph: props.data, selectedNodes: ["zappzarapp"]};
+        this.myGraph = props.data;
+        this.cy = null;
+        this.handleClick = this.handleClick.bind(this);
+        this.getNodeInfo = this.getNodeInfo.bind(this);
     }
 
     shouldComponentUpdate(){
@@ -332,7 +337,6 @@ class CytoGraph extends React.Component {
 
         cy.on('click', 'node', function(e){
             console.log(e);
-            console.log($('#cy'));
               $('#cy').qtip({
                 overwrite: true,
                 content:  '<b><a href="https://www.ncbi.nlm.nih.gov/pubmed/' + e.target.id() + 
@@ -357,14 +361,39 @@ class CytoGraph extends React.Component {
                   }
                 }
             })});
-        this.state = { cy };
+        this.cy = cy;
 
 
     }
 
+    handleClick(event){
+        console.log(event);
+        if(true){
+            this.setState({ selectedNodes: [event.target.data('title')] });
+            //this.state.selectedNodes[0] = event.target.data('title');
+            console.log("in if branch");
+        }
+    }
+
+    getNodeInfo = () => {
+        console.log("inside getNodeInfo");
+        //console.log(this.state);
+        return this.state.selectedNodes[0];
+    }
+
     
     render() {
-        return( <div id="cy" name="cy" style={{position: 'absolute', height:'600px', width: '800px'}} /> )
+        return(<div>
+                <div 
+                    id="cy" 
+                    name="cy" 
+                    style={{position: 'absolute', height:'600px', width: '800px'}}
+                    data-tip
+                    data-for='nodeTooltip'
+                    onClick={(e) => this.handleClick(e)}/> 
+                    <ReactToolip ref="nodeTooltip" id="nodeTooltip" event="click" getContent={this.getNodeInfo} isCapture={true} />
+                </div>
+        )
     }
 }
 
