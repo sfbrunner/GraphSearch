@@ -140,23 +140,23 @@ var cytoForceLayout = {
 var cytoColaLayout = { 
     name: 'cola',
     animate: true, // whether to show the layout as it's running
-    refresh: 1, // number of ticks per frame; higher is faster but more jerky
-    maxSimulationTime: 4000, // max length in ms to run the layout
-    ungrabifyWhileSimulating: false, // so you can't drag nodes during layout
+    refresh: 0.1, // number of ticks per frame; higher is faster but more jerky
+    maxSimulationTime: 40000, // max length in ms to run the layout
+    ungrabifyWhileSimulating: true, // so you can't drag nodes during layout
     fit: true, // on every layout reposition of nodes, fit the viewport
-    padding: 30, // padding around the simulation
-    boundingBox: undefined, // constrain layout bounds; { x1, y1, x2, y2 } or { x1, y1, w, h }
-    nodeDimensionsIncludeLabels: true, // whether labels should be included in determining the space used by a node (default true)
+    padding: 0, // padding around the simulation
+    boundingBox: { x1: 0, y1: 0, w: 800, h: 600 }, // constrain layout bounds; { x1, y1, x2, y2 } or { x1, y1, w, h }
+    nodeDimensionsIncludeLabels: false, // whether labels should be included in determining the space used by a node (default true)
   
     // layout event callbacks
     ready: function(){}, // on layoutready
     stop: function(){}, // on layoutstop
   
     // positioning options
-    randomize: false, // use random node positions at beginning of layout
+    randomize: true, // use random node positions at beginning of layout
     avoidOverlap: true, // if true, prevents overlap of node bounding boxes
-    handleDisconnected: true, // if true, avoids disconnected components from overlapping
-    nodeSpacing: function( node ){ return 10; }, // extra spacing around nodes
+    handleDisconnected: false, // if true, avoids disconnected components from overlapping
+    nodeSpacing: function( node ){ return 0; }, // extra spacing around nodes
     flow: undefined, // use DAG/tree flow layout if specified, e.g. { axis: 'y', minSeparation: 30 }
     alignment: undefined, // relative alignment constraints on nodes, e.g. function( node ){ return { x: 0, y: 1 } }
   
@@ -338,8 +338,8 @@ class CytoGraph extends React.Component {
                     style={{position: 'absolute', height:'600px', width: '800px'}}
                     data-tip
                     data-for='nodeTooltip'
-                    data-html={true}/> 
-                    <ReactToolip ref="nodeTooltip" id="nodeTooltip" event="click" getContent={this.getNodeInfo} isCapture={false} />
+                    onClick={(e) => this.handleClick(e)} data-html={true}/> 
+                    <ReactToolip ref="nodeTooltip" id="nodeTooltip" event="click" getContent={this.getNodeInfo} isCapture={true} />
                 </div>
         )
     }
