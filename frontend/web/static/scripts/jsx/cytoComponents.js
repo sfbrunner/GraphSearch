@@ -7,22 +7,14 @@ import { render } from 'react-dom'
 import { Image, Grid, Col, Clearfix, Row } from 'react-bootstrap'
 import ReactToolip from 'react-tooltip';
 
-
 window.$ = window.jQuery = require('jquery');
-//require('qtip2');
-
-//var qtip = require('qtip2');
-//var reactqtip = require('react-qtip');
 var cytoscape = require('cytoscape');
-//var cyforcelayout = require('cytoscape-ngraph.forcelayout');
-var cyqtip = require('cytoscape-qtip');
-var cycola = require('cytoscape-cola');
+var cyforcelayout = require('cytoscape-ngraph.forcelayout');
+//var cycola = require('cytoscape-cola');
 
 // register extensions
-//cyforcelayout( cytoscape );
-//cytoscape.use( qtip );
-cyqtip( cytoscape );
-cycola(cytoscape);
+cyforcelayout( cytoscape );
+//cycola(cytoscape);
 
 var searchedNodeStyle = {
     selector: "node[group = 'Searched']",
@@ -138,10 +130,10 @@ var cytoForceLayout = {
         stableThreshold: 0.000009
     },
     iterations: 10000,
-    refreshInterval: 16000, // in ms
-    refreshIterations: 100000, // iterations until thread sends an update
+    refreshInterval: 16, // in ms
+    refreshIterations: 10, // iterations until thread sends an update
     stableThreshold: 2,
-    animate: false,
+    animate: true,
     fit: true
 }
 
@@ -236,7 +228,7 @@ export class CytoMain extends React.Component {
                 const { results, pending } = this.state
                 clearInterval(pending[id])
                 delete pending[id]
-                this.setState({ results: { ...results, [id]: result } })
+                this.setState({ results: { ...results, [id]: result, data: result } })
             })
         }
     }
@@ -301,75 +293,32 @@ class CytoGraph extends React.Component {
             container: document.getElementById('cy'),
             elements: this.myGraph,
             style: cytoStyle,
-            layout: cytoColaLayout,
+            layout: cytoForceLayout,
             minZoom: 0.5,
             maxZoom: 1.5,
             zoomingEnabled: true,
             userZoomingEnabled: true,
         });
 
-        cy.on('tap', 'node', function(event) {
-
-            const node_data = event.target.data().id
-   
-               $('#cy').qtip({
-                    content: {
-                     text: event.target.data().id
-                    },
-                    show: {
-                    event: 'click'
-                    },
-                    position: {
-                        my: 'top center',
-                        at: 'bottom center'
-                     },
-                    style: {
-                     classes: 'qtip-bootstrap',
-                      tip: {
-                        width: 16,
-                        height: 8
-                      }
-                    },
-                });
-       
-   
-         });
-
-        cy.on('click', 'node', function(e){
-            console.log(e);
-              $('#cy').qtip({
-                overwrite: true,
-                content:  '<b><a href="https://www.ncbi.nlm.nih.gov/pubmed/' + e.target.id() + 
-                        '" target="_blank">' + e.target.data('title') + '</b></a>' +
-                        '<br><i>' + e.target.data('journal') +
-                        '</i><br><i>' + e.target.data('pubDate') + '</i>' +
-                        '<br>' + e.target.data('authors'),
-                position: {
-                    target: $('#cy'),
-                    adjust: {x: e.position.x, y:  e.position.y}    
-                },
-                hide: {
-                  event: 'unfocus',
-                },
-                style: {
-                  classes: 'qtip-bootstrap',
-                  width: 200,
-                  tip: {
-                    corner: false,
-                    width: 24,
-                    height: 24
-                  }
-                }
-            })});
+        var boundEventHandler = function(binding) {
+            return function(event) {
+                var node = binding.state.data.nodes.filter(function(obj) {return obj.data.id == event.target.data().id})[0].data;
+                binding.state.selectedNodes[0] = '<b><a href="https://www.ncbi.nlm.nih.gov/pubmed/' + node.id + 
+                '" target="_blank">' + node.title + '</b></a>' +
+                '<br><i>' + node.journal +
+                '</i><br><i>' + node.pubDate + '</i>' +
+                '<br>' + node.authors
+            }
+        }
+        var eventHandler = boundEventHandler(this);
+        cy.on('click', 'node', eventHandler);
         this.cy = cy;
-
 
     }
 
     handleClick(event){
         console.log(event);
         if(true){
-            this.setState({ selectedNodes: [event.target.data('title')] });
             //this.state.selectedNodes[0] = event.target.data('title');
             console.log("in if branch");
         }
@@ -380,7 +329,6 @@ class CytoGraph extends React.Component {
         //console.log(this.state);
         return this.state.selectedNodes[0];
     }
-
     
     render() {
         return(<div>
@@ -390,8 +338,8 @@ class CytoGraph extends React.Component {
                     style={{position: 'absolute', height:'600px', width: '800px'}}
                     data-tip
                     data-for='nodeTooltip'
-                    onClick={(e) => this.handleClick(e)}/> 
-                    <ReactToolip ref="nodeTooltip" id="nodeTooltip" event="click" getContent={this.getNodeInfo} isCapture={true} />
+                    data-html={true}/> 
+                    <ReactToolip ref="nodeTooltip" id="nodeTooltip" event="click" getContent={this.getNodeInfo} isCapture={false} />
                 </div>
         )
     }
