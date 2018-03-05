@@ -4,11 +4,11 @@ import cytoscape from 'cytoscape';
 import cycola from 'cytoscape-cola';
 import dagre from 'cytoscape-dagre';
 //import * from 'cytoscape-ngraph.forcelayout';
-//var cyforcelayout = require('cytoscape-ngraph.forcelayout');
+var cyforcelayout = require('cytoscape-ngraph.forcelayout');
 
-//require(['cytoscape', 'cytoscape-ngraph.forcelayout'], function( cytoscape, cyforcelayout ){
-//    cyforcelayout( cytoscape ); // register extension 
-//  });
+require(['cytoscape', 'cytoscape-ngraph.forcelayout'], function( cytoscape, cyforcelayout ){
+    cyforcelayout( cytoscape ); // register extension 
+  });
 
 //console.log(cyforcelayout)
 //console.log(cyforcelayout['layout'])
@@ -17,7 +17,7 @@ import dagre from 'cytoscape-dagre';
 //console.log(cyforcelayout)
 cytoscape.use(cycola);
 cytoscape.use(dagre);
-//cytoscape.use(cyforcelayout);
+cytoscape.use(cyforcelayout);
 
 
 /** React cytoscape component
@@ -85,7 +85,7 @@ class ReactCytoscapeWrapper extends Component {
 	}
 
 	layout() {
-		return this.props.layout || { name: 'cola' };
+		return this.props.layout || { name: 'cytoscape-ngraph.forcelayout' };
 	}
 
 	cytoscapeOptions() {

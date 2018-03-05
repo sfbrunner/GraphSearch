@@ -7,12 +7,7 @@ import { render } from 'react-dom'
 import { Image, Grid, Col, Clearfix, Row } from 'react-bootstrap'
 import ReactToolip from 'react-tooltip';
 
-
 window.$ = window.jQuery = require('jquery');
-//require('qtip2');
-
-//var qtip = require('qtip2');
-//var reactqtip = require('react-qtip');
 var cytoscape = require('cytoscape');
 //var cyforcelayout = require('cytoscape-ngraph.forcelayout');
 var cyqtip = require('cytoscape-qtip');
@@ -36,6 +31,20 @@ var cyforcelayout = require('cytoscape-ngraph.forcelayout');
 cyqtip( cytoscape );
 cycola(cytoscape);
 cyforcelayout( cytoscape );
+//var cycola = require('cytoscape-cola');
+import coseBilkent from 'cytoscape-cose-bilkent';
+
+cytoscape.use( coseBilkent );
+
+//var cyarbor = require('cytoscape-arbor');
+//var arbor = require('arbor');
+
+
+// register extensions
+//cyforcelayout( cytoscape );
+//cycola(cytoscape);
+//cyarbor( cytoscape, arbor ); // register extension
+
 
 var searchedNodeStyle = {
     selector: "node[group = 'Searched']",
@@ -159,6 +168,93 @@ var physics = {
 //cyforcelayout['animate'] = false
 //cyforcelayout['fit'] = true
 console.log(cyforcelayout.ngraph)
+var cytoCoseBilkentLayout = {
+    name: 'cose-bilkent',
+    // Called on `layoutready`
+    ready: function () {
+    },
+    // Called on `layoutstop`
+    stop: function () {
+    },
+    // Whether to include labels in node dimensions. Useful for avoiding label overlap
+    nodeDimensionsIncludeLabels: false,
+    // number of ticks per frame; higher is faster but more jerky
+    refresh: 30,
+    // Whether to fit the network view after when done
+    fit: true,
+    // Padding on fit
+    padding: 10,
+    // Whether to enable incremental mode
+    randomize: true,
+    // Node repulsion (non overlapping) multiplier
+    nodeRepulsion: 4500,
+    // Ideal (intra-graph) edge length
+    idealEdgeLength: 100,
+    // Divisor to compute edge forces
+    edgeElasticity: 1.5,
+    // Nesting factor (multiplier) to compute ideal edge length for inter-graph edges
+    nestingFactor: 0.1,
+    // Gravity force (constant)
+    gravity: 1.0,
+    // Maximum number of iterations to perform
+    numIter: 500,
+    // Whether to tile disconnected nodes
+    tile: true,
+    // Type of layout animation. The option set is {'during', 'end', false}
+    animate: 'during',
+    // Amount of vertical space to put between degree zero nodes during tiling (can also be a function)
+    tilingPaddingVertical: 10,
+    // Amount of horizontal space to put between degree zero nodes during tiling (can also be a function)
+    tilingPaddingHorizontal: 10,
+    // Gravity range (constant) for compounds
+    gravityRangeCompound: 1.5,
+    // Gravity force (constant) for compounds
+    gravityCompound: 1.0,
+    // Gravity range (constant)
+    gravityRange: 3.8,
+    // Initial cooling factor for incremental layout
+    initialEnergyOnIncremental: 0.5
+  };
+
+var cytoArborLayout = {
+    animate: true, // whether to show the layout as it's running
+    maxSimulationTime: 1000, // max length in ms to run the layout
+    fit: true, // on every layout reposition of nodes, fit the viewport
+    padding: 30, // padding around the simulation
+    boundingBox: undefined, // constrain layout bounds; { x1, y1, x2, y2 } or { x1, y1, w, h }
+    ungrabifyWhileSimulating: false, // so you can't drag nodes during layout
+    randomize: false, // uses random initial node positions on true
+  
+    // callbacks on layout events
+    ready: undefined, // callback on layoutready
+    stop: undefined, // callback on layoutstop
+  
+    // forces used by arbor (use arbor default on undefined)
+    repulsion: undefined,
+    stiffness: undefined,
+    friction: undefined,
+    gravity: true,
+    fps: undefined,
+    precision: undefined,
+  
+    // static numbers or functions that dynamically return what these
+    // values should be for each element
+    // e.g. nodeMass: function(n){ return n.data('weight') }
+    nodeMass: undefined,
+    edgeLength: undefined,
+  
+    stepSize: 0.1, // smoothing of arbor bounding box
+  
+    // function that returns true if the system is stable to indicate
+    // that the layout can be stopped
+    stableEnergy: function( energy ){
+      var e = energy;
+      return (e.max <= 0.5) || (e.mean <= 0.3);
+    },
+  
+    // infinite layout options
+    infinite: false // overrides all other options for a forces-all-the-time mode
+  };
 
 var cytoForceLayout = {
     name: 'cytoscape-ngraph.forcelayout',
@@ -214,10 +310,10 @@ var cytoForceLayout = {
         stableThreshold: 0.000009
     },
     iterations: 10000,
-    refreshInterval: 16000, // in ms
-    refreshIterations: 100000, // iterations until thread sends an update
+    refreshInterval: 16, // in ms
+    refreshIterations: 10, // iterations until thread sends an update
     stableThreshold: 2,
-    animate: false,
+    animate: true,
     fit: true
 }
 
@@ -312,7 +408,7 @@ export class CytoMain extends React.Component {
                 const { results, pending } = this.state
                 clearInterval(pending[id])
                 delete pending[id]
-                this.setState({ results: { ...results, [id]: result } })
+                this.setState({ results: { ...results, [id]: result, data: result } })
             })
         }
     }
@@ -349,126 +445,48 @@ class CytoGraph extends React.Component {
 
 	constructor(props){
         super(props);
-        this.state = {graph: props.data, selectedNodes: ["zappzarapp"]};
-        this.myGraph = props.data;
-        this.cy = null;
-        this.handleClick = this.handleClick.bind(this);
-        this.getNodeInfo = this.getNodeInfo.bind(this);
-    }
-
-    shouldComponentUpdate(){
-        return true;
-    }
-
-    componentWillReceiveProps(nextProps){
-        this.cy.json(nextProps);
-    }
-
-    componentWillUnmount(){
-        this.cy.destroy();
-    }
-
-    getCy(){
-        return this.cy;
+        this.state = { graph: props.data, selectedNode: null, cy: null };
     }
 
     componentDidMount(){
-        var cy = window.cy = cytoscape({
+        var cy = cytoscape({
             container: document.getElementById('cy'),
-            elements: this.myGraph,
+            elements: this.state.graph,
             style: cytoStyle,
-            layout: cyforcelayout,
-            minZoom: 0.2,
+            layout: cytoCoseBilkentLayout,
+            minZoom: 0.5,
             maxZoom: 1.5,
             zoomingEnabled: true,
             userZoomingEnabled: true,
         });
+        window.cytoscape_graph = cy
+        function _renderTooltip(event) {
+            if (event.target.group() == 'nodes') {
+                var node = this.state.graph.nodes.filter(function(obj) {return obj.data.id == event.target.data().id})[0].data;
+                this.state.selectedNode = '<b><a href="https://www.ncbi.nlm.nih.gov/pubmed/' + node.id + 
+                '" target="_blank">' + node.title + '</b></a>' +
+                '<br><i>' + node.journal +
+                '</i><br><i>' + node.pubDate + '</i>' +
+                '<br>' + node.authors
+            }
+            else {
+                this.state.selectedNode = null;
+            }
 
-        cy.on('tap', 'node', function(event) {
-
-            const node_data = event.target.data().id
-   
-               $('#cy').qtip({
-                    content: {
-                     text: event.target.data().id
-                    },
-                    show: {
-                    event: 'click'
-                    },
-                    position: {
-                        my: 'top center',
-                        at: 'bottom center'
-                     },
-                    style: {
-                     classes: 'qtip-bootstrap',
-                      tip: {
-                        width: 16,
-                        height: 8
-                      }
-                    },
-                });
-       
-   
-         });
-
-        cy.on('click', 'node', function(e){
-            console.log(e);
-              $('#cy').qtip({
-                overwrite: true,
-                content:  '<b><a href="https://www.ncbi.nlm.nih.gov/pubmed/' + e.target.id() + 
-                        '" target="_blank">' + e.target.data('title') + '</b></a>' +
-                        '<br><i>' + e.target.data('journal') +
-                        '</i><br><i>' + e.target.data('pubDate') + '</i>' +
-                        '<br>' + e.target.data('authors'),
-                position: {
-                    target: $('#cy'),
-                    adjust: {x: e.position.x, y:  e.position.y}    
-                },
-                hide: {
-                  event: 'unfocus',
-                },
-                style: {
-                  classes: 'qtip-bootstrap',
-                  width: 200,
-                  tip: {
-                    corner: false,
-                    width: 24,
-                    height: 24
-                  }
-                }
-            })});
-
-        this.cy = cy;
-
-
-    }
-
-    handleClick(event){
-        console.log(event);
-        if(true){
-            this.setState({ selectedNodes: [event.target.data('title')] });
-            //this.state.selectedNodes[0] = event.target.data('title');
-            console.log("in if branch");
         }
+        cy.on('click', 'node', _renderTooltip.bind(this));
+        this.state.cy = cy;
     }
 
-    getNodeInfo = () => {
-        console.log("inside getNodeInfo");
-        //console.log(this.state);
-        return this.state.selectedNodes[0];
-    }
-
-    
     render() {
-        return(<div>
-                <div 
-                    id="cy" 
-                    name="cy" 
-                    style={{position: 'absolute', height:'600px', width: '800px'}}
-                    data-tip
-                    data-for='nodeTooltip'
-                    onClick={(e) => this.handleClick(e)} /> 
-                    <ReactToolip ref="nodeTooltip" id="nodeTooltip" event="click" getContent={this.getNodeInfo} isCapture={true} />
+        var cytoDivStyle = {
+            position: 'relative', // Relative position necessary for cytoscape lib features!
+            height:'600px', 
+            width: '800px'
+        }
+        return( <div>
+                    <div id="cy" name="cy" data-tip=''data-for='nodeTooltip'data-html={true} style={cytoDivStyle}/> 
+                    <ReactToolip ref="nodeTooltip" id="nodeTooltip" event="click" getContent={() => this.state.selectedNode} isCapture={false} />
                 </div>
         )
     }
