@@ -17,12 +17,25 @@ var cytoscape = require('cytoscape');
 //var cyforcelayout = require('cytoscape-ngraph.forcelayout');
 var cyqtip = require('cytoscape-qtip');
 var cycola = require('cytoscape-cola');
+var cyforcelayout = require('cytoscape-ngraph.forcelayout');
+
+
+
+//cyforcelayout['iterations'] = 10000
+//require(['cytoscape', 'cytoscape-ngraph.forcelayout'], function( cytoscape, cyforcelayout ){
+//   cyforcelayout( cytoscape ); // register extension 
+//  });
+
+//console.log(cyforcelayout)
+//console.log(cyforcelayout['Layout'])
+//console.log(cytoscape('cytoscape-ngraph.forcelayout'))
 
 // register extensions
 //cyforcelayout( cytoscape );
 //cytoscape.use( qtip );
 cyqtip( cytoscape );
 cycola(cytoscape);
+cyforcelayout( cytoscape );
 
 var searchedNodeStyle = {
     selector: "node[group = 'Searched']",
@@ -83,6 +96,69 @@ var edgeStyle = {
 }
 
 var cytoStyle = [ searchedNodeStyle, citedNodeStyle, edgeStyle ]
+
+var async = {
+    // tell layout that we want to compute all at once:
+    maxIterations: 1000,
+    stepsPerCycle: 30,
+
+    // Run it till the end:
+    waitForStep: false
+}
+
+var physics = {
+    /**
+     * Ideal length for links (springs in physical model).
+     */
+    springLength: 100,
+
+    /**
+     * Hook's law coefficient. 1 - solid spring.
+     */
+    springCoeff: 0.0008,
+
+    /**
+     * Coulomb's law coefficient. It's used to repel nodes thus should be negative
+     * if you make it positive nodes start attract each other :).
+     */
+    gravity: -1.2,
+
+    /**
+     * Theta coefficient from Barnes Hut simulation. Ranged between (0, 1).
+     * The closer it's to 1 the more nodes algorithm will have to go through.
+     * Setting it to one makes Barnes Hut simulation no different from
+     * brute-force forces calculation (each node is considered).
+     */
+    theta: 0.8,
+
+    /**
+     * Drag force coefficient. Used to slow down system, thus should be less than 1.
+     * The closer it is to 0 the less tight system will be.
+     */
+    dragCoeff: 0.02,
+
+    /**
+     * Default time step (dt) for forces integration
+     */
+    timeStep: 20,
+    iterations: 10000,
+    fit: true,
+
+    /**
+     * Maximum movement of the system which can be considered as stabilized
+     */
+    stableThreshold: 0.000009
+}
+
+//cyforcelayout['async'] = async
+//cyforcelayout['physics'] = physics
+//cyforcelayout['iterations'] = 10000
+//cyforcelayout['refreshInterval'] = 16000
+//cyforcelayout['refreshIterations'] = 2
+//cyforcelayout['stableThreshold'] = false
+//cyforcelayout['animate'] = false
+//cyforcelayout['fit'] = true
+console.log(cyforcelayout.ngraph)
 
 var cytoForceLayout = {
     name: 'cytoscape-ngraph.forcelayout',
@@ -301,8 +377,8 @@ class CytoGraph extends React.Component {
             container: document.getElementById('cy'),
             elements: this.myGraph,
             style: cytoStyle,
-            layout: cytoColaLayout,
-            minZoom: 0.5,
+            layout: cyforcelayout,
+            minZoom: 0.2,
             maxZoom: 1.5,
             zoomingEnabled: true,
             userZoomingEnabled: true,
@@ -361,6 +437,7 @@ class CytoGraph extends React.Component {
                   }
                 }
             })});
+
         this.cy = cy;
 
 
