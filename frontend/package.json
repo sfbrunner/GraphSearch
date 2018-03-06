@@ -93,8 +93,11 @@
     "babel-loader": "^7.1.2",
     "babel-plugin-add-module-exports": "^0.2.1",
     "babel-plugin-react-html-attrs": "^2.1.0",
+    "cytoscape-euler": "^1.2.0",
     "package.json": "^2.0.1",
+    "print-time-webpack": "^1.0.2",
     "react-cytoscape": "^1.0.6",
-    "webpack": "^3.10.0"
+    "webpack": "^3.10.0",
+    "webpack-watch-time-plugin": "^0.1.2"
   }
 }

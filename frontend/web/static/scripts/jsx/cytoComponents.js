@@ -10,10 +10,32 @@ import ReactToolip from 'react-tooltip';
 window.$ = window.jQuery = require('jquery');
 var cytoscape = require('cytoscape');
 //var cyforcelayout = require('cytoscape-ngraph.forcelayout');
+var cyqtip = require('cytoscape-qtip');
+var cycola = require('cytoscape-cola');
+var cyforcelayout = require('cytoscape-ngraph.forcelayout');
+
+
+
+//cyforcelayout['iterations'] = 10000
+//require(['cytoscape', 'cytoscape-ngraph.forcelayout'], function( cytoscape, cyforcelayout ){
+//   cyforcelayout( cytoscape ); // register extension 
+//  });
+
+//console.log(cyforcelayout)
+//console.log(cyforcelayout['Layout'])
+//console.log(cytoscape('cytoscape-ngraph.forcelayout'))
+
+// register extensions
+//cyforcelayout( cytoscape );
+//cytoscape.use( qtip );
+cyqtip( cytoscape );
+cycola(cytoscape);
+cyforcelayout( cytoscape );
 //var cycola = require('cytoscape-cola');
 import coseBilkent from 'cytoscape-cose-bilkent';
+import euler from 'cytoscape-euler';
 
-cytoscape.use( coseBilkent );
+cytoscape.use( euler );
 
 //var cyarbor = require('cytoscape-arbor');
 //var arbor = require('arbor');
@@ -57,11 +79,11 @@ var citedNodeStyle = {
         'color': 'white',
         'background-fit': 'contain',
         'background-clip': 'none',
-        'background-color': 'red',
+        'background-color': 'data(node_col)',
         'border-color': 'gray',
         'border-width': 0.5,
-        'opacity': 0.8,
-        'font-size': '3pt',
+        'opacity': 1.0,
+        'font-size': '5pt',
         'text-transform': 'uppercase',
         //'text-background-color': 'white',
         //'text-background-opacity': 0.8,
@@ -85,6 +107,68 @@ var edgeStyle = {
 
 var cytoStyle = [ searchedNodeStyle, citedNodeStyle, edgeStyle ]
 
+var async = {
+    // tell layout that we want to compute all at once:
+    maxIterations: 1000,
+    stepsPerCycle: 30,
+
+    // Run it till the end:
+    waitForStep: false
+}
+
+var physics = {
+    /**
+     * Ideal length for links (springs in physical model).
+     */
+    springLength: 100,
+
+    /**
+     * Hook's law coefficient. 1 - solid spring.
+     */
+    springCoeff: 0.0008,
+
+    /**
+     * Coulomb's law coefficient. It's used to repel nodes thus should be negative
+     * if you make it positive nodes start attract each other :).
+     */
+    gravity: -1.2,
+
+    /**
+     * Theta coefficient from Barnes Hut simulation. Ranged between (0, 1).
+     * The closer it's to 1 the more nodes algorithm will have to go through.
+     * Setting it to one makes Barnes Hut simulation no different from
+     * brute-force forces calculation (each node is considered).
+     */
+    theta: 0.8,
+
+    /**
+     * Drag force coefficient. Used to slow down system, thus should be less than 1.
+     * The closer it is to 0 the less tight system will be.
+     */
+    dragCoeff: 0.02,
+
+    /**
+     * Default time step (dt) for forces integration
+     */
+    timeStep: 20,
+    iterations: 10000,
+    fit: true,
+
+    /**
+     * Maximum movement of the system which can be considered as stabilized
+     */
+    stableThreshold: 0.000009
+}
+
+//cyforcelayout['async'] = async
+//cyforcelayout['physics'] = physics
+//cyforcelayout['iterations'] = 10000
+//cyforcelayout['refreshInterval'] = 16000
+//cyforcelayout['refreshIterations'] = 2
+//cyforcelayout['stableThreshold'] = false
+//cyforcelayout['animate'] = false
+//cyforcelayout['fit'] = true
+console.log(cyforcelayout.ngraph)
 var cytoCoseBilkentLayout = {
     name: 'cose-bilkent',
     // Called on `layoutready`
@@ -96,7 +180,7 @@ var cytoCoseBilkentLayout = {
     // Whether to include labels in node dimensions. Useful for avoiding label overlap
     nodeDimensionsIncludeLabels: false,
     // number of ticks per frame; higher is faster but more jerky
-    refresh: 30,
+    refresh: 1,
     // Whether to fit the network view after when done
     fit: true,
     // Padding on fit
@@ -110,15 +194,15 @@ var cytoCoseBilkentLayout = {
     // Divisor to compute edge forces
     edgeElasticity: 1.5,
     // Nesting factor (multiplier) to compute ideal edge length for inter-graph edges
-    nestingFactor: 0.1,
+    nestingFactor: 1.1,
     // Gravity force (constant)
-    gravity: 1.0,
+    gravity: 10.0,
     // Maximum number of iterations to perform
     numIter: 500,
     // Whether to tile disconnected nodes
     tile: true,
     // Type of layout animation. The option set is {'during', 'end', false}
-    animate: 'during',
+    animate: 'end',
     // Amount of vertical space to put between degree zero nodes during tiling (can also be a function)
     tilingPaddingVertical: 10,
     // Amount of horizontal space to put between degree zero nodes during tiling (can also be a function)
@@ -126,11 +210,192 @@ var cytoCoseBilkentLayout = {
     // Gravity range (constant) for compounds
     gravityRangeCompound: 1.5,
     // Gravity force (constant) for compounds
-    gravityCompound: 1.0,
+    gravityCompound: 10.0,
     // Gravity range (constant)
-    gravityRange: 3.8,
+    gravityRange: 5.0,
     // Initial cooling factor for incremental layout
-    initialEnergyOnIncremental: 0.5
+    initialEnergyOnIncremental: 0.1
+  };
+
+  var cytoCoseLayout = {
+    name: 'cose',
+  
+    // Called on `layoutready`
+    ready: function(){},
+  
+    // Called on `layoutstop`
+    stop: function(){},
+    
+    // Whether to animate while running the layout
+    // true : Animate continuously as the layout is running
+    // false : Just show the end result
+    // 'end' : Animate with the end result, from the initial positions to the end positions
+    animate: true,
+  
+    // Easing of the animation for animate:'end'
+    animationEasing: undefined,
+  
+    // The duration of the animation for animate:'end'
+    animationDuration: undefined,
+  
+    // A function that determines whether the node should be animated
+    // All nodes animated by default on animate enabled
+    // Non-animated nodes are positioned immediately when the layout starts
+    animateFilter: function ( node, i ){ return true; },
+  
+  
+    // The layout animates only after this many milliseconds for animate:true
+    // (prevents flashing on fast runs)
+    animationThreshold: 250,
+  
+    // Number of iterations between consecutive screen positions update
+    // (0 -> only updated on the end)
+    refresh: 20,
+  
+    // Whether to fit the network view after when done
+    fit: true,
+  
+    // Padding on fit
+    padding: 30,
+  
+    // Constrain layout bounds; { x1, y1, x2, y2 } or { x1, y1, w, h }
+    boundingBox: undefined,
+  
+    // Excludes the label when calculating node bounding boxes for the layout algorithm
+    nodeDimensionsIncludeLabels: false,
+  
+    // Randomize the initial positions of the nodes (true) or use existing positions (false)
+    randomize: true,
+  
+    // Extra spacing between components in non-compound graphs
+    componentSpacing: 40,
+  
+    // Node repulsion (non overlapping) multiplier
+    nodeRepulsion: function( node ){ return 10048; },
+  
+    // Node repulsion (overlapping) multiplier
+    nodeOverlap: 100,
+  
+    // Ideal edge (non nested) length
+    idealEdgeLength: function( edge ){ return 16; },
+  
+    // Divisor to compute edge forces
+    edgeElasticity: function( edge ){ return 100; },
+  
+    // Nesting factor (multiplier) to compute ideal edge length for nested edges
+    nestingFactor: 1.2,
+  
+    // Gravity force (constant)
+    gravity: -3,
+  
+    // Maximum number of iterations to perform
+    numIter: 1000,
+  
+    // Initial temperature (maximum node displacement)
+    initialTemp: 1000,
+  
+    // Cooling factor (how the temperature is reduced between consecutive iterations
+    coolingFactor: 0.7,
+  
+    // Lower temperature threshold (below this point the layout will end)
+    minTemp: 1.0,
+  
+    // Pass a reference to weaver to use threads for calculations
+    weaver: false
+  };
+
+  var cytoEuler = {
+    name: 'euler',
+  
+    // The ideal length of a spring
+    // - This acts as a hint for the edge length
+    // - The edge length can be longer or shorter if the forces are set to extreme values
+    springLength: edge => 100,
+  
+    // Hooke's law coefficient
+    // - The value ranges on [0, 1]
+    // - Lower values give looser springs
+    // - Higher values give tighter springs
+    springCoeff: edge => 0.0008,
+  
+    // The mass of the node in the physics simulation
+    // - The mass affects the gravity node repulsion/attraction
+    mass: node => 5,
+  
+    // Coulomb's law coefficient
+    // - Makes the nodes repel each other for negative values
+    // - Makes the nodes attract each other for positive values
+    gravity: -1.2,
+  
+    // A force that pulls nodes towards the origin (0, 0)
+    // Higher values keep the components less spread out
+    pull: 0.01,
+  
+    // Theta coefficient from Barnes-Hut simulation
+    // - Value ranges on [0, 1]
+    // - Performance is better with smaller values
+    // - Very small values may not create enough force to give a good result
+    theta: 0.8,
+  
+    // Friction / drag coefficient to make the system stabilise over time
+    dragCoeff: 0.02,
+  
+    // When the total of the squared position deltas is less than this value, the simulation ends
+    movementThreshold: 0.01,
+  
+    // The amount of time passed per tick
+    // - Larger values result in faster runtimes but might spread things out too far
+    // - Smaller values produce more accurate results
+    timeStep: 10,
+  
+    // The number of ticks per frame for animate:true
+    // - A larger value reduces rendering cost but can be jerky
+    // - A smaller value increases rendering cost but is smoother
+    refresh: 20,
+  
+    // Whether to animate the layout
+    // - true : Animate while the layout is running
+    // - false : Just show the end result
+    // - 'end' : Animate directly to the end result
+    animate: false,
+  
+    // Animation duration used for animate:'end'
+    animationDuration: undefined,
+  
+    // Easing for animate:'end'
+    animationEasing: undefined,
+  
+    // Maximum iterations and time (in ms) before the layout will bail out
+    // - A large value may allow for a better result
+    // - A small value may make the layout end prematurely
+    // - The layout may stop before this if it has settled
+    maxIterations: 10000,
+    maxSimulationTime: 1000,
+  
+    // Prevent the user grabbing nodes during the layout (usually with animate:true)
+    ungrabifyWhileSimulating: false,
+  
+    // Whether to fit the viewport to the repositioned graph
+    // true : Fits at end of layout for animate:false or animate:'end'; fits on each frame for animate:true
+    fit: true,
+  
+    // Padding in rendered co-ordinates around the layout
+    padding: 30,
+  
+    // Constrain layout bounds with one of
+    // - { x1, y1, x2, y2 }
+    // - { x1, y1, w, h }
+    // - undefined / null : Unconstrained
+    boundingBox: undefined,
+  
+    // Layout event callbacks; equivalent to `layout.one('layoutready', callback)` for example
+    ready: function(){}, // on layoutready
+    stop: function(){}, // on layoutstop
+  
+    // Whether to randomize the initial positions of the nodes
+    // true : Use random positions within the bounding box
+    // false : Use the current node positions as the initial positions
+    randomize: true
   };
 
 var cytoArborLayout = {
@@ -370,8 +635,8 @@ class CytoGraph extends React.Component {
             container: document.getElementById('cy'),
             elements: this.state.graph,
             style: cytoStyle,
-            layout: cytoCoseBilkentLayout,
-            minZoom: 0.5,
+            layout: cytoEuler,
+            minZoom: 0.1,
             maxZoom: 1.5,
             zoomingEnabled: true,
             userZoomingEnabled: true,
@@ -383,7 +648,7 @@ class CytoGraph extends React.Component {
                 '" target="_blank">' + node.title + '</b></a>' +
                 '<br><i>' + node.journal +
                 '</i><br><i>' + node.pubDate + '</i>' +
-                '<br>' + node.authors
+                '<br>' + node.authors + node.pubDate + node.cite_color
             }
             else {
                 this.state.selectedNode = null;

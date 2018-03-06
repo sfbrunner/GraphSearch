@@ -5,6 +5,8 @@ from networkx.readwrite import json_graph
 from utils.logger import LogHandler
 log = LogHandler.get_logger('__name__')
 from numpy import sqrt
+from colour import Color
+import colorsys
 
 class ResultGraph():
 
@@ -66,19 +68,41 @@ class ResultGraph():
             raise Exception("Graph format not known")
 
     def get_cy_json(self):
+        
+        # Find max cited degree
+        max_degree = 1.0
+        group_attr = nx.get_node_attributes(self.G, 'group')
+        for node in self.G:
+            this_degree = self.G.degree(node)
+            self.G.nodes[node]['deg'] = this_degree
+
+            if group_attr[node] == 'Cited':
+                if this_degree > max_degree:
+                    max_degree = this_degree
+        log.info('Max degree: ' + str(max_degree))
+        # Parse nodes
         n_json = json_graph.node_link_data(self.G)
 
-        # Parse nodes
         node_lst = []
         id_lst = [] # Due to networkx' format, edges refer to nodes in the form of their list position, so we'll store their position here.
         for node in n_json['nodes']:
+
+            # Define cited node color
+            this_sat = 0.1 + 0.9*(float(node['deg']) / float(max_degree))
+            if(this_sat>1.0):
+                this_sat = 1.0
+            rgb_col = colorsys.hsv_to_rgb(h=0, s=this_sat, v=1)
+            node_col = Color(red = rgb_col[0], green = rgb_col[1], blue = rgb_col[2])
+
             node_lst.append({'data': {'id':node['id'], 
                                       'name': node['id'], 
+                                      'key': node['id'],
                                       'group':node['group'],
                                       'title':node['title'],
                                       'journal':node['journal'],
                                       'pubDate':node['pubDate'],
-                                      'authors':node['authors'] + ' ...'}}) #, 'label': node['id']}})
+                                      'authors':node['authors'], 'cite_color':'black', 
+                                      'node_col':node_col.hex }}) #, 'label': node['id']}})
             id_lst.append(node['id'])
     
         # Parse edges

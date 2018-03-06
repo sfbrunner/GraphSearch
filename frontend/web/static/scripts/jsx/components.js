@@ -411,7 +411,194 @@ class MainReactD3Graph extends Component {
     }
 }
 
-class MainReactCytoWrapper extends Component {
+
+var searchedNodeStyle = {
+    selector: "node[group = 'Searched']",
+    style: {
+        'label': 'data(group)',
+        'width': '20px',
+        'height': '20px',
+        'color': 'white',
+        'background-fit': 'contain',
+        'background-clip': 'none',
+        'background-color': 'blue',
+        'border-color': 'gray',
+        'border-width': 0.5,
+        'opacity': 0.8,
+        'font-size': '3pt',
+        'text-transform': 'uppercase',
+        //'text-background-color': 'white',
+        //'text-background-opacity': 0.8,
+        //'text-background-shape': 'roundrectangle',
+        //'text-outline-color': 'white',
+        "text-valign" : "center"
+    },
+}
+
+var citedNodeStyle = {
+    selector: "node[group = 'Cited']",
+    style: {
+        'label': 'data(group)',
+        'width': '15px',
+        'height': '15px',
+        'color': 'white',
+        'background-fit': 'contain',
+        'background-clip': 'none',
+        'background-color': 'red',
+        'border-color': 'gray',
+        'border-width': 0.5,
+        'opacity': 0.8,
+        'font-size': '3pt',
+        'text-transform': 'uppercase',
+        //'text-background-color': 'white',
+        //'text-background-opacity': 0.8,
+        //'text-background-shape': 'roundrectangle',
+        //'text-outline-color': 'white',
+        "text-valign" : "center"
+    }
+}
+
+var edgeStyle = {
+    selector: 'edge',
+    style: {
+        'text-background-color': 'yellow',
+        'text-background-opacity': 0.4,
+        'width': '2px',
+        'target-arrow-shape': 'triangle',
+        'control-point-step-size': '140px',
+        'opacity': 0.5
+    }
+}
+
+var cytoStyleWrapper = [ citedNodeStyle, searchedNodeStyle, edgeStyle ]
+
+export class MainReactCytoWrapper extends Component {
+    constructor(props) {
+        super(props);
+        this.state = { results: {}, pending: {} };
+        this.onSubmit = this.onSubmit.bind(this)   
+    }
+
+    poll(id) {
+        return () => {
+            request.get(new URL(id, apiUrl))
+            .end( (err, res) => { // call api with id -> will return task_id and if ready result
+                if (err) return
+                const { result } = res.body
+                if (!result) return
+                const { results, pending } = this.state
+                clearInterval(pending[id])
+                delete pending[id]
+                this.setState({ results: { ...results, [id]: result } })
+            })
+        }
+    }
+
+    onSubmit({ search_string }) {
+        const payload = { 'search_string': search_string, 'graph_format': 'cytoscape' }
+        request.put(apiUrl).send(payload)
+        .end( (err, res) => {
+            if (err) return
+            console.log(this.state)
+            const { results, pending } = this.state
+            console.log(res.body)
+            const { result: id } = res.body
+            const timers = {[id]:  setInterval(this.poll(id),  500)}
+            this.setState({ pending: {...pending, ...timers} })
+        })
+    }
+
+    render() {
+        const { results, pending } = this.state
+
+          const renderTooltip = function( obj ){
+            var { event, index, id, data } = obj;
+            console.log(data);
+            var url = "https://www.ncbi.nlm.nih.gov/pubmed/" + data.id + "target=_blank"
+            return <div width="150px"><b><a href={url}> {data.title}</a></b><br/><i> {data.journal}</i><br/><i> {data.pubDate} </i> <br/>{data.authors}</div>
+          };
+
+          const tooltipData = {
+              event: "click",
+              index: 1,
+              id: 2,
+              data: 3 
+          };
+        return (
+            <div className="row">
+                <div style={{width:"1000px", height:"1000px"}}>
+                    <Request onSubmit={this.onSubmit} />
+                    { map(sortBy(keys(pending), [x => -x]), id => <Pending key={id} id={id} />) }         
+                    { map(sortBy(keys(results), [x => -x]), id => <ReactCytoscapeWrapper containerID="cy" 
+                      elements={ results[id] } 
+                      cyRef={(cy) => { this.cy = cy; console.log(this.cy) }} 
+                      cytoscapeOptions={{wheelSensitivity: 0.1, minZoom: 0.1, maxZoom: 2.0, zoomingEnabled: true, userZoomingEnabled: true}} 
+                      style= { cytoStyleWrapper }
+                      layout={{name: 'cytoscape-ngraph.forcelayout', async: {
+                          // tell layout that we want to compute all at once:
+                          maxIterations: 1000,
+                          stepsPerCycle: 30,
+                  
+                          // Run it till the end:
+                          waitForStep: false
+                      },
+                      physics: {
+                          /**
+                           * Ideal length for links (springs in physical model).
+                           */
+                          springLength: 100,
+                  
+                          /**
+                           * Hook's law coefficient. 1 - solid spring.
+                           */
+                          springCoeff: 0.0008,
+                  
+                          /**
+                           * Coulomb's law coefficient. It's used to repel nodes thus should be negative
+                           * if you make it positive nodes start attract each other :).
+                           */
+                          gravity: -1.2,
+                  
+                          /**
+                           * Theta coefficient from Barnes Hut simulation. Ranged between (0, 1).
+                           * The closer it's to 1 the more nodes algorithm will have to go through.
+                           * Setting it to one makes Barnes Hut simulation no different from
+                           * brute-force forces calculation (each node is considered).
+                           */
+                          theta: 0.8,
+                  
+                          /**
+                           * Drag force coefficient. Used to slow down system, thus should be less than 1.
+                           * The closer it is to 0 the less tight system will be.
+                           */
+                          dragCoeff: 0.02,
+                  
+                          /**
+                           * Default time step (dt) for forces integration
+                           */
+                          timeStep: 20,
+                          iterations: 10000,
+                          fit: true,
+                  
+                          /**
+                           * Maximum movement of the system which can be considered as stabilized
+                           */
+                          stableThreshold: 0.000009
+                      },
+                      iterations: 10000,
+                      refreshInterval: 16000, // in ms
+                      refreshIterations: 100000, // iterations until thread sends an update
+                      stableThreshold: 2,
+                      animate: true,
+                      fit: true}} />
+                        ) }
+                </div>
+            </div>
+        )
+    }
+}
+
+class MainReactCytoWrapper_old extends Component {
     constructor(props) {
         super(props);
         this.state = { results: {}, pending: {} };
@@ -562,7 +749,63 @@ class MainReactCytoWrapper extends Component {
                 elements={ this.getElements() } 
                 cyRef={(cy) => { this.cyRef(cy) }} 
                 cytoscapeOptions={{wheelSensitivity: 0.1}} 
-                layout={{name: 'cyforcelayout'}} />
+                layout={{name: 'cytoscape-ngraph.forcelayout', async: {
+                    // tell layout that we want to compute all at once:
+                    maxIterations: 1000,
+                    stepsPerCycle: 30,
+            
+                    // Run it till the end:
+                    waitForStep: false
+                },
+                physics: {
+                    /**
+                     * Ideal length for links (springs in physical model).
+                     */
+                    springLength: 100,
+            
+                    /**
+                     * Hook's law coefficient. 1 - solid spring.
+                     */
+                    springCoeff: 0.0008,
+            
+                    /**
+                     * Coulomb's law coefficient. It's used to repel nodes thus should be negative
+                     * if you make it positive nodes start attract each other :).
+                     */
+                    gravity: -1.2,
+            
+                    /**
+                     * Theta coefficient from Barnes Hut simulation. Ranged between (0, 1).
+                     * The closer it's to 1 the more nodes algorithm will have to go through.
+                     * Setting it to one makes Barnes Hut simulation no different from
+                     * brute-force forces calculation (each node is considered).
+                     */
+                    theta: 0.8,
+            
+                    /**
+                     * Drag force coefficient. Used to slow down system, thus should be less than 1.
+                     * The closer it is to 0 the less tight system will be.
+                     */
+                    dragCoeff: 0.02,
+            
+                    /**
+                     * Default time step (dt) for forces integration
+                     */
+                    timeStep: 20,
+                    iterations: 10000,
+                    fit: true,
+            
+                    /**
+                     * Maximum movement of the system which can be considered as stabilized
+                     */
+                    stableThreshold: 0.000009
+                },
+                iterations: 10000,
+                refreshInterval: 16000, // in ms
+                refreshIterations: 100000, // iterations until thread sends an update
+                stableThreshold: 2,
+                animate: false,
+                fit: true}} />
         );
     }
 }
