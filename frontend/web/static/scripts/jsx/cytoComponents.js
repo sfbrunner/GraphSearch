@@ -376,7 +376,6 @@ class CytoGraph extends React.Component {
             zoomingEnabled: true,
             userZoomingEnabled: true,
         });
-        window.cytoscape_graph = cy
         function _renderTooltip(event) {
             if (event.target.group() == 'nodes') {
                 var node = this.state.graph.nodes.filter(function(obj) {return obj.data.id == event.target.data().id})[0].data;
@@ -391,7 +390,8 @@ class CytoGraph extends React.Component {
             }
 
         }
-        cy.on('click', 'node', _renderTooltip.bind(this));
+        cy.on('click','mouseover', 'node', _renderTooltip.bind(this));
+
         this.state.cy = cy;
     }
 
@@ -400,10 +400,12 @@ class CytoGraph extends React.Component {
             position: 'relative', // Relative position necessary for cytoscape lib features!
             height:'600px', 
             width: '800px'
-        }
+        };
+
         return( <div>
                     <div id="cy" name="cy" data-tip=''data-for='nodeTooltip'data-html={true} style={cytoDivStyle}/> 
-                    <ReactToolip ref="nodeTooltip" id="nodeTooltip" event="click" getContent={() => this.state.selectedNode} isCapture={false} />
+                    <ReactToolip ref="nodeTooltip" id="nodeTooltip" event="mouseover" getContent={() => this.state.selectedNode} isCapture={false} />
+
                 </div>
         )
     }
