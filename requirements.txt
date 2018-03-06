@@ -5,3 +5,4 @@ conda install -c conda-forge nodejs=6.10.2
 pip install 'celery[redis]'
 pip install httpie
 pip install flask-cors
+pip install colour

@@ -79,11 +79,11 @@ var citedNodeStyle = {
         'color': 'white',
         'background-fit': 'contain',
         'background-clip': 'none',
-        'background-color': 'red',
+        'background-color': 'data(node_col)',
         'border-color': 'gray',
         'border-width': 0.5,
-        'opacity': 0.8,
-        'font-size': '3pt',
+        'opacity': 1.0,
+        'font-size': '5pt',
         'text-transform': 'uppercase',
         //'text-background-color': 'white',
         //'text-background-opacity': 0.8,
@@ -346,7 +346,7 @@ var cytoCoseBilkentLayout = {
     // The amount of time passed per tick
     // - Larger values result in faster runtimes but might spread things out too far
     // - Smaller values produce more accurate results
-    timeStep: 20,
+    timeStep: 10,
   
     // The number of ticks per frame for animate:true
     // - A larger value reduces rendering cost but can be jerky
@@ -649,7 +649,7 @@ class CytoGraph extends React.Component {
                 '" target="_blank">' + node.title + '</b></a>' +
                 '<br><i>' + node.journal +
                 '</i><br><i>' + node.pubDate + '</i>' +
-                '<br>' + node.authors
+                '<br>' + node.authors + node.pubDate + node.cite_color
             }
             else {
                 this.state.selectedNode = null;
