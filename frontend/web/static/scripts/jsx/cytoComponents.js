@@ -6,6 +6,7 @@ import request from 'superagent'
 import { render } from 'react-dom'
 import { Image, Grid, Col, Clearfix, Row } from 'react-bootstrap'
 import ReactToolip from 'react-tooltip';
+import { PulseLoader } from 'react-spinners';
 
 window.$ = window.jQuery = require('jquery');
 var cytoscape = require('cytoscape');
@@ -568,7 +569,6 @@ const Request = ({ onSubmit }) => (
    </FRC.Form>
 )
 
-const Pending = ({ id }) => <h2>Pending #{id}</h2>
 const rootUrl = new URL(window.location.origin)
 rootUrl.port = 8080
 const apiUrl = new URL("/api/", rootUrl)
@@ -576,7 +576,7 @@ const apiUrl = new URL("/api/", rootUrl)
 export class CytoMain extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { results: {}, pending: {} };
+        this.state = { results: {}, pending: {}, loading: false };
         this.onSubmit = this.onSubmit.bind(this)   
     }
 
@@ -587,22 +587,21 @@ export class CytoMain extends React.Component {
                 if (err) return
                 const { result } = res.body
                 if (!result) return
-                const { results, pending } = this.state
+                const { results, pending, loading } = this.state
                 clearInterval(pending[id])
                 delete pending[id]
-                this.setState({ results: { ...results, [id]: result, data: result } })
+                this.setState({ results: { ...results, [id]: result }, loading: false })
             })
         }
     }
 
     onSubmit({ search_string }) {
+        this.setState({loading: true})
         const payload = { 'search_string': search_string, 'graph_format': 'cytoscape' }
         request.put(apiUrl).send(payload)
         .end( (err, res) => {
             if (err) return
-            console.log(this.state)
-            const { results, pending } = this.state
-            console.log(res.body)
+            const { results, pending, loading } = this.state
             const { result: id } = res.body
             const timers = {[id]:  setInterval(this.poll(id),  500)}
             this.setState({ pending: {...pending, ...timers} })
@@ -610,12 +609,12 @@ export class CytoMain extends React.Component {
     }
 
     render() {
-        const { results, pending } = this.state
+        const { results, pending, loading } = this.state
         return (
             <div className="row">
                 <div className="col-xs-6 offset-xs-3" >
                     <Request onSubmit={this.onSubmit} />
-                    { map(sortBy(keys(pending), [x => -x]), id => <Pending key={id} id={id} />) }
+                    <PulseLoader color={'#000000'} loading={loading} />   
                     { map(sortBy(keys(results), [x => -x]), id => <CytoGraph data={results[id]}/>) }
                 </div>     
             </div>
@@ -627,7 +626,7 @@ class CytoGraph extends React.Component {
 
 	constructor(props){
         super(props);
-        this.state = { graph: props.data, selectedNode: null, cy: null };
+        this.state = { graph: props.data, selectedNode: null };
     }
 
     componentDidMount(){
@@ -644,33 +643,31 @@ class CytoGraph extends React.Component {
         function _renderTooltip(event) {
             if (event.target.group() == 'nodes') {
                 var node = this.state.graph.nodes.filter(function(obj) {return obj.data.id == event.target.data().id})[0].data;
-                this.state.selectedNode = '<b><a href="https://www.ncbi.nlm.nih.gov/pubmed/' + node.id + 
+                this.state.selectedNode =  '<b><a href="https://www.ncbi.nlm.nih.gov/pubmed/' + node.id + 
                 '" target="_blank">' + node.title + '</b></a>' +
                 '<br><i>' + node.journal +
                 '</i><br><i>' + node.pubDate + '</i>' +
-                '<br>' + node.authors + node.pubDate + node.cite_color
+                '<br>' + node.authors;
             }
             else {
                 this.state.selectedNode = null;
             }
-
         }
-        cy.on('click','mouseover', 'node', _renderTooltip.bind(this));
-
-        this.state.cy = cy;
+        cy.on('click', 'node', _renderTooltip.bind(this));
     }
 
     render() {
         var cytoDivStyle = {
             position: 'relative', // Relative position necessary for cytoscape lib features!
             height:'600px', 
-            width: '800px'
+            width: '1000px',
+            borderStyle: 'solid',
+            borderWidth: '0.5px'
         };
 
         return( <div>
                     <div id="cy" name="cy" data-tip=''data-for='nodeTooltip'data-html={true} style={cytoDivStyle}/> 
-                    <ReactToolip ref="nodeTooltip" id="nodeTooltip" event="mouseover" getContent={() => this.state.selectedNode} isCapture={false} />
-
+                    <ReactToolip ref="nodeTooltip" id="nodeTooltip" event="click" getContent={() => this.state.selectedNode} isCapture={false} />
                 </div>
         )
     }

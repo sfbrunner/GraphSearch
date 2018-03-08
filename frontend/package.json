@@ -59,6 +59,7 @@
     "moment": "^2.18.1",
     "node-sass-chokidar": "0.0.3",
     "numeral": "^2.0.6",
+    "react-spinners": "0.2.5",
     "qtip": "0.0.4",
     "qtip2": "3.0.3",
     "react": "^15.6.2",
