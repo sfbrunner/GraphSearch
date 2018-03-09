@@ -611,13 +611,11 @@ export class CytoMain extends React.Component {
     render() {
         const { results, pending, loading } = this.state
         return (
-            <div className="row">
-                <div className="col-xs-6 offset-xs-3" >
+                <div >
                     <Request onSubmit={this.onSubmit} />
-                    <PulseLoader color={'#000000'} loading={loading} />   
                     { map(sortBy(keys(results), [x => -x]), id => <CytoGraph data={results[id]}/>) }
+                    <PulseLoader color={'#000000'} loading={loading} />   
                 </div>     
-            </div>
         )
     }
 
@@ -635,25 +633,28 @@ class CytoGraph extends React.Component {
             elements: this.state.graph,
             style: cytoStyle,
             layout: cytoEuler,
-            minZoom: 0.1,
+            minZoom: 0.5,
             maxZoom: 1.5,
             zoomingEnabled: true,
             userZoomingEnabled: true,
         });
         function _renderTooltip(event) {
-            if (event.target.group() == 'nodes') {
+            if (event.target === cy ){
+                this.state.selectedNode = null;
+            } else if (event.target.group() == 'nodes') {
                 var node = this.state.graph.nodes.filter(function(obj) {return obj.data.id == event.target.data().id})[0].data;
                 this.state.selectedNode =  '<b><a href="https://www.ncbi.nlm.nih.gov/pubmed/' + node.id + 
                 '" target="_blank">' + node.title + '</b></a>' +
                 '<br><i>' + node.journal +
                 '</i><br><i>' + node.pubDate + '</i>' +
                 '<br>' + node.authors;
-            }
-            else {
+            } else if (event.target.group() == 'edges') {
+                this.state.selectedNode = "citation"; // TODO: Add infos
+            } else {
                 this.state.selectedNode = null;
             }
         }
-        cy.on('click', 'node', _renderTooltip.bind(this));
+        cy.on('tap', _renderTooltip.bind(this)); 
     }
 
     render() {
@@ -661,8 +662,6 @@ class CytoGraph extends React.Component {
             position: 'relative', // Relative position necessary for cytoscape lib features!
             height:'600px', 
             width: '1000px',
-            borderStyle: 'solid',
-            borderWidth: '0.5px'
         };
 
         return( <div>

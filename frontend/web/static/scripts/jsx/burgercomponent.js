@@ -1,58 +1,17 @@
 import React, { Component } from 'react';
 import BurgerMenu from 'react-burger-menu'
 
-var styles = {
-  bmBurgerButton: {
-    position: 'fixed',
-	width: '36px',
-	height: '30px',
-    left: '36px',
-    top: '36px'
-  },
-  bmBurgerBars: {
-    background: '#373a47'
-  },
-  bmCrossButton: {
-    height: '24px',
-    width: '24px'
-  },
-  bmCross: {
-    background: '#bdc3c7'
-  },
-  bmMenu: {
-    background: '#ffffff',
-    padding: '2.5em 1.5em 0',
-    fontSize: '1.15em',
-	color: '#000000',
-	'a': {
-		color: '#000000'
-	}
-  },
-  bmMorphShape: {
-    fill: '#373a47'
-  },
-  bmItemList: {
-    color: '#000000',
-    padding: '0.8em',
-	fontWeight: '700',
-	span: {
-		color: '#000000'
-	},
-	a: {
-	    color: '#000000'
-	}
-  },
-  bmOverlay: {
-    background: 'rgba(0, 0, 0, 0.3)'
-  },
-  bmMenuWrap: {
-	bottom: '0px',
-	left: '0px',
-	width: '20%'
-  },
-  a: {
-	color: '#000000'
-  }
+var styles = 
+{ 
+  bmBurgerButton: { position: 'fixed', width: '36px', height: '30px', left: '36px', top: '36px' },
+  bmBurgerBars: { background: '#373a47' },
+  bmCrossButton: { height: '24px', width: '24px' },
+  bmCross: { background: '#bdc3c7' },
+  bmMenu: { background: '#ffffff', padding: '2.5em 1.5em 0', fontSize: '1.15em', color: '#000000','a': { color: '#000000'} },
+  bmMorphShape: { fill: '#373a47'},
+  bmItemList: { color: '#000000', padding: '0.8em', fontWeight: '700', span: { color: '#000000'}, a: {color: '#000000'} },
+  bmOverlay: { background: 'rgba(0, 0, 0, 0.3)'},
+  bmMenuWrap: {bottom: '0px', left: '0px', width: '20%'}, a: {color: '#000000'}
 } 
 
 class MenuWrap extends Component {
@@ -115,15 +74,7 @@ getItems() {
 
         items = [
           <a key="0" href="searchlanding" style={styles.a}><i className="fa fa-fw fa-star-o" /><span>Home</span></a>,
-          <a key="1" href="about" style={styles.a}><i className="fa fa-fw fa-star-o" /><span>About</span></a>,
-          <a key="2" href="searchactive" style={styles.a}><i className="fa fa-fw fa-star-o" /><span>Search active</span></a>,
-          <a key="3" href="reactcytosimple" style={styles.a}><i className="fa fa-fw fa-star-o" /><span>ReactCytoSimple</span></a>,
-          <a key="4" href="reactvisjs" style={styles.a}><i className="fa fa-fw fa-star-o" /><span>ReactVisJS</span></a>,
-          <a key="5" href="reactsigma" style={styles.a}><i className="fa fa-fw fa-star-o" /><span>ReactSigma</span></a>,
-          <a key="6" href="cytoNative" style={styles.a}><i className="fa fa-fw fa-star-o" /><span>CytoscapeNative</span></a>,
-          <a key="7" href="dataui" style={styles.a}><i className="fa fa-fw fa-star-o" /><span>data-ui</span></a>,
-          <a key="8" href="reactcytowrapper" style={styles.a}><i className="fa fa-fw fa-star-o" /><span>ReactCytoWrapper</span></a>,
-          <a key="9" href="reactd3graph" style={styles.a}><i className="fa fa-fw fa-star-o" /><span>ReactD3Graph</span></a>
+          <a key="1" href="about" style={styles.a}><i className="fa fa-fw fa-star-o" /><span>About</span></a>
         ];
 
     	return items;

@@ -828,7 +828,7 @@ export class SearchLanding extends Component {
 				    </Row>
 				<Row className="show-grid">
                     <Col md={8} xs={12}>
-                        <MainVis id="mainVis"/>
+                        <CytoMain/>
                     </Col>
 				</Row>
 				</Grid>

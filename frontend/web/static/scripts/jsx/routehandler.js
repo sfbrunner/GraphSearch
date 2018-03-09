@@ -49,14 +49,6 @@ return (
 		<Route exact path='/' component={SearchLanding} />
 		<Route path='/about' component={About} />
 		<Route path='/searchlanding' component={SearchLanding} />
-		<Route path='/searchactive' component={SearchActive} />
-		<Route path='/reactcytosimple' component={ReactCytoDisp} />
-		<Route path='/reactvisjs' component={ReactVisDisp} />
-		<Route path='/reactsigma' component={ReactSigmaDisp} />
-		<Route path='/cytoNative' component={CytoscapeDisp} />
-		<Route path='/dataui' component={DataUIDisp} />
-		<Route path='/reactcytowrapper' component={ReactCytoWrapperDisp} />
-		<Route path='/reactd3graph' component={ReactD3GraphDisp} />
 		</Switch>
 	</BrowserRouter>
 )
