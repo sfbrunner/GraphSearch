@@ -813,25 +813,23 @@ class MainReactCytoWrapper_old extends Component {
 export class SearchLanding extends Component {
 	render() {
 		return (
-		  		<Grid>
-				  <Row className="show-grid">
+		  	<Grid>
+				<Row className="show-grid">
 				    <Col md={8} xs={6}>
 				        <div class="col-xs-12" style={{height:"2vh"}}></div>
 				    </Col>
-				  </Row>
-				  <Row className="show-grid">
-				  <Col md={8} xs={12}>
-            		<h2 style={divContentLanding.h2}>GraphSearch</h2>
-					<p></p>
-					<p style={divContentLanding.p}>Welcome to the GraphSearch platform. Our mission is to make your biomedical literature search experience the best it can be. We take your search query and return a network of publications to you. The network contains the direct results of your search (in blue) as well as the publications they cite (in red). The structure of the network helps you to find highly cited publications and quickly identify publications that belong together.</p>
-				    </Col>
-				    </Row>
-				<Row className="show-grid">
-                    <Col md={8} xs={12}>
-                        <CytoMain/>
-                    </Col>
 				</Row>
-				</Grid>
+				<Row className="show-grid">
+				    <Col md={8} xs={12}>
+            		    <h2 style={divContentLanding.h2}>GraphSearch</h2>
+					    <p></p>
+					    <p style={divContentLanding.p}>Welcome to the GraphSearch platform. Our mission is to make your biomedical literature search experience the best it can be. We take your search query and return a network of publications to you. The network contains the direct results of your search (in blue) as well as the publications they cite (in red). The structure of the network helps you to find highly cited publications and quickly identify publications that belong together.</p>
+				    </Col>
+				</Row>
+				<Row className="show-grid">
+                    <CytoMain />
+				</Row>
+			</Grid>
 		)
 	}
 }
@@ -847,7 +845,7 @@ export class SearchActive extends Component {
                 </Row>
                 <Row className="show-grid">
                     <Col md={8} xs={12} style={{marginLeft:"20px"}}>
-                        <Main />
+                        <CytoMain />
                     </Col>
                 </Row>
             </Grid>

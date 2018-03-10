@@ -157,6 +157,6 @@ class Main extends Component {
 
 
 render(
-<Layout burger={<BurgerTest />} main={<Main id="page-wrap" />} />,
+<Layout burger={<BurgerTest/>} main={<Main id="page-wrap" />} />,
   document.getElementById('app')
 );

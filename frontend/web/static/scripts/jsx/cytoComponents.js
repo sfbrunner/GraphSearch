@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { findDOMNode } from 'react-dom';
 import { keys, map, isArray, sortBy } from 'lodash';
 import FRC, { Checkbox, CheckboxGroup, Input, RadioGroup, Row as FormsyRow, Select, File, Textarea } from 'formsy-react-components'
 import numeral from 'numeral'
@@ -6,7 +7,7 @@ import request from 'superagent'
 import { render } from 'react-dom'
 import { Image, Grid, Col, Clearfix, Row } from 'react-bootstrap'
 import ReactToolip from 'react-tooltip';
-import { PulseLoader } from 'react-spinners';
+import { DotLoader } from 'react-spinners';
 
 window.$ = window.jQuery = require('jquery');
 var cytoscape = require('cytoscape');
@@ -621,11 +622,25 @@ export class CytoMain extends React.Component {
     render() {
         const { results, pending, loading } = this.state
         return (
-                <div >
-                    <Request onSubmit={this.onSubmit} />
-                    { map(sortBy(keys(results), [x => -x]), id => <CytoGraph data={results[id]}/>) }
-                    <PulseLoader color={'#000000'} loading={loading} />   
-                </div>     
+            <Grid>
+                <Row className="show-grid">
+                    <Col xs={1} md={8}>
+                        <Request onSubmit={this.onSubmit} />
+                    </Col>
+                </Row>
+                <Row className="show-grid">
+                    <Col xs={1} md={3}></Col>
+                    <Col xs={1} md={2}>
+                        <DotLoader color={'#000000'} loading={loading} />   
+                    </Col>
+                    <Col xs={1} md={3}> </Col>
+                </Row>
+                <Row className="show-grid">
+                    <Col md={8} xs={8}>
+                        { map(sortBy(keys(results), [x => -x]), id => <CytoGraph data={results[id]}/>) }
+                    </Col>
+                </Row>
+            </Grid>
         )
     }
 
@@ -635,7 +650,7 @@ class CytoGraph extends React.Component {
 	constructor(props){
         super(props);
         this.cy = null;
-        this.state = { graph: props.data, tooltipString: null };
+        this.state = { graph: props.data, tooltipString: null, cytoTarget: null };
         this._nodeSelector = this._nodeSelector.bind(this);
     }
 
@@ -657,6 +672,7 @@ class CytoGraph extends React.Component {
 
         function _renderTooltip(event) {
             var ncbiUrl = 'https://www.ncbi.nlm.nih.gov/pubmed/';
+            this.state.cytoTarget = event.target;
             if (event.target === cy ){
                 this.state.tooltipString = null;
             } else if (event.target.group() == 'nodes') {
@@ -681,12 +697,12 @@ class CytoGraph extends React.Component {
         var cytoDivStyle = {
             position: 'relative', // Relative position necessary for cytoscape lib features!
             height:'600px', 
-            width: '1000px',
+            width: '100%',
         };
 
         return( 
             <div>
-                <div id="cy" name="cy" data-tip=''data-for='nodeTooltip'data-html={true} style={cytoDivStyle}/> 
+                <div id="cy" name="cy" data-tip='' data-for='nodeTooltip'data-html={true} style={cytoDivStyle}/> 
                 <ReactToolip ref="nodeTooltip" id="nodeTooltip" event="click" getContent={() => this.state.tooltipString} isCapture={false} />
             </div>
         )

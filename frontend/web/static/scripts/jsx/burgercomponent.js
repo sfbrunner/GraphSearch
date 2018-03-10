@@ -17,9 +17,7 @@ var styles =
 class MenuWrap extends Component {
   constructor (props) {
     super(props);
-    this.state = {
-      hidden: false
-    };
+    this.state = { hidden: false };
   }
 
   componentWillReceiveProps(nextProps) {
@@ -74,25 +72,17 @@ getItems() {
 
         items = [
           <a key="0" href="searchlanding" style={styles.a}><i className="fa fa-fw fa-star-o" /><span>Home</span></a>,
-          <a key="1" href="about" style={styles.a}><i className="fa fa-fw fa-star-o" /><span>About</span></a>
+          <a key="1" href="about" style={styles.a}><i className="fa fa-fw fa-star-o" /><span>About</span></a>,
+          <a key="2" href="searchlanding" style={styles.a}><i className="fa fa-fw fa-star-o" /><span>Login (soon)</span></a>
         ];
 
     	return items;
   	}
 
 	getMenu() {
-    	//const Menu = BurgerMenu[this.state.currentMenu];
-    	//const items = this.getItems();
-	//	const items = post => (
-	//		<Menu>
-	//			<a id="home" className="menu-item" href="/">Home</a>
-	//			<a id="about" className="menu-item" href="/about">About</a>
-	//			<a id="contact" className="menu-item" href="/contact">Contact</a>
-	//			<a onClick={ this.showSettings } className="menu-item--small" href="">Settings</a>
-	//		</Menu>);
-	const Menu = BurgerMenu[this.state.currentMenu]
+	  const Menu = BurgerMenu[this.state.currentMenu]
     const items = this.getItems();
-	let jsx;
+	  let jsx;
 
     if (this.state.side === 'right') {
       jsx = (
@@ -116,16 +106,6 @@ getItems() {
   }
 
 	render() {
-		//const buttons = Object.keys(this.props.menus).map((menu) => {
-		//	return (
-		//			<a key={menu}
-		//			className={classNames({'current-demo': menu === this.state.currentMenu})}
-		//			onClick={this.changeMenu.bind(this, menu)}>
-		//			{this.props.menus[menu].buttonText}
-		//		</a>
-      	//	);
-    
-		//});
 		return (
 			<div id="outer-container" style={{height: '100%'}}>
 				{this.getMenu()}

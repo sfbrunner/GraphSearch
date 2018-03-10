@@ -70,6 +70,7 @@
     "react-graph-vis": "^1.0.2",
     "react-hint": "3.0.0",
     "react-lightweight-tooltip": "1.0.0",
+    "react-overlays": "^0.8.3",
     "react-qtip": "1.0.2",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
