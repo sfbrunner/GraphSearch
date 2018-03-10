@@ -564,7 +564,17 @@ var divContentSearch = {
 const Request = ({ onSubmit }) => (
    <FRC.Form onSubmit={onSubmit}>
        <fieldset>
-		   <Input name="search_string" layout="vertical" id="search_string" value="epigenetics idh oncogenic" type="text" help="Let us create a network of your search results." addonAfter={<span type="submit" className="glyphicon glyphicon-search" defaultValue="Submit"/>} />
+           <Input 
+            name="search_string" 
+            layout="vertical" 
+            id="search_string" 
+            value="epigenetics idh oncogenic" 
+            type="text" 
+            help="Let us create a network of your search results." 
+            addonAfter={<span type="submit" 
+            className="glyphicon glyphicon-search" 
+            defaultValue="Submit"/>} 
+            />
 	   </fieldset>
    </FRC.Form>
 )
@@ -577,7 +587,7 @@ export class CytoMain extends React.Component {
     constructor(props) {
         super(props);
         this.state = { results: {}, pending: {}, loading: false };
-        this.onSubmit = this.onSubmit.bind(this)   
+        this.onSubmit = this.onSubmit.bind(this);
     }
 
     poll(id) {
@@ -624,7 +634,13 @@ class CytoGraph extends React.Component {
 
 	constructor(props){
         super(props);
-        this.state = { graph: props.data, selectedNode: null };
+        this.cy = null;
+        this.state = { graph: props.data, tooltipString: null };
+        this._nodeSelector = this._nodeSelector.bind(this);
+    }
+
+    _nodeSelector(nodeId) {
+        return this.state.graph.nodes.filter(function(obj) {return obj.data.id == nodeId})[0].data;
     }
 
     componentDidMount(){
@@ -638,23 +654,27 @@ class CytoGraph extends React.Component {
             zoomingEnabled: true,
             userZoomingEnabled: true,
         });
+
         function _renderTooltip(event) {
+            var ncbiUrl = 'https://www.ncbi.nlm.nih.gov/pubmed/';
             if (event.target === cy ){
-                this.state.selectedNode = null;
+                this.state.tooltipString = null;
             } else if (event.target.group() == 'nodes') {
-                var node = this.state.graph.nodes.filter(function(obj) {return obj.data.id == event.target.data().id})[0].data;
-                this.state.selectedNode =  '<b><a href="https://www.ncbi.nlm.nih.gov/pubmed/' + node.id + 
-                '" target="_blank">' + node.title + '</b></a>' +
-                '<br><i>' + node.journal +
-                '</i><br><i>' + node.pubDate + '</i>' +
-                '<br>' + node.authors;
+                var node = this._nodeSelector(event.target.data().id);
+                this.state.tooltipString = `<b><a href="${ncbiUrl}${node.id}" target="_blank">${node.title}</b></a>
+                <br><i>${node.journal}</i><br><i>${node.pubDate}</i><br>${node.authors}`;
             } else if (event.target.group() == 'edges') {
-                this.state.selectedNode = "citation"; // TODO: Add infos
+                var citedNode = this._nodeSelector(event.target.data().target);
+                var citingNode = this._nodeSelector(event.target.data().source);
+                this.state.tooltipString = `<b>Citation</b>:<br><a href="${ncbiUrl}${citingNode.id}" target="_blank">
+                ${citingNode.title}</a> (${citingNode.pubDate})<br><i>cites</i><br>
+                <a href="${ncbiUrl}${citedNode.id}" target="_blank">${citedNode.title}</a> (${citedNode.pubDate})`;
             } else {
-                this.state.selectedNode = null;
+                this.state.tooltipString = null;
             }
         }
         cy.on('tap', _renderTooltip.bind(this)); 
+        this.cy = cy; // TODO: pass event to state and use this binding
     }
 
     render() {
@@ -664,10 +684,11 @@ class CytoGraph extends React.Component {
             width: '1000px',
         };
 
-        return( <div>
-                    <div id="cy" name="cy" data-tip=''data-for='nodeTooltip'data-html={true} style={cytoDivStyle}/> 
-                    <ReactToolip ref="nodeTooltip" id="nodeTooltip" event="click" getContent={() => this.state.selectedNode} isCapture={false} />
-                </div>
+        return( 
+            <div>
+                <div id="cy" name="cy" data-tip=''data-for='nodeTooltip'data-html={true} style={cytoDivStyle}/> 
+                <ReactToolip ref="nodeTooltip" id="nodeTooltip" event="click" getContent={() => this.state.tooltipString} isCapture={false} />
+            </div>
         )
     }
 }
