@@ -129,7 +129,7 @@ class Main extends Component {
     }
 
     onSubmit({ search_string }) {
-        const payload = { search_string:    search_string, }
+        const payload = { 'search_string':    search_string, 'graph_format': 'dataui' }
         request.put(rootUrl).send(payload).end( (err, res) => {
             if (err) return
             console.log(this.state)
@@ -157,6 +157,6 @@ class Main extends Component {
 
 
 render(
-<Layout burger={<BurgerTest />} main={<Main id="page-wrap" />} />,
+<Layout burger={<BurgerTest/>} main={<Main id="page-wrap" />} />,
   document.getElementById('app')
 );

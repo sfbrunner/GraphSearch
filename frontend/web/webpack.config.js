@@ -1,6 +1,7 @@
 var debug = process.env.NODE_ENV !== "production";
 var webpack = require('webpack');
 var path = require('path');
+const PrintTimeWebpackPlugin = require('print-time-webpack');
 
 module.exports = {
   context: path.join(__dirname, "static/scripts"),
@@ -20,12 +21,13 @@ module.exports = {
     ]
   },
   output: {
-    path: __dirname + "/static/scripts/js",
+    path: __dirname + "/static/scripts/js", 
     filename: "routehandler.js"
   },
   plugins: debug ? [] : [
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.optimize.UglifyJsPlugin({ mangle: false, sourcemap: false }),
+    new PrintTimeWebpackPlugin(),
   ],
 };

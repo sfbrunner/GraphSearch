@@ -12,28 +12,39 @@ log = LogHandler.get_logger('__name__')
 
 class GraphSession(object):
 
-    def __init__(self, userInput):
+    def __init__(self, userInput, **kwargs):
         self.request = createSearchRequest('Fulltext', userInput)
 
-    def get_cy_json(self):
-        '''Creates cytoscape JSON graph'''
+    def get_cy_json(self, graph_format=None, mode='demo'):
+        '''Creates cytoscape JSON graph
+
+        Args:
+        mode (default: 'live'): if 'live', then MongoDB will be queried. If 'demo', then a demo dataset is served.
+        '''
 
         msg = '{0}: Search input received: {1}'
         log.info(msg.format(self.__class__.__name__, self.request.userInput))
 
-        citations = self.get_citations_from_fulltext_mongo(self.request.userInput, retmax=200)
         resultGraph = ResultGraph()
-        resultGraph.populate_from_cite_dict(citations)
+        if mode=='live':
+            citations = self.get_citations_from_fulltext_mongo(self.request.userInput, retmax=200)
+            resultGraph.populate_from_cite_dict(citations)
+            
+            #resultGraph.extract_by_connectivity(connectivity=2)
+            resultGraph.extract_by_connectivity(connectivity=1)
+            resultGraph.extract_by_connectivity(connectivity=0)
+            
+            # Query metadata
+            metadataList = self.get_metadataList_from_mongo(resultGraph.nodeIds)
+            resultGraph.add_metadata_to_graph(metadataList)
+        elif mode=='demo':
+            log.info('Using demo mode for data retrieval.')
+            resultGraph.G = resultGraph.read_json_file('../notebooks/output/demo_network.json')
+        else:
+            log.info('Unknown data retrieval mode.')
+            return None
         
-        #resultGraph.extract_by_connectivity(connectivity=2)
-        resultGraph.extract_by_connectivity(connectivity=1)
-        resultGraph.extract_by_connectivity(connectivity=0)
-        
-        # Query metadata
-        metadataList = self.get_metadataList_from_mongo(resultGraph.nodeIds)
-        resultGraph.add_metadata_to_graph(metadataList)
-        
-        return resultGraph.get_dataui_json()
+        return resultGraph.get_graph(graph_format=graph_format)
 
     @staticmethod
     def parseInput(userInput): #check user input with regex?

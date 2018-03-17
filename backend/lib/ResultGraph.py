@@ -5,6 +5,8 @@ from networkx.readwrite import json_graph
 from utils.logger import LogHandler
 log = LogHandler.get_logger('__name__')
 from numpy import sqrt
+from colour import Color
+import colorsys
 
 class ResultGraph():
 
@@ -48,24 +50,59 @@ class ResultGraph():
         d = json_graph.node_link_data(self.G)
         return jsonify(d) 
 
-    def get_graph(self):
-        self._addWeightsToGraph()
-        return json_graph.node_link_data(self.G)
+    def get_graph(self, graph_format=None):
+        if graph_format == None:
+            self._addWeightsToGraph()
+            return json_graph.node_link_data(self.G)
+        elif graph_format == "cytoscape":
+            return self.get_cy_json()
+        elif graph_format == "sigma":
+            return self.get_sigma_json()
+        elif graph_format == "visjs":
+            return self.get_vis_json()
+        elif graph_format == "dataui":
+            return self.get_dataui_json()
+        elif graph_format == "reactd3graph":
+            return self.get_reactd3_json()
+        else:
+            raise Exception("Graph format not known")
 
     def get_cy_json(self):
+        
+        # Find max cited degree
+        max_degree = 1.0
+        group_attr = nx.get_node_attributes(self.G, 'group')
+        for node in self.G:
+            this_degree = self.G.degree(node)
+            self.G.nodes[node]['deg'] = this_degree
+
+            if group_attr[node] == 'Cited':
+                if this_degree > max_degree:
+                    max_degree = this_degree
+        log.info('Max degree: ' + str(max_degree))
+        # Parse nodes
         n_json = json_graph.node_link_data(self.G)
 
-        # Parse nodes
         node_lst = []
         id_lst = [] # Due to networkx' format, edges refer to nodes in the form of their list position, so we'll store their position here.
         for node in n_json['nodes']:
+
+            # Define cited node color
+            this_sat = 0.1 + 0.9*(float(node['deg']) / float(max_degree))
+            if(this_sat>1.0):
+                this_sat = 1.0
+            rgb_col = colorsys.hsv_to_rgb(h=0, s=this_sat, v=1)
+            node_col = Color(red = rgb_col[0], green = rgb_col[1], blue = rgb_col[2])
+
             node_lst.append({'data': {'id':node['id'], 
                                       'name': node['id'], 
+                                      'key': node['id'],
                                       'group':node['group'],
                                       'title':node['title'],
                                       'journal':node['journal'],
                                       'pubDate':node['pubDate'],
-                                      'authors':node['authors'] + ' ...'}}) #, 'label': node['id']}})
+                                      'authors':node['authors'], 'cite_color':'black', 
+                                      'node_col':node_col.hex }}) #, 'label': node['id']}})
             id_lst.append(node['id'])
     
         # Parse edges
@@ -95,7 +132,12 @@ class ResultGraph():
                                       'title':node['title'],
                                       'journal':node['journal'],
                                       'pubDate':node['pubDate'],
-                                      'authors':node['authors'] + ' ...'}) #, 'label': node['id']}})
+                                      'authors':node['authors'],
+                                      'key':node['id'],
+                                      'x':0,
+                                      'y':0,
+                                      'size':20,
+                                      'color':'#ff0000' + ' ...'}) #, 'label': node['id']}})
             id_lst.append(node['id'])
     
         # Parse edges
@@ -120,7 +162,6 @@ class ResultGraph():
         id_lst = [] # Due to networkx' format, edges refer to nodes in the form of their list position, so we'll store their position here.
         for node in n_json['nodes']:
             node_lst.append({'id':node['id'], 
-                                      'label': node['id'], 
                                       'group':node['group'],
                                       'title':node['title'],
                                       'journal':node['journal'],
@@ -161,7 +202,7 @@ class ResultGraph():
                     'size': nodeSize,
                     'opacity': 0.8,
                     'type': 'ref',
-                    'label': '<a href=\"https://www.ncbi.nlm.nih.gov/pubmed/{a:s}\">{a:s}</a>'.format(a=node['id']), 
+                    'label': "", #'<a href=\"https://www.ncbi.nlm.nih.gov/pubmed/{a:s}\">{a:s}</a>'.format(a=node['id']), 
                     'group': node['group'],
                     'fill': nodeFillColor,
                     'title': node['title'],
@@ -182,6 +223,50 @@ class ResultGraph():
             edge_lst.append({'id': '{a:s}_{b:s}'.format(a=edge['source'], b=edge['target']), 
                         'source': node_dict[edge['source']], 
                         'target': node_dict[edge['target']] })
+        cy_dict = {'nodes': node_lst, 'links': edge_lst}
+        
+        return json.dumps(cy_dict)
+    
+    def get_reactd3_json(self):
+        n_json = json_graph.node_link_data(self.G)
+        
+        # Calculate coordinates
+        coordinates = self.calculate_coords(scale=3)
+        
+        # Parse nodes
+        node_lst = []
+        node_dict = {}
+        id_lst = [] # Due to networkx' format, edges refer to nodes in the form of their list position, so we'll store their position here.
+        for node in n_json['nodes']:
+            nodeFillColor = '#e03131' if node['group'] == 'Searched' else '#5f3dc4'
+            nodeSize = 10 if node['group'] == 'Searched' else 8
+            node = {'id': node['id'], 
+                    'x': coordinates[node['id']][0]*3,
+                    'y': coordinates[node['id']][1]*3,
+                    'size': nodeSize,
+                    'opacity': 0.8,
+                    'type': 'ref',
+                    'label': "", #'<a href=\"https://www.ncbi.nlm.nih.gov/pubmed/{a:s}\">{a:s}</a>'.format(a=node['id']), 
+                    'group': node['group'],
+                    'fill': nodeFillColor,
+                    'title': node['title'],
+                    'journal': node['journal'],
+                    'pubDate': node['pubDate'],
+                    'authors': node['authors'] + ' ...'}
+            node_lst.append(node) #, 'label': node['id']}})
+            #id_lst.append(node['id'])
+            node_dict[node['id']] = node
+    
+        # Parse edges
+        edge_lst = []
+        for edge in n_json['links']:
+            #from IPython.core.debugger import Tracer; Tracer()()
+            #edge_lst.append({'data':{'id':'{a:s}_{b:s}'.format(a=edge['source'], b=edge['target']), 
+            #            'source':id_lst[int(edge['source'])], 
+            #            'target':id_lst[int(edge['target'])] }})
+            edge_lst.append({'id': '{a:s}_{b:s}'.format(a=edge['source'], b=edge['target']), 
+                        'source': edge['source'], 
+                        'target': edge['target'] })
         cy_dict = {'nodes': node_lst, 'links': edge_lst}
         
         return json.dumps(cy_dict)
@@ -238,6 +323,11 @@ class ResultGraph():
     @property        
     def nodeIds(self):
         return [self.G.node[n]['name'] for n in self.G]
+
+    def read_json_file(self, filename):
+        with open(filename) as f:
+            js_graph = json.load(f, encoding='utf-8')
+        return json_graph.node_link_graph(js_graph)
         
             
             
