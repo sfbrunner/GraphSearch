@@ -702,7 +702,7 @@ class CytoGraph extends React.Component {
 
         return( 
             <div>
-                <div id="cy" name="cy" data-tip='' data-for='nodeTooltip'data-html={true} style={cytoDivStyle}/> 
+                <div id="cy" name="cy" data-tip='' data-for='nodeTooltip' data-html={true} style={cytoDivStyle}/> 
                 <ReactToolip ref="nodeTooltip" id="nodeTooltip" event="click" getContent={() => this.state.tooltipString} isCapture={false} />
             </div>
         )

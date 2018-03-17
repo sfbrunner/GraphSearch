@@ -21,7 +21,7 @@ module.exports = {
     ]
   },
   output: {
-    path: __dirname + "/static/scripts/js",
+    path: __dirname + "/static/scripts/js", 
     filename: "routehandler.js"
   },
   plugins: debug ? [] : [
