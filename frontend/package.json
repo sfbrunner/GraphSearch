@@ -2,12 +2,14 @@
   "name": "graphsearch",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "webpack.config.js",
   "directories": {
     "lib": "lib",
     "test": "tests"
   },
   "scripts": {
+    "start": "webpack-dev-server --open --config webpack.dev.js",
+    "build": "webpack --config webpack.prod.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build-css": "node-sass-chokidar src/ -o src/",
     "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive"
@@ -99,6 +101,9 @@
     "print-time-webpack": "^1.0.2",
     "react-cytoscape": "^1.0.6",
     "webpack": "^3.10.0",
-    "webpack-watch-time-plugin": "^0.1.2"
+    "webpack-dev-middleware": "^3.0.1",
+    "webpack-dev-server": "^3.1.1",
+    "webpack-watch-time-plugin": "^0.1.2",
+    "webpack-merge": "^4.1.2"
   }
 }
