@@ -4,6 +4,11 @@ import { BrowserRouter, Route, Link, Switch, hashHistory } from 'react-router-do
 import { BurgerTest } from './burgercomponent'
 import { SearchLanding, SearchActive, About } from './components'
 import { Image, Grid, Row, Col, Clearfix } from 'react-bootstrap'
+import ReactGA from 'react-ga';
+import createHistory from 'history/createBrowserHistory'
+
+ReactGA.initialize('UA-116488460-1', { debug: true })
+ReactGA.pageview(window.location.pathname + window.location.search);
 
 const Layout = ({ burger, routehandler}) => (
     <div className="container-fluid wrapper" id="outer-container">
@@ -26,9 +31,10 @@ const Layout = ({ burger, routehandler}) => (
 ) 
 
 class RouteHandler extends Component {
+
 	render() {
 		return (
-			<BrowserRouter history={hashHistory}>
+			<BrowserRouter history={hashHistory} onUpdate={gaTracking}>
 				<Switch>
 					<Route exact path='/' component={SearchLanding} />
 					<Route path='/about' component={About} />
@@ -37,6 +43,10 @@ class RouteHandler extends Component {
 			</BrowserRouter>
 		)
 	}
+}
+
+function gaTracking() {
+	ReactGA.pageview(window.location.hash)
 }
 
 render(
