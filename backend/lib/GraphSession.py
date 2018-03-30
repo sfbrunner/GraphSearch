@@ -31,7 +31,7 @@ class GraphSession(object):
             resultGraph.populate_from_cite_dict(citations)
             
             #resultGraph.extract_by_connectivity(connectivity=3)
-            #resultGraph.extract_by_connectivity(connectivity=2)
+            resultGraph.extract_by_connectivity(connectivity=2)
             resultGraph.extract_by_connectivity(connectivity=1)
             resultGraph.extract_by_connectivity(connectivity=0)
             

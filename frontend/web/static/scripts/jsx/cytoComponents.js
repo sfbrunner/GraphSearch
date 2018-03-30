@@ -326,7 +326,7 @@ var cytoCoseBilkentLayout = {
     // Coulomb's law coefficient
     // - Makes the nodes repel each other for negative values
     // - Makes the nodes attract each other for positive values
-    gravity: -1.2,
+    gravity: -10,
   
     // A force that pulls nodes towards the origin (0, 0)
     // Higher values keep the components less spread out
@@ -370,8 +370,8 @@ var cytoCoseBilkentLayout = {
     // - A large value may allow for a better result
     // - A small value may make the layout end prematurely
     // - The layout may stop before this if it has settled
-    maxIterations: 10000,
-    maxSimulationTime: 1000,
+    maxIterations: 100000,
+    maxSimulationTime: 20000,
   
     // Prevent the user grabbing nodes during the layout (usually with animate:true)
     ungrabifyWhileSimulating: false,
