@@ -7,6 +7,7 @@ import { render } from 'react-dom'
 import { Image, Grid, Col, Clearfix, Row } from 'react-bootstrap'
 import ReactToolip from 'react-tooltip';
 import { DotLoader } from 'react-spinners';
+import ReactGA from 'react-ga';
 
 window.$ = window.jQuery = require('jquery');
 var cytoscape = require('cytoscape');
@@ -607,6 +608,7 @@ export class CytoMain extends React.Component {
 
     onSubmit({ search_string }) {
         this.setState({loading: true})
+        ReactGA.event({category: 'Search', action: 'Submitted search', label: search_string })
         const payload = { 'search_string': search_string, 'graph_format': 'cytoscape' }
         request.put(apiUrl).send(payload)
         .end( (err, res) => {
