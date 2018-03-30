@@ -656,6 +656,15 @@ class CytoGraph extends React.Component {
         return this.state.graph.nodes.filter(function(obj) {return obj.data.id == nodeId})[0].data;
     }
 
+    componentWillReceiveProps(nextProps){
+        this.cy.elements(nextProps.data);
+        this.cy.forceRender();
+    }
+
+    getCy(){
+        return this.cy;
+    }
+
     componentDidMount(){
         var cy = cytoscape({
             container: document.getElementById('cy'),
