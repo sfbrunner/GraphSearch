@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { findDOMNode } from 'react-dom';
 import { keys, map, isArray, sortBy } from 'lodash';
 import FRC, { Checkbox, CheckboxGroup, Input, RadioGroup, Row as FormsyRow, Select, File, Textarea } from 'formsy-react-components'
 import numeral from 'numeral'
@@ -16,7 +15,6 @@ var cytoscape = require('cytoscape');
 var cyqtip = require('cytoscape-qtip');
 var cycola = require('cytoscape-cola');
 var cyforcelayout = require('cytoscape-ngraph.forcelayout');
-
 
 
 //cyforcelayout['iterations'] = 10000
@@ -562,6 +560,7 @@ var divContentSearch = {
         top:'5px'
     }
 }
+
 
 const Request = ({ onSubmit }) => (
    <FRC.Form onSubmit={onSubmit}>
