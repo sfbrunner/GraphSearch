@@ -326,7 +326,7 @@ var cytoCoseBilkentLayout = {
     // Coulomb's law coefficient
     // - Makes the nodes repel each other for negative values
     // - Makes the nodes attract each other for positive values
-    gravity: -10,
+    gravity: -7,
   
     // A force that pulls nodes towards the origin (0, 0)
     // Higher values keep the components less spread out
@@ -371,7 +371,7 @@ var cytoCoseBilkentLayout = {
     // - A small value may make the layout end prematurely
     // - The layout may stop before this if it has settled
     maxIterations: 100000,
-    maxSimulationTime: 20000,
+    maxSimulationTime: 10000,
   
     // Prevent the user grabbing nodes during the layout (usually with animate:true)
     ungrabifyWhileSimulating: false,
@@ -665,7 +665,7 @@ class CytoGraph extends React.Component {
             elements: this.state.graph,
             style: cytoStyle,
             layout: cytoEuler,
-            minZoom: 0.5,
+            minZoom: 0.1,
             maxZoom: 1.5,
             zoomingEnabled: true,
             userZoomingEnabled: true,

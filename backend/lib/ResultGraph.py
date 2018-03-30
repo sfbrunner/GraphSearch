@@ -279,11 +279,17 @@ class ResultGraph():
         connectivity: cutoff for connectivity of node
         '''
         
-        # Identify nodes that adhere to connectivity filter
-        new_nodes = [n for n, attrdict in self.G.node.items() if len(list(self.G.neighbors(n))) > connectivity]
-        
-        # Create new subgraph with filtered nodes
-        self.G = nx.Graph(self.G.subgraph(new_nodes))
+        # Step 1: Identify nodes that adhere to connectivity filter
+        new_nodes = [n for n, attrdict in self.G.node.items() if self.G.degree(n) > connectivity]
+
+        # Remove the pruned nodes
+        self.G.remove_nodes_from([node for node in self.G if node not in set(new_nodes)])
+
+        # Step 2: remove singleton nodes (unconnected) from the pruned graph
+        new_nodes = [n for n, attrdict in self.G.node.items() if self.G.degree(n) > 0]
+
+        # Remove the pruned nodes
+        self.G.remove_nodes_from([node for node in self.G if node not in set(new_nodes)])
         
     def add_metadata_to_graph(self, metadataList):  
         node_flag_lst = []
