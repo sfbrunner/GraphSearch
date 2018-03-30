@@ -59,7 +59,7 @@ export class SearchLanding extends Component {
 					    <p style={divContentLanding.p}>Welcome to the GraphSearch platform. Our mission is to make your biomedical literature search experience the best it can be. We take your search query and return a network of publications to you. The network contains the direct results of your search (in blue) as well as the publications they cite (in red). The structure of the network helps you to find highly cited publications and quickly identify publications that belong together.</p>
 				    </Col>
 				</Row>
-				<Row className="show-grid">
+				<Row className="show-grid" md={8} xs={12}>
                     <CytoMain />
 				</Row>
 			</Grid>

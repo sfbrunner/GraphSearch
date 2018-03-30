@@ -57,7 +57,7 @@ var searchedNodeStyle = {
         'color': 'white',
         'background-fit': 'contain',
         'background-clip': 'none',
-        'background-color': 'blue',
+        'background-color': '#004cc6',
         'border-color': 'gray',
         'border-width': 0.5,
         'opacity': 0.8,
@@ -371,7 +371,7 @@ var cytoCoseBilkentLayout = {
     // - A small value may make the layout end prematurely
     // - The layout may stop before this if it has settled
     maxIterations: 100000,
-    maxSimulationTime: 5000,
+    maxSimulationTime: 1000,
   
     // Prevent the user grabbing nodes during the layout (usually with animate:true)
     ungrabifyWhileSimulating: false,
@@ -625,7 +625,7 @@ export class CytoMain extends React.Component {
         return (
             <Grid>
                 <Row className="show-grid">
-                    <Col xs={1} md={8}>
+                    <Col xs={6} md={8}>
                         <Request onSubmit={this.onSubmit} />
                     </Col>
                 </Row>
@@ -637,8 +637,11 @@ export class CytoMain extends React.Component {
                     <Col xs={1} md={3}> </Col>
                 </Row>
                 <Row className="show-grid">
-                    <Col md={8} xs={8}>
+                    <Col md={9} xs={9}>
                         { map(sortBy(keys(results), [x => -x]), id => <CytoGraph data={results[id]}/>) }
+                    </Col>
+                    <Col md={3} xs={3}>
+                        { map(sortBy(keys(results), [x => -x]), id => <GraphInfo data={results[id]}/>) }
                     </Col>
                 </Row>
             </Grid>
@@ -646,12 +649,61 @@ export class CytoMain extends React.Component {
     }
 
 }
+
+class GraphInfo extends React.Component {
+    
+    constructor(props){
+        super(props);
+        this.state = { stats: props.data.stats };
+    }
+
+    render() {
+        var cytoDivStyle = {
+            position: 'relative', // Relative position necessary for cytoscape lib features!
+            width: '100%',
+            backgroundColor: 'lightgrey',
+            paddingRight: '20px',
+            paddingLeft: '20px',
+            verticalAlign: 'middle'
+        };
+
+        var gradient_svg = <svg width="100" height="20">
+            <defs>
+            <linearGradient id="MyGradient">
+                <stop offset="5%"  stopColor="white"/>
+                <stop offset="95%" stopColor="red"/>
+            </linearGradient>
+            </defs>
+            <rect fill="url(#MyGradient)" x="0" y="10" width="100" height="20"/>
+        </svg>
+
+        return( 
+            <div id="netstats" name="netstats">
+                <Row style={{height:"2vh"}}>
+                    <div style={{height:'100px'}}></div>
+                </Row>
+                <Row style={cytoDivStyle}>
+                <h4>Search stats:</h4>
+                <p><strong>Direct hits: (</strong><strong style={{color:'#004cc6'}}>blue</strong><strong>): </strong>{ this.state.stats.num_results }</p>
+                <p><strong>Cited publications: (</strong><strong style={{color:'red'}}>red</strong><strong>): </strong>{ this.state.stats.num_citations }</p>
+                <p><strong>Citations: </strong>{ this.state.stats.num_links }</p>
+                <p><br/></p>
+                <p><strong>Citations per publication:</strong></p>
+                <div style={{whiteSpace: 'nowrap', overflow:'hidden', display:'inline-block', textAlign:'left'}}>
+                    <strong>0 </strong>{ gradient_svg }<strong> {this.state.stats.max_degree_cited}</strong>
+                </div>
+                </Row>
+            </div>
+        )
+    }
+}
+
 class CytoGraph extends React.Component {
 
 	constructor(props){
         super(props);
         this.cy = null;
-        this.state = { graph: props.data, tooltipString: null, cytoTarget: null };
+        this.state = { graph: props.data.graph, tooltipString: null, cytoTarget: null };
         this._nodeSelector = this._nodeSelector.bind(this);
     }
 

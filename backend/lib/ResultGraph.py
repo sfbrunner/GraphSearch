@@ -70,18 +70,14 @@ class ResultGraph():
     def get_cy_json(self):
         
         # Find max cited degree
-        max_degree = 1.0
-        group_attr = nx.get_node_attributes(self.G, 'group')
-        for node in self.G:
-            this_degree = self.G.degree(node)
-            self.G.nodes[node]['deg'] = this_degree
-
-            if group_attr[node] == 'Cited':
-                if this_degree > max_degree:
-                    max_degree = this_degree
+        max_degree = self.get_max_degree_cited()
         log.info('Max degree: ' + str(max_degree))
+        
         # Parse nodes
         n_json = json_graph.node_link_data(self.G)
+
+        # Get network stats
+        network_stats = self.get_search_stats(n_json)
 
         node_lst = []
         id_lst = [] # Due to networkx' format, edges refer to nodes in the form of their list position, so we'll store their position here.
@@ -115,10 +111,42 @@ class ResultGraph():
             edge_lst.append({'data':{'id':'{a:s}_{b:s}'.format(a=edge['source'], b=edge['target']), 
                         'source':edge['source'], 
                         'target':edge['target'] }})
-        cy_dict = {'nodes': node_lst, 'edges': edge_lst}
+        cy_dict = {'stats': network_stats, 'graph': {'nodes': node_lst, 'edges': edge_lst}}
         
         return json.dumps(cy_dict)
     
+    def get_max_degree_cited(self):
+        max_degree = 1.0
+        group_attr = nx.get_node_attributes(self.G, 'group')
+
+        for node in self.G:
+            this_degree = self.G.degree(node)
+            self.G.nodes[node]['deg'] = this_degree
+
+            if group_attr[node] == 'Cited':
+                if this_degree > max_degree:
+                    max_degree = this_degree
+
+        return max_degree
+
+    def get_search_stats(self, n_json):
+        '''
+        Extract search statistics from JSON of networkx graph
+        '''
+        # Get number of blue nodes (search results)
+        num_results = len([node for node in n_json['nodes'] if node['group'] == 'Searched'])
+        print num_results
+        # Get number of red nodes (citations)
+        num_citations = len([node for node in n_json['nodes'] if node['group'] == 'Cited'])
+
+        # Get number of edges
+        num_links = len(n_json['links'])
+
+        # Get max degree of citation nodes
+        max_degree = self.get_max_degree_cited()
+
+        return({'num_results': num_results, 'num_citations': num_citations, 'num_links': num_links, 'max_degree_cited': max_degree})
+
     def get_sigma_json(self):
         n_json = json_graph.node_link_data(self.G)
 
