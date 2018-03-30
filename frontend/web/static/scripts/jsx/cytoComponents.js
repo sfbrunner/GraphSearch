@@ -16,7 +16,6 @@ var cycola = require('cytoscape-cola');
 var cyforcelayout = require('cytoscape-ngraph.forcelayout');
 
 
-
 //cyforcelayout['iterations'] = 10000
 //require(['cytoscape', 'cytoscape-ngraph.forcelayout'], function( cytoscape, cyforcelayout ){
 //   cyforcelayout( cytoscape ); // register extension 
