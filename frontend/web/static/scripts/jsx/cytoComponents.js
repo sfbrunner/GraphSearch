@@ -371,7 +371,7 @@ var cytoCoseBilkentLayout = {
     // - A small value may make the layout end prematurely
     // - The layout may stop before this if it has settled
     maxIterations: 100000,
-    maxSimulationTime: 10000,
+    maxSimulationTime: 5000,
   
     // Prevent the user grabbing nodes during the layout (usually with animate:true)
     ungrabifyWhileSimulating: false,
