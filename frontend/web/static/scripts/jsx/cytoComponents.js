@@ -567,15 +567,13 @@ const Request = ({ onSubmit }) => (
    <FRC.Form onSubmit={onSubmit}>
        <fieldset>
            <Input 
-            name="search_string" 
-            layout="vertical" 
-            id="search_string" 
-            value="epigenetics idh oncogenic" 
-            type="text" 
-            help="Let us create a network of your search results." 
-            addonAfter={<span type="submit" 
-            className="glyphicon glyphicon-search" 
-            defaultValue="Submit"/>} 
+                name = "search_string" 
+                layout = "vertical" 
+                id = "search_string" 
+                value = "epigenetics idh oncogenic" 
+                type = "text" 
+                help = "Let us create a network of your search results." 
+                addonAfter={<span type="submit" className="glyphicon glyphicon-search" defaultValue="Submit"/>} 
             />
 	   </fieldset>
    </FRC.Form>
@@ -588,7 +586,7 @@ const apiUrl = new URL("/api/", rootUrl)
 export class CytoMain extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { results: {}, pending: {}, loading: false };
+        this.state = { graphJson: {}, pending: {}, loading: false };
         this.onSubmit = this.onSubmit.bind(this);
     }
 
@@ -599,10 +597,10 @@ export class CytoMain extends React.Component {
                 if (err) return
                 const { result } = res.body
                 if (!result) return
-                const { results, pending, loading } = this.state
+                const { graphJson, pending, loading } = this.state
                 clearInterval(pending[id])
                 delete pending[id]
-                this.setState({ results: { ...results, [id]: result }, loading: false })
+                this.setState({ graphJson: {[id]: result}, loading: false })
             })
         }
     }
@@ -614,7 +612,7 @@ export class CytoMain extends React.Component {
         request.put(apiUrl).send(payload)
         .end( (err, res) => {
             if (err) return
-            const { results, pending, loading } = this.state
+            const { graphJson, pending, loading } = this.state
             const { result: id } = res.body
             const timers = {[id]:  setInterval(this.poll(id),  500)}
             this.setState({ pending: {...pending, ...timers} })
@@ -622,7 +620,7 @@ export class CytoMain extends React.Component {
     }
 
     render() {
-        const { results, pending, loading } = this.state
+        const { graphJson, pending, loading } = this.state
         return (
             <Grid>
                 <Row className="show-grid">
@@ -639,13 +637,12 @@ export class CytoMain extends React.Component {
                 </Row>
                 <Row className="show-grid">
                     <Col md={8} xs={8}>
-                        { map(sortBy(keys(results), [x => -x]), id => <CytoGraph data={results[id]}/>) }
+                        { map(keys(graphJson), id => <CytoGraph data={graphJson[id]}/>) }
                     </Col>
                 </Row>
             </Grid>
         )
     }
-
 }
 class CytoGraph extends React.Component {
 
