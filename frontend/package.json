@@ -2,12 +2,14 @@
   "name": "graphsearch",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "webpack.config.js",
   "directories": {
     "lib": "lib",
     "test": "tests"
   },
   "scripts": {
+    "start": "webpack-dev-server --open --config webpack.dev.js",
+    "build": "webpack --config webpack.prod.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build-css": "node-sass-chokidar src/ -o src/",
     "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive"
@@ -42,17 +44,6 @@
     "envify": "^4.0.0",
     "formsy-react": "^0.19.2",
     "formsy-react-components": "^0.10.1",
-    "gulp": "^3.9.1",
-    "gulp-browser": "^2.1.4",
-    "gulp-duration": "0.0.0",
-    "gulp-if": "^2.0.2",
-    "gulp-notify": "^3.0.0",
-    "gulp-optimize-js": "^1.1.0",
-    "gulp-plumber": "^1.1.0",
-    "gulp-sass": "^3.1.0",
-    "gulp-size": "^2.1.0",
-    "gulp-sourcemaps": "^2.6.0",
-    "gulp-uglify": "^2.1.2",
     "jquery": "2.2.4",
     "less": "^2.7.3",
     "lodash": "^4.17.4",
@@ -94,13 +85,18 @@
     "babel-loader": "^7.1.2",
     "babel-plugin-add-module-exports": "^0.2.1",
     "babel-plugin-react-html-attrs": "^2.1.0",
+    "clean-webpack-plugin": "^0.1.19",
     "cytoscape-euler": "^1.2.0",
+    "html-webpack-plugin": "^3.0.6",
     "history": "^4.7.2",
     "package.json": "^2.0.1",
     "print-time-webpack": "^1.0.2",
     "react-cytoscape": "^1.0.6",
     "react-ga": "^2.4.1",
     "webpack": "^3.10.0",
-    "webpack-watch-time-plugin": "^0.1.2"
+    "webpack-dev-middleware": "^3.0.1",
+    "webpack-dev-server": "^3.1.1",
+    "webpack-watch-time-plugin": "^0.1.2",
+    "webpack-merge": "^4.1.2"
   }
 }

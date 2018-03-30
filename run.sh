@@ -30,5 +30,11 @@ cd frontend/web
 screen -S gulp -d -m webpack --watch
 cd ../..
 
+# for prod build go to web folder
+# webpack --config webpack.prod.js
+
+# for dev build go to web folder
+# webpack --config webpack.dev.js
+
 # test the backend:
 # http PUT http://localhost:8080 search_string="Stratton Cancer Breast Women"
