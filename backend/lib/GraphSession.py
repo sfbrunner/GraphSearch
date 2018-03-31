@@ -7,6 +7,7 @@ from MongoSession import MongoSession
 from ResultGraph import ResultGraph
 from requestFactory import createSearchRequest
 from utils.logger import LogHandler
+import numpy as np
 log = LogHandler.get_logger('__name__')
     
 
@@ -30,10 +31,12 @@ class GraphSession(object):
             citations = self.get_citations_from_fulltext_mongo(self.request.userInput, retmax=200)
             resultGraph.populate_from_cite_dict(citations)
             
-            #resultGraph.extract_by_connectivity(connectivity=3)
-            #resultGraph.extract_by_connectivity(connectivity=2)
-            resultGraph.extract_by_connectivity(connectivity=1)
-            resultGraph.extract_by_connectivity(connectivity=0)
+            # Extract nodes by connectivity, dependending on total number of nodes in graph
+            node_num = resultGraph.G.number_of_nodes()
+            if(node_num < 100):
+                resultGraph.extract_by_connectivity(connectivity=1)
+            elif(node_num > 100):
+                resultGraph.extract_by_connectivity(connectivity=np.log10(node_num))
             
             # Query metadata
             metadataList = self.get_metadataList_from_mongo(resultGraph.nodeIds)
@@ -41,6 +44,7 @@ class GraphSession(object):
         elif mode=='demo':
             log.info('Using demo mode for data retrieval.')
             resultGraph.G = resultGraph.read_json_file('../notebooks/output/demo_network.json')
+            resultGraph.extract_by_connectivity(connectivity=2)
         else:
             log.info('Unknown data retrieval mode.')
             return None
