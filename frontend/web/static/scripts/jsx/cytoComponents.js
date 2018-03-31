@@ -566,15 +566,13 @@ const Request = ({ onSubmit }) => (
    <FRC.Form onSubmit={onSubmit}>
        <fieldset>
            <Input 
-            name="search_string" 
-            layout="vertical" 
-            id="search_string" 
-            value="epigenetics idh oncogenic" 
-            type="text" 
-            help="Let us create a network of your search results." 
-            addonAfter={<span type="submit" 
-            className="glyphicon glyphicon-search" 
-            defaultValue="Submit"/>} 
+                name = "search_string" 
+                layout = "vertical" 
+                id = "search_string" 
+                value = "epigenetics idh oncogenic" 
+                type = "text" 
+                help = "Let us create a network of your search results." 
+                addonAfter={<span type="submit" className="glyphicon glyphicon-search" defaultValue="Submit"/>} 
             />
 	   </fieldset>
    </FRC.Form>
@@ -587,7 +585,7 @@ const apiUrl = new URL("/api/", rootUrl)
 export class CytoMain extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { results: {}, pending: {}, loading: false };
+        this.state = { graphJson: {}, pending: {}, loading: false };
         this.onSubmit = this.onSubmit.bind(this);
     }
 
@@ -595,33 +593,33 @@ export class CytoMain extends React.Component {
         return () => {
             request.get(new URL(id, apiUrl))
             .end( (err, res) => { // call api with id -> will return task_id and if ready result
-                if (err) return
-                const { result } = res.body
-                if (!result) return
-                const { results, pending, loading } = this.state
-                clearInterval(pending[id])
-                delete pending[id]
-                this.setState({ results: { ...results, [id]: result }, loading: false })
+                if (err) return;
+                const { result } = res.body;
+                if (!result) return;
+                const { graphJson, pending, loading } = this.state;
+                clearInterval(pending[id]);
+                delete pending[id];
+                this.setState({ graphJson: {[id]: result}, loading: false });
             })
         }
     }
 
     onSubmit({ search_string }) {
-        this.setState({loading: true})
-        ReactGA.event({category: 'Search', action: 'Submitted search', label: search_string })
-        const payload = { 'search_string': search_string, 'graph_format': 'cytoscape' }
+        this.setState({loading: true});
+        ReactGA.event({category: 'Search', action: 'Submitted search', label: search_string });
+        const payload = { 'search_string': search_string, 'graph_format': 'cytoscape' };
         request.put(apiUrl).send(payload)
         .end( (err, res) => {
-            if (err) return
-            const { results, pending, loading } = this.state
-            const { result: id } = res.body
-            const timers = {[id]:  setInterval(this.poll(id),  500)}
-            this.setState({ pending: {...pending, ...timers} })
+            if (err) return;
+            const { graphJson, pending, loading } = this.state;
+            const { result: id } = res.body;
+            const timers = {[id]:  setInterval(this.poll(id),  500)};
+            this.setState({ pending: {...pending, ...timers} });
         })
     }
 
     render() {
-        const { results, pending, loading } = this.state
+        const { graphJson, pending, loading } = this.state;
         return (
             <Grid>
                 <Row className="show-grid">
@@ -637,17 +635,16 @@ export class CytoMain extends React.Component {
                     <Col xs={1} md={3}> </Col>
                 </Row>
                 <Row className="show-grid">
-                    <Col md={9} xs={9}>
-                        { map(sortBy(keys(results), [x => -x]), id => <CytoGraph data={results[id]}/>) }
+                    <Col md={8} xs={8}>
+                        { map(keys(graphJson), id => <CytoGraph data={graphJson[id]}/>) }
                     </Col>
                     <Col md={3} xs={3}>
-                        { map(sortBy(keys(results), [x => -x]), id => <GraphInfo data={results[id]}/>) }
+                        { map(sortBy(keys(graphJson), [x => -x]), id => <GraphInfo data={graphJson[id]}/>) }
                     </Col>
                 </Row>
             </Grid>
         )
     }
-
 }
 
 class GraphInfo extends React.Component {
@@ -699,6 +696,7 @@ class GraphInfo extends React.Component {
 }
 
 class CytoGraph extends React.Component {
+    // See https://github.com/cytoscape/cytoscape.js/issues/1468 for implementation recommendations
 
 	constructor(props){
         super(props);
@@ -709,6 +707,30 @@ class CytoGraph extends React.Component {
 
     _nodeSelector(nodeId) {
         return this.state.graph.nodes.filter(function(obj) {return obj.data.id == nodeId})[0].data;
+    }
+
+    componentWillReceiveProps(nextProps){
+        if (nextProps.data.graph !== this.state.graph)
+        {
+            this.state.graph = nextProps.data.graph;
+            this.cy.elements().remove();
+            this.cy.add(nextProps.data.graph);
+            this.cy.json(nextProps.data.graph);
+            this.cy.layout(cytoEuler).run();
+            this.cy.fit();
+        }
+    }
+
+    shouldComponentUpdate(){
+        return false;
+    }
+
+    componentWillUnmount(){
+        this.cy.destroy();
+    }
+
+    getCy(){
+        return this.cy;
     }
 
     componentDidMount(){
