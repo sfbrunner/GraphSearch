@@ -710,11 +710,11 @@ class CytoGraph extends React.Component {
     }
 
     componentWillReceiveProps(nextProps){
-        if (nextProps.data !== this.state.graph)
+        if (nextProps.data.graph !== this.state.graph)
         {
             this.cy.elements().remove();
-            this.cy.add(nextProps.data);
-            this.cy.json(nextProps.data);
+            this.cy.add(nextProps.data.graph);
+            this.cy.json(nextProps.data.graph);
             this.cy.layout(cytoEuler).run();
             this.cy.fit();
         }
