@@ -593,33 +593,33 @@ export class CytoMain extends React.Component {
         return () => {
             request.get(new URL(id, apiUrl))
             .end( (err, res) => { // call api with id -> will return task_id and if ready result
-                if (err) return
-                const { result } = res.body
-                if (!result) return
-                const { graphJson, pending, loading } = this.state
-                clearInterval(pending[id])
-                delete pending[id]
-                this.setState({ graphJson: {[id]: result}, loading: false })
+                if (err) return;
+                const { result } = res.body;
+                if (!result) return;
+                const { graphJson, pending, loading } = this.state;
+                clearInterval(pending[id]);
+                delete pending[id];
+                this.setState({ graphJson: {[id]: result}, loading: false });
             })
         }
     }
 
     onSubmit({ search_string }) {
-        this.setState({loading: true})
-        ReactGA.event({category: 'Search', action: 'Submitted search', label: search_string })
-        const payload = { 'search_string': search_string, 'graph_format': 'cytoscape' }
+        this.setState({loading: true});
+        ReactGA.event({category: 'Search', action: 'Submitted search', label: search_string });
+        const payload = { 'search_string': search_string, 'graph_format': 'cytoscape' };
         request.put(apiUrl).send(payload)
         .end( (err, res) => {
-            if (err) return
-            const { graphJson, pending, loading } = this.state
-            const { result: id } = res.body
-            const timers = {[id]:  setInterval(this.poll(id),  500)}
-            this.setState({ pending: {...pending, ...timers} })
+            if (err) return;
+            const { graphJson, pending, loading } = this.state;
+            const { result: id } = res.body;
+            const timers = {[id]:  setInterval(this.poll(id),  500)};
+            this.setState({ pending: {...pending, ...timers} });
         })
     }
 
     render() {
-        const { graphJson, pending, loading } = this.state
+        const { graphJson, pending, loading } = this.state;
         return (
             <Grid>
                 <Row className="show-grid">
@@ -644,6 +644,7 @@ export class CytoMain extends React.Component {
     }
 }
 class CytoGraph extends React.Component {
+    // See https://github.com/cytoscape/cytoscape.js/issues/1468 for implementation recommendations
 
 	constructor(props){
         super(props);
@@ -657,8 +658,22 @@ class CytoGraph extends React.Component {
     }
 
     componentWillReceiveProps(nextProps){
-        this.cy.elements(nextProps.data);
-        this.cy.forceRender();
+        //this.cy.elements().remove();
+        //this.cy.add(nextProps.data);
+        if (nextProps.data !== this.state.graph)
+        {
+            this.cy.json(nextProps.data);
+            this.cy.layout(cytoEuler).run();
+            this.cy.fit();
+        }
+    }
+
+    shouldComponentUpdate(){
+        return false;
+    }
+
+    componentWillUnmount(){
+        this.cy.destroy();
     }
 
     getCy(){
