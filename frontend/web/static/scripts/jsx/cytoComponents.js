@@ -712,6 +712,7 @@ class CytoGraph extends React.Component {
     componentWillReceiveProps(nextProps){
         if (nextProps.data.graph !== this.state.graph)
         {
+            this.state.graph = nextProps.data.graph;
             this.cy.elements().remove();
             this.cy.add(nextProps.data.graph);
             this.cy.json(nextProps.data.graph);
