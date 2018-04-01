@@ -654,6 +654,13 @@ class GraphInfo extends React.Component {
         this.state = { stats: props.data.stats };
     }
 
+    componentWillReceiveProps(nextProps){
+        if (nextProps.data.stats !== this.state)
+        {
+            this.state = { stats: nextProps.data.stats};
+        }
+    }
+
     render() {
         var cytoDivStyle = {
             position: 'relative', // Relative position necessary for cytoscape lib features!
