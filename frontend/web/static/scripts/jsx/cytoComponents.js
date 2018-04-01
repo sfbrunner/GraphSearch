@@ -657,7 +657,7 @@ class GraphInfo extends React.Component {
     componentWillReceiveProps(nextProps){
         if (nextProps.data.stats !== this.state)
         {
-            this.state = nextProps.data.stats;
+            this.state = { stats: nextProps.data.stats};
         }
     }
 
