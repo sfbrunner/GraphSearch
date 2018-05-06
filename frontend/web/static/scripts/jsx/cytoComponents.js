@@ -51,33 +51,35 @@ cytoscape.use( euler );
 var searchedNodeStyle = {
     selector: "node[group = 'Searched']",
     style: {
-        'label': 'data(group)',
+        'label': 'data(title)',
         'width': '20px',
         'height': '20px',
-        'color': 'white',
+        'color': 'black',
         'background-fit': 'contain',
         'background-clip': 'none',
         'background-color': '#004cc6',
         'border-color': 'gray',
         'border-width': 0.5,
-        'opacity': 0.8,
-        'font-size': '3pt',
+        'opacity': 1.0,
+        'font-size': '5pt',
         'text-transform': 'uppercase',
         //'text-background-color': 'white',
         //'text-background-opacity': 0.8,
         //'text-background-shape': 'roundrectangle',
         //'text-outline-color': 'white',
-        "text-valign" : "center"
+        "text-valign" : "bottom center",
+        "text-max-width": 70,
+        "text-wrap" : 'ellipsis'
     },
 }
 
 var citedNodeStyle = {
     selector: "node[group = 'Cited']",
     style: {
-        'label': 'data(group)',
+        'label': 'data(title)',
         'width': '15px',
         'height': '15px',
-        'color': 'white',
+        'color': 'black',
         'background-fit': 'contain',
         'background-clip': 'none',
         'background-color': 'data(node_col)',
@@ -90,7 +92,9 @@ var citedNodeStyle = {
         //'text-background-opacity': 0.8,
         //'text-background-shape': 'roundrectangle',
         //'text-outline-color': 'white',
-        "text-valign" : "center"
+        "text-valign" : "bottom center",
+        "text-max-width": 70,
+        "text-wrap" : 'ellipsis'
     }
 }
 
@@ -772,6 +776,15 @@ class CytoGraph extends React.Component {
             }
         }
         cy.on('tap', _renderTooltip.bind(this));
+        cy.on('zoom', function (event) {
+            var dim = 10/ cy.zoom();
+            var edgeWidth = 1/ cy.zoom();
+            cy.$('node').group = "TESTTTTTTTTTTTTTTT";
+            cy.$('edge').label.css({
+                'font-size': 20,
+                'color': 'black'
+            });
+        });
         this.cy = cy; // TODO: pass event to state and use this binding
     }
 
@@ -785,7 +798,7 @@ class CytoGraph extends React.Component {
         return( 
             <div>
                 <div id="cy" name="cy" data-tip='' data-for='nodeTooltip' data-html={true} style={cytoDivStyle}/> 
-                <ReactToolip ref="nodeTooltip" id="nodeTooltip" multiline={true} event="click" eventOff="mousemove" 
+                <ReactToolip ref="nodeTooltip" id="nodeTooltip" multiline={true} event="click" 
                     getContent={() => this.state.tooltipString} isCapture={false} />
             </div>
         )
