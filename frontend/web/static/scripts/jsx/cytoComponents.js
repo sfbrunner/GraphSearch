@@ -771,7 +771,7 @@ class CytoGraph extends React.Component {
                 this.state.tooltipString = null;
             }
         }
-        cy.on('tap', _renderTooltip.bind(this)); 
+        cy.on('tap', _renderTooltip.bind(this));
         this.cy = cy; // TODO: pass event to state and use this binding
     }
 
@@ -785,7 +785,8 @@ class CytoGraph extends React.Component {
         return( 
             <div>
                 <div id="cy" name="cy" data-tip='' data-for='nodeTooltip' data-html={true} style={cytoDivStyle}/> 
-                <ReactToolip ref="nodeTooltip" id="nodeTooltip" event="click" getContent={() => this.state.tooltipString} isCapture={false} />
+                <ReactToolip ref="nodeTooltip" id="nodeTooltip" multiline={true} event="click" eventOff="mousemove" 
+                    getContent={() => this.state.tooltipString} isCapture={false} />
             </div>
         )
     }
