@@ -8,6 +8,7 @@
       "pubDate": "May 2011", 
       "title": "Mapping and analysis of chromatin state dynamics in nine human cell types.", 
       "journal": "Nature", 
+      "journal_iso": "Nature", 
       "authors": "Ernst, Kheradpour, Mikkelsen", 
       "id": "21441907"
     }, 
@@ -17,6 +18,7 @@
       "pubDate": "Oct 2015", 
       "title": "NKp30 isoforms in patients with chronic hepatitis C virus infection.", 
       "journal": "Immunology", 
+      "journal_iso": "Immunology", 
       "authors": "Mantovani, Mele, Oliviero", 
       "id": "26094914"
     }, 
@@ -26,6 +28,7 @@
       "pubDate": "Jul 2012", 
       "title": "The mutational landscape of lethal  castration-resistant prostate cancer.", 
       "journal": "Nature", 
+      "journal_iso": "Nature", 
       "authors": "Grasso, Wu, Robinson", 
       "id": "22722839"
     }, 
@@ -35,16 +38,18 @@
       "pubDate": "Apr 2001", 
       "title": "Reduced 1alpha-hydroxylase activity in human prostate cancer cells correlates with decreased susceptibility to 25-hydroxyvitamin D3-induced growth inhibition.", 
       "journal": "Cancer research", 
+      "journal_iso": "Cancer Res.", 
       "authors": "Hsu, Feldman, McNeal", 
       "id": "11306457"
     }, 
     {
       "group": "Searched", 
       "name": "25990418", 
-      "weight": 56, 
+      "pubDate": "May 2015", 
       "title": "A new GWAS and meta-analysis with 1000Genomes imputation identifies novel risk variants for colorectal cancer.", 
       "journal": "Scientific reports", 
-      "pubDate": "May 2015", 
+      "weight": 56, 
+      "journal_iso": "Sci Rep", 
       "authors": "Al-Tassan, Whiffin, Hosking", 
       "id": "25990418"
     }, 
@@ -54,6 +59,7 @@
       "pubDate": "Mar 1982", 
       "title": "1,25-dihydroxyvitamin D3 receptors in human epithelial cancer cell lines.", 
       "journal": "Cancer research", 
+      "journal_iso": "Cancer Res.", 
       "authors": "Colston, Colston, Fieldsteel", 
       "id": "6895862"
     }, 
@@ -63,6 +69,7 @@
       "pubDate": "Jul 2013", 
       "title": "Mutational heterogeneity in cancer and the search for new cancer-associated genes.", 
       "journal": "Nature", 
+      "journal_iso": "Nature", 
       "authors": "Lawrence, Stojanov, Polak", 
       "id": "23770567"
     }, 
@@ -72,6 +79,7 @@
       "pubDate": "Mar 2009", 
       "title": "MicroRNAs181 regulate the expression of p27Kip1 in human myeloid leukemia cells induced to differentiate by 1,25-dihydroxyvitamin D3.", 
       "journal": "Cell cycle (Georgetown, Tex.)", 
+      "journal_iso": "Cell Cycle", 
       "authors": "Wang, Gocek, Liu", 
       "id": "19221487"
     }, 
@@ -81,6 +89,7 @@
       "pubDate": "Jan 2011", 
       "title": "COSMIC: mining complete cancer genomes in the Catalogue of Somatic Mutations in Cancer.", 
       "journal": "Nucleic acids research", 
+      "journal_iso": "Nucleic Acids Res.", 
       "authors": "Forbes, Bindal, Bamford", 
       "id": "20952405"
     }, 
@@ -90,6 +99,7 @@
       "pubDate": "Feb 2013", 
       "title": "Evolution and impact of subclonal mutations in chronic lymphocytic leukemia.", 
       "journal": "Cell", 
+      "journal_iso": "Cell", 
       "authors": "Landau, Carter, Stojanov", 
       "id": "23415222"
     }, 
@@ -99,6 +109,7 @@
       "pubDate": "Feb 2012", 
       "title": "SomaticSniper: identification of somatic point mutations in whole genome sequencing data.", 
       "journal": "Bioinformatics (Oxford, England)", 
+      "journal_iso": "Bioinformatics", 
       "authors": "Larson, Harris, Chen", 
       "id": "22155872"
     }, 
@@ -108,6 +119,7 @@
       "pubDate": "Oct 2012", 
       "title": "Comprehensive molecular portraits of human breast tumours.", 
       "journal": "Nature", 
+      "journal_iso": "Nature", 
       "authors": "", 
       "id": "23000897"
     }, 
@@ -117,6 +129,7 @@
       "pubDate": "Oct 2013", 
       "title": "Identification of a cellular ligand for the natural cytotoxicity receptor NKp44.", 
       "journal": "Blood", 
+      "journal_iso": "Blood", 
       "authors": "Baychelier, Sennepin, Ermonval", 
       "id": "23958951"
     }, 
@@ -126,6 +139,7 @@
       "pubDate": "Feb 2013", 
       "title": "Recruitment of NCOR1 to VDR target genes is enhanced in prostate cancer cells and associates with altered DNA methylation patterns.", 
       "journal": "Carcinogenesis", 
+      "journal_iso": "Carcinogenesis", 
       "authors": "Doig, Singh, Dhiman", 
       "id": "23087083"
     }, 
@@ -135,6 +149,7 @@
       "pubDate": " 2001", 
       "title": "Activating receptors and coreceptors involved in human natural killer cell-mediated cytolysis.", 
       "journal": "Annual review of immunology", 
+      "journal_iso": "Annu. Rev. Immunol.", 
       "authors": "Moretta, Bottino, Vitale", 
       "id": "11244035"
     }, 
@@ -144,6 +159,7 @@
       "pubDate": "Mar 1981", 
       "title": "1,25-dihydroxyvitamin D3 and malignant melanoma: the presence of receptors and inhibition of cell growth in culture.", 
       "journal": "Endocrinology", 
+      "journal_iso": "Endocrinology", 
       "authors": "Colston, Colston, Feldman", 
       "id": "6257495"
     }, 
@@ -153,6 +169,7 @@
       "pubDate": "Apr 2012", 
       "title": "Mutations affecting mRNA splicing define distinct clinical phenotypes and correlate with patient outcome in myelodysplastic syndromes.", 
       "journal": "Blood", 
+      "journal_iso": "Blood", 
       "authors": "Damm, Kosmider, Gelsi-Boyer", 
       "id": "22343920"
     }, 
@@ -162,6 +179,7 @@
       "pubDate": "Sep 2012", 
       "title": "An integrated encyclopedia of DNA elements in the human genome.", 
       "journal": "Nature", 
+      "journal_iso": "Nature", 
       "authors": "", 
       "id": "22955616"
     }, 
@@ -171,6 +189,7 @@
       "pubDate": "Sep 2012", 
       "title": "The making of ENCODE: Lessons for big-data projects.", 
       "journal": "Nature", 
+      "journal_iso": "Nature", 
       "authors": "Birney", 
       "id": "22955613"
     }, 
@@ -180,6 +199,7 @@
       "pubDate": "Nov 1990", 
       "title": "Geographic variation in breast cancer mortality in the United States: a hypothesis involving exposure to solar radiation.", 
       "journal": "Preventive medicine", 
+      "journal_iso": "Prev Med", 
       "authors": "Garland, Garland, Gorham", 
       "id": "2263572"
     }, 
@@ -189,16 +209,18 @@
       "pubDate": "Apr 2013", 
       "title": "Large-scale genotyping identifies 41 new loci associated with breast cancer risk.", 
       "journal": "Nature genetics", 
+      "journal_iso": "Nat. Genet.", 
       "authors": "Michailidou, Hall, Gonzalez-Neira", 
       "id": "23535729"
     }, 
     {
       "group": "Searched", 
       "name": "24202443", 
-      "weight": 48, 
+      "pubDate": "Oct 2013", 
       "title": "Gene regulatory scenarios of primary 1,25-dihydroxyvitamin d3 target genes in a human myeloid leukemia cell line.", 
       "journal": "Cancers", 
-      "pubDate": "Oct 2013", 
+      "weight": 48, 
+      "journal_iso": "Cancers (Basel)", 
       "authors": "Ryyn\u00e4nen, Seuter, Campbell", 
       "id": "24202443"
     }, 
@@ -208,6 +230,7 @@
       "pubDate": "Nov 2009", 
       "title": "Myelodysplastic syndromes.", 
       "journal": "The New England journal of medicine", 
+      "journal_iso": "N. Engl. J. Med.", 
       "authors": "Tefferi, Vardiman", 
       "id": "19890130"
     }, 
@@ -217,6 +240,7 @@
       "pubDate": "Sep 2001", 
       "title": "Gene expression patterns of breast carcinomas distinguish tumor subclasses with clinical implications.", 
       "journal": "Proceedings of the National Academy of Sciences of the United States of America", 
+      "journal_iso": "Proc. Natl. Acad. Sci. U.S.A.", 
       "authors": "S\u00f8rlie, Perou, Tibshirani", 
       "id": "11553815"
     }, 
@@ -226,6 +250,7 @@
       "pubDate": "Jun 2007", 
       "title": "Characterization of the recognition of tumor cells by the natural cytotoxicity receptor, NKp44.", 
       "journal": "Biochemistry", 
+      "journal_iso": "Biochemistry", 
       "authors": "Hershkovitz, Jivov, Bloushtain", 
       "id": "17536787"
     }, 
@@ -235,6 +260,7 @@
       "pubDate": "May 2012", 
       "title": "Common variation near CDKN1A, POLD3 and SHROOM2 influences colorectal cancer risk.", 
       "journal": "Nature genetics", 
+      "journal_iso": "Nat. Genet.", 
       "authors": "Dunlop, Dobbins, Farrington", 
       "id": "22634755"
     }, 
@@ -244,16 +270,18 @@
       "pubDate": " 2013", 
       "title": "Novel interaction between proliferating cell nuclear antigen and HLA I on the surface of tumor cells inhibits NK cell function through NKp44.", 
       "journal": "PloS one", 
+      "journal_iso": "PLoS ONE", 
       "authors": "Horton, Mathew, Mathew", 
       "id": "23527218"
     }, 
     {
       "group": "Searched", 
       "name": "25298093", 
-      "weight": 36, 
+      "pubDate": " 2014", 
       "title": "OncoCis: annotation of cis-regulatory mutations in  cancer.", 
       "journal": "Genome biology", 
-      "pubDate": " 2014", 
+      "weight": 36, 
+      "journal_iso": "Genome Biol.", 
       "authors": "Perera, Chacon, Thoms", 
       "id": "25298093"
     }, 
@@ -263,6 +291,7 @@
       "pubDate": "Oct 2010", 
       "title": "Genevar: a database and Java application for the analysis and visualization of SNP-gene associations in eQTL studies.", 
       "journal": "Bioinformatics (Oxford, England)", 
+      "journal_iso": "Bioinformatics", 
       "authors": "Yang, Beazley, Montgomery", 
       "id": "20702402"
     }, 
@@ -272,6 +301,7 @@
       "pubDate": "Sep 2014", 
       "title": "Identification of susceptibility loci for colorectal cancer in a genome-wide meta-analysis.", 
       "journal": "Human molecular genetics", 
+      "journal_iso": "Hum. Mol. Genet.", 
       "authors": "Whiffin, Hosking, Farrington", 
       "id": "24737748"
     }, 
@@ -281,6 +311,7 @@
       "pubDate": "Aug 2012", 
       "title": "Dissecting the genomic complexity underlying medulloblastoma.", 
       "journal": "Nature", 
+      "journal_iso": "Nature", 
       "authors": "Jones, J\u00e4ger, Kool", 
       "id": "22832583"
     }, 
@@ -290,6 +321,7 @@
       "pubDate": "Sep 2012", 
       "title": "Comprehensive genomic characterization of squamous cell lung cancers.", 
       "journal": "Nature", 
+      "journal_iso": "Nature", 
       "authors": "", 
       "id": "22960745"
     }, 
@@ -299,6 +331,7 @@
       "pubDate": "May 2013", 
       "title": "Genomic and epigenomic landscapes of adult de novo acute myeloid leukemia.", 
       "journal": "The New England journal of medicine", 
+      "journal_iso": "N. Engl. J. Med.", 
       "authors": "", 
       "id": "23634996"
     }, 
@@ -308,6 +341,7 @@
       "pubDate": "Nov 2002", 
       "title": "RNA editing enzyme APOBEC1 and some of its homologs can act as DNA mutators.", 
       "journal": "Molecular cell", 
+      "journal_iso": "Mol. Cell", 
       "authors": "Harris, Petersen-Mahrt, Neuberger", 
       "id": "12453430"
     }, 
@@ -317,6 +351,7 @@
       "pubDate": "Jun 2002", 
       "title": "Quantifying heterogeneity in a meta-analysis.", 
       "journal": "Statistics in medicine", 
+      "journal_iso": "Stat Med", 
       "authors": "Higgins, Thompson", 
       "id": "12111919"
     }, 
@@ -326,6 +361,7 @@
       "pubDate": "Feb 2007", 
       "title": "Chromatin modifications and their function.", 
       "journal": "Cell", 
+      "journal_iso": "Cell", 
       "authors": "Kouzarides", 
       "id": "17320507"
     }, 
@@ -335,26 +371,29 @@
       "pubDate": "Mar 2011", 
       "title": "Hallmarks of cancer: the next generation.", 
       "journal": "Cell", 
+      "journal_iso": "Cell", 
       "authors": "Hanahan, Weinberg", 
       "id": "21376230"
     }, 
     {
       "group": "Searched", 
       "name": "25243985", 
-      "weight": 358, 
+      "pubDate": "Aug 2015", 
       "title": "The return of metabolism: biochemistry and physiology of the pentose phosphate pathway.", 
       "journal": "Biological reviews of the Cambridge Philosophical Society", 
-      "pubDate": "Aug 2015", 
+      "weight": 358, 
+      "journal_iso": "Biol Rev Camb Philos Soc", 
       "authors": "Stincone, Prigione, Cramer", 
       "id": "25243985"
     }, 
     {
       "group": "Cited", 
       "name": "21215367", 
-      "weight": 34, 
+      "pubDate": "Jan 2011", 
       "title": "Massive genomic rearrangement acquired in a single catastrophic event during cancer development.", 
       "journal": "Cell", 
-      "pubDate": "Jan 2011", 
+      "weight": 34, 
+      "journal_iso": "Cell", 
       "authors": "Stephens, Greenman, Fu", 
       "id": "21215367"
     }, 
@@ -364,16 +403,18 @@
       "pubDate": "Dec 2010", 
       "title": "DNMT3A mutations in acute myeloid leukemia.", 
       "journal": "The New England journal of medicine", 
+      "journal_iso": "N. Engl. J. Med.", 
       "authors": "Ley, Ding, Walter", 
       "id": "21067377"
     }, 
     {
       "group": "Searched", 
       "name": "26437366", 
-      "weight": 35, 
+      "pubDate": "Nov 2015", 
       "title": "Loss of BAP1 function leads to EZH2-dependent transformation.", 
       "journal": "Nature medicine", 
-      "pubDate": "Nov 2015", 
+      "weight": 35, 
+      "journal_iso": "Nat. Med.", 
       "authors": "LaFave, B\u00e9guelin, Koche", 
       "id": "26437366"
     }, 
@@ -383,6 +424,7 @@
       "pubDate": "Jun 2012", 
       "title": "BAP1 loss defines a new class of renal cell carcinoma.", 
       "journal": "Nature genetics", 
+      "journal_iso": "Nat. Genet.", 
       "authors": "Pe\u00f1a-Llopis, Vega-Rub\u00edn-de-Celis, Liao", 
       "id": "22683710"
     }, 
@@ -392,6 +434,7 @@
       "pubDate": "Jun 2012", 
       "title": "Safety, activity, and immune correlates of anti-PD-1 antibody in cancer.", 
       "journal": "The New England journal of medicine", 
+      "journal_iso": "N. Engl. J. Med.", 
       "authors": "Topalian, Hodi, Brahmer", 
       "id": "22658127"
     }, 
@@ -401,6 +444,7 @@
       "pubDate": "Mar 2013", 
       "title": "Analysis of NKp30/NCR3 isoforms in untreated HIV-1-infected patients from the ANRS SEROCO cohort.", 
       "journal": "Oncoimmunology", 
+      "journal_iso": "Oncoimmunology", 
       "authors": "Prada, Antoni, Commo", 
       "id": "23802087"
     }, 
@@ -410,6 +454,7 @@
       "pubDate": "Oct 2006", 
       "title": "Vitamin D inhibits the formation of prostatic intraepithelial neoplasia in Nkx3.1;Pten mutant mice.", 
       "journal": "Clinical cancer research : an official journal of the American Association for Cancer Research", 
+      "journal_iso": "Clin. Cancer Res.", 
       "authors": "Banach-Petrosky, Ouyang, Gao", 
       "id": "17020998"
     }, 
@@ -419,6 +464,7 @@
       "pubDate": "Jun 2007", 
       "title": "PI3K is negatively regulated by PIK3IP1, a novel p110 interacting protein.", 
       "journal": "Biochemical and biophysical research communications", 
+      "journal_iso": "Biochem. Biophys. Res. Commun.", 
       "authors": "Zhu, He, Johnson", 
       "id": "17475214"
     }, 
@@ -428,6 +474,7 @@
       "pubDate": "Feb 2010", 
       "title": "The landscape of somatic copy-number alteration across human cancers.", 
       "journal": "Nature", 
+      "journal_iso": "Nature", 
       "authors": "Beroukhim, Mermel, Porter", 
       "id": "20164920"
     }, 
@@ -437,6 +484,7 @@
       "pubDate": "Jun 2011", 
       "title": "Whole-genome sequencing identifies recurrent mutations in chronic lymphocytic leukaemia.", 
       "journal": "Nature", 
+      "journal_iso": "Nature", 
       "authors": "Puente, Pinyol, Quesada", 
       "id": "21642962"
     }, 
@@ -446,6 +494,7 @@
       "pubDate": "Apr 2010", 
       "title": "Coordinated chromatin control: structural and functional linkage of DNA and histone methylation.", 
       "journal": "Biochemistry", 
+      "journal_iso": "Biochemistry", 
       "authors": "Cheng, Blumenthal", 
       "id": "20210320"
     }, 
@@ -455,6 +504,7 @@
       "pubDate": "May 2008", 
       "title": "Functions of natural killer cells.", 
       "journal": "Nature immunology", 
+      "journal_iso": "Nat. Immunol.", 
       "authors": "Vivier, Tomasello, Baratin", 
       "id": "18425107"
     }, 
@@ -464,6 +514,7 @@
       "pubDate": "May 2008", 
       "title": "Up on the tightrope: natural killer cell activation and inhibition.", 
       "journal": "Nature immunology", 
+      "journal_iso": "Nat. Immunol.", 
       "authors": "Lanier", 
       "id": "18425106"
     }, 
@@ -473,6 +524,7 @@
       "pubDate": "Mar 2007", 
       "title": "A faster circular binary segmentation algorithm for the analysis of array CGH data.", 
       "journal": "Bioinformatics (Oxford, England)", 
+      "journal_iso": "Bioinformatics", 
       "authors": "Venkatraman, Olshen", 
       "id": "17234643"
     }, 
@@ -482,6 +534,7 @@
       "pubDate": "Feb 1994", 
       "title": "A cell initiating human acute myeloid leukaemia after transplantation into SCID mice.", 
       "journal": "Nature", 
+      "journal_iso": "Nature", 
       "authors": "Lapidot, Sirard, Vormoor", 
       "id": "7509044"
     }, 
@@ -491,6 +544,7 @@
       "pubDate": "Nov 2006", 
       "title": "Direct interaction between DNMT1 and G9a coordinates DNA and histone methylation during replication.", 
       "journal": "Genes & development", 
+      "journal_iso": "Genes Dev.", 
       "authors": "Est\u00e8ve, Chin, Smallwood", 
       "id": "17085482"
     }, 
@@ -500,16 +554,18 @@
       "pubDate": "Sep 2007", 
       "title": "PLINK: a tool set for whole-genome association and population-based linkage analyses.", 
       "journal": "American journal of human genetics", 
+      "journal_iso": "Am. J. Hum. Genet.", 
       "authors": "Purcell, Neale, Todd-Brown", 
       "id": "17701901"
     }, 
     {
       "group": "Cited", 
       "name": "21088000", 
-      "weight": 72, 
+      "pubDate": "Mar 2011", 
       "title": "Epigenetic control of a VDR-governed feed-forward loop that regulates p21(waf1/cip1) expression and function in non-malignant prostate cells.", 
       "journal": "Nucleic acids research", 
-      "pubDate": "Mar 2011", 
+      "weight": 72, 
+      "journal_iso": "Nucleic Acids Res.", 
       "authors": "Thorne, Maguire, Doig", 
       "id": "21088000"
     }, 
@@ -519,6 +575,7 @@
       "pubDate": "Sep 2010", 
       "title": "Elevated NCOR1 disrupts PPARalpha/gamma signaling in prostate cancer and forms a targetable epigenetic lesion.", 
       "journal": "Carcinogenesis", 
+      "journal_iso": "Carcinogenesis", 
       "authors": "Battaglia, Maguire, Thorne", 
       "id": "20466759"
     }, 
@@ -528,16 +585,18 @@
       "pubDate": "Jun 2013", 
       "title": "Comparing somatic mutation-callers: beyond Venn diagrams.", 
       "journal": "BMC bioinformatics", 
+      "journal_iso": "BMC Bioinformatics", 
       "authors": "Kim, Speed", 
       "id": "23758877"
     }, 
     {
       "group": "Searched", 
       "name": "25271376", 
-      "weight": 57, 
+      "pubDate": "Oct 2014", 
       "title": "Origins and functional consequences of somatic mitochondrial DNA mutations in human cancer.", 
       "journal": "eLife", 
-      "pubDate": "Oct 2014", 
+      "weight": 57, 
+      "journal_iso": "Elife", 
       "authors": "Ju, Alexandrov, Gerstung", 
       "id": "25271376"
     }, 
@@ -547,16 +606,18 @@
       "pubDate": "Apr 2008", 
       "title": "MicroRNAs in the miR-106b family regulate p21/CDKN1A and promote cell cycle progression.", 
       "journal": "Molecular and cellular biology", 
+      "journal_iso": "Mol. Cell. Biol.", 
       "authors": "Ivanovska, Ball, Diaz", 
       "id": "18212054"
     }, 
     {
       "group": "Searched", 
       "name": "27157927", 
-      "weight": 54, 
+      "pubDate": "May 2016", 
       "title": "Deregulated hedgehog pathway signaling is inhibited by the smoothened antagonist LDE225 (Sonidegib) in chronic phase chronic myeloid leukaemia.", 
       "journal": "Scientific reports", 
-      "pubDate": "May 2016", 
+      "weight": 54, 
+      "journal_iso": "Sci Rep", 
       "authors": "Irvine, Zhang, Kinstrie", 
       "id": "27157927"
     }, 
@@ -566,6 +627,7 @@
       "pubDate": "Aug 2014", 
       "title": "Trans-ethnic genome-wide association study of colorectal cancer identifies a new susceptibility locus in VTI1A.", 
       "journal": "Nature communications", 
+      "journal_iso": "Nat Commun", 
       "authors": "Wang, Burnett, Kono", 
       "id": "25105248"
     }, 
@@ -575,6 +637,7 @@
       "pubDate": "Apr 2012", 
       "title": "The clonal and mutational evolution spectrum of primary triple-negative breast cancers.", 
       "journal": "Nature", 
+      "journal_iso": "Nature", 
       "authors": "Shah, Roth, Goya", 
       "id": "22495314"
     }, 
@@ -584,6 +647,7 @@
       "pubDate": "Nov 2010", 
       "title": "Meta-analysis of three genome-wide association studies identifies susceptibility loci for colorectal cancer at 1q41, 3q26.2, 12q13.13 and 20q13.33.", 
       "journal": "Nature genetics", 
+      "journal_iso": "Nat. Genet.", 
       "authors": "Houlston, Cheadle, Dobbins", 
       "id": "20972440"
     }, 
@@ -593,6 +657,7 @@
       "pubDate": "Aug 1999", 
       "title": "Novel 20-epi-vitamin D3 analog combined with 9-cis-retinoic acid markedly inhibits colony growth of prostate cancer cells.", 
       "journal": "The Prostate", 
+      "journal_iso": "Prostate", 
       "authors": "Elstner, Campbell, Munker", 
       "id": "10398275"
     }, 
@@ -602,16 +667,18 @@
       "pubDate": "Mar 1997", 
       "title": "International scoring system for evaluating prognosis in myelodysplastic syndromes.", 
       "journal": "Blood", 
+      "journal_iso": "Blood", 
       "authors": "Greenberg, Cox, LeBeau", 
       "id": "9058730"
     }, 
     {
       "group": "Searched", 
       "name": "27604819", 
-      "weight": 38, 
+      "pubDate": "Oct 2016", 
       "title": "Hemopoietic-specific Sf3b1-K700E knock-in mice display the splicing defect seen in human MDS but develop anemia without ring sideroblasts.", 
       "journal": "Leukemia", 
-      "pubDate": "Oct 2016", 
+      "weight": 38, 
+      "journal_iso": "Leukemia", 
       "authors": "Mupo, Seiler, Sathiaseelan", 
       "id": "27604819"
     }, 
@@ -621,6 +688,7 @@
       "pubDate": "Dec 2013", 
       "title": "Somatic mutations of calreticulin in myeloproliferative neoplasms.", 
       "journal": "The New England journal of medicine", 
+      "journal_iso": "N. Engl. J. Med.", 
       "authors": "Klampfl, Gisslinger, Harutyunyan", 
       "id": "24325356"
     }, 
@@ -630,6 +698,7 @@
       "pubDate": " 2007", 
       "title": "Dicentric chromosomes and 20q11.2 amplification in MDS/AML with apparent monosomy 20.", 
       "journal": "Cytogenetic and genome research", 
+      "journal_iso": "Cytogenet. Genome Res.", 
       "authors": "Mackinnon, Campbell", 
       "id": "18253031"
     }, 
@@ -639,6 +708,7 @@
       "pubDate": "Oct 2010", 
       "title": "A map of human genome variation from population-scale sequencing.", 
       "journal": "Nature", 
+      "journal_iso": "Nature", 
       "authors": ", Abecasis, Altshuler", 
       "id": "20981092"
     }, 
@@ -648,6 +718,7 @@
       "pubDate": "Feb 2000", 
       "title": "A calcitriol analogue, EB1089, inhibits the growth of LNCaP tumors in nude mice.", 
       "journal": "Cancer research", 
+      "journal_iso": "Cancer Res.", 
       "authors": "Blutt, Polek, Stewart", 
       "id": "10706079"
     }, 
@@ -657,16 +728,18 @@
       "pubDate": "Mar 2007", 
       "title": "Patterns of somatic mutation in human cancer genomes.", 
       "journal": "Nature", 
+      "journal_iso": "Nature", 
       "authors": "Greenman, Stephens, Smith", 
       "id": "17344846"
     }, 
     {
       "group": "Searched", 
       "name": "24567448", 
-      "weight": 38, 
+      "pubDate": "Mar 2014", 
       "title": "Co-targeting of convergent nucleotide biosynthetic pathways for leukemia eradication.", 
       "journal": "The Journal of experimental medicine", 
-      "pubDate": "Mar 2014", 
+      "weight": 38, 
+      "journal_iso": "J. Exp. Med.", 
       "authors": "Nathanson, Armijo, Tom", 
       "id": "24567448"
     }, 
@@ -676,6 +749,7 @@
       "pubDate": " ", 
       "title": "Is vitamin D deficiency a risk factor for prostate cancer? (Hypothesis).", 
       "journal": "Anticancer research", 
+      "journal_iso": "Anticancer Res.", 
       "authors": "Schwartz, Hulka", 
       "id": "2241107"
     }, 
@@ -685,6 +759,7 @@
       "pubDate": "Nov 2006", 
       "title": "Genome-wide analysis of estrogen receptor binding sites.", 
       "journal": "Nature genetics", 
+      "journal_iso": "Nat. Genet.", 
       "authors": "Carroll, Meyer, Song", 
       "id": "17013392"
     }, 
@@ -694,6 +769,7 @@
       "pubDate": " 2006", 
       "title": "Signal transduction in natural killer cells.", 
       "journal": "Current topics in microbiology and immunology", 
+      "journal_iso": "Curr. Top. Microbiol. Immunol.", 
       "authors": "MacFarlane, Campbell", 
       "id": "16329184"
     }, 
@@ -703,16 +779,18 @@
       "pubDate": "Nov 2007", 
       "title": "A genome-wide association study shows that common alleles of SMAD7 influence colorectal cancer risk.", 
       "journal": "Nature genetics", 
+      "journal_iso": "Nat. Genet.", 
       "authors": "Broderick, Carvajal-Carmona, Pittman", 
       "id": "17934461"
     }, 
     {
       "group": "Searched", 
       "name": "21248752", 
-      "weight": 25, 
+      "pubDate": "Jan 2011", 
       "title": "Exome sequencing identifies frequent mutation of the SWI/SNF complex gene PBRM1 in renal carcinoma.", 
       "journal": "Nature", 
-      "pubDate": "Jan 2011", 
+      "weight": 25, 
+      "journal_iso": "Nature", 
       "authors": "Varela, Tarpey, Raine", 
       "id": "21248752"
     }, 
@@ -722,6 +800,7 @@
       "pubDate": "Nov 1997", 
       "title": "dic(5;17): a recurring abnormality in malignant myeloid disorders associated with mutations of TP53.", 
       "journal": "Genes, chromosomes & cancer", 
+      "journal_iso": "Genes Chromosomes Cancer", 
       "authors": "Wang, Spielberger, Thangavelu", 
       "id": "9365836"
     }, 
@@ -731,6 +810,7 @@
       "pubDate": "Mar 2009", 
       "title": "Elevated NCOR1 disrupts a network of dietary-sensing nuclear receptors in bladder cancer cells.", 
       "journal": "Carcinogenesis", 
+      "journal_iso": "Carcinogenesis", 
       "authors": "Abedin, Thorne, Battaglia", 
       "id": "19126649"
     }, 
@@ -740,6 +820,7 @@
       "pubDate": "Mar 2009", 
       "title": "Cooperative NCoR/SMRT interactions establish a corepressor-based strategy for integration of inflammatory and anti-inflammatory signaling pathways.", 
       "journal": "Genes & development", 
+      "journal_iso": "Genes Dev.", 
       "authors": "Ghisletti, Huang, Jepsen", 
       "id": "19299558"
     }, 
@@ -749,6 +830,7 @@
       "pubDate": "Oct 2003", 
       "title": "Structure and function of the feed-forward loop network motif.", 
       "journal": "Proceedings of the National Academy of Sciences of the United States of America", 
+      "journal_iso": "Proc. Natl. Acad. Sci. U.S.A.", 
       "authors": "Mangan, Alon", 
       "id": "14530388"
     }, 
@@ -758,16 +840,18 @@
       "pubDate": "Jul 2005", 
       "title": "Spatio-temporal activation of chromatin on the human CYP24 gene promoter in the presence of 1alpha,25-Dihydroxyvitamin D3.", 
       "journal": "Journal of molecular biology", 
+      "journal_iso": "J. Mol. Biol.", 
       "authors": "V\u00e4is\u00e4nen, Dunlop, Sinkkonen", 
       "id": "15919092"
     }, 
     {
       "group": "Searched", 
       "name": "26647970", 
-      "weight": 39, 
+      "pubDate": "Dec 2015", 
       "title": "A comprehensive assessment of somatic mutation detection in cancer using whole-genome sequencing.", 
       "journal": "Nature communications", 
-      "pubDate": "Dec 2015", 
+      "weight": 39, 
+      "journal_iso": "Nat Commun", 
       "authors": "Alioto, Buchhalter, Derdak", 
       "id": "26647970"
     }, 
@@ -777,6 +861,7 @@
       "pubDate": "Sep 2009", 
       "title": "Circos: an information aesthetic for comparative genomics.", 
       "journal": "Genome research", 
+      "journal_iso": "Genome Res.", 
       "authors": "Krzywinski, Schein, Birol", 
       "id": "19541911"
     }, 
@@ -786,16 +871,18 @@
       "pubDate": "Oct 2013", 
       "title": "Integrative annotation of variants from 1092 humans: application to cancer genomics.", 
       "journal": "Science (New York, N.Y.)", 
+      "journal_iso": "Science", 
       "authors": "Khurana, Fu, Colonna", 
       "id": "24092746"
     }, 
     {
       "group": "Searched", 
       "name": "25799995", 
-      "weight": 22, 
+      "pubDate": "May 2015", 
       "title": "Signalling thresholds and negative B-cell selection in acute lymphoblastic leukaemia.", 
       "journal": "Nature", 
-      "pubDate": "May 2015", 
+      "weight": 22, 
+      "journal_iso": "Nature", 
       "authors": "Chen, Shojaee, Buchner", 
       "id": "25799995"
     }, 
@@ -805,6 +892,7 @@
       "pubDate": "Mar 2008", 
       "title": "Transient cyclical methylation of promoter DNA.", 
       "journal": "Nature", 
+      "journal_iso": "Nature", 
       "authors": "Kangaspeska, Stride, M\u00e9tivier", 
       "id": "18322535"
     }, 
@@ -814,6 +902,7 @@
       "pubDate": "Apr 2013", 
       "title": "The transporter ABCB7 is a mediator of the phenotype of acquired refractory anemia with ring sideroblasts.", 
       "journal": "Leukemia", 
+      "journal_iso": "Leukemia", 
       "authors": "Nikpour, Scharenberg, Liu", 
       "id": "23070040"
     }, 
@@ -823,6 +912,7 @@
       "pubDate": "Jul 2005", 
       "title": "Cancer gene discovery in solid tumours using transposon-based somatic mutagenesis in the mouse.", 
       "journal": "Nature", 
+      "journal_iso": "Nature", 
       "authors": "Collier, Carlson, Ravimohan", 
       "id": "16015333"
     }, 
@@ -832,6 +922,7 @@
       "pubDate": "Dec 2011", 
       "title": "Whole-exome sequencing of neoplastic cysts of the pancreas reveals recurrent mutations in components of ubiquitin-dependent pathways.", 
       "journal": "Proceedings of the National Academy of Sciences of the United States of America", 
+      "journal_iso": "Proc. Natl. Acad. Sci. U.S.A.", 
       "authors": "Wu, Jiao, Dal Molin", 
       "id": "22158988"
     }, 
@@ -841,6 +932,7 @@
       "pubDate": "Sep 2007", 
       "title": "Architectures of somatic genomic rearrangement in human cancer amplicons at sequence-level resolution.", 
       "journal": "Genome research", 
+      "journal_iso": "Genome Res.", 
       "authors": "Bignell, Santarius, Pole", 
       "id": "17675364"
     }, 
@@ -850,6 +942,7 @@
       "pubDate": "Sep 2004", 
       "title": "Bayesian Markov chain Monte Carlo sequence analysis reveals varying neutral substitution patterns in mammalian evolution.", 
       "journal": "Proceedings of the National Academy of Sciences of the United States of America", 
+      "journal_iso": "Proc. Natl. Acad. Sci. U.S.A.", 
       "authors": "Hwang, Green", 
       "id": "15292512"
     }, 
@@ -859,6 +952,7 @@
       "pubDate": "Jun 2006", 
       "title": "Identification of vitamin D receptor as a target of p63.", 
       "journal": "Oncogene", 
+      "journal_iso": "Oncogene", 
       "authors": "Kommagani, Caserta, Kadakia", 
       "id": "16462763"
     }, 
@@ -868,6 +962,7 @@
       "pubDate": "Oct 2010", 
       "title": "The NIH Roadmap Epigenomics Mapping Consortium.", 
       "journal": "Nature biotechnology", 
+      "journal_iso": "Nat. Biotechnol.", 
       "authors": "Bernstein, Stamatoyannopoulos, Costello", 
       "id": "20944595"
     }, 
@@ -877,6 +972,7 @@
       "pubDate": "May 2012", 
       "title": "Integrative genomics identifies the corepressor SMRT as a gatekeeper of adipogenesis through the transcription factors C/EBP\u03b2 and KAISO.", 
       "journal": "Molecular cell", 
+      "journal_iso": "Mol. Cell", 
       "authors": "Raghav, Waszak, Krier", 
       "id": "22521691"
     }, 
@@ -886,16 +982,18 @@
       "pubDate": "Mar 2011", 
       "title": "Initial genome sequencing and analysis of multiple myeloma.", 
       "journal": "Nature", 
+      "journal_iso": "Nature", 
       "authors": "Chapman, Lawrence, Keats", 
       "id": "21430775"
     }, 
     {
       "group": "Searched", 
       "name": "24205370", 
-      "weight": 19, 
+      "pubDate": " 2013", 
       "title": "The prognostic implications of macrophages expressing proliferating cell nuclear antigen in breast cancer depend on immune context.", 
       "journal": "PloS one", 
-      "pubDate": " 2013", 
+      "weight": 19, 
+      "journal_iso": "PLoS ONE", 
       "authors": "Campbell, Wolf, Mukhtar", 
       "id": "24205370"
     }, 
@@ -905,6 +1003,7 @@
       "pubDate": "Mar 2009", 
       "title": "Cyclical chromatin looping and transcription factor association on the regulatory regions of the p21 (CDKN1A) gene in response to 1alpha,25-dihydroxyvitamin D3.", 
       "journal": "The Journal of biological chemistry", 
+      "journal_iso": "J. Biol. Chem.", 
       "authors": "Saram\u00e4ki, Diermeier, Kellner", 
       "id": "19122196"
     }, 
@@ -914,6 +1013,7 @@
       "pubDate": "May 2008", 
       "title": "Genome-wide association scan identifies a colorectal cancer susceptibility locus on 11q23 and replicates risk loci at 8q24 and 18q21.", 
       "journal": "Nature genetics", 
+      "journal_iso": "Nat. Genet.", 
       "authors": "Tenesa, Farrington, Prendergast", 
       "id": "18372901"
     }, 
@@ -923,6 +1023,7 @@
       "pubDate": "May 2008", 
       "title": "A genome-wide association study identifies colorectal cancer susceptibility loci on chromosomes 10p14 and 8q23.3.", 
       "journal": "Nature genetics", 
+      "journal_iso": "Nat. Genet.", 
       "authors": "Tomlinson, Webb, Carvajal-Carmona", 
       "id": "18372905"
     }, 
@@ -932,6 +1033,7 @@
       "pubDate": "Feb 1994", 
       "title": "Antiproliferative effects of 1,25-dihydroxyvitamin D3 on primary cultures of human prostatic cells.", 
       "journal": "Cancer research", 
+      "journal_iso": "Cancer Res.", 
       "authors": "Peehl, Skowronski, Leung", 
       "id": "7508338"
     }, 
@@ -941,16 +1043,18 @@
       "pubDate": "Nov 2013", 
       "title": "Clinical and biological implications of driver mutations in myelodysplastic syndromes.", 
       "journal": "Blood", 
+      "journal_iso": "Blood", 
       "authors": "Papaemmanuil, Gerstung, Malcovati", 
       "id": "24030381"
     }, 
     {
       "group": "Cited", 
       "name": "22608083", 
-      "weight": 32, 
+      "pubDate": "May 2012", 
       "title": "The life history of 21 breast cancers.", 
       "journal": "Cell", 
-      "pubDate": "May 2012", 
+      "weight": 32, 
+      "journal_iso": "Cell", 
       "authors": "Nik-Zainal, Van Loo, Wedge", 
       "id": "22608083"
     }, 
@@ -960,6 +1064,7 @@
       "pubDate": "Jun 2011", 
       "title": "Integrated genomic analyses of ovarian carcinoma.", 
       "journal": "Nature", 
+      "journal_iso": "Nature", 
       "authors": "", 
       "id": "21720365"
     }, 
@@ -969,6 +1074,7 @@
       "pubDate": "Jul 2011", 
       "title": "Genome integrity of myeloproliferative neoplasms in chronic phase and during disease progression.", 
       "journal": "Blood", 
+      "journal_iso": "Blood", 
       "authors": "Klampfl, Harutyunyan, Berg", 
       "id": "21531982"
     }, 
@@ -978,6 +1084,7 @@
       "pubDate": "Dec 2005", 
       "title": "Prospective identification of tumorigenic prostate cancer stem cells.", 
       "journal": "Cancer research", 
+      "journal_iso": "Cancer Res.", 
       "authors": "Collins, Berry, Hyde", 
       "id": "16322242"
     }, 
@@ -987,6 +1094,7 @@
       "pubDate": "Jun 2009", 
       "title": "Integration of microRNA miR-122 in hepatic circadian gene expression.", 
       "journal": "Genes & development", 
+      "journal_iso": "Genes Dev.", 
       "authors": "Gatfield, Le Martelot, Vejnar", 
       "id": "19487572"
     }, 
@@ -996,6 +1104,7 @@
       "pubDate": "Apr 2005", 
       "title": "Activating mutation in the tyrosine kinase JAK2 in polycythemia vera, essential thrombocythemia, and myeloid metaplasia with myelofibrosis.", 
       "journal": "Cancer cell", 
+      "journal_iso": "Cancer Cell", 
       "authors": "Levine, Wadleigh, Cools", 
       "id": "15837627"
     }, 
@@ -1005,16 +1114,18 @@
       "pubDate": "Mar 1995", 
       "title": "Posttranscriptional stabilization underlies p53-independent induction of p21WAF1/CIP1/SDI1 in differentiating human leukemic cells.", 
       "journal": "The Journal of clinical investigation", 
+      "journal_iso": "J. Clin. Invest.", 
       "authors": "Schwaller, Koeffler, Niklaus", 
       "id": "7883998"
     }, 
     {
       "group": "Searched", 
       "name": "25355519", 
-      "weight": 10, 
+      "pubDate": "Jan 2015", 
       "title": "COSMIC: exploring the world's knowledge of somatic mutations in human cancer.", 
       "journal": "Nucleic acids research", 
-      "pubDate": "Jan 2015", 
+      "weight": 10, 
+      "journal_iso": "Nucleic Acids Res.", 
       "authors": "Forbes, Beare, Gunasekaran", 
       "id": "25355519"
     }, 
@@ -1024,16 +1135,18 @@
       "pubDate": " 2004", 
       "title": "Linear models and empirical bayes methods for assessing differential expression in microarray experiments.", 
       "journal": "Statistical applications in genetics and molecular biology", 
+      "journal_iso": "Stat Appl Genet Mol Biol", 
       "authors": "Smyth", 
       "id": "16646809"
     }, 
     {
       "group": "Searched", 
       "name": "25691811", 
-      "weight": 113, 
+      "pubDate": " 2015", 
       "title": "Hedgehog signaling in cancer stem cells: a focus on hematological cancers.", 
       "journal": "Stem cells and cloning : advances and applications", 
-      "pubDate": " 2015", 
+      "weight": 113, 
+      "journal_iso": "Stem Cells Cloning", 
       "authors": "Campbell, Copland", 
       "id": "25691811"
     }, 
@@ -1043,6 +1156,7 @@
       "pubDate": "Feb 2007", 
       "title": "Myelodysplastic syndromes: the complexity of stem-cell diseases.", 
       "journal": "Nature reviews. Cancer", 
+      "journal_iso": "Nat. Rev. Cancer", 
       "authors": "Corey, Minden, Barber", 
       "id": "17251918"
     }, 
@@ -1052,6 +1166,7 @@
       "pubDate": "Oct 2008", 
       "title": "Inactivation of the vitamin D receptor enhances susceptibility of murine skin to UV-induced tumorigenesis.", 
       "journal": "The Journal of investigative dermatology", 
+      "journal_iso": "J. Invest. Dermatol.", 
       "authors": "Ellison, Smith, Gilliam", 
       "id": "18509362"
     }, 
@@ -1061,6 +1176,7 @@
       "pubDate": "Sep 2012", 
       "title": "Mapping the hallmarks of lung adenocarcinoma with massively parallel sequencing.", 
       "journal": "Cell", 
+      "journal_iso": "Cell", 
       "authors": "Imielinski, Berger, Hammerman", 
       "id": "22980975"
     }, 
@@ -1070,6 +1186,7 @@
       "pubDate": "Sep 2014", 
       "title": "Targetable kinase-activating lesions in Ph-like acute lymphoblastic leukemia.", 
       "journal": "The New England journal of medicine", 
+      "journal_iso": "N. Engl. J. Med.", 
       "authors": "Roberts, Li, Payne-Turner", 
       "id": "25207766"
     }, 
@@ -1079,16 +1196,18 @@
       "pubDate": " ", 
       "title": "Cancer statistics, 2010.", 
       "journal": "CA: a cancer journal for clinicians", 
+      "journal_iso": "CA Cancer J Clin", 
       "authors": "Jemal, Siegel, Xu", 
       "id": "20610543"
     }, 
     {
       "group": "Searched", 
       "name": "27459855", 
-      "weight": 45, 
+      "pubDate": "Jun 2016", 
       "title": "Identification of independent association signals and putative functional variants for breast cancer risk through fine-scale mapping of the 12p11 locus.", 
       "journal": "Breast cancer research : BCR", 
-      "pubDate": "Jun 2016", 
+      "weight": 45, 
+      "journal_iso": "Breast Cancer Res.", 
       "authors": "Zeng, Guo, Long", 
       "id": "27459855"
     }, 
@@ -1098,6 +1217,7 @@
       "pubDate": "Mar 1941", 
       "title": "The Stability of Broken Ends of Chromosomes in Zea Mays.", 
       "journal": "Genetics", 
+      "journal_iso": "Genetics", 
       "authors": "McClintock", 
       "id": "17247004"
     }, 
@@ -1107,6 +1227,7 @@
       "pubDate": "Aug 2010", 
       "title": "Deriving the consequences of genomic variants with the Ensembl API and SNP Effect Predictor.", 
       "journal": "Bioinformatics (Oxford, England)", 
+      "journal_iso": "Bioinformatics", 
       "authors": "McLaren, Pritchard, Rios", 
       "id": "20562413"
     }, 
@@ -1116,6 +1237,7 @@
       "pubDate": "Sep 2010", 
       "title": "Allele-specific copy number analysis of tumors.", 
       "journal": "Proceedings of the National Academy of Sciences of the United States of America", 
+      "journal_iso": "Proc. Natl. Acad. Sci. U.S.A.", 
       "authors": "Van Loo, Nordgard, Lingj\u00e6rde", 
       "id": "20837533"
     }, 
@@ -1125,6 +1247,7 @@
       "pubDate": "Feb 2010", 
       "title": "Signatures of mutation and selection in the cancer genome.", 
       "journal": "Nature", 
+      "journal_iso": "Nature", 
       "authors": "Bignell, Greenman, Davies", 
       "id": "20164919"
     }, 
@@ -1134,16 +1257,18 @@
       "pubDate": "Feb 2013", 
       "title": "Vitamin D receptor signaling mechanisms: integrated actions of a well-defined transcription factor.", 
       "journal": "Steroids", 
+      "journal_iso": "Steroids", 
       "authors": "Carlberg, Campbell", 
       "id": "23178257"
     }, 
     {
       "group": "Searched", 
       "name": "22898679", 
-      "weight": 29, 
+      "pubDate": "Sep 2012", 
       "title": "Imatinib after induction for treatment of children and adolescents with Philadelphia-chromosome-positive acute lymphoblastic leukaemia (EsPhALL): a randomised, open-label, intergroup study.", 
       "journal": "The Lancet. Oncology", 
-      "pubDate": "Sep 2012", 
+      "weight": 29, 
+      "journal_iso": "Lancet Oncol.", 
       "authors": "Biondi, Schrappe, De Lorenzo", 
       "id": "22898679"
     }, 
@@ -1153,6 +1278,7 @@
       "pubDate": "May 2008", 
       "title": "Intrinsic and extrinsic control of haematopoietic stem-cell self-renewal.", 
       "journal": "Nature", 
+      "journal_iso": "Nature", 
       "authors": "Zon", 
       "id": "18480811"
     }, 
@@ -1162,26 +1288,29 @@
       "pubDate": "Oct 2002", 
       "title": "The World Health Organization (WHO) classification of the myeloid neoplasms.", 
       "journal": "Blood", 
+      "journal_iso": "Blood", 
       "authors": "Vardiman, Harris, Brunning", 
       "id": "12239137"
     }, 
     {
       "group": "Searched", 
       "name": "27615322", 
-      "weight": 40, 
+      "pubDate": "Sep 2016", 
       "title": "Mutational signatures of ionizing radiation in second malignancies.", 
       "journal": "Nature communications", 
-      "pubDate": "Sep 2016", 
+      "weight": 40, 
+      "journal_iso": "Nat Commun", 
       "authors": "Behjati, Gundem, Wedge", 
       "id": "27615322"
     }, 
     {
       "group": "Searched", 
       "name": "23028338", 
-      "weight": 38, 
+      "pubDate": "Sep 2012", 
       "title": "Exome sequencing identifies rare deleterious mutations in DNA repair genes FANCC and BLM as potential breast cancer susceptibility alleles.", 
       "journal": "PLoS genetics", 
-      "pubDate": "Sep 2012", 
+      "weight": 38, 
+      "journal_iso": "PLoS Genet.", 
       "authors": "Thompson, Doyle, Ryland", 
       "id": "23028338"
     }, 
@@ -1191,6 +1320,7 @@
       "pubDate": "Jun 2010", 
       "title": "Discovery of NVP-LDE225, a Potent and Selective Smoothened Antagonist.", 
       "journal": "ACS medicinal chemistry letters", 
+      "journal_iso": "ACS Med Chem Lett", 
       "authors": "Pan, Wu, Jiang", 
       "id": "24900187"
     }, 
@@ -1200,6 +1330,7 @@
       "pubDate": "Sep 2007", 
       "title": "Increased expression of corepressors in aggressive androgen-independent prostate cancer cells results in loss of 1alpha,25-dihydroxyvitamin D3 responsiveness.", 
       "journal": "Molecular cancer research : MCR", 
+      "journal_iso": "Mol. Cancer Res.", 
       "authors": "Ting, Bao, Reeder", 
       "id": "17855664"
     }, 
@@ -1209,6 +1340,7 @@
       "pubDate": "Feb 2013", 
       "title": "APOBEC3B is an enzymatic source of mutation in breast cancer.", 
       "journal": "Nature", 
+      "journal_iso": "Nature", 
       "authors": "Burns, Lackey, Carpenter", 
       "id": "23389445"
     }, 
@@ -1218,6 +1350,7 @@
       "pubDate": "Apr 2003", 
       "title": "Expression analysis of estrogen receptor alpha coregulators in breast carcinoma: evidence that NCOR1 expression is predictive of the response to tamoxifen.", 
       "journal": "Clinical cancer research : an official journal of the American Association for Cancer Research", 
+      "journal_iso": "Clin. Cancer Res.", 
       "authors": "Girault, Lerebours, Amarir", 
       "id": "12684393"
     }, 
@@ -1227,6 +1360,7 @@
       "pubDate": "Sep 2000", 
       "title": "Combinatorial roles of the nuclear receptor corepressor in transcription and development.", 
       "journal": "Cell", 
+      "journal_iso": "Cell", 
       "authors": "Jepsen, Hermanson, Onami", 
       "id": "11030619"
     }, 
@@ -1236,6 +1370,7 @@
       "pubDate": "Dec 2006", 
       "title": "The insulin-like growth factor-binding protein 1 gene is a primary target of peroxisome proliferator-activated receptors.", 
       "journal": "The Journal of biological chemistry", 
+      "journal_iso": "J. Biol. Chem.", 
       "authors": "Degenhardt, Matilainen, Herzig", 
       "id": "17062566"
     }, 
@@ -1245,6 +1380,7 @@
       "pubDate": "Jul 2012", 
       "title": "A novel mechanism for cancer cells to evade immune attack by NK cells: The interaction between NKp44 and proliferating cell nuclear antigen.", 
       "journal": "Oncoimmunology", 
+      "journal_iso": "Oncoimmunology", 
       "authors": "Rosental, Hadad, Brusilovsky", 
       "id": "22754791"
     }, 
@@ -1254,6 +1390,7 @@
       "pubDate": "Sep 2003", 
       "title": "N-CoR mediates DNA methylation-dependent repression through a methyl CpG binding protein Kaiso.", 
       "journal": "Molecular cell", 
+      "journal_iso": "Mol. Cell", 
       "authors": "Yoon, Chan, Reynolds", 
       "id": "14527417"
     }, 
@@ -1263,6 +1400,7 @@
       "pubDate": "Jun 1998", 
       "title": "NKp44, a novel triggering surface molecule specifically expressed by activated natural killer cells, is involved in non-major histocompatibility complex-restricted tumor cell lysis.", 
       "journal": "The Journal of experimental medicine", 
+      "journal_iso": "J. Exp. Med.", 
       "authors": "Vitale, Bottino, Sivori", 
       "id": "9625766"
     }, 
@@ -1272,6 +1410,7 @@
       "pubDate": "Oct 1981", 
       "title": "1 alpha,25-Dihydroxyvitamin D3 induces differentiation of human myeloid leukemia cells.", 
       "journal": "Biochemical and biophysical research communications", 
+      "journal_iso": "Biochem. Biophys. Res. Commun.", 
       "authors": "Miyaura, Abe, Kuribayashi", 
       "id": "6946774"
     }, 
@@ -1281,6 +1420,7 @@
       "pubDate": "Feb 2012", 
       "title": "Chronic myeloid leukemia stem cells are not dependent on Bcr-Abl kinase activity for their survival.", 
       "journal": "Blood", 
+      "journal_iso": "Blood", 
       "authors": "Hamilton, Helgason, Schemionek", 
       "id": "22184410"
     }, 
@@ -1290,6 +1430,7 @@
       "pubDate": "Jun 2010", 
       "title": "Transcription factor co-repressors in cancer biology: roles and targeting.", 
       "journal": "International journal of cancer", 
+      "journal_iso": "Int. J. Cancer", 
       "authors": "Battaglia, Maguire, Campbell", 
       "id": "20091860"
     }, 
@@ -1299,6 +1440,7 @@
       "pubDate": "Dec 2005", 
       "title": "The G0/G1 switch gene 2 is a novel PPAR target gene.", 
       "journal": "The Biochemical journal", 
+      "journal_iso": "Biochem. J.", 
       "authors": "Zandbergen, Mandard, Escher", 
       "id": "16086669"
     }, 
@@ -1308,6 +1450,7 @@
       "pubDate": "Feb 2012", 
       "title": "Estimation of rearrangement phylogeny for cancer genomes.", 
       "journal": "Genome research", 
+      "journal_iso": "Genome Res.", 
       "authors": "Greenman, Pleasance, Newman", 
       "id": "21994251"
     }, 
@@ -1317,6 +1460,7 @@
       "pubDate": "Aug 2012", 
       "title": "Recurrent R-spondin fusions in colon cancer.", 
       "journal": "Nature", 
+      "journal_iso": "Nature", 
       "authors": "Seshagiri, Stawiski, Durinck", 
       "id": "22895193"
     }, 
@@ -1326,6 +1470,7 @@
       "pubDate": "Apr 2010", 
       "title": "Genome remodelling in a basal-like breast cancer metastasis and xenograft.", 
       "journal": "Nature", 
+      "journal_iso": "Nature", 
       "authors": "Ding, Ellis, Li", 
       "id": "20393555"
     }, 
@@ -1335,6 +1480,7 @@
       "pubDate": "Apr 2010", 
       "title": "International network of cancer genome projects.", 
       "journal": "Nature", 
+      "journal_iso": "Nature", 
       "authors": ", Hudson, Anderson", 
       "id": "20393554"
     }, 
@@ -1344,6 +1490,7 @@
       "pubDate": "Dec 2011", 
       "title": "Frequent somatic mutations in MAP3K5 and MAP3K9 in metastatic melanoma identified by exome sequencing.", 
       "journal": "Nature genetics", 
+      "journal_iso": "Nat. Genet.", 
       "authors": "Stark, Woods, Gartside", 
       "id": "22197930"
     }, 
@@ -1353,6 +1500,7 @@
       "pubDate": "Mar 2007", 
       "title": "Hedgehog signaling maintains a tumor stem cell compartment in multiple myeloma.", 
       "journal": "Proceedings of the National Academy of Sciences of the United States of America", 
+      "journal_iso": "Proc. Natl. Acad. Sci. U.S.A.", 
       "authors": "Peacock, Wang, Gesell", 
       "id": "17360475"
     }, 
@@ -1362,6 +1510,7 @@
       "pubDate": "Sep 2010", 
       "title": "The Genome Analysis Toolkit: a MapReduce framework for analyzing next-generation DNA sequencing data.", 
       "journal": "Genome research", 
+      "journal_iso": "Genome Res.", 
       "authors": "McKenna, Hanna, Banks", 
       "id": "20644199"
     }, 
@@ -1371,6 +1520,7 @@
       "pubDate": "Mar 2014", 
       "title": "A general framework for estimating the relative pathogenicity of human genetic variants.", 
       "journal": "Nature genetics", 
+      "journal_iso": "Nat. Genet.", 
       "authors": "Kircher, Witten, Jain", 
       "id": "24487276"
     }, 
@@ -1380,6 +1530,7 @@
       "pubDate": "Sep 2012", 
       "title": "Exome sequencing identifies recurrent somatic RAC1 mutations in melanoma.", 
       "journal": "Nature genetics", 
+      "journal_iso": "Nat. Genet.", 
       "authors": "Krauthammer, Kong, Ha", 
       "id": "22842228"
     }, 
@@ -1389,6 +1540,7 @@
       "pubDate": "Apr 2010", 
       "title": "NER factors are recruited to active promoters and facilitate chromatin modification for transcription in the absence of exogenous genotoxic attack.", 
       "journal": "Molecular cell", 
+      "journal_iso": "Mol. Cell", 
       "authors": "Le May, Mota-Fernandes, V\u00e9lez-Cruz", 
       "id": "20385089"
     }, 
@@ -1398,6 +1550,7 @@
       "pubDate": "Jun 2006", 
       "title": "Sensors and signals: a coactivator/corepressor/epigenetic code for integrating signal-dependent programs of transcriptional response.", 
       "journal": "Genes & development", 
+      "journal_iso": "Genes Dev.", 
       "authors": "Rosenfeld, Lunyak, Glass", 
       "id": "16751179"
     }, 
@@ -1407,6 +1560,7 @@
       "pubDate": "Apr 1999", 
       "title": "Chronic myeloid leukemia.", 
       "journal": "The New England journal of medicine", 
+      "journal_iso": "N. Engl. J. Med.", 
       "authors": "Sawyers", 
       "id": "10219069"
     }, 
@@ -1416,6 +1570,7 @@
       "pubDate": "Nov 2011", 
       "title": "Nuclear hormone 1\u03b1,25-dihydroxyvitamin D3 elicits a genome-wide shift in the locations of VDR chromatin occupancy.", 
       "journal": "Nucleic acids research", 
+      "journal_iso": "Nucleic Acids Res.", 
       "authors": "Heikkinen, V\u00e4is\u00e4nen, Pehkonen", 
       "id": "21846776"
     }, 
@@ -1425,6 +1580,7 @@
       "pubDate": "Mar 2010", 
       "title": "Modulation of the vitamin D3 response by cancer-associated mutant p53.", 
       "journal": "Cancer cell", 
+      "journal_iso": "Cancer Cell", 
       "authors": "Stambolsky, Tabach, Fontemaggi", 
       "id": "20227041"
     }, 
@@ -1434,6 +1590,7 @@
       "pubDate": "Feb 2009", 
       "title": "Involvement of SMRT corepressor in transcriptional repression by the vitamin D receptor.", 
       "journal": "Molecular endocrinology (Baltimore, Md.)", 
+      "journal_iso": "Mol. Endocrinol.", 
       "authors": "Kim, Son, Lee", 
       "id": "19098224"
     }, 
@@ -1443,6 +1600,7 @@
       "pubDate": "Jan 2012", 
       "title": "HaploReg: a resource for exploring chromatin states, conservation, and regulatory motif alterations within sets of genetically linked variants.", 
       "journal": "Nucleic acids research", 
+      "journal_iso": "Nucleic Acids Res.", 
       "authors": "Ward, Kellis", 
       "id": "22064851"
     }, 
@@ -1452,6 +1610,7 @@
       "pubDate": "May 2001", 
       "title": "Predicting deleterious amino acid substitutions.", 
       "journal": "Genome research", 
+      "journal_iso": "Genome Res.", 
       "authors": "Ng, Henikoff", 
       "id": "11337480"
     }, 
@@ -1461,16 +1620,18 @@
       "pubDate": "Apr 2013", 
       "title": "Identification of Genetic Susceptibility Loci for Colorectal Tumors in a Genome-Wide Meta-analysis.", 
       "journal": "Gastroenterology", 
+      "journal_iso": "Gastroenterology", 
       "authors": "Peters, Jiao, Schumacher", 
       "id": "23266556"
     }, 
     {
       "group": "Searched", 
       "name": "21479216", 
-      "weight": 57, 
+      "pubDate": "Mar 2011", 
       "title": "Analysis of normal-tumour tissue interaction in tumours: prediction of prostate cancer features from the molecular profile of adjacent normal cells.", 
       "journal": "PloS one", 
-      "pubDate": "Mar 2011", 
+      "weight": 57, 
+      "journal_iso": "PLoS ONE", 
       "authors": "Trevino, Tadesse, Vannucci", 
       "id": "21479216"
     }, 
@@ -1480,6 +1641,7 @@
       "pubDate": "May 2006", 
       "title": "Comparative genome analysis identifies the vitamin D receptor gene as a direct target of p53-mediated transcriptional activation.", 
       "journal": "Cancer research", 
+      "journal_iso": "Cancer Res.", 
       "authors": "Maruyama, Aoki, Toyota", 
       "id": "16651407"
     }, 
@@ -1489,6 +1651,7 @@
       "pubDate": "Sep 2008", 
       "title": "Expansion of Bcr-Abl-positive leukemic stem cells is dependent on Hedgehog pathway activation.", 
       "journal": "Cancer cell", 
+      "journal_iso": "Cancer Cell", 
       "authors": "Dierks, Beigi, Guo", 
       "id": "18772113"
     }, 
@@ -1498,6 +1661,7 @@
       "pubDate": "Nov 2008", 
       "title": "DNA sequencing of a cytogenetically normal acute myeloid leukaemia genome.", 
       "journal": "Nature", 
+      "journal_iso": "Nature", 
       "authors": "Ley, Mardis, Ding", 
       "id": "18987736"
     }, 
@@ -1507,6 +1671,7 @@
       "pubDate": "Mar 2005", 
       "title": "The epidemiology of vitamin D and cancer incidence and mortality: a review (United States).", 
       "journal": "Cancer causes & control : CCC", 
+      "journal_iso": "Cancer Causes Control", 
       "authors": "Giovannucci", 
       "id": "15868450"
     }, 
@@ -1516,6 +1681,7 @@
       "pubDate": "Jun 2011", 
       "title": "Molecular signatures database (MSigDB) 3.0.", 
       "journal": "Bioinformatics (Oxford, England)", 
+      "journal_iso": "Bioinformatics", 
       "authors": "Liberzon, Subramanian, Pinchback", 
       "id": "21546393"
     }, 
@@ -1525,6 +1691,7 @@
       "pubDate": "Oct 2002", 
       "title": "Tobacco smoke carcinogens, DNA damage and p53 mutations in smoking-associated cancers.", 
       "journal": "Oncogene", 
+      "journal_iso": "Oncogene", 
       "authors": "Pfeifer, Denissenko, Olivier", 
       "id": "12379884"
     }, 
@@ -1534,6 +1701,7 @@
       "pubDate": "Nov 2012", 
       "title": "Effects of the hedgehog inhibitor GDC-0449, alone or in combination with dasatinib, on BCR-ABL-positive leukemia cells.", 
       "journal": "Stem cells and development", 
+      "journal_iso": "Stem Cells Dev.", 
       "authors": "Okabe, Tauchi, Tanaka", 
       "id": "22642671"
     }, 
@@ -1543,6 +1711,7 @@
       "pubDate": "May 2012", 
       "title": "Matrix eQTL: ultra fast eQTL analysis via large matrix operations.", 
       "journal": "Bioinformatics (Oxford, England)", 
+      "journal_iso": "Bioinformatics", 
       "authors": "Shabalin", 
       "id": "22492648"
     }, 
@@ -1552,6 +1721,7 @@
       "pubDate": "Oct 2010", 
       "title": "A locus on 19p13 modifies risk of breast cancer in BRCA1 mutation carriers and is associated with hormone receptor-negative breast cancer in the general population.", 
       "journal": "Nature genetics", 
+      "journal_iso": "Nat. Genet.", 
       "authors": "Antoniou, Wang, Fredericksen", 
       "id": "20852631"
     }, 
@@ -1561,6 +1731,7 @@
       "pubDate": "Nov 2012", 
       "title": "An integrated map of genetic variation from 1,092 human genomes.", 
       "journal": "Nature", 
+      "journal_iso": "Nature", 
       "authors": ", Abecasis, Auton", 
       "id": "23128226"
     }, 
@@ -1570,16 +1741,18 @@
       "pubDate": "Mar 2006", 
       "title": "The incoherent feed-forward loop accelerates the response-time of the gal system of Escherichia coli.", 
       "journal": "Journal of molecular biology", 
+      "journal_iso": "J. Mol. Biol.", 
       "authors": "Mangan, Itzkovitz, Zaslaver", 
       "id": "16406067"
     }, 
     {
       "group": "Searched", 
       "name": "26618344", 
-      "weight": 49, 
+      "pubDate": "Jan 2016", 
       "title": "Regulators of genetic risk of breast cancer identified by integrative network analysis.", 
       "journal": "Nature genetics", 
-      "pubDate": "Jan 2016", 
+      "weight": 49, 
+      "journal_iso": "Nat. Genet.", 
       "authors": "Castro, de Santiago, Campbell", 
       "id": "26618344"
     }, 
@@ -1589,6 +1762,7 @@
       "pubDate": "Oct 2013", 
       "title": "Found: a cellular activating ligand for NKp44.", 
       "journal": "Blood", 
+      "journal_iso": "Blood", 
       "authors": "Rajagopalan, Long", 
       "id": "24159160"
     }, 
@@ -1598,16 +1772,18 @@
       "pubDate": "Dec 2012", 
       "title": "The genetic landscape of mutations in Burkitt lymphoma.", 
       "journal": "Nature genetics", 
+      "journal_iso": "Nat. Genet.", 
       "authors": "Love, Sun, Jima", 
       "id": "23143597"
     }, 
     {
       "group": "Searched", 
       "name": "24443148", 
-      "weight": 18, 
+      "pubDate": "May 2014", 
       "title": "Subclonal variant calling with multiple samples and prior knowledge.", 
       "journal": "Bioinformatics (Oxford, England)", 
-      "pubDate": "May 2014", 
+      "weight": 18, 
+      "journal_iso": "Bioinformatics", 
       "authors": "Gerstung, Papaemmanuil, Campbell", 
       "id": "24443148"
     }, 
@@ -1617,6 +1793,7 @@
       "pubDate": "May 2011", 
       "title": "Exome sequencing identifies GRIN2A as frequently mutated in melanoma.", 
       "journal": "Nature genetics", 
+      "journal_iso": "Nat. Genet.", 
       "authors": "Wei, Walia, Lin", 
       "id": "21499247"
     }, 
@@ -1626,6 +1803,7 @@
       "pubDate": "Apr 2002", 
       "title": "Enhanced growth inhibition by combination differentiation therapy with ligands of peroxisome proliferator-activated receptor-gamma and inhibitors of histone deacetylase in adenocarcinoma of the lung.", 
       "journal": "Clinical cancer research : an official journal of the American Association for Cancer Research", 
+      "journal_iso": "Clin. Cancer Res.", 
       "authors": "Chang, Szabo", 
       "id": "11948134"
     }, 
@@ -1635,6 +1813,7 @@
       "pubDate": "Jul 2000", 
       "title": "Environmental and heritable factors in the causation of cancer--analyses of cohorts of twins from Sweden, Denmark, and Finland.", 
       "journal": "The New England journal of medicine", 
+      "journal_iso": "N. Engl. J. Med.", 
       "authors": "Lichtenstein, Holm, Verkasalo", 
       "id": "10891514"
     }, 
@@ -1644,16 +1823,18 @@
       "pubDate": "May 2012", 
       "title": "Exome sequencing of gastric adenocarcinoma identifies recurrent  somatic mutations in cell adhesion and chromatin remodeling genes.", 
       "journal": "Nature genetics", 
+      "journal_iso": "Nat. Genet.", 
       "authors": "Zang, Cutcutache, Poon", 
       "id": "22484628"
     }, 
     {
       "group": "Searched", 
       "name": "27498871", 
-      "weight": 31, 
+      "pubDate": "Aug 2016", 
       "title": "Direct Transcriptional Consequences of Somatic Mutation in Breast Cancer.", 
       "journal": "Cell reports", 
-      "pubDate": "Aug 2016", 
+      "weight": 31, 
+      "journal_iso": "Cell Rep", 
       "authors": "Shlien, Raine, Fuligni", 
       "id": "27498871"
     }, 
@@ -1663,16 +1844,18 @@
       "pubDate": "Aug 2011", 
       "title": "Exome sequencing of head and neck squamous cell carcinoma reveals inactivating mutations in NOTCH1.", 
       "journal": "Science (New York, N.Y.)", 
+      "journal_iso": "Science", 
       "authors": "Agrawal, Frederick, Pickering", 
       "id": "21798897"
     }, 
     {
       "group": "Searched", 
       "name": "24670643", 
-      "weight": 21, 
+      "pubDate": "Apr 2014", 
       "title": "Constitutional and somatic rearrangement of chromosome 21 in acute lymphoblastic leukaemia.", 
       "journal": "Nature", 
-      "pubDate": "Apr 2014", 
+      "weight": 21, 
+      "journal_iso": "Nature", 
       "authors": "Li, Schwab, Ryan", 
       "id": "24670643"
     }, 
@@ -1682,6 +1865,7 @@
       "pubDate": "Dec 2011", 
       "title": "KDM6B/JMJD3 histone demethylase is induced by vitamin D and modulates its effects in colon cancer cells.", 
       "journal": "Human molecular genetics", 
+      "journal_iso": "Hum. Mol. Genet.", 
       "authors": "Pereira, Barb\u00e1chano, Silva", 
       "id": "21890490"
     }, 
@@ -1691,16 +1875,18 @@
       "pubDate": "Sep 2006", 
       "title": "Prostate derived factor in human prostate cancer cells: gene induction by vitamin D via a p53-dependent mechanism and inhibition of prostate cancer cell growth.", 
       "journal": "Journal of cellular physiology", 
+      "journal_iso": "J. Cell. Physiol.", 
       "authors": "Lambert, Kelly, Shim", 
       "id": "16741990"
     }, 
     {
       "group": "Searched", 
       "name": "24860511", 
-      "weight": 166, 
+      "pubDate": " 2014", 
       "title": "Vitamin D and the RNA transcriptome: more than mRNA regulation.", 
       "journal": "Frontiers in physiology", 
-      "pubDate": " 2014", 
+      "weight": 166, 
+      "journal_iso": "Front Physiol", 
       "authors": "Campbell", 
       "id": "24860511"
     }, 
@@ -1710,6 +1896,7 @@
       "pubDate": "Feb 1956", 
       "title": "On the origin of cancer cells.", 
       "journal": "Science (New York, N.Y.)", 
+      "journal_iso": "Science", 
       "authors": "WARBURG", 
       "id": "13298683"
     }, 
@@ -1719,16 +1906,18 @@
       "pubDate": "Mar 2014", 
       "title": "Natural cytotoxicity receptors and their ligands.", 
       "journal": "Immunology and cell biology", 
+      "journal_iso": "Immunol. Cell Biol.", 
       "authors": "Kruse, Matta, Ugolini", 
       "id": "24366519"
     }, 
     {
       "group": "Searched", 
       "name": "24714652", 
-      "weight": 42, 
+      "pubDate": "Apr 2014", 
       "title": "Processed pseudogenes acquired somatically during cancer development.", 
       "journal": "Nature communications", 
-      "pubDate": "Apr 2014", 
+      "weight": 42, 
+      "journal_iso": "Nat Commun", 
       "authors": "Cooke, Shlien, Marshall", 
       "id": "24714652"
     }, 
@@ -1738,6 +1927,7 @@
       "pubDate": "Jul 2005", 
       "title": "Distribution and intensity of constraint in mammalian genomic sequence.", 
       "journal": "Genome research", 
+      "journal_iso": "Genome Res.", 
       "authors": "Cooper, Stone, Asimenos", 
       "id": "15965027"
     }, 
@@ -1747,6 +1937,7 @@
       "pubDate": "Oct 2008", 
       "title": "Transcriptional mechanism for the paired miR-433 and miR-127 genes by nuclear receptors SHP and ERRgamma.", 
       "journal": "Nucleic acids research", 
+      "journal_iso": "Nucleic Acids Res.", 
       "authors": "Song, Wang", 
       "id": "18776219"
     }, 
@@ -1756,6 +1947,7 @@
       "pubDate": "Oct 2012", 
       "title": "Comprehensive genomic analysis identifies SOX2 as a frequently amplified gene in small-cell lung cancer.", 
       "journal": "Nature genetics", 
+      "journal_iso": "Nat. Genet.", 
       "authors": "Rudin, Durinck, Stawiski", 
       "id": "22941189"
     }, 
@@ -1765,6 +1957,7 @@
       "pubDate": "Oct 2012", 
       "title": "Integrative genome analyses identify key somatic driver mutations of small-cell lung cancer.", 
       "journal": "Nature genetics", 
+      "journal_iso": "Nat. Genet.", 
       "authors": "Peifer, Fern\u00e1ndez-Cuesta, Sos", 
       "id": "22941188"
     }, 
@@ -1774,6 +1967,7 @@
       "pubDate": "Mar 2013", 
       "title": "Cancer genome landscapes.", 
       "journal": "Science (New York, N.Y.)", 
+      "journal_iso": "Science", 
       "authors": "Vogelstein, Papadopoulos, Velculescu", 
       "id": "23539594"
     }, 
@@ -1783,16 +1977,18 @@
       "pubDate": "Sep 2012", 
       "title": "What does our genome encode?", 
       "journal": "Genome research", 
+      "journal_iso": "Genome Res.", 
       "authors": "Stamatoyannopoulos", 
       "id": "22955972"
     }, 
     {
       "group": "Searched", 
       "name": "18528521", 
-      "weight": 212, 
+      "pubDate": " 2008", 
       "title": "A Role for the PPARgamma in Cancer Therapy.", 
       "journal": "PPAR research", 
-      "pubDate": " 2008", 
+      "weight": 212, 
+      "journal_iso": "PPAR Res", 
       "authors": "Campbell, Carlberg, Koeffler", 
       "id": "18528521"
     }, 
@@ -1802,6 +1998,7 @@
       "pubDate": "Apr 2009", 
       "title": "The cancer genome.", 
       "journal": "Nature", 
+      "journal_iso": "Nature", 
       "authors": "Stratton, Campbell, Futreal", 
       "id": "19360079"
     }, 
@@ -1811,6 +2008,7 @@
       "pubDate": "Jan 2013", 
       "title": "Analysis of 6,515 exomes reveals the recent origin of most human protein-coding variants.", 
       "journal": "Nature", 
+      "journal_iso": "Nature", 
       "authors": "Fu, O'Connor, Jun", 
       "id": "23201682"
     }, 
@@ -1820,6 +2018,7 @@
       "pubDate": "Jan 2008", 
       "title": "Distinct HDACs regulate the transcriptional response of human cyclin-dependent kinase inhibitor genes to Trichostatin A and 1alpha,25-dihydroxyvitamin D3.", 
       "journal": "Nucleic acids research", 
+      "journal_iso": "Nucleic Acids Res.", 
       "authors": "Malinen, Saram\u00e4ki, Ropponen", 
       "id": "17999998"
     }, 
@@ -1829,6 +2028,7 @@
       "pubDate": "Jan 2012", 
       "title": "Unresponsiveness of colon cancer to BRAF(V600E) inhibition through feedback activation of EGFR.", 
       "journal": "Nature", 
+      "journal_iso": "Nature", 
       "authors": "Prahallad, Sun, Huang", 
       "id": "22281684"
     }, 
@@ -1838,6 +2038,7 @@
       "pubDate": "Oct 2005", 
       "title": "Gene set enrichment analysis: a knowledge-based approach for interpreting genome-wide expression profiles.", 
       "journal": "Proceedings of the National Academy of Sciences of the United States of America", 
+      "journal_iso": "Proc. Natl. Acad. Sci. U.S.A.", 
       "authors": "Subramanian, Tamayo, Mootha", 
       "id": "16199517"
     }, 
@@ -1847,6 +2048,7 @@
       "pubDate": "May 2010", 
       "title": "Simple combinations of lineage-determining transcription factors prime cis-regulatory elements required for macrophage and B cell identities.", 
       "journal": "Molecular cell", 
+      "journal_iso": "Mol. Cell", 
       "authors": "Heinz, Benner, Spann", 
       "id": "20513432"
     }, 
@@ -1856,6 +2058,7 @@
       "pubDate": "Oct 2012", 
       "title": "Mitochondria and cancer.", 
       "journal": "Nature reviews. Cancer", 
+      "journal_iso": "Nat. Rev. Cancer", 
       "authors": "Wallace", 
       "id": "23001348"
     }, 
@@ -1865,6 +2068,7 @@
       "pubDate": "Jun 2014", 
       "title": "Large-scale genetic study in East Asians identifies six new loci associated with colorectal cancer risk.", 
       "journal": "Nature genetics", 
+      "journal_iso": "Nat. Genet.", 
       "authors": "Zhang, Jia, Matsuda", 
       "id": "24836286"
     }, 
@@ -1874,6 +2078,7 @@
       "pubDate": "Jan 2012", 
       "title": "VDR/RXR and TCF4/\u03b2-catenin cistromes in colonic cells of colorectal tumor origin: impact on c-FOS and c-MYC gene expression.", 
       "journal": "Molecular endocrinology (Baltimore, Md.)", 
+      "journal_iso": "Mol. Endocrinol.", 
       "authors": "Meyer, Goetsch, Pike", 
       "id": "22108803"
     }, 
@@ -1883,6 +2088,7 @@
       "pubDate": "Mar 2004", 
       "title": "A census of human cancer genes.", 
       "journal": "Nature reviews. Cancer", 
+      "journal_iso": "Nat. Rev. Cancer", 
       "authors": "Futreal, Coin, Marshall", 
       "id": "14993899"
     }, 
@@ -1892,6 +2098,7 @@
       "pubDate": " 2015", 
       "title": "Urinary extracellular vesicles as source of biomarkers in kidney diseases.", 
       "journal": "Frontiers in immunology", 
+      "journal_iso": "Front Immunol", 
       "authors": "G\u00e1mez-Valero, Lozano-Ramos, Bancu", 
       "id": "25688242"
     }, 
@@ -1901,6 +2108,7 @@
       "pubDate": "Jan 2011", 
       "title": "Integrative genomics viewer.", 
       "journal": "Nature biotechnology", 
+      "journal_iso": "Nat. Biotechnol.", 
       "authors": "Robinson, Thorvaldsd\u00f3ttir, Winckler", 
       "id": "21221095"
     }, 
@@ -1910,16 +2118,18 @@
       "pubDate": "Sep 2008", 
       "title": "Core signaling pathways in human pancreatic cancers revealed by global genomic analyses.", 
       "journal": "Science (New York, N.Y.)", 
+      "journal_iso": "Science", 
       "authors": "Jones, Zhang, Parsons", 
       "id": "18772397"
     }, 
     {
       "group": "Searched", 
       "name": "24148783", 
-      "weight": 57, 
+      "pubDate": " 2013", 
       "title": "The genetic heterogeneity and mutational burden of engineered melanomas in zebrafish models.", 
       "journal": "Genome biology", 
-      "pubDate": " 2013", 
+      "weight": 57, 
+      "journal_iso": "Genome Biol.", 
       "authors": "Yen, White, Wedge", 
       "id": "24148783"
     }, 
@@ -1929,6 +2139,7 @@
       "pubDate": "Feb 2008", 
       "title": "H5-type influenza virus hemagglutinin is functionally recognized by the natural killer-activating receptor NKp44.", 
       "journal": "Journal of virology", 
+      "journal_iso": "J. Virol.", 
       "authors": "Ho, Hershkovitz, Peiris", 
       "id": "18077718"
     }, 
@@ -1938,6 +2149,7 @@
       "pubDate": "Feb 1996", 
       "title": "Multivariable prognostic models: issues in developing models, evaluating assumptions and adequacy, and measuring and reducing errors.", 
       "journal": "Statistics in medicine", 
+      "journal_iso": "Stat Med", 
       "authors": "Harrell, Lee, Mark", 
       "id": "8668867"
     }, 
@@ -1947,6 +2159,7 @@
       "pubDate": "May 2008", 
       "title": "The vitamin D receptor in cancer.", 
       "journal": "The Proceedings of the Nutrition Society", 
+      "journal_iso": "Proc Nutr Soc", 
       "authors": "Thorne, Campbell", 
       "id": "18412986"
     }, 
@@ -1956,6 +2169,7 @@
       "pubDate": "Oct 2011", 
       "title": "Exome sequencing identifies frequent mutation of ARID1A in molecular subtypes of gastric cancer.", 
       "journal": "Nature genetics", 
+      "journal_iso": "Nat. Genet.", 
       "authors": "Wang, Kan, Yuen", 
       "id": "22037554"
     }, 
@@ -1965,6 +2179,7 @@
       "pubDate": "Jan 2013", 
       "title": "Deciphering signatures of mutational processes operative in human cancer.", 
       "journal": "Cell reports", 
+      "journal_iso": "Cell Rep", 
       "authors": "Alexandrov, Nik-Zainal, Wedge", 
       "id": "23318258"
     }, 
@@ -1974,6 +2189,7 @@
       "pubDate": "Feb 2014", 
       "title": "RAG-mediated recombination is the predominant driver of oncogenic rearrangement in ETV6-RUNX1 acute lymphoblastic leukemia.", 
       "journal": "Nature genetics", 
+      "journal_iso": "Nat. Genet.", 
       "authors": "Papaemmanuil, Rapado, Li", 
       "id": "24413735"
     }, 
@@ -1983,6 +2199,7 @@
       "pubDate": "Feb 2003", 
       "title": "Prostatic 25-hydroxyvitamin D-1alpha-hydroxylase and its implication in prostate cancer.", 
       "journal": "Journal of cellular biochemistry", 
+      "journal_iso": "J. Cell. Biochem.", 
       "authors": "Chen, Wang, Whitlatch", 
       "id": "12520532"
     }, 
@@ -1992,6 +2209,7 @@
       "pubDate": "Oct 1995", 
       "title": "A transcriptional co-repressor that interacts with nuclear hormone receptors.", 
       "journal": "Nature", 
+      "journal_iso": "Nature", 
       "authors": "Chen, Evans", 
       "id": "7566127"
     }, 
@@ -2001,6 +2219,7 @@
       "pubDate": "Jun 2011", 
       "title": "A conditional knockout resource for the genome-wide study of mouse gene function.", 
       "journal": "Nature", 
+      "journal_iso": "Nature", 
       "authors": "Skarnes, Rosen, West", 
       "id": "21677750"
     }, 
@@ -2010,6 +2229,7 @@
       "pubDate": "Jan 2014", 
       "title": "Discovery and saturation analysis of cancer genes across 21 tumour types.", 
       "journal": "Nature", 
+      "journal_iso": "Nature", 
       "authors": "Lawrence, Stojanov, Mermel", 
       "id": "24390350"
     }, 
@@ -2019,6 +2239,7 @@
       "pubDate": "Apr 2001", 
       "title": "Activity of a specific inhibitor of the BCR-ABL tyrosine kinase in the blast crisis of chronic myeloid leukemia and acute lymphoblastic leukemia with the Philadelphia chromosome.", 
       "journal": "The New England journal of medicine", 
+      "journal_iso": "N. Engl. J. Med.", 
       "authors": "Druker, Sawyers, Kantarjian", 
       "id": "11287973"
     }, 
@@ -2028,26 +2249,29 @@
       "pubDate": "Oct 2000", 
       "title": "Prostate cancer risk and prediagnostic serum 25-hydroxyvitamin D levels (Finland).", 
       "journal": "Cancer causes & control : CCC", 
+      "journal_iso": "Cancer Causes Control", 
       "authors": "Ahonen, Tenkanen, Teppo", 
       "id": "11075874"
     }, 
     {
       "group": "Cited", 
       "name": "25574665", 
-      "weight": 34, 
+      "pubDate": "Jan 2015", 
       "title": "Combining gene mutation with gene expression data improves outcome prediction in myelodysplastic syndromes.", 
       "journal": "Nature communications", 
-      "pubDate": "Jan 2015", 
+      "weight": 34, 
+      "journal_iso": "Nat Commun", 
       "authors": "Gerstung, Pellagatti, Malcovati", 
       "id": "25574665"
     }, 
     {
       "group": "Cited", 
       "name": "22608084", 
-      "weight": 56, 
+      "pubDate": "May 2012", 
       "title": "Mutational processes molding the genomes of 21 breast cancers.", 
       "journal": "Cell", 
-      "pubDate": "May 2012", 
+      "weight": 56, 
+      "journal_iso": "Cell", 
       "authors": "Nik-Zainal, Alexandrov, Wedge", 
       "id": "22608084"
     }, 
@@ -2057,6 +2281,7 @@
       "pubDate": "Mar 2011", 
       "title": "Exploring the genomes of cancer cells: progress and promise.", 
       "journal": "Science (New York, N.Y.)", 
+      "journal_iso": "Science", 
       "authors": "Stratton", 
       "id": "21436442"
     }, 
@@ -2066,6 +2291,7 @@
       "pubDate": "Apr 2009", 
       "title": "Amplification-free Illumina sequencing-library preparation facilitates improved mapping and assembly of (G+C)-biased genomes.", 
       "journal": "Nature methods", 
+      "journal_iso": "Nat. Methods", 
       "authors": "Kozarewa, Ning, Quail", 
       "id": "19287394"
     }, 
@@ -2075,6 +2301,7 @@
       "pubDate": "Sep 2004", 
       "title": "Altered SMRT levels disrupt vitamin D3 receptor signalling in prostate cancer cells.", 
       "journal": "Oncogene", 
+      "journal_iso": "Oncogene", 
       "authors": "Khanim, Gommersall, Wood", 
       "id": "15300237"
     }, 
@@ -2084,6 +2311,7 @@
       "pubDate": " 2013", 
       "title": "Natural cytotoxicity receptors: broader expression patterns and functions in innate and adaptive immune cells.", 
       "journal": "Frontiers in immunology", 
+      "journal_iso": "Front Immunol", 
       "authors": "Hudspeth, Silva-Santos, Mavilio", 
       "id": "23518691"
     }, 
@@ -2093,6 +2321,7 @@
       "pubDate": "Sep 1995", 
       "title": "Inducible gene targeting in mice.", 
       "journal": "Science (New York, N.Y.)", 
+      "journal_iso": "Science", 
       "authors": "K\u00fchn, Schwenk, Aguet", 
       "id": "7660125"
     }, 
@@ -2102,6 +2331,7 @@
       "pubDate": "Jul 2011", 
       "title": "Frequent mutation of histone-modifying genes in non-Hodgkin lymphoma.", 
       "journal": "Nature", 
+      "journal_iso": "Nature", 
       "authors": "Morin, Mendez-Lago, Mungall", 
       "id": "21796119"
     }, 
@@ -2111,6 +2341,7 @@
       "pubDate": "Oct 2010", 
       "title": "The patterns and dynamics of genomic instability in metastatic pancreatic cancer.", 
       "journal": "Nature", 
+      "journal_iso": "Nature", 
       "authors": "Campbell, Yachida, Mudie", 
       "id": "20981101"
     }, 
@@ -2120,6 +2351,7 @@
       "pubDate": "Oct 2010", 
       "title": "A ChIP-seq defined genome-wide map of vitamin D receptor binding: associations with disease and evolution.", 
       "journal": "Genome research", 
+      "journal_iso": "Genome Res.", 
       "authors": "Ramagopalan, Heger, Berlanga", 
       "id": "20736230"
     }, 
@@ -2129,6 +2361,7 @@
       "pubDate": " 2004", 
       "title": "Bioconductor: open software development for computational biology and bioinformatics.", 
       "journal": "Genome biology", 
+      "journal_iso": "Genome Biol.", 
       "authors": "Gentleman, Carey, Bates", 
       "id": "15461798"
     }, 
@@ -2138,6 +2371,7 @@
       "pubDate": "Apr 2009", 
       "title": "Hedgehog signalling is essential for maintenance of cancer stem cells in myeloid leukaemia.", 
       "journal": "Nature", 
+      "journal_iso": "Nature", 
       "authors": "Zhao, Chen, Jamieson", 
       "id": "19169242"
     }, 
@@ -2147,6 +2381,7 @@
       "pubDate": "Apr 2013", 
       "title": "A vitamin D receptor/SMAD genomic circuit gates hepatic fibrotic response.", 
       "journal": "Cell", 
+      "journal_iso": "Cell", 
       "authors": "Ding, Yu, Subramaniam", 
       "id": "23622244"
     }, 
@@ -2156,6 +2391,7 @@
       "pubDate": "Aug 2007", 
       "title": "A genome-wide association scan of tag SNPs identifies a susceptibility variant for colorectal cancer at 8q24.21.", 
       "journal": "Nature genetics", 
+      "journal_iso": "Nat. Genet.", 
       "authors": "Tomlinson, Webb, Carvajal-Carmona", 
       "id": "17618284"
     }, 
@@ -2165,6 +2401,7 @@
       "pubDate": "Aug 2000", 
       "title": "Molecular portraits of human breast tumours.", 
       "journal": "Nature", 
+      "journal_iso": "Nature", 
       "authors": "Perou, S\u00f8rlie, Eisen", 
       "id": "10963602"
     }, 
@@ -2174,6 +2411,7 @@
       "pubDate": "Apr 2009", 
       "title": "The role of microRNA-221 and microRNA-222 in androgen-independent prostate cancer cell lines.", 
       "journal": "Cancer research", 
+      "journal_iso": "Cancer Res.", 
       "authors": "Sun, Wang, Balk", 
       "id": "19351832"
     }, 
@@ -2183,6 +2421,7 @@
       "pubDate": "Mar 2010", 
       "title": "Fast and accurate long-read alignment with Burrows-Wheeler transform.", 
       "journal": "Bioinformatics (Oxford, England)", 
+      "journal_iso": "Bioinformatics", 
       "authors": "Li, Durbin", 
       "id": "20080505"
     }, 
@@ -2192,6 +2431,7 @@
       "pubDate": "Mar 2008", 
       "title": "Small cell lung cancer.", 
       "journal": "Mayo Clinic proceedings", 
+      "journal_iso": "Mayo Clin. Proc.", 
       "authors": "Sher, Dy, Adjei", 
       "id": "18316005"
     }, 
@@ -2201,6 +2441,7 @@
       "pubDate": "Oct 1980", 
       "title": "Mutations affecting segment number and polarity in Drosophila.", 
       "journal": "Nature", 
+      "journal_iso": "Nature", 
       "authors": "N\u00fcsslein-Volhard, Wieschaus", 
       "id": "6776413"
     }, 
@@ -2210,6 +2451,7 @@
       "pubDate": "Oct 1995", 
       "title": "Ligand-independent repression by the thyroid hormone receptor mediated by a nuclear receptor co-repressor.", 
       "journal": "Nature", 
+      "journal_iso": "Nature", 
       "authors": "H\u00f6rlein, N\u00e4\u00e4r, Heinzel", 
       "id": "7566114"
     }, 
@@ -2219,6 +2461,7 @@
       "pubDate": "May 2012", 
       "title": "The cBio cancer genomics portal: an open platform for exploring multidimensional cancer genomics data.", 
       "journal": "Cancer discovery", 
+      "journal_iso": "Cancer Discov", 
       "authors": "Cerami, Gao, Dogrusoz", 
       "id": "22588877"
     }, 
@@ -2228,16 +2471,18 @@
       "pubDate": "Oct 2009", 
       "title": "Mutational evolution in a lobular breast tumour profiled at single nucleotide resolution.", 
       "journal": "Nature", 
+      "journal_iso": "Nature", 
       "authors": "Shah, Morin, Khattra", 
       "id": "19812674"
     }, 
     {
       "group": "Searched", 
       "name": "26553438", 
-      "weight": 55, 
+      "pubDate": "Nov 2015", 
       "title": "Recurrent Coding Sequence Variation Explains Only A Small Fraction of the Genetic Architecture of Colorectal Cancer.", 
       "journal": "Scientific reports", 
-      "pubDate": "Nov 2015", 
+      "weight": 55, 
+      "journal_iso": "Sci Rep", 
       "authors": "Timofeeva, Kinnersley, Farrington", 
       "id": "26553438"
     }, 
@@ -2247,6 +2492,7 @@
       "pubDate": "Apr 2000", 
       "title": "Outcome of treatment in children with Philadelphia chromosome-positive acute lymphoblastic leukemia.", 
       "journal": "The New England journal of medicine", 
+      "journal_iso": "N. Engl. J. Med.", 
       "authors": "Aric\u00f2, Valsecchi, Camitta", 
       "id": "10749961"
     }, 
@@ -2256,6 +2502,7 @@
       "pubDate": " 2015", 
       "title": "First Trimester Pregnancy Loss and the Expression of Alternatively Spliced NKp30 Isoforms in Maternal Blood and Placental Tissue.", 
       "journal": "Frontiers in immunology", 
+      "journal_iso": "Front Immunol", 
       "authors": "Shemesh, Tirosh, Sheiner", 
       "id": "26082773"
     }, 
@@ -2265,6 +2512,7 @@
       "pubDate": "Aug 1997", 
       "title": "Inhibition of proliferation of prostate cancer cells by a 19-nor-hexafluoride vitamin D3 analogue involves the induction of p21waf1, p27kip1 and E-cadherin.", 
       "journal": "Journal of molecular endocrinology", 
+      "journal_iso": "J. Mol. Endocrinol.", 
       "authors": "Campbell, Elstner, Holden", 
       "id": "9278857"
     }, 
@@ -2274,6 +2522,7 @@
       "pubDate": "Jul 2004", 
       "title": "The COSMIC (Catalogue of Somatic Mutations in Cancer) database and website.", 
       "journal": "British journal of cancer", 
+      "journal_iso": "Br. J. Cancer", 
       "authors": "Bamford, Dawson, Forbes", 
       "id": "15188009"
     }, 
@@ -2283,6 +2532,7 @@
       "pubDate": "Mar 2011", 
       "title": "Unbalanced translocations of 20q in AML and MDS often involve interstitial rather than terminal deletions of 20q.", 
       "journal": "Cancer genetics", 
+      "journal_iso": "Cancer Genet", 
       "authors": "MacKinnon, Duivenvoorden, Campbell", 
       "id": "21504715"
     }, 
@@ -2292,16 +2542,18 @@
       "pubDate": "Aug 2012", 
       "title": "ASXL1 mutations promote myeloid transformation through loss of PRC2-mediated gene repression.", 
       "journal": "Cancer cell", 
+      "journal_iso": "Cancer Cell", 
       "authors": "Abdel-Wahab, Adli, LaFave", 
       "id": "22897849"
     }, 
     {
       "group": "Searched", 
       "name": "23945592", 
-      "weight": 61, 
+      "pubDate": "Aug 2013", 
       "title": "Signatures of mutational processes in human cancer.", 
       "journal": "Nature", 
-      "pubDate": "Aug 2013", 
+      "weight": 61, 
+      "journal_iso": "Nature", 
       "authors": "Alexandrov, Nik-Zainal, Wedge", 
       "id": "23945592"
     }, 
@@ -2311,6 +2563,7 @@
       "pubDate": "Sep 2012", 
       "title": "ENCODE: The human encyclopaedia.", 
       "journal": "Nature", 
+      "journal_iso": "Nature", 
       "authors": "Maher", 
       "id": "22962707"
     }, 
@@ -2320,6 +2573,7 @@
       "pubDate": "Jul 2009", 
       "title": "Fast and accurate short read alignment with Burrows-Wheeler transform.", 
       "journal": "Bioinformatics (Oxford, England)", 
+      "journal_iso": "Bioinformatics", 
       "authors": "Li, Durbin", 
       "id": "19451168"
     }, 
@@ -2329,16 +2583,18 @@
       "pubDate": "Apr 2013", 
       "title": "Integrative analysis of complex cancer genomics and clinical profiles using the cBioPortal.", 
       "journal": "Science signaling", 
+      "journal_iso": "Sci Signal", 
       "authors": "Gao, Aksoy, Dogrusoz", 
       "id": "23550210"
     }, 
     {
       "group": "Searched", 
       "name": "24429703", 
-      "weight": 59, 
+      "pubDate": " 2014", 
       "title": "Heterogeneity of genomic evolution and mutational profiles in multiple myeloma.", 
       "journal": "Nature communications", 
-      "pubDate": " 2014", 
+      "weight": 59, 
+      "journal_iso": "Nat Commun", 
       "authors": "Bolli, Avet-Loiseau, Wedge", 
       "id": "24429703"
     }, 
@@ -2348,6 +2604,7 @@
       "pubDate": "Feb 2005", 
       "title": "The androgen receptor recruits nuclear receptor CoRepressor (N-CoR) in the presence of mifepristone via its N and C termini revealing a novel molecular mechanism for androgen receptor antagonists.", 
       "journal": "The Journal of biological chemistry", 
+      "journal_iso": "J. Biol. Chem.", 
       "authors": "Hodgson, Astapova, Cheng", 
       "id": "15598662"
     }, 
@@ -2357,16 +2614,18 @@
       "pubDate": "Jan 2000", 
       "title": "The hallmarks of cancer.", 
       "journal": "Cell", 
+      "journal_iso": "Cell", 
       "authors": "Hanahan, Weinberg", 
       "id": "10647931"
     }, 
     {
       "group": "Searched", 
       "name": "22699290", 
-      "weight": 37, 
+      "pubDate": "Sep 2012", 
       "title": "Diabetes and cause-specific mortality in a prospective cohort of one million U.S. adults.", 
       "journal": "Diabetes care", 
-      "pubDate": "Sep 2012", 
+      "weight": 37, 
+      "journal_iso": "Diabetes Care", 
       "authors": "Campbell, Newton, Patel", 
       "id": "22699290"
     }, 
@@ -2376,6 +2635,7 @@
       "pubDate": "Jul 2009", 
       "title": "The B7 family member B7-H6 is a tumor cell ligand for the activating natural killer cell receptor NKp30 in humans.", 
       "journal": "The Journal of experimental medicine", 
+      "journal_iso": "J. Exp. Med.", 
       "authors": "Brandt, Baratin, Yi", 
       "id": "19528259"
     }, 
@@ -2385,6 +2645,7 @@
       "pubDate": "Jul 2012", 
       "title": "A landscape of driver mutations in melanoma.", 
       "journal": "Cell", 
+      "journal_iso": "Cell", 
       "authors": "Hodis, Watson, Kryukov", 
       "id": "22817889"
     }, 
@@ -2394,6 +2655,7 @@
       "pubDate": "Jul 2001", 
       "title": "Vitamin D(3) promotes the differentiation of colon carcinoma cells by the induction of E-cadherin and the inhibition of beta-catenin signaling.", 
       "journal": "The Journal of cell biology", 
+      "journal_iso": "J. Cell Biol.", 
       "authors": "P\u00e1lmer, Gonz\u00e1lez-Sancho, Espada", 
       "id": "11470825"
     }, 
@@ -2403,6 +2665,7 @@
       "pubDate": "Nov 2012", 
       "title": "The transcriptional landscape and mutational profile of lung adenocarcinoma.", 
       "journal": "Genome research", 
+      "journal_iso": "Genome Res.", 
       "authors": "Seo, Ju, Lee", 
       "id": "22975805"
     }, 
@@ -2412,26 +2675,29 @@
       "pubDate": "Jan 2011", 
       "title": "Densely interconnected transcriptional circuits control cell states in human hematopoiesis.", 
       "journal": "Cell", 
+      "journal_iso": "Cell", 
       "authors": "Novershtern, Subramanian, Lawton", 
       "id": "21241896"
     }, 
     {
       "group": "Searched", 
       "name": "27307795", 
-      "weight": 49, 
+      "pubDate": " 2016", 
       "title": "Targeting epigenetic pathways in acute myeloid leukemia and myelodysplastic syndrome: a systematic review of hypomethylating agents trials.", 
       "journal": "Clinical epigenetics", 
-      "pubDate": " 2016", 
+      "weight": 49, 
+      "journal_iso": "Clin Epigenetics", 
       "authors": "Yun, Vincelette, Abraham", 
       "id": "27307795"
     }, 
     {
       "group": "Searched", 
       "name": "21637284", 
-      "weight": 30, 
+      "pubDate": "Nov 2011", 
       "title": "Identification of a role for the nuclear receptor EAR-2 in the maintenance of clonogenic status within the leukemia cell hierarchy.", 
       "journal": "Leukemia", 
-      "pubDate": "Nov 2011", 
+      "weight": 30, 
+      "journal_iso": "Leukemia", 
       "authors": "Ichim, Atkins, Iscove", 
       "id": "21637284"
     }, 
@@ -2441,6 +2707,7 @@
       "pubDate": "Apr 2012", 
       "title": "The genomic and transcriptomic architecture of 2,000 breast tumours reveals novel subgroups.", 
       "journal": "Nature", 
+      "journal_iso": "Nature", 
       "authors": "Curtis, Shah, Chin", 
       "id": "22522925"
     }, 
@@ -2450,6 +2717,7 @@
       "pubDate": "Jan 2013", 
       "title": "ENCODE data in the UCSC Genome Browser: year 5 update.", 
       "journal": "Nucleic acids research", 
+      "journal_iso": "Nucleic Acids Res.", 
       "authors": "Rosenbloom, Sloan, Malladi", 
       "id": "23193274"
     }, 
@@ -2459,6 +2727,7 @@
       "pubDate": "Jan 2011", 
       "title": "Genetic variegation of clonal architecture and propagating cells in leukaemia.", 
       "journal": "Nature", 
+      "journal_iso": "Nature", 
       "authors": "Anderson, Lutz, van Delft", 
       "id": "21160474"
     }, 
@@ -2468,6 +2737,7 @@
       "pubDate": "Jul 2009", 
       "title": "Inhibition of poly(ADP-ribose) polymerase in tumors from BRCA mutation carriers.", 
       "journal": "The New England journal of medicine", 
+      "journal_iso": "N. Engl. J. Med.", 
       "authors": "Fong, Boss, Yap", 
       "id": "19553641"
     }, 
@@ -2477,16 +2747,18 @@
       "pubDate": " 2006", 
       "title": "Regulation of the human p21(waf1/cip1) gene promoter via multiple binding sites for p53 and the vitamin D3 receptor.", 
       "journal": "Nucleic acids research", 
+      "journal_iso": "Nucleic Acids Res.", 
       "authors": "Saram\u00e4ki, Banwell, Campbell", 
       "id": "16434701"
     }, 
     {
       "group": "Cited", 
       "name": "27765926", 
-      "weight": 31, 
+      "pubDate": "Sep 2016", 
       "title": "NKp44 and NKp30 splice variant profiles in decidua and tumor tissues: a comparative viewpoint.", 
       "journal": "Oncotarget", 
-      "pubDate": "Sep 2016", 
+      "weight": 31, 
+      "journal_iso": "Oncotarget", 
       "authors": "Shemesh, Kugel, Steiner", 
       "id": "27765926"
     }, 
@@ -2496,6 +2768,7 @@
       "pubDate": "Jan 2014", 
       "title": "The NHGRI GWAS Catalog, a curated resource of SNP-trait associations.", 
       "journal": "Nucleic acids research", 
+      "journal_iso": "Nucleic Acids Res.", 
       "authors": "Welter, MacArthur, Morales", 
       "id": "24316577"
     }, 
@@ -2505,6 +2778,7 @@
       "pubDate": "Mar 2013", 
       "title": "The genetic landscape of high-risk neuroblastoma.", 
       "journal": "Nature genetics", 
+      "journal_iso": "Nat. Genet.", 
       "authors": "Pugh, Morozova, Attiyeh", 
       "id": "23334666"
     }, 
@@ -2514,16 +2788,18 @@
       "pubDate": "Mar 2013", 
       "title": "The genomic landscape of hypodiploid acute lymphoblastic leukemia.", 
       "journal": "Nature genetics", 
+      "journal_iso": "Nat. Genet.", 
       "authors": "Holmfeldt, Wei, Diaz-Flores", 
       "id": "23334668"
     }, 
     {
       "group": "Searched", 
       "name": "24549417", 
-      "weight": 46, 
+      "pubDate": " 2014", 
       "title": "Identification of renin progenitors in the mouse bone marrow that give rise to B-cell leukaemia.", 
       "journal": "Nature communications", 
-      "pubDate": " 2014", 
+      "weight": 46, 
+      "journal_iso": "Nat Commun", 
       "authors": "Belyea, Xu, Pentz", 
       "id": "24549417"
     }, 
@@ -2533,6 +2809,7 @@
       "pubDate": "Mar 1975", 
       "title": "Human chronic myelogenous leukemia cell-line with positive Philadelphia chromosome.", 
       "journal": "Blood", 
+      "journal_iso": "Blood", 
       "authors": "Lozzio, Lozzio", 
       "id": "163658"
     }, 
@@ -2542,6 +2819,7 @@
       "pubDate": "Sep 2012", 
       "title": "Revised international prognostic scoring system for myelodysplastic syndromes.", 
       "journal": "Blood", 
+      "journal_iso": "Blood", 
       "authors": "Greenberg, Tuechler, Schanz", 
       "id": "22740453"
     }, 
@@ -2551,6 +2829,7 @@
       "pubDate": "Jul 2008", 
       "title": "Circulating microRNAs as stable blood-based markers for cancer detection.", 
       "journal": "Proceedings of the National Academy of Sciences of the United States of America", 
+      "journal_iso": "Proc. Natl. Acad. Sci. U.S.A.", 
       "authors": "Mitchell, Parkin, Kroh", 
       "id": "18663219"
     }, 
@@ -2560,6 +2839,7 @@
       "pubDate": "May 2013", 
       "title": "Integrated genomic characterization of endometrial carcinoma.", 
       "journal": "Nature", 
+      "journal_iso": "Nature", 
       "authors": ", Kandoth, Schultz", 
       "id": "23636398"
     }, 
@@ -2569,6 +2849,7 @@
       "pubDate": "Apr 2005", 
       "title": "Mutations induced by ultraviolet light.", 
       "journal": "Mutation research", 
+      "journal_iso": "Mutat. Res.", 
       "authors": "Pfeifer, You, Besaratinia", 
       "id": "15748635"
     }, 
@@ -2578,6 +2859,7 @@
       "pubDate": "Oct 2004", 
       "title": "A nuclear receptor corepressor transcriptional checkpoint controlling activator protein 1-dependent gene networks required for macrophage activation.", 
       "journal": "Proceedings of the National Academy of Sciences of the United States of America", 
+      "journal_iso": "Proc. Natl. Acad. Sci. U.S.A.", 
       "authors": "Ogawa, Lozach, Jepsen", 
       "id": "15452344"
     }, 
@@ -2587,6 +2869,7 @@
       "pubDate": "Nov 2010", 
       "title": "The paradox of 20q11.21 amplification in a subset of cases of myeloid malignancy with chromosome 20 deletion.", 
       "journal": "Genes, chromosomes & cancer", 
+      "journal_iso": "Genes Chromosomes Cancer", 
       "authors": "Mackinnon, Selan, Wall", 
       "id": "20645416"
     }, 
@@ -2596,6 +2879,7 @@
       "pubDate": "Sep 2001", 
       "title": "Recognition of viral hemagglutinins by NKp44 but not by NKp30.", 
       "journal": "European journal of immunology", 
+      "journal_iso": "Eur. J. Immunol.", 
       "authors": "Arnon, Lev, Katz", 
       "id": "11536166"
     }, 
@@ -2605,6 +2889,7 @@
       "pubDate": "Aug 2006", 
       "title": "Statistical analysis of pathogenicity of somatic mutations in cancer.", 
       "journal": "Genetics", 
+      "journal_iso": "Genetics", 
       "authors": "Greenman, Wooster, Futreal", 
       "id": "16783027"
     }, 
@@ -2614,16 +2899,18 @@
       "pubDate": "Jul 2012", 
       "title": "The origin and evolution of mutations in acute myeloid leukemia.", 
       "journal": "Cell", 
+      "journal_iso": "Cell", 
       "authors": "Welch, Ley, Link", 
       "id": "22817890"
     }, 
     {
       "group": "Searched", 
       "name": "24316979", 
-      "weight": 70, 
+      "pubDate": "Jan 2014", 
       "title": "Inactivating CUX1 mutations promote tumorigenesis.", 
       "journal": "Nature genetics", 
-      "pubDate": "Jan 2014", 
+      "weight": 70, 
+      "journal_iso": "Nat. Genet.", 
       "authors": "Wong, Martincorena, Rust", 
       "id": "24316979"
     }, 
@@ -2633,6 +2920,7 @@
       "pubDate": "May 2012", 
       "title": "Exome sequencing identifies recurrent SPOP, FOXA1 and MED12 mutations in prostate cancer.", 
       "journal": "Nature genetics", 
+      "journal_iso": "Nat. Genet.", 
       "authors": "Barbieri, Baca, Lawrence", 
       "id": "22610119"
     }, 
@@ -2642,6 +2930,7 @@
       "pubDate": "May 2012", 
       "title": "Melanoma genome sequencing reveals frequent PREX2 mutations.", 
       "journal": "Nature", 
+      "journal_iso": "Nature", 
       "authors": "Berger, Hodis, Heffernan", 
       "id": "22622578"
     }, 
@@ -2651,6 +2940,7 @@
       "pubDate": "Oct 2008", 
       "title": "Comprehensive genomic characterization defines human glioblastoma genes and core pathways.", 
       "journal": "Nature", 
+      "journal_iso": "Nature", 
       "authors": "", 
       "id": "18772890"
     }, 
@@ -2660,6 +2950,7 @@
       "pubDate": "Mar 2009", 
       "title": "Mortality results from a randomized prostate-cancer screening trial.", 
       "journal": "The New England journal of medicine", 
+      "journal_iso": "N. Engl. J. Med.", 
       "authors": "Andriole, Crawford, Grubb", 
       "id": "19297565"
     }, 
@@ -2669,16 +2960,18 @@
       "pubDate": "Feb 2011", 
       "title": "The genomic complexity of primary human prostate cancer.", 
       "journal": "Nature", 
+      "journal_iso": "Nature", 
       "authors": "Berger, Lawrence, Demichelis", 
       "id": "21307934"
     }, 
     {
       "group": "Searched", 
       "name": "24481202", 
-      "weight": 43, 
+      "pubDate": "Jan 2013", 
       "title": "Genome organization and the role of centromeres in evolution of the erythroleukaemia cell line HEL.", 
       "journal": "Evolution, medicine, and public health", 
-      "pubDate": "Jan 2013", 
+      "weight": 43, 
+      "journal_iso": "Evol Med Public Health", 
       "authors": "Mackinnon, Wall, Zordan", 
       "id": "24481202"
     }, 
@@ -2688,6 +2981,7 @@
       "pubDate": " 2013", 
       "title": "Frequency of TERT promoter mutations in human cancers.", 
       "journal": "Nature communications", 
+      "journal_iso": "Nat Commun", 
       "authors": "Vinagre, Almeida, P\u00f3pulo", 
       "id": "23887589"
     }, 
@@ -2697,6 +2991,7 @@
       "pubDate": "Feb 2014", 
       "title": "Serum microRNA expression patterns that predict early treatment failure in prostate cancer patients.", 
       "journal": "Oncotarget", 
+      "journal_iso": "Oncotarget", 
       "authors": "Singh, Preus, Hu", 
       "id": "24583788"
     }, 
@@ -2706,6 +3001,7 @@
       "pubDate": "Aug 2008", 
       "title": "G0S2 is an all-trans-retinoic acid target gene.", 
       "journal": "International journal of oncology", 
+      "journal_iso": "Int. J. Oncol.", 
       "authors": "Kitareewan, Blumen, Sekula", 
       "id": "18636162"
     }, 
@@ -2715,16 +3011,18 @@
       "pubDate": "Dec 2010", 
       "title": "Self-renewal of acute lymphocytic leukemia cells is limited by the Hedgehog pathway inhibitors cyclopamine and IPI-926.", 
       "journal": "PloS one", 
+      "journal_iso": "PLoS ONE", 
       "authors": "Lin, Wang, Brown", 
       "id": "21203400"
     }, 
     {
       "group": "Searched", 
       "name": "23098689", 
-      "weight": 84, 
+      "pubDate": "Jul 2013", 
       "title": "Epigenetic distortion to VDR transcriptional regulation in prostate cancer cells.", 
       "journal": "The Journal of steroid biochemistry and molecular biology", 
-      "pubDate": "Jul 2013", 
+      "weight": 84, 
+      "journal_iso": "J. Steroid Biochem. Mol. Biol.", 
       "authors": "Singh, Doig, Dhiman", 
       "id": "23098689"
     }, 
@@ -2734,16 +3032,18 @@
       "pubDate": "Jul 2000", 
       "title": "VDR-Alien: a novel, DNA-selective vitamin D(3) receptor-corepressor partnership.", 
       "journal": "FASEB journal : official publication of the Federation of American Societies for Experimental Biology", 
+      "journal_iso": "FASEB J.", 
       "authors": "Polly, Herdick, Moehren", 
       "id": "10877839"
     }, 
     {
       "group": "Searched", 
       "name": "23399893", 
-      "weight": 50, 
+      "pubDate": "Aug 2013", 
       "title": "Gads (Grb2-related adaptor downstream of Shc) is required for BCR-ABL-mediated lymphoid leukemia.", 
       "journal": "Leukemia", 
-      "pubDate": "Aug 2013", 
+      "weight": 50, 
+      "journal_iso": "Leukemia", 
       "authors": "Gillis, Berry, Minden", 
       "id": "23399893"
     }, 
@@ -2753,6 +3053,7 @@
       "pubDate": "May 1999", 
       "title": "The P190, P210, and P230 forms of the BCR/ABL oncogene induce a similar chronic myeloid leukemia-like syndrome in mice but have different lymphoid leukemogenic activity.", 
       "journal": "The Journal of experimental medicine", 
+      "journal_iso": "J. Exp. Med.", 
       "authors": "Li, Ilaria, Million", 
       "id": "10224280"
     }, 
@@ -2762,6 +3063,7 @@
       "pubDate": "Jun 2006", 
       "title": "NCOR1 mRNA is an independent prognostic factor for breast cancer.", 
       "journal": "Cancer letters", 
+      "journal_iso": "Cancer Lett.", 
       "authors": "Zhang, Yamashita, Toyama", 
       "id": "16019133"
     }, 
@@ -2771,6 +3073,7 @@
       "pubDate": "Mar 1998", 
       "title": "Genetic heterogeneity and penetrance analysis of the BRCA1 and BRCA2 genes in breast cancer families. The Breast Cancer Linkage Consortium.", 
       "journal": "American journal of human genetics", 
+      "journal_iso": "Am. J. Hum. Genet.", 
       "authors": "Ford, Easton, Stratton", 
       "id": "9497246"
     }, 
@@ -2780,6 +3083,7 @@
       "pubDate": "Mar 2013", 
       "title": "Sensitive detection of somatic point mutations in impure and heterogeneous cancer samples.", 
       "journal": "Nature biotechnology", 
+      "journal_iso": "Nat. Biotechnol.", 
       "authors": "Cibulskis, Lawrence, Carter", 
       "id": "23396013"
     }, 
@@ -2789,6 +3093,7 @@
       "pubDate": "Jun 2008", 
       "title": "Identification of somatically acquired rearrangements in cancer using genome-wide massively parallel paired-end sequencing.", 
       "journal": "Nature genetics", 
+      "journal_iso": "Nat. Genet.", 
       "authors": "Campbell, Stephens, Pleasance", 
       "id": "18438408"
     }, 
@@ -2798,6 +3103,7 @@
       "pubDate": "Mar 2011", 
       "title": "Multiple myeloma.", 
       "journal": "The New England journal of medicine", 
+      "journal_iso": "N. Engl. J. Med.", 
       "authors": "Palumbo, Anderson", 
       "id": "21410373"
     }, 
@@ -2807,6 +3113,7 @@
       "pubDate": "Jan 2013", 
       "title": "Integrated genomic analyses identify ARID1A and ARID1B alterations in the childhood cancer neuroblastoma.", 
       "journal": "Nature genetics", 
+      "journal_iso": "Nat. Genet.", 
       "authors": "Sausen, Leary, Jones", 
       "id": "23202128"
     }, 
@@ -2816,6 +3123,7 @@
       "pubDate": "Sep 2012", 
       "title": "Annotation of functional variation in personal genomes using RegulomeDB.", 
       "journal": "Genome research", 
+      "journal_iso": "Genome Res.", 
       "authors": "Boyle, Hong, Hariharan", 
       "id": "22955989"
     }, 
@@ -2825,26 +3133,29 @@
       "pubDate": "Feb 2014", 
       "title": "Landscape of genetic lesions in 944 patients with myelodysplastic syndromes.", 
       "journal": "Leukemia", 
+      "journal_iso": "Leukemia", 
       "authors": "Haferlach, Nagata, Grossmann", 
       "id": "24220272"
     }, 
     {
       "group": "Cited", 
       "name": "19330029", 
-      "weight": 15, 
+      "pubDate": "May 2009", 
       "title": "Somatic mutations of the histone H3K27 demethylase gene UTX in human cancer.", 
       "journal": "Nature genetics", 
-      "pubDate": "May 2009", 
+      "weight": 15, 
+      "journal_iso": "Nat. Genet.", 
       "authors": "van Haaften, Dalgliesh, Davies", 
       "id": "19330029"
     }, 
     {
       "group": "Searched", 
       "name": "25825497", 
-      "weight": 34, 
+      "pubDate": "May 2015", 
       "title": "LLY-507, a Cell-active, Potent, and Selective Inhibitor of Protein-lysine Methyltransferase SMYD2.", 
       "journal": "The Journal of biological chemistry", 
-      "pubDate": "May 2015", 
+      "weight": 34, 
+      "journal_iso": "J. Biol. Chem.", 
       "authors": "Nguyen, Allali-Hassani, Antonysamy", 
       "id": "25825497"
     }, 
@@ -2854,6 +3165,7 @@
       "pubDate": "Jan 2001", 
       "title": "dbSNP: the NCBI database of genetic variation.", 
       "journal": "Nucleic acids research", 
+      "journal_iso": "Nucleic Acids Res.", 
       "authors": "Sherry, Ward, Kholodov", 
       "id": "11125122"
     }, 
@@ -2863,6 +3175,7 @@
       "pubDate": "Feb 2013", 
       "title": "Highly recurrent TERT promoter mutations in human melanoma.", 
       "journal": "Science (New York, N.Y.)", 
+      "journal_iso": "Science", 
       "authors": "Huang, Hodis, Xu", 
       "id": "23348506"
     }, 
@@ -2872,6 +3185,7 @@
       "pubDate": "Feb 2013", 
       "title": "TERT promoter mutations in familial and sporadic melanoma.", 
       "journal": "Science (New York, N.Y.)", 
+      "journal_iso": "Science", 
       "authors": "Horn, Figl, Rachakonda", 
       "id": "23348503"
     }, 
@@ -2881,6 +3195,7 @@
       "pubDate": "Mar 2003", 
       "title": "Cyclic, proteasome-mediated turnover of unliganded and liganded ERalpha on responsive promoters is an integral feature of estrogen signaling.", 
       "journal": "Molecular cell", 
+      "journal_iso": "Mol. Cell", 
       "authors": "Reid, H\u00fcbner, M\u00e9tivier", 
       "id": "12667452"
     }, 
@@ -2890,16 +3205,18 @@
       "pubDate": "Oct 2010", 
       "title": "Frequent mutations of chromatin remodeling gene ARID1A in ovarian clear cell carcinoma.", 
       "journal": "Science (New York, N.Y.)", 
+      "journal_iso": "Science", 
       "authors": "Jones, Wang, Shih", 
       "id": "20826764"
     }, 
     {
       "group": "Cited", 
       "name": "27102296", 
-      "weight": 41, 
+      "pubDate": "May 2016", 
       "title": "Survival in acute myeloid leukemia is associated with NKp44 splice variants.", 
       "journal": "Oncotarget", 
-      "pubDate": "May 2016", 
+      "weight": 41, 
+      "journal_iso": "Oncotarget", 
       "authors": "Shemesh, Brusilovsky, Hadad", 
       "id": "27102296"
     }, 
@@ -2909,6 +3226,7 @@
       "pubDate": "Apr 2012", 
       "title": "SMRT\u03b5, a corepressor variant, interacts with a restricted subset of nuclear receptors, including the retinoic acid receptors \u03b1 and \u03b2.", 
       "journal": "Molecular and cellular endocrinology", 
+      "journal_iso": "Mol. Cell. Endocrinol.", 
       "authors": "Mengeling, Goodson, Bourguet", 
       "id": "22266197"
     }, 
@@ -2918,6 +3236,7 @@
       "pubDate": "Nov 2013", 
       "title": "Deletion of Asxl1 results in myelodysplasia and severe developmental defects in vivo.", 
       "journal": "The Journal of experimental medicine", 
+      "journal_iso": "J. Exp. Med.", 
       "authors": "Abdel-Wahab, Gao, Adli", 
       "id": "24218140"
     }, 
@@ -2927,6 +3246,7 @@
       "pubDate": "Jan 2010", 
       "title": "Systematic sequencing of renal carcinoma reveals inactivation of histone modifying genes.", 
       "journal": "Nature", 
+      "journal_iso": "Nature", 
       "authors": "Dalgliesh, Furge, Greenman", 
       "id": "20054297"
     }, 
@@ -2936,6 +3256,7 @@
       "pubDate": "Aug 2000", 
       "title": "Both corepressor proteins SMRT and N-CoR exist in large protein complexes containing HDAC3.", 
       "journal": "The EMBO journal", 
+      "journal_iso": "EMBO J.", 
       "authors": "Li, Wang, Wang", 
       "id": "10944117"
     }, 
@@ -2945,6 +3266,7 @@
       "pubDate": "Mar 2013", 
       "title": "Integrative Genomics Viewer (IGV): high-performance genomics data visualization and exploration.", 
       "journal": "Briefings in bioinformatics", 
+      "journal_iso": "Brief. Bioinformatics", 
       "authors": "Thorvaldsd\u00f3ttir, Robinson, Mesirov", 
       "id": "22517427"
     }, 
@@ -2954,6 +3276,7 @@
       "pubDate": "Apr 2001", 
       "title": "Synergistic growth inhibition of prostate cancer cells by 1 alpha,25 Dihydroxyvitamin D(3) and its 19-nor-hexafluoride analogs in combination with either sodium butyrate or trichostatin A.", 
       "journal": "Oncogene", 
+      "journal_iso": "Oncogene", 
       "authors": "Rashid, Moore, Walker", 
       "id": "11313934"
     }, 
@@ -2963,6 +3286,7 @@
       "pubDate": "Jan 2012", 
       "title": "Clonal evolution in relapsed acute myeloid leukaemia revealed by whole-genome sequencing.", 
       "journal": "Nature", 
+      "journal_iso": "Nature", 
       "authors": "Ding, Ley, Larson", 
       "id": "22237025"
     }, 
@@ -2972,6 +3296,7 @@
       "pubDate": "Apr 2012", 
       "title": "The Bcl6-SMRT/NCoR cistrome represses inflammation to attenuate atherosclerosis.", 
       "journal": "Cell metabolism", 
+      "journal_iso": "Cell Metab.", 
       "authors": "Barish, Yu, Karunasiri", 
       "id": "22465074"
     }, 
@@ -2981,6 +3306,7 @@
       "pubDate": "Sep 2007", 
       "title": "The Gli code: an information nexus regulating cell fate, stemness and cancer.", 
       "journal": "Trends in cell biology", 
+      "journal_iso": "Trends Cell Biol.", 
       "authors": "Ruiz i Altaba, Mas, Stecca", 
       "id": "17845852"
     }, 
@@ -2990,6 +3316,7 @@
       "pubDate": "Nov 2011", 
       "title": "Insertional mutagenesis identifies multiple networks of cooperating genes driving intestinal tumorigenesis.", 
       "journal": "Nature genetics", 
+      "journal_iso": "Nat. Genet.", 
       "authors": "March, Rust, Wright", 
       "id": "22057237"
     }, 
@@ -2999,6 +3326,7 @@
       "pubDate": "Sep 2005", 
       "title": "Paradoxic inhibition of human natural interferon-producing cells by the activating receptor NKp44.", 
       "journal": "Blood", 
+      "journal_iso": "Blood", 
       "authors": "Fuchs, Cella, Kondo", 
       "id": "15941912"
     }, 
@@ -3008,16 +3336,18 @@
       "pubDate": "Apr 2006", 
       "title": "Altered nuclear receptor corepressor expression attenuates vitamin D receptor signaling in breast cancer cells.", 
       "journal": "Clinical cancer research : an official journal of the American Association for Cancer Research", 
+      "journal_iso": "Clin. Cancer Res.", 
       "authors": "Banwell, MacCartney, Guy", 
       "id": "16609009"
     }, 
     {
       "group": "Searched", 
       "name": "22536442", 
-      "weight": 48, 
+      "pubDate": " 2012", 
       "title": "MicroRNA genes and their target 3'-untranslated regions are infrequently somatically mutated in ovarian cancers.", 
       "journal": "PloS one", 
-      "pubDate": " 2012", 
+      "weight": 48, 
+      "journal_iso": "PLoS ONE", 
       "authors": "Ryland, Bearfoot, Doyle", 
       "id": "22536442"
     }, 
@@ -3027,6 +3357,7 @@
       "pubDate": "Apr 2010", 
       "title": "A method and server for predicting damaging missense mutations.", 
       "journal": "Nature methods", 
+      "journal_iso": "Nat. Methods", 
       "authors": "Adzhubei, Schmidt, Peshkin", 
       "id": "20354512"
     }, 
@@ -3036,16 +3367,18 @@
       "pubDate": "Mar 2009", 
       "title": "Genetics and epigenetics: stability and plasticity during cellular differentiation.", 
       "journal": "Trends in genetics : TIG", 
+      "journal_iso": "Trends Genet.", 
       "authors": "Mohn, Sch\u00fcbeler", 
       "id": "19185382"
     }, 
     {
       "group": "Searched", 
       "name": "27135926", 
-      "weight": 55, 
+      "pubDate": "May 2016", 
       "title": "Landscape of somatic mutations in 560 breast cancer whole-genome sequences.", 
       "journal": "Nature", 
-      "pubDate": "May 2016", 
+      "weight": 55, 
+      "journal_iso": "Nature", 
       "authors": "Nik-Zainal, Davies, Staaf", 
       "id": "27135926"
     }, 
@@ -3055,16 +3388,18 @@
       "pubDate": "Jan 2010", 
       "title": "A comprehensive catalogue of somatic mutations from a human cancer genome.", 
       "journal": "Nature", 
+      "journal_iso": "Nature", 
       "authors": "Pleasance, Cheetham, Stephens", 
       "id": "20016485"
     }, 
     {
       "group": "Searched", 
       "name": "20016488", 
-      "weight": 41, 
+      "pubDate": "Jan 2010", 
       "title": "A small-cell lung cancer genome with complex signatures of tobacco exposure.", 
       "journal": "Nature", 
-      "pubDate": "Jan 2010", 
+      "weight": 41, 
+      "journal_iso": "Nature", 
       "authors": "Pleasance, Stephens, O'Meara", 
       "id": "20016488"
     }, 
@@ -3074,6 +3409,7 @@
       "pubDate": "Nov 2012", 
       "title": "Pancreatic cancer genomes reveal aberrations in axon guidance pathway genes.", 
       "journal": "Nature", 
+      "journal_iso": "Nature", 
       "authors": "Biankin, Waddell, Kassahn", 
       "id": "23103869"
     }, 
@@ -3083,6 +3419,7 @@
       "pubDate": "Oct 2000", 
       "title": "The anti-proliferative effects of 1alpha,25(OH)2D3 on breast and prostate cancer cells are associated with induction of BRCA1 gene expression.", 
       "journal": "Oncogene", 
+      "journal_iso": "Oncogene", 
       "authors": "Campbell, Gombart, Kwok", 
       "id": "11042697"
     }, 
@@ -3092,6 +3429,7 @@
       "pubDate": "Sep 2009", 
       "title": "miR-21: an androgen receptor-regulated microRNA that promotes hormone-dependent and hormone-independent prostate cancer growth.", 
       "journal": "Cancer research", 
+      "journal_iso": "Cancer Res.", 
       "authors": "Ribas, Ni, Haffner", 
       "id": "19738047"
     }, 
@@ -3101,6 +3439,7 @@
       "pubDate": "Jul 1997", 
       "title": "Human acute myeloid leukemia is organized as a hierarchy that originates from a primitive hematopoietic cell.", 
       "journal": "Nature medicine", 
+      "journal_iso": "Nat. Med.", 
       "authors": "Bonnet, Dick", 
       "id": "9212098"
     }, 
@@ -3110,6 +3449,7 @@
       "pubDate": "Dec 2011", 
       "title": "Clinical significance of SF3B1 mutations in myelodysplastic syndromes and myelodysplastic/myeloproliferative neoplasms.", 
       "journal": "Blood", 
+      "journal_iso": "Blood", 
       "authors": "Malcovati, Papaemmanuil, Bowen", 
       "id": "21998214"
     }, 
@@ -3119,6 +3459,7 @@
       "pubDate": "Feb 2013", 
       "title": "FANTOM: Functional and taxonomic analysis of metagenomes.", 
       "journal": "BMC bioinformatics", 
+      "journal_iso": "BMC Bioinformatics", 
       "authors": "Sanli, Karlsson, Nookaew", 
       "id": "23375020"
     }, 
@@ -3128,16 +3469,18 @@
       "pubDate": "Jan 2008", 
       "title": "Altered glycosylation of recombinant NKp30 hampers binding to heparan sulfate: a lesson for the use of recombinant immunoreceptors as an immunological tool.", 
       "journal": "Glycobiology", 
+      "journal_iso": "Glycobiology", 
       "authors": "Hershkovitz, Jarahian, Zilka", 
       "id": "18006589"
     }, 
     {
       "group": "Searched", 
       "name": "22567363", 
-      "weight": 88, 
+      "pubDate": " 2011", 
       "title": "The role of dicentric chromosome formation and secondary centromere deletion in the evolution of myeloid malignancy.", 
       "journal": "Genetics research international", 
-      "pubDate": " 2011", 
+      "weight": 88, 
+      "journal_iso": "Genet Res Int", 
       "authors": "Mackinnon, Campbell", 
       "id": "22567363"
     }, 
@@ -3147,6 +3490,7 @@
       "pubDate": "Oct 2011", 
       "title": "Somatic SF3B1 mutation in myelodysplasia with ring sideroblasts.", 
       "journal": "The New England journal of medicine", 
+      "journal_iso": "N. Engl. J. Med.", 
       "authors": "Papaemmanuil, Cazzola, Boultwood", 
       "id": "21995386"
     }, 
@@ -3156,6 +3500,7 @@
       "pubDate": "Mar 2012", 
       "title": "Systematic identification of genomic markers of drug sensitivity in cancer cells.", 
       "journal": "Nature", 
+      "journal_iso": "Nature", 
       "authors": "Garnett, Edelman, Heidorn", 
       "id": "22460902"
     }, 
@@ -3165,6 +3510,7 @@
       "pubDate": "Oct 2013", 
       "title": "Mutational landscape and significance across 12 major cancer types.", 
       "journal": "Nature", 
+      "journal_iso": "Nature", 
       "authors": "Kandoth, McLellan, Vandin", 
       "id": "24132290"
     }, 
@@ -3174,6 +3520,7 @@
       "pubDate": "Jun 2005", 
       "title": "Sun exposure, vitamin D receptor gene polymorphisms, and risk of advanced prostate cancer.", 
       "journal": "Cancer research", 
+      "journal_iso": "Cancer Res.", 
       "authors": "John, Schwartz, Koo", 
       "id": "15958597"
     }, 
@@ -3183,6 +3530,7 @@
       "pubDate": "Dec 2008", 
       "title": "Transcription-coupled DNA repair: two decades of progress and surprises.", 
       "journal": "Nature reviews. Molecular cell biology", 
+      "journal_iso": "Nat. Rev. Mol. Cell Biol.", 
       "authors": "Hanawalt, Spivak", 
       "id": "19023283"
     }, 
@@ -3192,16 +3540,18 @@
       "pubDate": "Aug 1981", 
       "title": "Differentiation of mouse myeloid leukemia cells induced by 1 alpha,25-dihydroxyvitamin D3.", 
       "journal": "Proceedings of the National Academy of Sciences of the United States of America", 
+      "journal_iso": "Proc. Natl. Acad. Sci. U.S.A.", 
       "authors": "Abe, Miyaura, Sakagami", 
       "id": "6946446"
     }, 
     {
       "group": "Searched", 
       "name": "26117541", 
-      "weight": 103, 
+      "pubDate": "Sep 2015", 
       "title": "Integrative genomic analysis in K562 chronic myelogenous leukemia cells reveals that proximal NCOR1 binding positively regulates genes that govern erythroid differentiation and Imatinib sensitivity.", 
       "journal": "Nucleic acids research", 
-      "pubDate": "Sep 2015", 
+      "weight": 103, 
+      "journal_iso": "Nucleic Acids Res.", 
       "authors": "Long, van den Berg, Russell", 
       "id": "26117541"
     }, 
@@ -3211,6 +3561,7 @@
       "pubDate": "Apr 2013", 
       "title": "Punctuated evolution of prostate cancer genomes.", 
       "journal": "Cell", 
+      "journal_iso": "Cell", 
       "authors": "Baca, Prandi, Lawrence", 
       "id": "23622249"
     }, 
@@ -3220,6 +3571,7 @@
       "pubDate": "Nov 2009", 
       "title": "Pindel: a pattern growth approach to detect break points of large deletions and medium sized insertions from paired-end short reads.", 
       "journal": "Bioinformatics (Oxford, England)", 
+      "journal_iso": "Bioinformatics", 
       "authors": "Ye, Schulz, Long", 
       "id": "19561018"
     }, 
@@ -3229,6 +3581,7 @@
       "pubDate": "Oct 2008", 
       "title": "Characterization of microRNAs in serum: a novel class of biomarkers for diagnosis of cancer and other diseases.", 
       "journal": "Cell research", 
+      "journal_iso": "Cell Res.", 
       "authors": "Chen, Ba, Ma", 
       "id": "18766170"
     }, 
@@ -3238,6 +3591,7 @@
       "pubDate": "Feb 1996", 
       "title": "Localization of an ovarian cancer tumor suppressor gene to a 0.5-cM region between D22S284 and CYP2D, on chromosome 22q.", 
       "journal": "Cancer research", 
+      "journal_iso": "Cancer Res.", 
       "authors": "Bryan, Watson, Davis", 
       "id": "8631002"
     }, 
@@ -3247,6 +3601,7 @@
       "pubDate": "Aug 2002", 
       "title": "Telomere dysfunction provokes regional amplification and deletion in cancer genomes.", 
       "journal": "Cancer cell", 
+      "journal_iso": "Cancer Cell", 
       "authors": "O'Hagan, Chang, Maser", 
       "id": "12204535"
     }, 
@@ -3256,6 +3611,7 @@
       "pubDate": "May 2012", 
       "title": "The landscape of cancer genes and mutational processes in breast cancer.", 
       "journal": "Nature", 
+      "journal_iso": "Nature", 
       "authors": "Stephens, Tarpey, Davies", 
       "id": "22722201"
     }, 
@@ -3265,6 +3621,7 @@
       "pubDate": "Aug 2006", 
       "title": "Nuclear receptor expression links the circadian clock to metabolism.", 
       "journal": "Cell", 
+      "journal_iso": "Cell", 
       "authors": "Yang, Downes, Yu", 
       "id": "16923398"
     }, 
@@ -3274,6 +3631,7 @@
       "pubDate": "Aug 2006", 
       "title": "Anatomical profiling of nuclear receptor expression reveals a hierarchical transcriptional network.", 
       "journal": "Cell", 
+      "journal_iso": "Cell", 
       "authors": "Bookout, Jeong, Downes", 
       "id": "16923397"
     }, 
@@ -3283,6 +3641,7 @@
       "pubDate": "Jun 2013", 
       "title": "The Genotype-Tissue Expression (GTEx) project.", 
       "journal": "Nature genetics", 
+      "journal_iso": "Nat. Genet.", 
       "authors": "", 
       "id": "23715323"
     }, 
@@ -3292,16 +3651,18 @@
       "pubDate": "Nov 2001", 
       "title": "Prostate cancer risk: associations with ultraviolet radiation, tyrosinase and melanocortin-1 receptor genotypes.", 
       "journal": "British journal of cancer", 
+      "journal_iso": "Br. J. Cancer", 
       "authors": "Luscombe, French, Liu", 
       "id": "11720436"
     }, 
     {
       "group": "Searched", 
       "name": "25180064", 
-      "weight": 45, 
+      "pubDate": "Sep 2014", 
       "title": "Niche displacement of human leukemic stem cells uniquely allows their competitive replacement with healthy HSPCs.", 
       "journal": "The Journal of experimental medicine", 
-      "pubDate": "Sep 2014", 
+      "weight": 45, 
+      "journal_iso": "J. Exp. Med.", 
       "authors": "Boyd, Campbell, Hopkins", 
       "id": "25180064"
     }, 
@@ -3311,16 +3672,18 @@
       "pubDate": "Mar 2011", 
       "title": "DAXX/ATRX, MEN1, and mTOR pathway genes are frequently altered in pancreatic neuroendocrine tumors.", 
       "journal": "Science (New York, N.Y.)", 
+      "journal_iso": "Science", 
       "authors": "Jiao, Shi, Edil", 
       "id": "21252315"
     }, 
     {
       "group": "Searched", 
       "name": "25849990", 
-      "weight": 66, 
+      "pubDate": "Apr 2015", 
       "title": "Genetic variation at MECOM, TERT, JAK2 and HBS1L-MYB predisposes to myeloproliferative neoplasms.", 
       "journal": "Nature communications", 
-      "pubDate": "Apr 2015", 
+      "weight": 66, 
+      "journal_iso": "Nat Commun", 
       "authors": "Tapper, Jones, Kralovics", 
       "id": "25849990"
     }, 
@@ -3330,6 +3693,7 @@
       "pubDate": "Oct 2008", 
       "title": "Somatic mutations affect key pathways in lung adenocarcinoma.", 
       "journal": "Nature", 
+      "journal_iso": "Nature", 
       "authors": "Ding, Getz, Wheeler", 
       "id": "18948947"
     }, 
@@ -3339,6 +3703,7 @@
       "pubDate": "Mar 2008", 
       "title": "Cyclical DNA methylation of a transcriptionally active promoter.", 
       "journal": "Nature", 
+      "journal_iso": "Nature", 
       "authors": "M\u00e9tivier, Gallais, Tiffoche", 
       "id": "18322525"
     }, 
@@ -3348,16 +3713,18 @@
       "pubDate": "Oct 2005", 
       "title": "Recurrent fusion of TMPRSS2 and ETS transcription factor genes in prostate cancer.", 
       "journal": "Science (New York, N.Y.)", 
+      "journal_iso": "Science", 
       "authors": "Tomlins, Rhodes, Perner", 
       "id": "16254181"
     }, 
     {
       "group": "Searched", 
       "name": "24391651", 
-      "weight": 163, 
+      "pubDate": "Dec 2013", 
       "title": "Combination immune therapies to enhance anti-tumor responses by NK cells.", 
       "journal": "Frontiers in immunology", 
-      "pubDate": "Dec 2013", 
+      "weight": 163, 
+      "journal_iso": "Front Immunol", 
       "authors": "Mentlik James, Cohen, Campbell", 
       "id": "24391651"
     }, 
@@ -3367,6 +3734,7 @@
       "pubDate": "Sep 2009", 
       "title": "Recurring mutations found by sequencing an acute myeloid leukemia genome.", 
       "journal": "The New England journal of medicine", 
+      "journal_iso": "N. Engl. J. Med.", 
       "authors": "Mardis, Ding, Dooling", 
       "id": "19657110"
     }, 
@@ -3376,6 +3744,7 @@
       "pubDate": "Mar 2012", 
       "title": "Targeting hedgehog in hematologic malignancy.", 
       "journal": "Blood", 
+      "journal_iso": "Blood", 
       "authors": "Irvine, Copland", 
       "id": "22223823"
     }, 
@@ -3385,26 +3754,29 @@
       "pubDate": "Jan 1996", 
       "title": "Transcriptional activation of the Cdk inhibitor p21 by vitamin D3 leads to the induced differentiation of the myelomonocytic cell line U937.", 
       "journal": "Genes & development", 
+      "journal_iso": "Genes Dev.", 
       "authors": "Liu, Lee, Cohen", 
       "id": "8566748"
     }, 
     {
       "group": "Cited", 
       "name": "20033038", 
-      "weight": 37, 
+      "pubDate": "Dec 2009", 
       "title": "Complex landscapes of somatic rearrangement in human breast cancer genomes.", 
       "journal": "Nature", 
-      "pubDate": "Dec 2009", 
+      "weight": 37, 
+      "journal_iso": "Nature", 
       "authors": "Stephens, McBride, Lin", 
       "id": "20033038"
     }, 
     {
       "group": "Searched", 
       "name": "23535730", 
-      "weight": 36, 
+      "pubDate": "Apr 2013", 
       "title": "GWAS meta-analysis and replication identifies three new susceptibility loci for ovarian cancer.", 
       "journal": "Nature genetics", 
-      "pubDate": "Apr 2013", 
+      "weight": 36, 
+      "journal_iso": "Nat. Genet.", 
       "authors": "Pharoah, Tsai, Ramus", 
       "id": "23535730"
     }, 
@@ -3414,6 +3786,7 @@
       "pubDate": "Jul 2012", 
       "title": "Comprehensive molecular characterization of human colon and rectal cancer.", 
       "journal": "Nature", 
+      "journal_iso": "Nature", 
       "authors": "", 
       "id": "22810696"
     }, 
@@ -3423,6 +3796,7 @@
       "pubDate": "Dec 2003", 
       "title": "Estrogen receptor-alpha directs ordered, cyclical, and combinatorial recruitment of cofactors on a natural target promoter.", 
       "journal": "Cell", 
+      "journal_iso": "Cell", 
       "authors": "M\u00e9tivier, Penot, H\u00fcbner", 
       "id": "14675539"
     }, 
@@ -3432,6 +3806,7 @@
       "pubDate": "May 2007", 
       "title": "Evidence for mutation showers.", 
       "journal": "Proceedings of the National Academy of Sciences of the United States of America", 
+      "journal_iso": "Proc. Natl. Acad. Sci. U.S.A.", 
       "authors": "Wang, Gonzalez, Scaringe", 
       "id": "17485671"
     }, 
@@ -3441,16 +3816,18 @@
       "pubDate": "Jun 2011", 
       "title": "Multiple common susceptibility variants near BMP pathway loci GREM1, BMP4, and BMP2 explain part of the missing heritability of colorectal cancer.", 
       "journal": "PLoS genetics", 
+      "journal_iso": "PLoS Genet.", 
       "authors": "Tomlinson, Carvajal-Carmona, Dobbins", 
       "id": "21655089"
     }, 
     {
       "group": "Searched", 
       "name": "15217503", 
-      "weight": 20, 
+      "pubDate": " 2004", 
       "title": "No germline mutations in the histone acetyltransferase gene EP300 in BRCA1 and BRCA2 negative families with breast cancer and gastric, pancreatic, or colorectal cancer.", 
       "journal": "Breast cancer research : BCR", 
-      "pubDate": " 2004", 
+      "weight": 20, 
+      "journal_iso": "Breast Cancer Res.", 
       "authors": "Campbell, Choong, Chenevix-Trench", 
       "id": "15217503"
     }, 
@@ -3460,6 +3837,7 @@
       "pubDate": "Nov 2014", 
       "title": "Genome-wide analysis of noncoding regulatory mutations in cancer.", 
       "journal": "Nature genetics", 
+      "journal_iso": "Nat. Genet.", 
       "authors": "Weinhold, Jacobsen, Schultz", 
       "id": "25261935"
     }, 
@@ -3469,6 +3847,7 @@
       "pubDate": "Jun 2007", 
       "title": "Identification and analysis of functional elements in 1% of the human genome by the ENCODE pilot project.", 
       "journal": "Nature", 
+      "journal_iso": "Nature", 
       "authors": ", Birney, Stamatoyannopoulos", 
       "id": "17571346"
     }
