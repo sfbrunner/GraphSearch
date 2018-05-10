@@ -1,0 +1,6695 @@
+{
+  "directed": false, 
+  "graph": {}, 
+  "nodes": [
+    {
+      "group": "Cited", 
+      "name": "21441907", 
+      "pubDate": "May 2011", 
+      "title": "Mapping and analysis of chromatin state dynamics in nine human cell types.", 
+      "journal": "Nature", 
+      "authors": "Ernst, Kheradpour, Mikkelsen", 
+      "id": "21441907"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "26094914", 
+      "pubDate": "Oct 2015", 
+      "title": "NKp30 isoforms in patients with chronic hepatitis C virus infection.", 
+      "journal": "Immunology", 
+      "authors": "Mantovani, Mele, Oliviero", 
+      "id": "26094914"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "22722839", 
+      "pubDate": "Jul 2012", 
+      "title": "The mutational landscape of lethal  castration-resistant prostate cancer.", 
+      "journal": "Nature", 
+      "authors": "Grasso, Wu, Robinson", 
+      "id": "22722839"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "11306457", 
+      "pubDate": "Apr 2001", 
+      "title": "Reduced 1alpha-hydroxylase activity in human prostate cancer cells correlates with decreased susceptibility to 25-hydroxyvitamin D3-induced growth inhibition.", 
+      "journal": "Cancer research", 
+      "authors": "Hsu, Feldman, McNeal", 
+      "id": "11306457"
+    }, 
+    {
+      "group": "Searched", 
+      "name": "25990418", 
+      "weight": 56, 
+      "title": "A new GWAS and meta-analysis with 1000Genomes imputation identifies novel risk variants for colorectal cancer.", 
+      "journal": "Scientific reports", 
+      "pubDate": "May 2015", 
+      "authors": "Al-Tassan, Whiffin, Hosking", 
+      "id": "25990418"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "6895862", 
+      "pubDate": "Mar 1982", 
+      "title": "1,25-dihydroxyvitamin D3 receptors in human epithelial cancer cell lines.", 
+      "journal": "Cancer research", 
+      "authors": "Colston, Colston, Fieldsteel", 
+      "id": "6895862"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "23770567", 
+      "pubDate": "Jul 2013", 
+      "title": "Mutational heterogeneity in cancer and the search for new cancer-associated genes.", 
+      "journal": "Nature", 
+      "authors": "Lawrence, Stojanov, Polak", 
+      "id": "23770567"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "19221487", 
+      "pubDate": "Mar 2009", 
+      "title": "MicroRNAs181 regulate the expression of p27Kip1 in human myeloid leukemia cells induced to differentiate by 1,25-dihydroxyvitamin D3.", 
+      "journal": "Cell cycle (Georgetown, Tex.)", 
+      "authors": "Wang, Gocek, Liu", 
+      "id": "19221487"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "20952405", 
+      "pubDate": "Jan 2011", 
+      "title": "COSMIC: mining complete cancer genomes in the Catalogue of Somatic Mutations in Cancer.", 
+      "journal": "Nucleic acids research", 
+      "authors": "Forbes, Bindal, Bamford", 
+      "id": "20952405"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "23415222", 
+      "pubDate": "Feb 2013", 
+      "title": "Evolution and impact of subclonal mutations in chronic lymphocytic leukemia.", 
+      "journal": "Cell", 
+      "authors": "Landau, Carter, Stojanov", 
+      "id": "23415222"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "22155872", 
+      "pubDate": "Feb 2012", 
+      "title": "SomaticSniper: identification of somatic point mutations in whole genome sequencing data.", 
+      "journal": "Bioinformatics (Oxford, England)", 
+      "authors": "Larson, Harris, Chen", 
+      "id": "22155872"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "23000897", 
+      "pubDate": "Oct 2012", 
+      "title": "Comprehensive molecular portraits of human breast tumours.", 
+      "journal": "Nature", 
+      "authors": "", 
+      "id": "23000897"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "23958951", 
+      "pubDate": "Oct 2013", 
+      "title": "Identification of a cellular ligand for the natural cytotoxicity receptor NKp44.", 
+      "journal": "Blood", 
+      "authors": "Baychelier, Sennepin, Ermonval", 
+      "id": "23958951"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "23087083", 
+      "pubDate": "Feb 2013", 
+      "title": "Recruitment of NCOR1 to VDR target genes is enhanced in prostate cancer cells and associates with altered DNA methylation patterns.", 
+      "journal": "Carcinogenesis", 
+      "authors": "Doig, Singh, Dhiman", 
+      "id": "23087083"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "11244035", 
+      "pubDate": " 2001", 
+      "title": "Activating receptors and coreceptors involved in human natural killer cell-mediated cytolysis.", 
+      "journal": "Annual review of immunology", 
+      "authors": "Moretta, Bottino, Vitale", 
+      "id": "11244035"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "6257495", 
+      "pubDate": "Mar 1981", 
+      "title": "1,25-dihydroxyvitamin D3 and malignant melanoma: the presence of receptors and inhibition of cell growth in culture.", 
+      "journal": "Endocrinology", 
+      "authors": "Colston, Colston, Feldman", 
+      "id": "6257495"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "22343920", 
+      "pubDate": "Apr 2012", 
+      "title": "Mutations affecting mRNA splicing define distinct clinical phenotypes and correlate with patient outcome in myelodysplastic syndromes.", 
+      "journal": "Blood", 
+      "authors": "Damm, Kosmider, Gelsi-Boyer", 
+      "id": "22343920"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "22955616", 
+      "pubDate": "Sep 2012", 
+      "title": "An integrated encyclopedia of DNA elements in the human genome.", 
+      "journal": "Nature", 
+      "authors": "", 
+      "id": "22955616"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "22955613", 
+      "pubDate": "Sep 2012", 
+      "title": "The making of ENCODE: Lessons for big-data projects.", 
+      "journal": "Nature", 
+      "authors": "Birney", 
+      "id": "22955613"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "2263572", 
+      "pubDate": "Nov 1990", 
+      "title": "Geographic variation in breast cancer mortality in the United States: a hypothesis involving exposure to solar radiation.", 
+      "journal": "Preventive medicine", 
+      "authors": "Garland, Garland, Gorham", 
+      "id": "2263572"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "23535729", 
+      "pubDate": "Apr 2013", 
+      "title": "Large-scale genotyping identifies 41 new loci associated with breast cancer risk.", 
+      "journal": "Nature genetics", 
+      "authors": "Michailidou, Hall, Gonzalez-Neira", 
+      "id": "23535729"
+    }, 
+    {
+      "group": "Searched", 
+      "name": "24202443", 
+      "weight": 48, 
+      "title": "Gene regulatory scenarios of primary 1,25-dihydroxyvitamin d3 target genes in a human myeloid leukemia cell line.", 
+      "journal": "Cancers", 
+      "pubDate": "Oct 2013", 
+      "authors": "Ryyn\u00e4nen, Seuter, Campbell", 
+      "id": "24202443"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "19890130", 
+      "pubDate": "Nov 2009", 
+      "title": "Myelodysplastic syndromes.", 
+      "journal": "The New England journal of medicine", 
+      "authors": "Tefferi, Vardiman", 
+      "id": "19890130"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "11553815", 
+      "pubDate": "Sep 2001", 
+      "title": "Gene expression patterns of breast carcinomas distinguish tumor subclasses with clinical implications.", 
+      "journal": "Proceedings of the National Academy of Sciences of the United States of America", 
+      "authors": "S\u00f8rlie, Perou, Tibshirani", 
+      "id": "11553815"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "17536787", 
+      "pubDate": "Jun 2007", 
+      "title": "Characterization of the recognition of tumor cells by the natural cytotoxicity receptor, NKp44.", 
+      "journal": "Biochemistry", 
+      "authors": "Hershkovitz, Jivov, Bloushtain", 
+      "id": "17536787"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "22634755", 
+      "pubDate": "May 2012", 
+      "title": "Common variation near CDKN1A, POLD3 and SHROOM2 influences colorectal cancer risk.", 
+      "journal": "Nature genetics", 
+      "authors": "Dunlop, Dobbins, Farrington", 
+      "id": "22634755"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "23527218", 
+      "pubDate": " 2013", 
+      "title": "Novel interaction between proliferating cell nuclear antigen and HLA I on the surface of tumor cells inhibits NK cell function through NKp44.", 
+      "journal": "PloS one", 
+      "authors": "Horton, Mathew, Mathew", 
+      "id": "23527218"
+    }, 
+    {
+      "group": "Searched", 
+      "name": "25298093", 
+      "weight": 36, 
+      "title": "OncoCis: annotation of cis-regulatory mutations in  cancer.", 
+      "journal": "Genome biology", 
+      "pubDate": " 2014", 
+      "authors": "Perera, Chacon, Thoms", 
+      "id": "25298093"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "20702402", 
+      "pubDate": "Oct 2010", 
+      "title": "Genevar: a database and Java application for the analysis and visualization of SNP-gene associations in eQTL studies.", 
+      "journal": "Bioinformatics (Oxford, England)", 
+      "authors": "Yang, Beazley, Montgomery", 
+      "id": "20702402"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "24737748", 
+      "pubDate": "Sep 2014", 
+      "title": "Identification of susceptibility loci for colorectal cancer in a genome-wide meta-analysis.", 
+      "journal": "Human molecular genetics", 
+      "authors": "Whiffin, Hosking, Farrington", 
+      "id": "24737748"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "22832583", 
+      "pubDate": "Aug 2012", 
+      "title": "Dissecting the genomic complexity underlying medulloblastoma.", 
+      "journal": "Nature", 
+      "authors": "Jones, J\u00e4ger, Kool", 
+      "id": "22832583"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "22960745", 
+      "pubDate": "Sep 2012", 
+      "title": "Comprehensive genomic characterization of squamous cell lung cancers.", 
+      "journal": "Nature", 
+      "authors": "", 
+      "id": "22960745"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "23634996", 
+      "pubDate": "May 2013", 
+      "title": "Genomic and epigenomic landscapes of adult de novo acute myeloid leukemia.", 
+      "journal": "The New England journal of medicine", 
+      "authors": "", 
+      "id": "23634996"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "12453430", 
+      "pubDate": "Nov 2002", 
+      "title": "RNA editing enzyme APOBEC1 and some of its homologs can act as DNA mutators.", 
+      "journal": "Molecular cell", 
+      "authors": "Harris, Petersen-Mahrt, Neuberger", 
+      "id": "12453430"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "12111919", 
+      "pubDate": "Jun 2002", 
+      "title": "Quantifying heterogeneity in a meta-analysis.", 
+      "journal": "Statistics in medicine", 
+      "authors": "Higgins, Thompson", 
+      "id": "12111919"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "17320507", 
+      "pubDate": "Feb 2007", 
+      "title": "Chromatin modifications and their function.", 
+      "journal": "Cell", 
+      "authors": "Kouzarides", 
+      "id": "17320507"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "21376230", 
+      "pubDate": "Mar 2011", 
+      "title": "Hallmarks of cancer: the next generation.", 
+      "journal": "Cell", 
+      "authors": "Hanahan, Weinberg", 
+      "id": "21376230"
+    }, 
+    {
+      "group": "Searched", 
+      "name": "25243985", 
+      "weight": 358, 
+      "title": "The return of metabolism: biochemistry and physiology of the pentose phosphate pathway.", 
+      "journal": "Biological reviews of the Cambridge Philosophical Society", 
+      "pubDate": "Aug 2015", 
+      "authors": "Stincone, Prigione, Cramer", 
+      "id": "25243985"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "21215367", 
+      "weight": 34, 
+      "title": "Massive genomic rearrangement acquired in a single catastrophic event during cancer development.", 
+      "journal": "Cell", 
+      "pubDate": "Jan 2011", 
+      "authors": "Stephens, Greenman, Fu", 
+      "id": "21215367"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "21067377", 
+      "pubDate": "Dec 2010", 
+      "title": "DNMT3A mutations in acute myeloid leukemia.", 
+      "journal": "The New England journal of medicine", 
+      "authors": "Ley, Ding, Walter", 
+      "id": "21067377"
+    }, 
+    {
+      "group": "Searched", 
+      "name": "26437366", 
+      "weight": 35, 
+      "title": "Loss of BAP1 function leads to EZH2-dependent transformation.", 
+      "journal": "Nature medicine", 
+      "pubDate": "Nov 2015", 
+      "authors": "LaFave, B\u00e9guelin, Koche", 
+      "id": "26437366"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "22683710", 
+      "pubDate": "Jun 2012", 
+      "title": "BAP1 loss defines a new class of renal cell carcinoma.", 
+      "journal": "Nature genetics", 
+      "authors": "Pe\u00f1a-Llopis, Vega-Rub\u00edn-de-Celis, Liao", 
+      "id": "22683710"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "22658127", 
+      "pubDate": "Jun 2012", 
+      "title": "Safety, activity, and immune correlates of anti-PD-1 antibody in cancer.", 
+      "journal": "The New England journal of medicine", 
+      "authors": "Topalian, Hodi, Brahmer", 
+      "id": "22658127"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "23802087", 
+      "pubDate": "Mar 2013", 
+      "title": "Analysis of NKp30/NCR3 isoforms in untreated HIV-1-infected patients from the ANRS SEROCO cohort.", 
+      "journal": "Oncoimmunology", 
+      "authors": "Prada, Antoni, Commo", 
+      "id": "23802087"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "17020998", 
+      "pubDate": "Oct 2006", 
+      "title": "Vitamin D inhibits the formation of prostatic intraepithelial neoplasia in Nkx3.1;Pten mutant mice.", 
+      "journal": "Clinical cancer research : an official journal of the American Association for Cancer Research", 
+      "authors": "Banach-Petrosky, Ouyang, Gao", 
+      "id": "17020998"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "17475214", 
+      "pubDate": "Jun 2007", 
+      "title": "PI3K is negatively regulated by PIK3IP1, a novel p110 interacting protein.", 
+      "journal": "Biochemical and biophysical research communications", 
+      "authors": "Zhu, He, Johnson", 
+      "id": "17475214"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "20164920", 
+      "pubDate": "Feb 2010", 
+      "title": "The landscape of somatic copy-number alteration across human cancers.", 
+      "journal": "Nature", 
+      "authors": "Beroukhim, Mermel, Porter", 
+      "id": "20164920"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "21642962", 
+      "pubDate": "Jun 2011", 
+      "title": "Whole-genome sequencing identifies recurrent mutations in chronic lymphocytic leukaemia.", 
+      "journal": "Nature", 
+      "authors": "Puente, Pinyol, Quesada", 
+      "id": "21642962"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "20210320", 
+      "pubDate": "Apr 2010", 
+      "title": "Coordinated chromatin control: structural and functional linkage of DNA and histone methylation.", 
+      "journal": "Biochemistry", 
+      "authors": "Cheng, Blumenthal", 
+      "id": "20210320"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "18425107", 
+      "pubDate": "May 2008", 
+      "title": "Functions of natural killer cells.", 
+      "journal": "Nature immunology", 
+      "authors": "Vivier, Tomasello, Baratin", 
+      "id": "18425107"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "18425106", 
+      "pubDate": "May 2008", 
+      "title": "Up on the tightrope: natural killer cell activation and inhibition.", 
+      "journal": "Nature immunology", 
+      "authors": "Lanier", 
+      "id": "18425106"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "17234643", 
+      "pubDate": "Mar 2007", 
+      "title": "A faster circular binary segmentation algorithm for the analysis of array CGH data.", 
+      "journal": "Bioinformatics (Oxford, England)", 
+      "authors": "Venkatraman, Olshen", 
+      "id": "17234643"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "7509044", 
+      "pubDate": "Feb 1994", 
+      "title": "A cell initiating human acute myeloid leukaemia after transplantation into SCID mice.", 
+      "journal": "Nature", 
+      "authors": "Lapidot, Sirard, Vormoor", 
+      "id": "7509044"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "17085482", 
+      "pubDate": "Nov 2006", 
+      "title": "Direct interaction between DNMT1 and G9a coordinates DNA and histone methylation during replication.", 
+      "journal": "Genes & development", 
+      "authors": "Est\u00e8ve, Chin, Smallwood", 
+      "id": "17085482"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "17701901", 
+      "pubDate": "Sep 2007", 
+      "title": "PLINK: a tool set for whole-genome association and population-based linkage analyses.", 
+      "journal": "American journal of human genetics", 
+      "authors": "Purcell, Neale, Todd-Brown", 
+      "id": "17701901"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "21088000", 
+      "weight": 72, 
+      "title": "Epigenetic control of a VDR-governed feed-forward loop that regulates p21(waf1/cip1) expression and function in non-malignant prostate cells.", 
+      "journal": "Nucleic acids research", 
+      "pubDate": "Mar 2011", 
+      "authors": "Thorne, Maguire, Doig", 
+      "id": "21088000"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "20466759", 
+      "pubDate": "Sep 2010", 
+      "title": "Elevated NCOR1 disrupts PPARalpha/gamma signaling in prostate cancer and forms a targetable epigenetic lesion.", 
+      "journal": "Carcinogenesis", 
+      "authors": "Battaglia, Maguire, Thorne", 
+      "id": "20466759"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "23758877", 
+      "pubDate": "Jun 2013", 
+      "title": "Comparing somatic mutation-callers: beyond Venn diagrams.", 
+      "journal": "BMC bioinformatics", 
+      "authors": "Kim, Speed", 
+      "id": "23758877"
+    }, 
+    {
+      "group": "Searched", 
+      "name": "25271376", 
+      "weight": 57, 
+      "title": "Origins and functional consequences of somatic mitochondrial DNA mutations in human cancer.", 
+      "journal": "eLife", 
+      "pubDate": "Oct 2014", 
+      "authors": "Ju, Alexandrov, Gerstung", 
+      "id": "25271376"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "18212054", 
+      "pubDate": "Apr 2008", 
+      "title": "MicroRNAs in the miR-106b family regulate p21/CDKN1A and promote cell cycle progression.", 
+      "journal": "Molecular and cellular biology", 
+      "authors": "Ivanovska, Ball, Diaz", 
+      "id": "18212054"
+    }, 
+    {
+      "group": "Searched", 
+      "name": "27157927", 
+      "weight": 54, 
+      "title": "Deregulated hedgehog pathway signaling is inhibited by the smoothened antagonist LDE225 (Sonidegib) in chronic phase chronic myeloid leukaemia.", 
+      "journal": "Scientific reports", 
+      "pubDate": "May 2016", 
+      "authors": "Irvine, Zhang, Kinstrie", 
+      "id": "27157927"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "25105248", 
+      "pubDate": "Aug 2014", 
+      "title": "Trans-ethnic genome-wide association study of colorectal cancer identifies a new susceptibility locus in VTI1A.", 
+      "journal": "Nature communications", 
+      "authors": "Wang, Burnett, Kono", 
+      "id": "25105248"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "22495314", 
+      "pubDate": "Apr 2012", 
+      "title": "The clonal and mutational evolution spectrum of primary triple-negative breast cancers.", 
+      "journal": "Nature", 
+      "authors": "Shah, Roth, Goya", 
+      "id": "22495314"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "20972440", 
+      "pubDate": "Nov 2010", 
+      "title": "Meta-analysis of three genome-wide association studies identifies susceptibility loci for colorectal cancer at 1q41, 3q26.2, 12q13.13 and 20q13.33.", 
+      "journal": "Nature genetics", 
+      "authors": "Houlston, Cheadle, Dobbins", 
+      "id": "20972440"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "10398275", 
+      "pubDate": "Aug 1999", 
+      "title": "Novel 20-epi-vitamin D3 analog combined with 9-cis-retinoic acid markedly inhibits colony growth of prostate cancer cells.", 
+      "journal": "The Prostate", 
+      "authors": "Elstner, Campbell, Munker", 
+      "id": "10398275"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "9058730", 
+      "pubDate": "Mar 1997", 
+      "title": "International scoring system for evaluating prognosis in myelodysplastic syndromes.", 
+      "journal": "Blood", 
+      "authors": "Greenberg, Cox, LeBeau", 
+      "id": "9058730"
+    }, 
+    {
+      "group": "Searched", 
+      "name": "27604819", 
+      "weight": 38, 
+      "title": "Hemopoietic-specific Sf3b1-K700E knock-in mice display the splicing defect seen in human MDS but develop anemia without ring sideroblasts.", 
+      "journal": "Leukemia", 
+      "pubDate": "Oct 2016", 
+      "authors": "Mupo, Seiler, Sathiaseelan", 
+      "id": "27604819"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "24325356", 
+      "pubDate": "Dec 2013", 
+      "title": "Somatic mutations of calreticulin in myeloproliferative neoplasms.", 
+      "journal": "The New England journal of medicine", 
+      "authors": "Klampfl, Gisslinger, Harutyunyan", 
+      "id": "24325356"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "18253031", 
+      "pubDate": " 2007", 
+      "title": "Dicentric chromosomes and 20q11.2 amplification in MDS/AML with apparent monosomy 20.", 
+      "journal": "Cytogenetic and genome research", 
+      "authors": "Mackinnon, Campbell", 
+      "id": "18253031"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "20981092", 
+      "pubDate": "Oct 2010", 
+      "title": "A map of human genome variation from population-scale sequencing.", 
+      "journal": "Nature", 
+      "authors": ", Abecasis, Altshuler", 
+      "id": "20981092"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "10706079", 
+      "pubDate": "Feb 2000", 
+      "title": "A calcitriol analogue, EB1089, inhibits the growth of LNCaP tumors in nude mice.", 
+      "journal": "Cancer research", 
+      "authors": "Blutt, Polek, Stewart", 
+      "id": "10706079"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "17344846", 
+      "pubDate": "Mar 2007", 
+      "title": "Patterns of somatic mutation in human cancer genomes.", 
+      "journal": "Nature", 
+      "authors": "Greenman, Stephens, Smith", 
+      "id": "17344846"
+    }, 
+    {
+      "group": "Searched", 
+      "name": "24567448", 
+      "weight": 38, 
+      "title": "Co-targeting of convergent nucleotide biosynthetic pathways for leukemia eradication.", 
+      "journal": "The Journal of experimental medicine", 
+      "pubDate": "Mar 2014", 
+      "authors": "Nathanson, Armijo, Tom", 
+      "id": "24567448"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "2241107", 
+      "pubDate": " ", 
+      "title": "Is vitamin D deficiency a risk factor for prostate cancer? (Hypothesis).", 
+      "journal": "Anticancer research", 
+      "authors": "Schwartz, Hulka", 
+      "id": "2241107"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "17013392", 
+      "pubDate": "Nov 2006", 
+      "title": "Genome-wide analysis of estrogen receptor binding sites.", 
+      "journal": "Nature genetics", 
+      "authors": "Carroll, Meyer, Song", 
+      "id": "17013392"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "16329184", 
+      "pubDate": " 2006", 
+      "title": "Signal transduction in natural killer cells.", 
+      "journal": "Current topics in microbiology and immunology", 
+      "authors": "MacFarlane, Campbell", 
+      "id": "16329184"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "17934461", 
+      "pubDate": "Nov 2007", 
+      "title": "A genome-wide association study shows that common alleles of SMAD7 influence colorectal cancer risk.", 
+      "journal": "Nature genetics", 
+      "authors": "Broderick, Carvajal-Carmona, Pittman", 
+      "id": "17934461"
+    }, 
+    {
+      "group": "Searched", 
+      "name": "21248752", 
+      "weight": 25, 
+      "title": "Exome sequencing identifies frequent mutation of the SWI/SNF complex gene PBRM1 in renal carcinoma.", 
+      "journal": "Nature", 
+      "pubDate": "Jan 2011", 
+      "authors": "Varela, Tarpey, Raine", 
+      "id": "21248752"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "9365836", 
+      "pubDate": "Nov 1997", 
+      "title": "dic(5;17): a recurring abnormality in malignant myeloid disorders associated with mutations of TP53.", 
+      "journal": "Genes, chromosomes & cancer", 
+      "authors": "Wang, Spielberger, Thangavelu", 
+      "id": "9365836"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "19126649", 
+      "pubDate": "Mar 2009", 
+      "title": "Elevated NCOR1 disrupts a network of dietary-sensing nuclear receptors in bladder cancer cells.", 
+      "journal": "Carcinogenesis", 
+      "authors": "Abedin, Thorne, Battaglia", 
+      "id": "19126649"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "19299558", 
+      "pubDate": "Mar 2009", 
+      "title": "Cooperative NCoR/SMRT interactions establish a corepressor-based strategy for integration of inflammatory and anti-inflammatory signaling pathways.", 
+      "journal": "Genes & development", 
+      "authors": "Ghisletti, Huang, Jepsen", 
+      "id": "19299558"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "14530388", 
+      "pubDate": "Oct 2003", 
+      "title": "Structure and function of the feed-forward loop network motif.", 
+      "journal": "Proceedings of the National Academy of Sciences of the United States of America", 
+      "authors": "Mangan, Alon", 
+      "id": "14530388"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "15919092", 
+      "pubDate": "Jul 2005", 
+      "title": "Spatio-temporal activation of chromatin on the human CYP24 gene promoter in the presence of 1alpha,25-Dihydroxyvitamin D3.", 
+      "journal": "Journal of molecular biology", 
+      "authors": "V\u00e4is\u00e4nen, Dunlop, Sinkkonen", 
+      "id": "15919092"
+    }, 
+    {
+      "group": "Searched", 
+      "name": "26647970", 
+      "weight": 39, 
+      "title": "A comprehensive assessment of somatic mutation detection in cancer using whole-genome sequencing.", 
+      "journal": "Nature communications", 
+      "pubDate": "Dec 2015", 
+      "authors": "Alioto, Buchhalter, Derdak", 
+      "id": "26647970"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "19541911", 
+      "pubDate": "Sep 2009", 
+      "title": "Circos: an information aesthetic for comparative genomics.", 
+      "journal": "Genome research", 
+      "authors": "Krzywinski, Schein, Birol", 
+      "id": "19541911"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "24092746", 
+      "pubDate": "Oct 2013", 
+      "title": "Integrative annotation of variants from 1092 humans: application to cancer genomics.", 
+      "journal": "Science (New York, N.Y.)", 
+      "authors": "Khurana, Fu, Colonna", 
+      "id": "24092746"
+    }, 
+    {
+      "group": "Searched", 
+      "name": "25799995", 
+      "weight": 22, 
+      "title": "Signalling thresholds and negative B-cell selection in acute lymphoblastic leukaemia.", 
+      "journal": "Nature", 
+      "pubDate": "May 2015", 
+      "authors": "Chen, Shojaee, Buchner", 
+      "id": "25799995"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "18322535", 
+      "pubDate": "Mar 2008", 
+      "title": "Transient cyclical methylation of promoter DNA.", 
+      "journal": "Nature", 
+      "authors": "Kangaspeska, Stride, M\u00e9tivier", 
+      "id": "18322535"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "23070040", 
+      "pubDate": "Apr 2013", 
+      "title": "The transporter ABCB7 is a mediator of the phenotype of acquired refractory anemia with ring sideroblasts.", 
+      "journal": "Leukemia", 
+      "authors": "Nikpour, Scharenberg, Liu", 
+      "id": "23070040"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "16015333", 
+      "pubDate": "Jul 2005", 
+      "title": "Cancer gene discovery in solid tumours using transposon-based somatic mutagenesis in the mouse.", 
+      "journal": "Nature", 
+      "authors": "Collier, Carlson, Ravimohan", 
+      "id": "16015333"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "22158988", 
+      "pubDate": "Dec 2011", 
+      "title": "Whole-exome sequencing of neoplastic cysts of the pancreas reveals recurrent mutations in components of ubiquitin-dependent pathways.", 
+      "journal": "Proceedings of the National Academy of Sciences of the United States of America", 
+      "authors": "Wu, Jiao, Dal Molin", 
+      "id": "22158988"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "17675364", 
+      "pubDate": "Sep 2007", 
+      "title": "Architectures of somatic genomic rearrangement in human cancer amplicons at sequence-level resolution.", 
+      "journal": "Genome research", 
+      "authors": "Bignell, Santarius, Pole", 
+      "id": "17675364"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "15292512", 
+      "pubDate": "Sep 2004", 
+      "title": "Bayesian Markov chain Monte Carlo sequence analysis reveals varying neutral substitution patterns in mammalian evolution.", 
+      "journal": "Proceedings of the National Academy of Sciences of the United States of America", 
+      "authors": "Hwang, Green", 
+      "id": "15292512"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "16462763", 
+      "pubDate": "Jun 2006", 
+      "title": "Identification of vitamin D receptor as a target of p63.", 
+      "journal": "Oncogene", 
+      "authors": "Kommagani, Caserta, Kadakia", 
+      "id": "16462763"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "20944595", 
+      "pubDate": "Oct 2010", 
+      "title": "The NIH Roadmap Epigenomics Mapping Consortium.", 
+      "journal": "Nature biotechnology", 
+      "authors": "Bernstein, Stamatoyannopoulos, Costello", 
+      "id": "20944595"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "22521691", 
+      "pubDate": "May 2012", 
+      "title": "Integrative genomics identifies the corepressor SMRT as a gatekeeper of adipogenesis through the transcription factors C/EBP\u03b2 and KAISO.", 
+      "journal": "Molecular cell", 
+      "authors": "Raghav, Waszak, Krier", 
+      "id": "22521691"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "21430775", 
+      "pubDate": "Mar 2011", 
+      "title": "Initial genome sequencing and analysis of multiple myeloma.", 
+      "journal": "Nature", 
+      "authors": "Chapman, Lawrence, Keats", 
+      "id": "21430775"
+    }, 
+    {
+      "group": "Searched", 
+      "name": "24205370", 
+      "weight": 19, 
+      "title": "The prognostic implications of macrophages expressing proliferating cell nuclear antigen in breast cancer depend on immune context.", 
+      "journal": "PloS one", 
+      "pubDate": " 2013", 
+      "authors": "Campbell, Wolf, Mukhtar", 
+      "id": "24205370"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "19122196", 
+      "pubDate": "Mar 2009", 
+      "title": "Cyclical chromatin looping and transcription factor association on the regulatory regions of the p21 (CDKN1A) gene in response to 1alpha,25-dihydroxyvitamin D3.", 
+      "journal": "The Journal of biological chemistry", 
+      "authors": "Saram\u00e4ki, Diermeier, Kellner", 
+      "id": "19122196"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "18372901", 
+      "pubDate": "May 2008", 
+      "title": "Genome-wide association scan identifies a colorectal cancer susceptibility locus on 11q23 and replicates risk loci at 8q24 and 18q21.", 
+      "journal": "Nature genetics", 
+      "authors": "Tenesa, Farrington, Prendergast", 
+      "id": "18372901"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "18372905", 
+      "pubDate": "May 2008", 
+      "title": "A genome-wide association study identifies colorectal cancer susceptibility loci on chromosomes 10p14 and 8q23.3.", 
+      "journal": "Nature genetics", 
+      "authors": "Tomlinson, Webb, Carvajal-Carmona", 
+      "id": "18372905"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "7508338", 
+      "pubDate": "Feb 1994", 
+      "title": "Antiproliferative effects of 1,25-dihydroxyvitamin D3 on primary cultures of human prostatic cells.", 
+      "journal": "Cancer research", 
+      "authors": "Peehl, Skowronski, Leung", 
+      "id": "7508338"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "24030381", 
+      "pubDate": "Nov 2013", 
+      "title": "Clinical and biological implications of driver mutations in myelodysplastic syndromes.", 
+      "journal": "Blood", 
+      "authors": "Papaemmanuil, Gerstung, Malcovati", 
+      "id": "24030381"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "22608083", 
+      "weight": 32, 
+      "title": "The life history of 21 breast cancers.", 
+      "journal": "Cell", 
+      "pubDate": "May 2012", 
+      "authors": "Nik-Zainal, Van Loo, Wedge", 
+      "id": "22608083"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "21720365", 
+      "pubDate": "Jun 2011", 
+      "title": "Integrated genomic analyses of ovarian carcinoma.", 
+      "journal": "Nature", 
+      "authors": "", 
+      "id": "21720365"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "21531982", 
+      "pubDate": "Jul 2011", 
+      "title": "Genome integrity of myeloproliferative neoplasms in chronic phase and during disease progression.", 
+      "journal": "Blood", 
+      "authors": "Klampfl, Harutyunyan, Berg", 
+      "id": "21531982"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "16322242", 
+      "pubDate": "Dec 2005", 
+      "title": "Prospective identification of tumorigenic prostate cancer stem cells.", 
+      "journal": "Cancer research", 
+      "authors": "Collins, Berry, Hyde", 
+      "id": "16322242"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "19487572", 
+      "pubDate": "Jun 2009", 
+      "title": "Integration of microRNA miR-122 in hepatic circadian gene expression.", 
+      "journal": "Genes & development", 
+      "authors": "Gatfield, Le Martelot, Vejnar", 
+      "id": "19487572"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "15837627", 
+      "pubDate": "Apr 2005", 
+      "title": "Activating mutation in the tyrosine kinase JAK2 in polycythemia vera, essential thrombocythemia, and myeloid metaplasia with myelofibrosis.", 
+      "journal": "Cancer cell", 
+      "authors": "Levine, Wadleigh, Cools", 
+      "id": "15837627"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "7883998", 
+      "pubDate": "Mar 1995", 
+      "title": "Posttranscriptional stabilization underlies p53-independent induction of p21WAF1/CIP1/SDI1 in differentiating human leukemic cells.", 
+      "journal": "The Journal of clinical investigation", 
+      "authors": "Schwaller, Koeffler, Niklaus", 
+      "id": "7883998"
+    }, 
+    {
+      "group": "Searched", 
+      "name": "25355519", 
+      "weight": 10, 
+      "title": "COSMIC: exploring the world's knowledge of somatic mutations in human cancer.", 
+      "journal": "Nucleic acids research", 
+      "pubDate": "Jan 2015", 
+      "authors": "Forbes, Beare, Gunasekaran", 
+      "id": "25355519"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "16646809", 
+      "pubDate": " 2004", 
+      "title": "Linear models and empirical bayes methods for assessing differential expression in microarray experiments.", 
+      "journal": "Statistical applications in genetics and molecular biology", 
+      "authors": "Smyth", 
+      "id": "16646809"
+    }, 
+    {
+      "group": "Searched", 
+      "name": "25691811", 
+      "weight": 113, 
+      "title": "Hedgehog signaling in cancer stem cells: a focus on hematological cancers.", 
+      "journal": "Stem cells and cloning : advances and applications", 
+      "pubDate": " 2015", 
+      "authors": "Campbell, Copland", 
+      "id": "25691811"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "17251918", 
+      "pubDate": "Feb 2007", 
+      "title": "Myelodysplastic syndromes: the complexity of stem-cell diseases.", 
+      "journal": "Nature reviews. Cancer", 
+      "authors": "Corey, Minden, Barber", 
+      "id": "17251918"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "18509362", 
+      "pubDate": "Oct 2008", 
+      "title": "Inactivation of the vitamin D receptor enhances susceptibility of murine skin to UV-induced tumorigenesis.", 
+      "journal": "The Journal of investigative dermatology", 
+      "authors": "Ellison, Smith, Gilliam", 
+      "id": "18509362"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "22980975", 
+      "pubDate": "Sep 2012", 
+      "title": "Mapping the hallmarks of lung adenocarcinoma with massively parallel sequencing.", 
+      "journal": "Cell", 
+      "authors": "Imielinski, Berger, Hammerman", 
+      "id": "22980975"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "25207766", 
+      "pubDate": "Sep 2014", 
+      "title": "Targetable kinase-activating lesions in Ph-like acute lymphoblastic leukemia.", 
+      "journal": "The New England journal of medicine", 
+      "authors": "Roberts, Li, Payne-Turner", 
+      "id": "25207766"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "20610543", 
+      "pubDate": " ", 
+      "title": "Cancer statistics, 2010.", 
+      "journal": "CA: a cancer journal for clinicians", 
+      "authors": "Jemal, Siegel, Xu", 
+      "id": "20610543"
+    }, 
+    {
+      "group": "Searched", 
+      "name": "27459855", 
+      "weight": 45, 
+      "title": "Identification of independent association signals and putative functional variants for breast cancer risk through fine-scale mapping of the 12p11 locus.", 
+      "journal": "Breast cancer research : BCR", 
+      "pubDate": "Jun 2016", 
+      "authors": "Zeng, Guo, Long", 
+      "id": "27459855"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "17247004", 
+      "pubDate": "Mar 1941", 
+      "title": "The Stability of Broken Ends of Chromosomes in Zea Mays.", 
+      "journal": "Genetics", 
+      "authors": "McClintock", 
+      "id": "17247004"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "20562413", 
+      "pubDate": "Aug 2010", 
+      "title": "Deriving the consequences of genomic variants with the Ensembl API and SNP Effect Predictor.", 
+      "journal": "Bioinformatics (Oxford, England)", 
+      "authors": "McLaren, Pritchard, Rios", 
+      "id": "20562413"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "20837533", 
+      "pubDate": "Sep 2010", 
+      "title": "Allele-specific copy number analysis of tumors.", 
+      "journal": "Proceedings of the National Academy of Sciences of the United States of America", 
+      "authors": "Van Loo, Nordgard, Lingj\u00e6rde", 
+      "id": "20837533"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "20164919", 
+      "pubDate": "Feb 2010", 
+      "title": "Signatures of mutation and selection in the cancer genome.", 
+      "journal": "Nature", 
+      "authors": "Bignell, Greenman, Davies", 
+      "id": "20164919"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "23178257", 
+      "pubDate": "Feb 2013", 
+      "title": "Vitamin D receptor signaling mechanisms: integrated actions of a well-defined transcription factor.", 
+      "journal": "Steroids", 
+      "authors": "Carlberg, Campbell", 
+      "id": "23178257"
+    }, 
+    {
+      "group": "Searched", 
+      "name": "22898679", 
+      "weight": 29, 
+      "title": "Imatinib after induction for treatment of children and adolescents with Philadelphia-chromosome-positive acute lymphoblastic leukaemia (EsPhALL): a randomised, open-label, intergroup study.", 
+      "journal": "The Lancet. Oncology", 
+      "pubDate": "Sep 2012", 
+      "authors": "Biondi, Schrappe, De Lorenzo", 
+      "id": "22898679"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "18480811", 
+      "pubDate": "May 2008", 
+      "title": "Intrinsic and extrinsic control of haematopoietic stem-cell self-renewal.", 
+      "journal": "Nature", 
+      "authors": "Zon", 
+      "id": "18480811"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "12239137", 
+      "pubDate": "Oct 2002", 
+      "title": "The World Health Organization (WHO) classification of the myeloid neoplasms.", 
+      "journal": "Blood", 
+      "authors": "Vardiman, Harris, Brunning", 
+      "id": "12239137"
+    }, 
+    {
+      "group": "Searched", 
+      "name": "27615322", 
+      "weight": 40, 
+      "title": "Mutational signatures of ionizing radiation in second malignancies.", 
+      "journal": "Nature communications", 
+      "pubDate": "Sep 2016", 
+      "authors": "Behjati, Gundem, Wedge", 
+      "id": "27615322"
+    }, 
+    {
+      "group": "Searched", 
+      "name": "23028338", 
+      "weight": 38, 
+      "title": "Exome sequencing identifies rare deleterious mutations in DNA repair genes FANCC and BLM as potential breast cancer susceptibility alleles.", 
+      "journal": "PLoS genetics", 
+      "pubDate": "Sep 2012", 
+      "authors": "Thompson, Doyle, Ryland", 
+      "id": "23028338"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "24900187", 
+      "pubDate": "Jun 2010", 
+      "title": "Discovery of NVP-LDE225, a Potent and Selective Smoothened Antagonist.", 
+      "journal": "ACS medicinal chemistry letters", 
+      "authors": "Pan, Wu, Jiang", 
+      "id": "24900187"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "17855664", 
+      "pubDate": "Sep 2007", 
+      "title": "Increased expression of corepressors in aggressive androgen-independent prostate cancer cells results in loss of 1alpha,25-dihydroxyvitamin D3 responsiveness.", 
+      "journal": "Molecular cancer research : MCR", 
+      "authors": "Ting, Bao, Reeder", 
+      "id": "17855664"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "23389445", 
+      "pubDate": "Feb 2013", 
+      "title": "APOBEC3B is an enzymatic source of mutation in breast cancer.", 
+      "journal": "Nature", 
+      "authors": "Burns, Lackey, Carpenter", 
+      "id": "23389445"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "12684393", 
+      "pubDate": "Apr 2003", 
+      "title": "Expression analysis of estrogen receptor alpha coregulators in breast carcinoma: evidence that NCOR1 expression is predictive of the response to tamoxifen.", 
+      "journal": "Clinical cancer research : an official journal of the American Association for Cancer Research", 
+      "authors": "Girault, Lerebours, Amarir", 
+      "id": "12684393"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "11030619", 
+      "pubDate": "Sep 2000", 
+      "title": "Combinatorial roles of the nuclear receptor corepressor in transcription and development.", 
+      "journal": "Cell", 
+      "authors": "Jepsen, Hermanson, Onami", 
+      "id": "11030619"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "17062566", 
+      "pubDate": "Dec 2006", 
+      "title": "The insulin-like growth factor-binding protein 1 gene is a primary target of peroxisome proliferator-activated receptors.", 
+      "journal": "The Journal of biological chemistry", 
+      "authors": "Degenhardt, Matilainen, Herzig", 
+      "id": "17062566"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "22754791", 
+      "pubDate": "Jul 2012", 
+      "title": "A novel mechanism for cancer cells to evade immune attack by NK cells: The interaction between NKp44 and proliferating cell nuclear antigen.", 
+      "journal": "Oncoimmunology", 
+      "authors": "Rosental, Hadad, Brusilovsky", 
+      "id": "22754791"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "14527417", 
+      "pubDate": "Sep 2003", 
+      "title": "N-CoR mediates DNA methylation-dependent repression through a methyl CpG binding protein Kaiso.", 
+      "journal": "Molecular cell", 
+      "authors": "Yoon, Chan, Reynolds", 
+      "id": "14527417"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "9625766", 
+      "pubDate": "Jun 1998", 
+      "title": "NKp44, a novel triggering surface molecule specifically expressed by activated natural killer cells, is involved in non-major histocompatibility complex-restricted tumor cell lysis.", 
+      "journal": "The Journal of experimental medicine", 
+      "authors": "Vitale, Bottino, Sivori", 
+      "id": "9625766"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "6946774", 
+      "pubDate": "Oct 1981", 
+      "title": "1 alpha,25-Dihydroxyvitamin D3 induces differentiation of human myeloid leukemia cells.", 
+      "journal": "Biochemical and biophysical research communications", 
+      "authors": "Miyaura, Abe, Kuribayashi", 
+      "id": "6946774"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "22184410", 
+      "pubDate": "Feb 2012", 
+      "title": "Chronic myeloid leukemia stem cells are not dependent on Bcr-Abl kinase activity for their survival.", 
+      "journal": "Blood", 
+      "authors": "Hamilton, Helgason, Schemionek", 
+      "id": "22184410"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "20091860", 
+      "pubDate": "Jun 2010", 
+      "title": "Transcription factor co-repressors in cancer biology: roles and targeting.", 
+      "journal": "International journal of cancer", 
+      "authors": "Battaglia, Maguire, Campbell", 
+      "id": "20091860"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "16086669", 
+      "pubDate": "Dec 2005", 
+      "title": "The G0/G1 switch gene 2 is a novel PPAR target gene.", 
+      "journal": "The Biochemical journal", 
+      "authors": "Zandbergen, Mandard, Escher", 
+      "id": "16086669"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "21994251", 
+      "pubDate": "Feb 2012", 
+      "title": "Estimation of rearrangement phylogeny for cancer genomes.", 
+      "journal": "Genome research", 
+      "authors": "Greenman, Pleasance, Newman", 
+      "id": "21994251"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "22895193", 
+      "pubDate": "Aug 2012", 
+      "title": "Recurrent R-spondin fusions in colon cancer.", 
+      "journal": "Nature", 
+      "authors": "Seshagiri, Stawiski, Durinck", 
+      "id": "22895193"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "20393555", 
+      "pubDate": "Apr 2010", 
+      "title": "Genome remodelling in a basal-like breast cancer metastasis and xenograft.", 
+      "journal": "Nature", 
+      "authors": "Ding, Ellis, Li", 
+      "id": "20393555"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "20393554", 
+      "pubDate": "Apr 2010", 
+      "title": "International network of cancer genome projects.", 
+      "journal": "Nature", 
+      "authors": ", Hudson, Anderson", 
+      "id": "20393554"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "22197930", 
+      "pubDate": "Dec 2011", 
+      "title": "Frequent somatic mutations in MAP3K5 and MAP3K9 in metastatic melanoma identified by exome sequencing.", 
+      "journal": "Nature genetics", 
+      "authors": "Stark, Woods, Gartside", 
+      "id": "22197930"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "17360475", 
+      "pubDate": "Mar 2007", 
+      "title": "Hedgehog signaling maintains a tumor stem cell compartment in multiple myeloma.", 
+      "journal": "Proceedings of the National Academy of Sciences of the United States of America", 
+      "authors": "Peacock, Wang, Gesell", 
+      "id": "17360475"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "20644199", 
+      "pubDate": "Sep 2010", 
+      "title": "The Genome Analysis Toolkit: a MapReduce framework for analyzing next-generation DNA sequencing data.", 
+      "journal": "Genome research", 
+      "authors": "McKenna, Hanna, Banks", 
+      "id": "20644199"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "24487276", 
+      "pubDate": "Mar 2014", 
+      "title": "A general framework for estimating the relative pathogenicity of human genetic variants.", 
+      "journal": "Nature genetics", 
+      "authors": "Kircher, Witten, Jain", 
+      "id": "24487276"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "22842228", 
+      "pubDate": "Sep 2012", 
+      "title": "Exome sequencing identifies recurrent somatic RAC1 mutations in melanoma.", 
+      "journal": "Nature genetics", 
+      "authors": "Krauthammer, Kong, Ha", 
+      "id": "22842228"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "20385089", 
+      "pubDate": "Apr 2010", 
+      "title": "NER factors are recruited to active promoters and facilitate chromatin modification for transcription in the absence of exogenous genotoxic attack.", 
+      "journal": "Molecular cell", 
+      "authors": "Le May, Mota-Fernandes, V\u00e9lez-Cruz", 
+      "id": "20385089"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "16751179", 
+      "pubDate": "Jun 2006", 
+      "title": "Sensors and signals: a coactivator/corepressor/epigenetic code for integrating signal-dependent programs of transcriptional response.", 
+      "journal": "Genes & development", 
+      "authors": "Rosenfeld, Lunyak, Glass", 
+      "id": "16751179"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "10219069", 
+      "pubDate": "Apr 1999", 
+      "title": "Chronic myeloid leukemia.", 
+      "journal": "The New England journal of medicine", 
+      "authors": "Sawyers", 
+      "id": "10219069"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "21846776", 
+      "pubDate": "Nov 2011", 
+      "title": "Nuclear hormone 1\u03b1,25-dihydroxyvitamin D3 elicits a genome-wide shift in the locations of VDR chromatin occupancy.", 
+      "journal": "Nucleic acids research", 
+      "authors": "Heikkinen, V\u00e4is\u00e4nen, Pehkonen", 
+      "id": "21846776"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "20227041", 
+      "pubDate": "Mar 2010", 
+      "title": "Modulation of the vitamin D3 response by cancer-associated mutant p53.", 
+      "journal": "Cancer cell", 
+      "authors": "Stambolsky, Tabach, Fontemaggi", 
+      "id": "20227041"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "19098224", 
+      "pubDate": "Feb 2009", 
+      "title": "Involvement of SMRT corepressor in transcriptional repression by the vitamin D receptor.", 
+      "journal": "Molecular endocrinology (Baltimore, Md.)", 
+      "authors": "Kim, Son, Lee", 
+      "id": "19098224"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "22064851", 
+      "pubDate": "Jan 2012", 
+      "title": "HaploReg: a resource for exploring chromatin states, conservation, and regulatory motif alterations within sets of genetically linked variants.", 
+      "journal": "Nucleic acids research", 
+      "authors": "Ward, Kellis", 
+      "id": "22064851"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "11337480", 
+      "pubDate": "May 2001", 
+      "title": "Predicting deleterious amino acid substitutions.", 
+      "journal": "Genome research", 
+      "authors": "Ng, Henikoff", 
+      "id": "11337480"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "23266556", 
+      "pubDate": "Apr 2013", 
+      "title": "Identification of Genetic Susceptibility Loci for Colorectal Tumors in a Genome-Wide Meta-analysis.", 
+      "journal": "Gastroenterology", 
+      "authors": "Peters, Jiao, Schumacher", 
+      "id": "23266556"
+    }, 
+    {
+      "group": "Searched", 
+      "name": "21479216", 
+      "weight": 57, 
+      "title": "Analysis of normal-tumour tissue interaction in tumours: prediction of prostate cancer features from the molecular profile of adjacent normal cells.", 
+      "journal": "PloS one", 
+      "pubDate": "Mar 2011", 
+      "authors": "Trevino, Tadesse, Vannucci", 
+      "id": "21479216"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "16651407", 
+      "pubDate": "May 2006", 
+      "title": "Comparative genome analysis identifies the vitamin D receptor gene as a direct target of p53-mediated transcriptional activation.", 
+      "journal": "Cancer research", 
+      "authors": "Maruyama, Aoki, Toyota", 
+      "id": "16651407"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "18772113", 
+      "pubDate": "Sep 2008", 
+      "title": "Expansion of Bcr-Abl-positive leukemic stem cells is dependent on Hedgehog pathway activation.", 
+      "journal": "Cancer cell", 
+      "authors": "Dierks, Beigi, Guo", 
+      "id": "18772113"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "18987736", 
+      "pubDate": "Nov 2008", 
+      "title": "DNA sequencing of a cytogenetically normal acute myeloid leukaemia genome.", 
+      "journal": "Nature", 
+      "authors": "Ley, Mardis, Ding", 
+      "id": "18987736"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "15868450", 
+      "pubDate": "Mar 2005", 
+      "title": "The epidemiology of vitamin D and cancer incidence and mortality: a review (United States).", 
+      "journal": "Cancer causes & control : CCC", 
+      "authors": "Giovannucci", 
+      "id": "15868450"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "21546393", 
+      "pubDate": "Jun 2011", 
+      "title": "Molecular signatures database (MSigDB) 3.0.", 
+      "journal": "Bioinformatics (Oxford, England)", 
+      "authors": "Liberzon, Subramanian, Pinchback", 
+      "id": "21546393"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "12379884", 
+      "pubDate": "Oct 2002", 
+      "title": "Tobacco smoke carcinogens, DNA damage and p53 mutations in smoking-associated cancers.", 
+      "journal": "Oncogene", 
+      "authors": "Pfeifer, Denissenko, Olivier", 
+      "id": "12379884"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "22642671", 
+      "pubDate": "Nov 2012", 
+      "title": "Effects of the hedgehog inhibitor GDC-0449, alone or in combination with dasatinib, on BCR-ABL-positive leukemia cells.", 
+      "journal": "Stem cells and development", 
+      "authors": "Okabe, Tauchi, Tanaka", 
+      "id": "22642671"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "22492648", 
+      "pubDate": "May 2012", 
+      "title": "Matrix eQTL: ultra fast eQTL analysis via large matrix operations.", 
+      "journal": "Bioinformatics (Oxford, England)", 
+      "authors": "Shabalin", 
+      "id": "22492648"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "20852631", 
+      "pubDate": "Oct 2010", 
+      "title": "A locus on 19p13 modifies risk of breast cancer in BRCA1 mutation carriers and is associated with hormone receptor-negative breast cancer in the general population.", 
+      "journal": "Nature genetics", 
+      "authors": "Antoniou, Wang, Fredericksen", 
+      "id": "20852631"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "23128226", 
+      "pubDate": "Nov 2012", 
+      "title": "An integrated map of genetic variation from 1,092 human genomes.", 
+      "journal": "Nature", 
+      "authors": ", Abecasis, Auton", 
+      "id": "23128226"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "16406067", 
+      "pubDate": "Mar 2006", 
+      "title": "The incoherent feed-forward loop accelerates the response-time of the gal system of Escherichia coli.", 
+      "journal": "Journal of molecular biology", 
+      "authors": "Mangan, Itzkovitz, Zaslaver", 
+      "id": "16406067"
+    }, 
+    {
+      "group": "Searched", 
+      "name": "26618344", 
+      "weight": 49, 
+      "title": "Regulators of genetic risk of breast cancer identified by integrative network analysis.", 
+      "journal": "Nature genetics", 
+      "pubDate": "Jan 2016", 
+      "authors": "Castro, de Santiago, Campbell", 
+      "id": "26618344"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "24159160", 
+      "pubDate": "Oct 2013", 
+      "title": "Found: a cellular activating ligand for NKp44.", 
+      "journal": "Blood", 
+      "authors": "Rajagopalan, Long", 
+      "id": "24159160"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "23143597", 
+      "pubDate": "Dec 2012", 
+      "title": "The genetic landscape of mutations in Burkitt lymphoma.", 
+      "journal": "Nature genetics", 
+      "authors": "Love, Sun, Jima", 
+      "id": "23143597"
+    }, 
+    {
+      "group": "Searched", 
+      "name": "24443148", 
+      "weight": 18, 
+      "title": "Subclonal variant calling with multiple samples and prior knowledge.", 
+      "journal": "Bioinformatics (Oxford, England)", 
+      "pubDate": "May 2014", 
+      "authors": "Gerstung, Papaemmanuil, Campbell", 
+      "id": "24443148"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "21499247", 
+      "pubDate": "May 2011", 
+      "title": "Exome sequencing identifies GRIN2A as frequently mutated in melanoma.", 
+      "journal": "Nature genetics", 
+      "authors": "Wei, Walia, Lin", 
+      "id": "21499247"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "11948134", 
+      "pubDate": "Apr 2002", 
+      "title": "Enhanced growth inhibition by combination differentiation therapy with ligands of peroxisome proliferator-activated receptor-gamma and inhibitors of histone deacetylase in adenocarcinoma of the lung.", 
+      "journal": "Clinical cancer research : an official journal of the American Association for Cancer Research", 
+      "authors": "Chang, Szabo", 
+      "id": "11948134"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "10891514", 
+      "pubDate": "Jul 2000", 
+      "title": "Environmental and heritable factors in the causation of cancer--analyses of cohorts of twins from Sweden, Denmark, and Finland.", 
+      "journal": "The New England journal of medicine", 
+      "authors": "Lichtenstein, Holm, Verkasalo", 
+      "id": "10891514"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "22484628", 
+      "pubDate": "May 2012", 
+      "title": "Exome sequencing of gastric adenocarcinoma identifies recurrent  somatic mutations in cell adhesion and chromatin remodeling genes.", 
+      "journal": "Nature genetics", 
+      "authors": "Zang, Cutcutache, Poon", 
+      "id": "22484628"
+    }, 
+    {
+      "group": "Searched", 
+      "name": "27498871", 
+      "weight": 31, 
+      "title": "Direct Transcriptional Consequences of Somatic Mutation in Breast Cancer.", 
+      "journal": "Cell reports", 
+      "pubDate": "Aug 2016", 
+      "authors": "Shlien, Raine, Fuligni", 
+      "id": "27498871"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "21798897", 
+      "pubDate": "Aug 2011", 
+      "title": "Exome sequencing of head and neck squamous cell carcinoma reveals inactivating mutations in NOTCH1.", 
+      "journal": "Science (New York, N.Y.)", 
+      "authors": "Agrawal, Frederick, Pickering", 
+      "id": "21798897"
+    }, 
+    {
+      "group": "Searched", 
+      "name": "24670643", 
+      "weight": 21, 
+      "title": "Constitutional and somatic rearrangement of chromosome 21 in acute lymphoblastic leukaemia.", 
+      "journal": "Nature", 
+      "pubDate": "Apr 2014", 
+      "authors": "Li, Schwab, Ryan", 
+      "id": "24670643"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "21890490", 
+      "pubDate": "Dec 2011", 
+      "title": "KDM6B/JMJD3 histone demethylase is induced by vitamin D and modulates its effects in colon cancer cells.", 
+      "journal": "Human molecular genetics", 
+      "authors": "Pereira, Barb\u00e1chano, Silva", 
+      "id": "21890490"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "16741990", 
+      "pubDate": "Sep 2006", 
+      "title": "Prostate derived factor in human prostate cancer cells: gene induction by vitamin D via a p53-dependent mechanism and inhibition of prostate cancer cell growth.", 
+      "journal": "Journal of cellular physiology", 
+      "authors": "Lambert, Kelly, Shim", 
+      "id": "16741990"
+    }, 
+    {
+      "group": "Searched", 
+      "name": "24860511", 
+      "weight": 166, 
+      "title": "Vitamin D and the RNA transcriptome: more than mRNA regulation.", 
+      "journal": "Frontiers in physiology", 
+      "pubDate": " 2014", 
+      "authors": "Campbell", 
+      "id": "24860511"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "13298683", 
+      "pubDate": "Feb 1956", 
+      "title": "On the origin of cancer cells.", 
+      "journal": "Science (New York, N.Y.)", 
+      "authors": "WARBURG", 
+      "id": "13298683"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "24366519", 
+      "pubDate": "Mar 2014", 
+      "title": "Natural cytotoxicity receptors and their ligands.", 
+      "journal": "Immunology and cell biology", 
+      "authors": "Kruse, Matta, Ugolini", 
+      "id": "24366519"
+    }, 
+    {
+      "group": "Searched", 
+      "name": "24714652", 
+      "weight": 42, 
+      "title": "Processed pseudogenes acquired somatically during cancer development.", 
+      "journal": "Nature communications", 
+      "pubDate": "Apr 2014", 
+      "authors": "Cooke, Shlien, Marshall", 
+      "id": "24714652"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "15965027", 
+      "pubDate": "Jul 2005", 
+      "title": "Distribution and intensity of constraint in mammalian genomic sequence.", 
+      "journal": "Genome research", 
+      "authors": "Cooper, Stone, Asimenos", 
+      "id": "15965027"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "18776219", 
+      "pubDate": "Oct 2008", 
+      "title": "Transcriptional mechanism for the paired miR-433 and miR-127 genes by nuclear receptors SHP and ERRgamma.", 
+      "journal": "Nucleic acids research", 
+      "authors": "Song, Wang", 
+      "id": "18776219"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "22941189", 
+      "pubDate": "Oct 2012", 
+      "title": "Comprehensive genomic analysis identifies SOX2 as a frequently amplified gene in small-cell lung cancer.", 
+      "journal": "Nature genetics", 
+      "authors": "Rudin, Durinck, Stawiski", 
+      "id": "22941189"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "22941188", 
+      "pubDate": "Oct 2012", 
+      "title": "Integrative genome analyses identify key somatic driver mutations of small-cell lung cancer.", 
+      "journal": "Nature genetics", 
+      "authors": "Peifer, Fern\u00e1ndez-Cuesta, Sos", 
+      "id": "22941188"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "23539594", 
+      "pubDate": "Mar 2013", 
+      "title": "Cancer genome landscapes.", 
+      "journal": "Science (New York, N.Y.)", 
+      "authors": "Vogelstein, Papadopoulos, Velculescu", 
+      "id": "23539594"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "22955972", 
+      "pubDate": "Sep 2012", 
+      "title": "What does our genome encode?", 
+      "journal": "Genome research", 
+      "authors": "Stamatoyannopoulos", 
+      "id": "22955972"
+    }, 
+    {
+      "group": "Searched", 
+      "name": "18528521", 
+      "weight": 212, 
+      "title": "A Role for the PPARgamma in Cancer Therapy.", 
+      "journal": "PPAR research", 
+      "pubDate": " 2008", 
+      "authors": "Campbell, Carlberg, Koeffler", 
+      "id": "18528521"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "19360079", 
+      "pubDate": "Apr 2009", 
+      "title": "The cancer genome.", 
+      "journal": "Nature", 
+      "authors": "Stratton, Campbell, Futreal", 
+      "id": "19360079"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "23201682", 
+      "pubDate": "Jan 2013", 
+      "title": "Analysis of 6,515 exomes reveals the recent origin of most human protein-coding variants.", 
+      "journal": "Nature", 
+      "authors": "Fu, O'Connor, Jun", 
+      "id": "23201682"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "17999998", 
+      "pubDate": "Jan 2008", 
+      "title": "Distinct HDACs regulate the transcriptional response of human cyclin-dependent kinase inhibitor genes to Trichostatin A and 1alpha,25-dihydroxyvitamin D3.", 
+      "journal": "Nucleic acids research", 
+      "authors": "Malinen, Saram\u00e4ki, Ropponen", 
+      "id": "17999998"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "22281684", 
+      "pubDate": "Jan 2012", 
+      "title": "Unresponsiveness of colon cancer to BRAF(V600E) inhibition through feedback activation of EGFR.", 
+      "journal": "Nature", 
+      "authors": "Prahallad, Sun, Huang", 
+      "id": "22281684"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "16199517", 
+      "pubDate": "Oct 2005", 
+      "title": "Gene set enrichment analysis: a knowledge-based approach for interpreting genome-wide expression profiles.", 
+      "journal": "Proceedings of the National Academy of Sciences of the United States of America", 
+      "authors": "Subramanian, Tamayo, Mootha", 
+      "id": "16199517"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "20513432", 
+      "pubDate": "May 2010", 
+      "title": "Simple combinations of lineage-determining transcription factors prime cis-regulatory elements required for macrophage and B cell identities.", 
+      "journal": "Molecular cell", 
+      "authors": "Heinz, Benner, Spann", 
+      "id": "20513432"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "23001348", 
+      "pubDate": "Oct 2012", 
+      "title": "Mitochondria and cancer.", 
+      "journal": "Nature reviews. Cancer", 
+      "authors": "Wallace", 
+      "id": "23001348"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "24836286", 
+      "pubDate": "Jun 2014", 
+      "title": "Large-scale genetic study in East Asians identifies six new loci associated with colorectal cancer risk.", 
+      "journal": "Nature genetics", 
+      "authors": "Zhang, Jia, Matsuda", 
+      "id": "24836286"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "22108803", 
+      "pubDate": "Jan 2012", 
+      "title": "VDR/RXR and TCF4/\u03b2-catenin cistromes in colonic cells of colorectal tumor origin: impact on c-FOS and c-MYC gene expression.", 
+      "journal": "Molecular endocrinology (Baltimore, Md.)", 
+      "authors": "Meyer, Goetsch, Pike", 
+      "id": "22108803"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "14993899", 
+      "pubDate": "Mar 2004", 
+      "title": "A census of human cancer genes.", 
+      "journal": "Nature reviews. Cancer", 
+      "authors": "Futreal, Coin, Marshall", 
+      "id": "14993899"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "25688242", 
+      "pubDate": " 2015", 
+      "title": "Urinary extracellular vesicles as source of biomarkers in kidney diseases.", 
+      "journal": "Frontiers in immunology", 
+      "authors": "G\u00e1mez-Valero, Lozano-Ramos, Bancu", 
+      "id": "25688242"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "21221095", 
+      "pubDate": "Jan 2011", 
+      "title": "Integrative genomics viewer.", 
+      "journal": "Nature biotechnology", 
+      "authors": "Robinson, Thorvaldsd\u00f3ttir, Winckler", 
+      "id": "21221095"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "18772397", 
+      "pubDate": "Sep 2008", 
+      "title": "Core signaling pathways in human pancreatic cancers revealed by global genomic analyses.", 
+      "journal": "Science (New York, N.Y.)", 
+      "authors": "Jones, Zhang, Parsons", 
+      "id": "18772397"
+    }, 
+    {
+      "group": "Searched", 
+      "name": "24148783", 
+      "weight": 57, 
+      "title": "The genetic heterogeneity and mutational burden of engineered melanomas in zebrafish models.", 
+      "journal": "Genome biology", 
+      "pubDate": " 2013", 
+      "authors": "Yen, White, Wedge", 
+      "id": "24148783"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "18077718", 
+      "pubDate": "Feb 2008", 
+      "title": "H5-type influenza virus hemagglutinin is functionally recognized by the natural killer-activating receptor NKp44.", 
+      "journal": "Journal of virology", 
+      "authors": "Ho, Hershkovitz, Peiris", 
+      "id": "18077718"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "8668867", 
+      "pubDate": "Feb 1996", 
+      "title": "Multivariable prognostic models: issues in developing models, evaluating assumptions and adequacy, and measuring and reducing errors.", 
+      "journal": "Statistics in medicine", 
+      "authors": "Harrell, Lee, Mark", 
+      "id": "8668867"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "18412986", 
+      "pubDate": "May 2008", 
+      "title": "The vitamin D receptor in cancer.", 
+      "journal": "The Proceedings of the Nutrition Society", 
+      "authors": "Thorne, Campbell", 
+      "id": "18412986"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "22037554", 
+      "pubDate": "Oct 2011", 
+      "title": "Exome sequencing identifies frequent mutation of ARID1A in molecular subtypes of gastric cancer.", 
+      "journal": "Nature genetics", 
+      "authors": "Wang, Kan, Yuen", 
+      "id": "22037554"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "23318258", 
+      "pubDate": "Jan 2013", 
+      "title": "Deciphering signatures of mutational processes operative in human cancer.", 
+      "journal": "Cell reports", 
+      "authors": "Alexandrov, Nik-Zainal, Wedge", 
+      "id": "23318258"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "24413735", 
+      "pubDate": "Feb 2014", 
+      "title": "RAG-mediated recombination is the predominant driver of oncogenic rearrangement in ETV6-RUNX1 acute lymphoblastic leukemia.", 
+      "journal": "Nature genetics", 
+      "authors": "Papaemmanuil, Rapado, Li", 
+      "id": "24413735"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "12520532", 
+      "pubDate": "Feb 2003", 
+      "title": "Prostatic 25-hydroxyvitamin D-1alpha-hydroxylase and its implication in prostate cancer.", 
+      "journal": "Journal of cellular biochemistry", 
+      "authors": "Chen, Wang, Whitlatch", 
+      "id": "12520532"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "7566127", 
+      "pubDate": "Oct 1995", 
+      "title": "A transcriptional co-repressor that interacts with nuclear hormone receptors.", 
+      "journal": "Nature", 
+      "authors": "Chen, Evans", 
+      "id": "7566127"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "21677750", 
+      "pubDate": "Jun 2011", 
+      "title": "A conditional knockout resource for the genome-wide study of mouse gene function.", 
+      "journal": "Nature", 
+      "authors": "Skarnes, Rosen, West", 
+      "id": "21677750"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "24390350", 
+      "pubDate": "Jan 2014", 
+      "title": "Discovery and saturation analysis of cancer genes across 21 tumour types.", 
+      "journal": "Nature", 
+      "authors": "Lawrence, Stojanov, Mermel", 
+      "id": "24390350"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "11287973", 
+      "pubDate": "Apr 2001", 
+      "title": "Activity of a specific inhibitor of the BCR-ABL tyrosine kinase in the blast crisis of chronic myeloid leukemia and acute lymphoblastic leukemia with the Philadelphia chromosome.", 
+      "journal": "The New England journal of medicine", 
+      "authors": "Druker, Sawyers, Kantarjian", 
+      "id": "11287973"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "11075874", 
+      "pubDate": "Oct 2000", 
+      "title": "Prostate cancer risk and prediagnostic serum 25-hydroxyvitamin D levels (Finland).", 
+      "journal": "Cancer causes & control : CCC", 
+      "authors": "Ahonen, Tenkanen, Teppo", 
+      "id": "11075874"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "25574665", 
+      "weight": 34, 
+      "title": "Combining gene mutation with gene expression data improves outcome prediction in myelodysplastic syndromes.", 
+      "journal": "Nature communications", 
+      "pubDate": "Jan 2015", 
+      "authors": "Gerstung, Pellagatti, Malcovati", 
+      "id": "25574665"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "22608084", 
+      "weight": 56, 
+      "title": "Mutational processes molding the genomes of 21 breast cancers.", 
+      "journal": "Cell", 
+      "pubDate": "May 2012", 
+      "authors": "Nik-Zainal, Alexandrov, Wedge", 
+      "id": "22608084"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "21436442", 
+      "pubDate": "Mar 2011", 
+      "title": "Exploring the genomes of cancer cells: progress and promise.", 
+      "journal": "Science (New York, N.Y.)", 
+      "authors": "Stratton", 
+      "id": "21436442"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "19287394", 
+      "pubDate": "Apr 2009", 
+      "title": "Amplification-free Illumina sequencing-library preparation facilitates improved mapping and assembly of (G+C)-biased genomes.", 
+      "journal": "Nature methods", 
+      "authors": "Kozarewa, Ning, Quail", 
+      "id": "19287394"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "15300237", 
+      "pubDate": "Sep 2004", 
+      "title": "Altered SMRT levels disrupt vitamin D3 receptor signalling in prostate cancer cells.", 
+      "journal": "Oncogene", 
+      "authors": "Khanim, Gommersall, Wood", 
+      "id": "15300237"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "23518691", 
+      "pubDate": " 2013", 
+      "title": "Natural cytotoxicity receptors: broader expression patterns and functions in innate and adaptive immune cells.", 
+      "journal": "Frontiers in immunology", 
+      "authors": "Hudspeth, Silva-Santos, Mavilio", 
+      "id": "23518691"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "7660125", 
+      "pubDate": "Sep 1995", 
+      "title": "Inducible gene targeting in mice.", 
+      "journal": "Science (New York, N.Y.)", 
+      "authors": "K\u00fchn, Schwenk, Aguet", 
+      "id": "7660125"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "21796119", 
+      "pubDate": "Jul 2011", 
+      "title": "Frequent mutation of histone-modifying genes in non-Hodgkin lymphoma.", 
+      "journal": "Nature", 
+      "authors": "Morin, Mendez-Lago, Mungall", 
+      "id": "21796119"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "20981101", 
+      "pubDate": "Oct 2010", 
+      "title": "The patterns and dynamics of genomic instability in metastatic pancreatic cancer.", 
+      "journal": "Nature", 
+      "authors": "Campbell, Yachida, Mudie", 
+      "id": "20981101"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "20736230", 
+      "pubDate": "Oct 2010", 
+      "title": "A ChIP-seq defined genome-wide map of vitamin D receptor binding: associations with disease and evolution.", 
+      "journal": "Genome research", 
+      "authors": "Ramagopalan, Heger, Berlanga", 
+      "id": "20736230"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "15461798", 
+      "pubDate": " 2004", 
+      "title": "Bioconductor: open software development for computational biology and bioinformatics.", 
+      "journal": "Genome biology", 
+      "authors": "Gentleman, Carey, Bates", 
+      "id": "15461798"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "19169242", 
+      "pubDate": "Apr 2009", 
+      "title": "Hedgehog signalling is essential for maintenance of cancer stem cells in myeloid leukaemia.", 
+      "journal": "Nature", 
+      "authors": "Zhao, Chen, Jamieson", 
+      "id": "19169242"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "23622244", 
+      "pubDate": "Apr 2013", 
+      "title": "A vitamin D receptor/SMAD genomic circuit gates hepatic fibrotic response.", 
+      "journal": "Cell", 
+      "authors": "Ding, Yu, Subramaniam", 
+      "id": "23622244"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "17618284", 
+      "pubDate": "Aug 2007", 
+      "title": "A genome-wide association scan of tag SNPs identifies a susceptibility variant for colorectal cancer at 8q24.21.", 
+      "journal": "Nature genetics", 
+      "authors": "Tomlinson, Webb, Carvajal-Carmona", 
+      "id": "17618284"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "10963602", 
+      "pubDate": "Aug 2000", 
+      "title": "Molecular portraits of human breast tumours.", 
+      "journal": "Nature", 
+      "authors": "Perou, S\u00f8rlie, Eisen", 
+      "id": "10963602"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "19351832", 
+      "pubDate": "Apr 2009", 
+      "title": "The role of microRNA-221 and microRNA-222 in androgen-independent prostate cancer cell lines.", 
+      "journal": "Cancer research", 
+      "authors": "Sun, Wang, Balk", 
+      "id": "19351832"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "20080505", 
+      "pubDate": "Mar 2010", 
+      "title": "Fast and accurate long-read alignment with Burrows-Wheeler transform.", 
+      "journal": "Bioinformatics (Oxford, England)", 
+      "authors": "Li, Durbin", 
+      "id": "20080505"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "18316005", 
+      "pubDate": "Mar 2008", 
+      "title": "Small cell lung cancer.", 
+      "journal": "Mayo Clinic proceedings", 
+      "authors": "Sher, Dy, Adjei", 
+      "id": "18316005"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "6776413", 
+      "pubDate": "Oct 1980", 
+      "title": "Mutations affecting segment number and polarity in Drosophila.", 
+      "journal": "Nature", 
+      "authors": "N\u00fcsslein-Volhard, Wieschaus", 
+      "id": "6776413"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "7566114", 
+      "pubDate": "Oct 1995", 
+      "title": "Ligand-independent repression by the thyroid hormone receptor mediated by a nuclear receptor co-repressor.", 
+      "journal": "Nature", 
+      "authors": "H\u00f6rlein, N\u00e4\u00e4r, Heinzel", 
+      "id": "7566114"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "22588877", 
+      "pubDate": "May 2012", 
+      "title": "The cBio cancer genomics portal: an open platform for exploring multidimensional cancer genomics data.", 
+      "journal": "Cancer discovery", 
+      "authors": "Cerami, Gao, Dogrusoz", 
+      "id": "22588877"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "19812674", 
+      "pubDate": "Oct 2009", 
+      "title": "Mutational evolution in a lobular breast tumour profiled at single nucleotide resolution.", 
+      "journal": "Nature", 
+      "authors": "Shah, Morin, Khattra", 
+      "id": "19812674"
+    }, 
+    {
+      "group": "Searched", 
+      "name": "26553438", 
+      "weight": 55, 
+      "title": "Recurrent Coding Sequence Variation Explains Only A Small Fraction of the Genetic Architecture of Colorectal Cancer.", 
+      "journal": "Scientific reports", 
+      "pubDate": "Nov 2015", 
+      "authors": "Timofeeva, Kinnersley, Farrington", 
+      "id": "26553438"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "10749961", 
+      "pubDate": "Apr 2000", 
+      "title": "Outcome of treatment in children with Philadelphia chromosome-positive acute lymphoblastic leukemia.", 
+      "journal": "The New England journal of medicine", 
+      "authors": "Aric\u00f2, Valsecchi, Camitta", 
+      "id": "10749961"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "26082773", 
+      "pubDate": " 2015", 
+      "title": "First Trimester Pregnancy Loss and the Expression of Alternatively Spliced NKp30 Isoforms in Maternal Blood and Placental Tissue.", 
+      "journal": "Frontiers in immunology", 
+      "authors": "Shemesh, Tirosh, Sheiner", 
+      "id": "26082773"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "9278857", 
+      "pubDate": "Aug 1997", 
+      "title": "Inhibition of proliferation of prostate cancer cells by a 19-nor-hexafluoride vitamin D3 analogue involves the induction of p21waf1, p27kip1 and E-cadherin.", 
+      "journal": "Journal of molecular endocrinology", 
+      "authors": "Campbell, Elstner, Holden", 
+      "id": "9278857"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "15188009", 
+      "pubDate": "Jul 2004", 
+      "title": "The COSMIC (Catalogue of Somatic Mutations in Cancer) database and website.", 
+      "journal": "British journal of cancer", 
+      "authors": "Bamford, Dawson, Forbes", 
+      "id": "15188009"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "21504715", 
+      "pubDate": "Mar 2011", 
+      "title": "Unbalanced translocations of 20q in AML and MDS often involve interstitial rather than terminal deletions of 20q.", 
+      "journal": "Cancer genetics", 
+      "authors": "MacKinnon, Duivenvoorden, Campbell", 
+      "id": "21504715"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "22897849", 
+      "pubDate": "Aug 2012", 
+      "title": "ASXL1 mutations promote myeloid transformation through loss of PRC2-mediated gene repression.", 
+      "journal": "Cancer cell", 
+      "authors": "Abdel-Wahab, Adli, LaFave", 
+      "id": "22897849"
+    }, 
+    {
+      "group": "Searched", 
+      "name": "23945592", 
+      "weight": 61, 
+      "title": "Signatures of mutational processes in human cancer.", 
+      "journal": "Nature", 
+      "pubDate": "Aug 2013", 
+      "authors": "Alexandrov, Nik-Zainal, Wedge", 
+      "id": "23945592"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "22962707", 
+      "pubDate": "Sep 2012", 
+      "title": "ENCODE: The human encyclopaedia.", 
+      "journal": "Nature", 
+      "authors": "Maher", 
+      "id": "22962707"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "19451168", 
+      "pubDate": "Jul 2009", 
+      "title": "Fast and accurate short read alignment with Burrows-Wheeler transform.", 
+      "journal": "Bioinformatics (Oxford, England)", 
+      "authors": "Li, Durbin", 
+      "id": "19451168"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "23550210", 
+      "pubDate": "Apr 2013", 
+      "title": "Integrative analysis of complex cancer genomics and clinical profiles using the cBioPortal.", 
+      "journal": "Science signaling", 
+      "authors": "Gao, Aksoy, Dogrusoz", 
+      "id": "23550210"
+    }, 
+    {
+      "group": "Searched", 
+      "name": "24429703", 
+      "weight": 59, 
+      "title": "Heterogeneity of genomic evolution and mutational profiles in multiple myeloma.", 
+      "journal": "Nature communications", 
+      "pubDate": " 2014", 
+      "authors": "Bolli, Avet-Loiseau, Wedge", 
+      "id": "24429703"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "15598662", 
+      "pubDate": "Feb 2005", 
+      "title": "The androgen receptor recruits nuclear receptor CoRepressor (N-CoR) in the presence of mifepristone via its N and C termini revealing a novel molecular mechanism for androgen receptor antagonists.", 
+      "journal": "The Journal of biological chemistry", 
+      "authors": "Hodgson, Astapova, Cheng", 
+      "id": "15598662"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "10647931", 
+      "pubDate": "Jan 2000", 
+      "title": "The hallmarks of cancer.", 
+      "journal": "Cell", 
+      "authors": "Hanahan, Weinberg", 
+      "id": "10647931"
+    }, 
+    {
+      "group": "Searched", 
+      "name": "22699290", 
+      "weight": 37, 
+      "title": "Diabetes and cause-specific mortality in a prospective cohort of one million U.S. adults.", 
+      "journal": "Diabetes care", 
+      "pubDate": "Sep 2012", 
+      "authors": "Campbell, Newton, Patel", 
+      "id": "22699290"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "19528259", 
+      "pubDate": "Jul 2009", 
+      "title": "The B7 family member B7-H6 is a tumor cell ligand for the activating natural killer cell receptor NKp30 in humans.", 
+      "journal": "The Journal of experimental medicine", 
+      "authors": "Brandt, Baratin, Yi", 
+      "id": "19528259"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "22817889", 
+      "pubDate": "Jul 2012", 
+      "title": "A landscape of driver mutations in melanoma.", 
+      "journal": "Cell", 
+      "authors": "Hodis, Watson, Kryukov", 
+      "id": "22817889"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "11470825", 
+      "pubDate": "Jul 2001", 
+      "title": "Vitamin D(3) promotes the differentiation of colon carcinoma cells by the induction of E-cadherin and the inhibition of beta-catenin signaling.", 
+      "journal": "The Journal of cell biology", 
+      "authors": "P\u00e1lmer, Gonz\u00e1lez-Sancho, Espada", 
+      "id": "11470825"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "22975805", 
+      "pubDate": "Nov 2012", 
+      "title": "The transcriptional landscape and mutational profile of lung adenocarcinoma.", 
+      "journal": "Genome research", 
+      "authors": "Seo, Ju, Lee", 
+      "id": "22975805"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "21241896", 
+      "pubDate": "Jan 2011", 
+      "title": "Densely interconnected transcriptional circuits control cell states in human hematopoiesis.", 
+      "journal": "Cell", 
+      "authors": "Novershtern, Subramanian, Lawton", 
+      "id": "21241896"
+    }, 
+    {
+      "group": "Searched", 
+      "name": "27307795", 
+      "weight": 49, 
+      "title": "Targeting epigenetic pathways in acute myeloid leukemia and myelodysplastic syndrome: a systematic review of hypomethylating agents trials.", 
+      "journal": "Clinical epigenetics", 
+      "pubDate": " 2016", 
+      "authors": "Yun, Vincelette, Abraham", 
+      "id": "27307795"
+    }, 
+    {
+      "group": "Searched", 
+      "name": "21637284", 
+      "weight": 30, 
+      "title": "Identification of a role for the nuclear receptor EAR-2 in the maintenance of clonogenic status within the leukemia cell hierarchy.", 
+      "journal": "Leukemia", 
+      "pubDate": "Nov 2011", 
+      "authors": "Ichim, Atkins, Iscove", 
+      "id": "21637284"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "22522925", 
+      "pubDate": "Apr 2012", 
+      "title": "The genomic and transcriptomic architecture of 2,000 breast tumours reveals novel subgroups.", 
+      "journal": "Nature", 
+      "authors": "Curtis, Shah, Chin", 
+      "id": "22522925"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "23193274", 
+      "pubDate": "Jan 2013", 
+      "title": "ENCODE data in the UCSC Genome Browser: year 5 update.", 
+      "journal": "Nucleic acids research", 
+      "authors": "Rosenbloom, Sloan, Malladi", 
+      "id": "23193274"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "21160474", 
+      "pubDate": "Jan 2011", 
+      "title": "Genetic variegation of clonal architecture and propagating cells in leukaemia.", 
+      "journal": "Nature", 
+      "authors": "Anderson, Lutz, van Delft", 
+      "id": "21160474"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "19553641", 
+      "pubDate": "Jul 2009", 
+      "title": "Inhibition of poly(ADP-ribose) polymerase in tumors from BRCA mutation carriers.", 
+      "journal": "The New England journal of medicine", 
+      "authors": "Fong, Boss, Yap", 
+      "id": "19553641"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "16434701", 
+      "pubDate": " 2006", 
+      "title": "Regulation of the human p21(waf1/cip1) gene promoter via multiple binding sites for p53 and the vitamin D3 receptor.", 
+      "journal": "Nucleic acids research", 
+      "authors": "Saram\u00e4ki, Banwell, Campbell", 
+      "id": "16434701"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "27765926", 
+      "weight": 31, 
+      "title": "NKp44 and NKp30 splice variant profiles in decidua and tumor tissues: a comparative viewpoint.", 
+      "journal": "Oncotarget", 
+      "pubDate": "Sep 2016", 
+      "authors": "Shemesh, Kugel, Steiner", 
+      "id": "27765926"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "24316577", 
+      "pubDate": "Jan 2014", 
+      "title": "The NHGRI GWAS Catalog, a curated resource of SNP-trait associations.", 
+      "journal": "Nucleic acids research", 
+      "authors": "Welter, MacArthur, Morales", 
+      "id": "24316577"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "23334666", 
+      "pubDate": "Mar 2013", 
+      "title": "The genetic landscape of high-risk neuroblastoma.", 
+      "journal": "Nature genetics", 
+      "authors": "Pugh, Morozova, Attiyeh", 
+      "id": "23334666"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "23334668", 
+      "pubDate": "Mar 2013", 
+      "title": "The genomic landscape of hypodiploid acute lymphoblastic leukemia.", 
+      "journal": "Nature genetics", 
+      "authors": "Holmfeldt, Wei, Diaz-Flores", 
+      "id": "23334668"
+    }, 
+    {
+      "group": "Searched", 
+      "name": "24549417", 
+      "weight": 46, 
+      "title": "Identification of renin progenitors in the mouse bone marrow that give rise to B-cell leukaemia.", 
+      "journal": "Nature communications", 
+      "pubDate": " 2014", 
+      "authors": "Belyea, Xu, Pentz", 
+      "id": "24549417"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "163658", 
+      "pubDate": "Mar 1975", 
+      "title": "Human chronic myelogenous leukemia cell-line with positive Philadelphia chromosome.", 
+      "journal": "Blood", 
+      "authors": "Lozzio, Lozzio", 
+      "id": "163658"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "22740453", 
+      "pubDate": "Sep 2012", 
+      "title": "Revised international prognostic scoring system for myelodysplastic syndromes.", 
+      "journal": "Blood", 
+      "authors": "Greenberg, Tuechler, Schanz", 
+      "id": "22740453"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "18663219", 
+      "pubDate": "Jul 2008", 
+      "title": "Circulating microRNAs as stable blood-based markers for cancer detection.", 
+      "journal": "Proceedings of the National Academy of Sciences of the United States of America", 
+      "authors": "Mitchell, Parkin, Kroh", 
+      "id": "18663219"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "23636398", 
+      "pubDate": "May 2013", 
+      "title": "Integrated genomic characterization of endometrial carcinoma.", 
+      "journal": "Nature", 
+      "authors": ", Kandoth, Schultz", 
+      "id": "23636398"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "15748635", 
+      "pubDate": "Apr 2005", 
+      "title": "Mutations induced by ultraviolet light.", 
+      "journal": "Mutation research", 
+      "authors": "Pfeifer, You, Besaratinia", 
+      "id": "15748635"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "15452344", 
+      "pubDate": "Oct 2004", 
+      "title": "A nuclear receptor corepressor transcriptional checkpoint controlling activator protein 1-dependent gene networks required for macrophage activation.", 
+      "journal": "Proceedings of the National Academy of Sciences of the United States of America", 
+      "authors": "Ogawa, Lozach, Jepsen", 
+      "id": "15452344"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "20645416", 
+      "pubDate": "Nov 2010", 
+      "title": "The paradox of 20q11.21 amplification in a subset of cases of myeloid malignancy with chromosome 20 deletion.", 
+      "journal": "Genes, chromosomes & cancer", 
+      "authors": "Mackinnon, Selan, Wall", 
+      "id": "20645416"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "11536166", 
+      "pubDate": "Sep 2001", 
+      "title": "Recognition of viral hemagglutinins by NKp44 but not by NKp30.", 
+      "journal": "European journal of immunology", 
+      "authors": "Arnon, Lev, Katz", 
+      "id": "11536166"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "16783027", 
+      "pubDate": "Aug 2006", 
+      "title": "Statistical analysis of pathogenicity of somatic mutations in cancer.", 
+      "journal": "Genetics", 
+      "authors": "Greenman, Wooster, Futreal", 
+      "id": "16783027"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "22817890", 
+      "pubDate": "Jul 2012", 
+      "title": "The origin and evolution of mutations in acute myeloid leukemia.", 
+      "journal": "Cell", 
+      "authors": "Welch, Ley, Link", 
+      "id": "22817890"
+    }, 
+    {
+      "group": "Searched", 
+      "name": "24316979", 
+      "weight": 70, 
+      "title": "Inactivating CUX1 mutations promote tumorigenesis.", 
+      "journal": "Nature genetics", 
+      "pubDate": "Jan 2014", 
+      "authors": "Wong, Martincorena, Rust", 
+      "id": "24316979"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "22610119", 
+      "pubDate": "May 2012", 
+      "title": "Exome sequencing identifies recurrent SPOP, FOXA1 and MED12 mutations in prostate cancer.", 
+      "journal": "Nature genetics", 
+      "authors": "Barbieri, Baca, Lawrence", 
+      "id": "22610119"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "22622578", 
+      "pubDate": "May 2012", 
+      "title": "Melanoma genome sequencing reveals frequent PREX2 mutations.", 
+      "journal": "Nature", 
+      "authors": "Berger, Hodis, Heffernan", 
+      "id": "22622578"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "18772890", 
+      "pubDate": "Oct 2008", 
+      "title": "Comprehensive genomic characterization defines human glioblastoma genes and core pathways.", 
+      "journal": "Nature", 
+      "authors": "", 
+      "id": "18772890"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "19297565", 
+      "pubDate": "Mar 2009", 
+      "title": "Mortality results from a randomized prostate-cancer screening trial.", 
+      "journal": "The New England journal of medicine", 
+      "authors": "Andriole, Crawford, Grubb", 
+      "id": "19297565"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "21307934", 
+      "pubDate": "Feb 2011", 
+      "title": "The genomic complexity of primary human prostate cancer.", 
+      "journal": "Nature", 
+      "authors": "Berger, Lawrence, Demichelis", 
+      "id": "21307934"
+    }, 
+    {
+      "group": "Searched", 
+      "name": "24481202", 
+      "weight": 43, 
+      "title": "Genome organization and the role of centromeres in evolution of the erythroleukaemia cell line HEL.", 
+      "journal": "Evolution, medicine, and public health", 
+      "pubDate": "Jan 2013", 
+      "authors": "Mackinnon, Wall, Zordan", 
+      "id": "24481202"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "23887589", 
+      "pubDate": " 2013", 
+      "title": "Frequency of TERT promoter mutations in human cancers.", 
+      "journal": "Nature communications", 
+      "authors": "Vinagre, Almeida, P\u00f3pulo", 
+      "id": "23887589"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "24583788", 
+      "pubDate": "Feb 2014", 
+      "title": "Serum microRNA expression patterns that predict early treatment failure in prostate cancer patients.", 
+      "journal": "Oncotarget", 
+      "authors": "Singh, Preus, Hu", 
+      "id": "24583788"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "18636162", 
+      "pubDate": "Aug 2008", 
+      "title": "G0S2 is an all-trans-retinoic acid target gene.", 
+      "journal": "International journal of oncology", 
+      "authors": "Kitareewan, Blumen, Sekula", 
+      "id": "18636162"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "21203400", 
+      "pubDate": "Dec 2010", 
+      "title": "Self-renewal of acute lymphocytic leukemia cells is limited by the Hedgehog pathway inhibitors cyclopamine and IPI-926.", 
+      "journal": "PloS one", 
+      "authors": "Lin, Wang, Brown", 
+      "id": "21203400"
+    }, 
+    {
+      "group": "Searched", 
+      "name": "23098689", 
+      "weight": 84, 
+      "title": "Epigenetic distortion to VDR transcriptional regulation in prostate cancer cells.", 
+      "journal": "The Journal of steroid biochemistry and molecular biology", 
+      "pubDate": "Jul 2013", 
+      "authors": "Singh, Doig, Dhiman", 
+      "id": "23098689"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "10877839", 
+      "pubDate": "Jul 2000", 
+      "title": "VDR-Alien: a novel, DNA-selective vitamin D(3) receptor-corepressor partnership.", 
+      "journal": "FASEB journal : official publication of the Federation of American Societies for Experimental Biology", 
+      "authors": "Polly, Herdick, Moehren", 
+      "id": "10877839"
+    }, 
+    {
+      "group": "Searched", 
+      "name": "23399893", 
+      "weight": 50, 
+      "title": "Gads (Grb2-related adaptor downstream of Shc) is required for BCR-ABL-mediated lymphoid leukemia.", 
+      "journal": "Leukemia", 
+      "pubDate": "Aug 2013", 
+      "authors": "Gillis, Berry, Minden", 
+      "id": "23399893"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "10224280", 
+      "pubDate": "May 1999", 
+      "title": "The P190, P210, and P230 forms of the BCR/ABL oncogene induce a similar chronic myeloid leukemia-like syndrome in mice but have different lymphoid leukemogenic activity.", 
+      "journal": "The Journal of experimental medicine", 
+      "authors": "Li, Ilaria, Million", 
+      "id": "10224280"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "16019133", 
+      "pubDate": "Jun 2006", 
+      "title": "NCOR1 mRNA is an independent prognostic factor for breast cancer.", 
+      "journal": "Cancer letters", 
+      "authors": "Zhang, Yamashita, Toyama", 
+      "id": "16019133"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "9497246", 
+      "pubDate": "Mar 1998", 
+      "title": "Genetic heterogeneity and penetrance analysis of the BRCA1 and BRCA2 genes in breast cancer families. The Breast Cancer Linkage Consortium.", 
+      "journal": "American journal of human genetics", 
+      "authors": "Ford, Easton, Stratton", 
+      "id": "9497246"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "23396013", 
+      "pubDate": "Mar 2013", 
+      "title": "Sensitive detection of somatic point mutations in impure and heterogeneous cancer samples.", 
+      "journal": "Nature biotechnology", 
+      "authors": "Cibulskis, Lawrence, Carter", 
+      "id": "23396013"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "18438408", 
+      "pubDate": "Jun 2008", 
+      "title": "Identification of somatically acquired rearrangements in cancer using genome-wide massively parallel paired-end sequencing.", 
+      "journal": "Nature genetics", 
+      "authors": "Campbell, Stephens, Pleasance", 
+      "id": "18438408"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "21410373", 
+      "pubDate": "Mar 2011", 
+      "title": "Multiple myeloma.", 
+      "journal": "The New England journal of medicine", 
+      "authors": "Palumbo, Anderson", 
+      "id": "21410373"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "23202128", 
+      "pubDate": "Jan 2013", 
+      "title": "Integrated genomic analyses identify ARID1A and ARID1B alterations in the childhood cancer neuroblastoma.", 
+      "journal": "Nature genetics", 
+      "authors": "Sausen, Leary, Jones", 
+      "id": "23202128"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "22955989", 
+      "pubDate": "Sep 2012", 
+      "title": "Annotation of functional variation in personal genomes using RegulomeDB.", 
+      "journal": "Genome research", 
+      "authors": "Boyle, Hong, Hariharan", 
+      "id": "22955989"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "24220272", 
+      "pubDate": "Feb 2014", 
+      "title": "Landscape of genetic lesions in 944 patients with myelodysplastic syndromes.", 
+      "journal": "Leukemia", 
+      "authors": "Haferlach, Nagata, Grossmann", 
+      "id": "24220272"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "19330029", 
+      "weight": 15, 
+      "title": "Somatic mutations of the histone H3K27 demethylase gene UTX in human cancer.", 
+      "journal": "Nature genetics", 
+      "pubDate": "May 2009", 
+      "authors": "van Haaften, Dalgliesh, Davies", 
+      "id": "19330029"
+    }, 
+    {
+      "group": "Searched", 
+      "name": "25825497", 
+      "weight": 34, 
+      "title": "LLY-507, a Cell-active, Potent, and Selective Inhibitor of Protein-lysine Methyltransferase SMYD2.", 
+      "journal": "The Journal of biological chemistry", 
+      "pubDate": "May 2015", 
+      "authors": "Nguyen, Allali-Hassani, Antonysamy", 
+      "id": "25825497"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "11125122", 
+      "pubDate": "Jan 2001", 
+      "title": "dbSNP: the NCBI database of genetic variation.", 
+      "journal": "Nucleic acids research", 
+      "authors": "Sherry, Ward, Kholodov", 
+      "id": "11125122"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "23348506", 
+      "pubDate": "Feb 2013", 
+      "title": "Highly recurrent TERT promoter mutations in human melanoma.", 
+      "journal": "Science (New York, N.Y.)", 
+      "authors": "Huang, Hodis, Xu", 
+      "id": "23348506"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "23348503", 
+      "pubDate": "Feb 2013", 
+      "title": "TERT promoter mutations in familial and sporadic melanoma.", 
+      "journal": "Science (New York, N.Y.)", 
+      "authors": "Horn, Figl, Rachakonda", 
+      "id": "23348503"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "12667452", 
+      "pubDate": "Mar 2003", 
+      "title": "Cyclic, proteasome-mediated turnover of unliganded and liganded ERalpha on responsive promoters is an integral feature of estrogen signaling.", 
+      "journal": "Molecular cell", 
+      "authors": "Reid, H\u00fcbner, M\u00e9tivier", 
+      "id": "12667452"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "20826764", 
+      "pubDate": "Oct 2010", 
+      "title": "Frequent mutations of chromatin remodeling gene ARID1A in ovarian clear cell carcinoma.", 
+      "journal": "Science (New York, N.Y.)", 
+      "authors": "Jones, Wang, Shih", 
+      "id": "20826764"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "27102296", 
+      "weight": 41, 
+      "title": "Survival in acute myeloid leukemia is associated with NKp44 splice variants.", 
+      "journal": "Oncotarget", 
+      "pubDate": "May 2016", 
+      "authors": "Shemesh, Brusilovsky, Hadad", 
+      "id": "27102296"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "22266197", 
+      "pubDate": "Apr 2012", 
+      "title": "SMRT\u03b5, a corepressor variant, interacts with a restricted subset of nuclear receptors, including the retinoic acid receptors \u03b1 and \u03b2.", 
+      "journal": "Molecular and cellular endocrinology", 
+      "authors": "Mengeling, Goodson, Bourguet", 
+      "id": "22266197"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "24218140", 
+      "pubDate": "Nov 2013", 
+      "title": "Deletion of Asxl1 results in myelodysplasia and severe developmental defects in vivo.", 
+      "journal": "The Journal of experimental medicine", 
+      "authors": "Abdel-Wahab, Gao, Adli", 
+      "id": "24218140"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "20054297", 
+      "pubDate": "Jan 2010", 
+      "title": "Systematic sequencing of renal carcinoma reveals inactivation of histone modifying genes.", 
+      "journal": "Nature", 
+      "authors": "Dalgliesh, Furge, Greenman", 
+      "id": "20054297"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "10944117", 
+      "pubDate": "Aug 2000", 
+      "title": "Both corepressor proteins SMRT and N-CoR exist in large protein complexes containing HDAC3.", 
+      "journal": "The EMBO journal", 
+      "authors": "Li, Wang, Wang", 
+      "id": "10944117"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "22517427", 
+      "pubDate": "Mar 2013", 
+      "title": "Integrative Genomics Viewer (IGV): high-performance genomics data visualization and exploration.", 
+      "journal": "Briefings in bioinformatics", 
+      "authors": "Thorvaldsd\u00f3ttir, Robinson, Mesirov", 
+      "id": "22517427"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "11313934", 
+      "pubDate": "Apr 2001", 
+      "title": "Synergistic growth inhibition of prostate cancer cells by 1 alpha,25 Dihydroxyvitamin D(3) and its 19-nor-hexafluoride analogs in combination with either sodium butyrate or trichostatin A.", 
+      "journal": "Oncogene", 
+      "authors": "Rashid, Moore, Walker", 
+      "id": "11313934"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "22237025", 
+      "pubDate": "Jan 2012", 
+      "title": "Clonal evolution in relapsed acute myeloid leukaemia revealed by whole-genome sequencing.", 
+      "journal": "Nature", 
+      "authors": "Ding, Ley, Larson", 
+      "id": "22237025"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "22465074", 
+      "pubDate": "Apr 2012", 
+      "title": "The Bcl6-SMRT/NCoR cistrome represses inflammation to attenuate atherosclerosis.", 
+      "journal": "Cell metabolism", 
+      "authors": "Barish, Yu, Karunasiri", 
+      "id": "22465074"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "17845852", 
+      "pubDate": "Sep 2007", 
+      "title": "The Gli code: an information nexus regulating cell fate, stemness and cancer.", 
+      "journal": "Trends in cell biology", 
+      "authors": "Ruiz i Altaba, Mas, Stecca", 
+      "id": "17845852"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "22057237", 
+      "pubDate": "Nov 2011", 
+      "title": "Insertional mutagenesis identifies multiple networks of cooperating genes driving intestinal tumorigenesis.", 
+      "journal": "Nature genetics", 
+      "authors": "March, Rust, Wright", 
+      "id": "22057237"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "15941912", 
+      "pubDate": "Sep 2005", 
+      "title": "Paradoxic inhibition of human natural interferon-producing cells by the activating receptor NKp44.", 
+      "journal": "Blood", 
+      "authors": "Fuchs, Cella, Kondo", 
+      "id": "15941912"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "16609009", 
+      "pubDate": "Apr 2006", 
+      "title": "Altered nuclear receptor corepressor expression attenuates vitamin D receptor signaling in breast cancer cells.", 
+      "journal": "Clinical cancer research : an official journal of the American Association for Cancer Research", 
+      "authors": "Banwell, MacCartney, Guy", 
+      "id": "16609009"
+    }, 
+    {
+      "group": "Searched", 
+      "name": "22536442", 
+      "weight": 48, 
+      "title": "MicroRNA genes and their target 3'-untranslated regions are infrequently somatically mutated in ovarian cancers.", 
+      "journal": "PloS one", 
+      "pubDate": " 2012", 
+      "authors": "Ryland, Bearfoot, Doyle", 
+      "id": "22536442"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "20354512", 
+      "pubDate": "Apr 2010", 
+      "title": "A method and server for predicting damaging missense mutations.", 
+      "journal": "Nature methods", 
+      "authors": "Adzhubei, Schmidt, Peshkin", 
+      "id": "20354512"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "19185382", 
+      "pubDate": "Mar 2009", 
+      "title": "Genetics and epigenetics: stability and plasticity during cellular differentiation.", 
+      "journal": "Trends in genetics : TIG", 
+      "authors": "Mohn, Sch\u00fcbeler", 
+      "id": "19185382"
+    }, 
+    {
+      "group": "Searched", 
+      "name": "27135926", 
+      "weight": 55, 
+      "title": "Landscape of somatic mutations in 560 breast cancer whole-genome sequences.", 
+      "journal": "Nature", 
+      "pubDate": "May 2016", 
+      "authors": "Nik-Zainal, Davies, Staaf", 
+      "id": "27135926"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "20016485", 
+      "pubDate": "Jan 2010", 
+      "title": "A comprehensive catalogue of somatic mutations from a human cancer genome.", 
+      "journal": "Nature", 
+      "authors": "Pleasance, Cheetham, Stephens", 
+      "id": "20016485"
+    }, 
+    {
+      "group": "Searched", 
+      "name": "20016488", 
+      "weight": 41, 
+      "title": "A small-cell lung cancer genome with complex signatures of tobacco exposure.", 
+      "journal": "Nature", 
+      "pubDate": "Jan 2010", 
+      "authors": "Pleasance, Stephens, O'Meara", 
+      "id": "20016488"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "23103869", 
+      "pubDate": "Nov 2012", 
+      "title": "Pancreatic cancer genomes reveal aberrations in axon guidance pathway genes.", 
+      "journal": "Nature", 
+      "authors": "Biankin, Waddell, Kassahn", 
+      "id": "23103869"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "11042697", 
+      "pubDate": "Oct 2000", 
+      "title": "The anti-proliferative effects of 1alpha,25(OH)2D3 on breast and prostate cancer cells are associated with induction of BRCA1 gene expression.", 
+      "journal": "Oncogene", 
+      "authors": "Campbell, Gombart, Kwok", 
+      "id": "11042697"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "19738047", 
+      "pubDate": "Sep 2009", 
+      "title": "miR-21: an androgen receptor-regulated microRNA that promotes hormone-dependent and hormone-independent prostate cancer growth.", 
+      "journal": "Cancer research", 
+      "authors": "Ribas, Ni, Haffner", 
+      "id": "19738047"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "9212098", 
+      "pubDate": "Jul 1997", 
+      "title": "Human acute myeloid leukemia is organized as a hierarchy that originates from a primitive hematopoietic cell.", 
+      "journal": "Nature medicine", 
+      "authors": "Bonnet, Dick", 
+      "id": "9212098"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "21998214", 
+      "pubDate": "Dec 2011", 
+      "title": "Clinical significance of SF3B1 mutations in myelodysplastic syndromes and myelodysplastic/myeloproliferative neoplasms.", 
+      "journal": "Blood", 
+      "authors": "Malcovati, Papaemmanuil, Bowen", 
+      "id": "21998214"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "23375020", 
+      "pubDate": "Feb 2013", 
+      "title": "FANTOM: Functional and taxonomic analysis of metagenomes.", 
+      "journal": "BMC bioinformatics", 
+      "authors": "Sanli, Karlsson, Nookaew", 
+      "id": "23375020"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "18006589", 
+      "pubDate": "Jan 2008", 
+      "title": "Altered glycosylation of recombinant NKp30 hampers binding to heparan sulfate: a lesson for the use of recombinant immunoreceptors as an immunological tool.", 
+      "journal": "Glycobiology", 
+      "authors": "Hershkovitz, Jarahian, Zilka", 
+      "id": "18006589"
+    }, 
+    {
+      "group": "Searched", 
+      "name": "22567363", 
+      "weight": 88, 
+      "title": "The role of dicentric chromosome formation and secondary centromere deletion in the evolution of myeloid malignancy.", 
+      "journal": "Genetics research international", 
+      "pubDate": " 2011", 
+      "authors": "Mackinnon, Campbell", 
+      "id": "22567363"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "21995386", 
+      "pubDate": "Oct 2011", 
+      "title": "Somatic SF3B1 mutation in myelodysplasia with ring sideroblasts.", 
+      "journal": "The New England journal of medicine", 
+      "authors": "Papaemmanuil, Cazzola, Boultwood", 
+      "id": "21995386"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "22460902", 
+      "pubDate": "Mar 2012", 
+      "title": "Systematic identification of genomic markers of drug sensitivity in cancer cells.", 
+      "journal": "Nature", 
+      "authors": "Garnett, Edelman, Heidorn", 
+      "id": "22460902"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "24132290", 
+      "pubDate": "Oct 2013", 
+      "title": "Mutational landscape and significance across 12 major cancer types.", 
+      "journal": "Nature", 
+      "authors": "Kandoth, McLellan, Vandin", 
+      "id": "24132290"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "15958597", 
+      "pubDate": "Jun 2005", 
+      "title": "Sun exposure, vitamin D receptor gene polymorphisms, and risk of advanced prostate cancer.", 
+      "journal": "Cancer research", 
+      "authors": "John, Schwartz, Koo", 
+      "id": "15958597"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "19023283", 
+      "pubDate": "Dec 2008", 
+      "title": "Transcription-coupled DNA repair: two decades of progress and surprises.", 
+      "journal": "Nature reviews. Molecular cell biology", 
+      "authors": "Hanawalt, Spivak", 
+      "id": "19023283"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "6946446", 
+      "pubDate": "Aug 1981", 
+      "title": "Differentiation of mouse myeloid leukemia cells induced by 1 alpha,25-dihydroxyvitamin D3.", 
+      "journal": "Proceedings of the National Academy of Sciences of the United States of America", 
+      "authors": "Abe, Miyaura, Sakagami", 
+      "id": "6946446"
+    }, 
+    {
+      "group": "Searched", 
+      "name": "26117541", 
+      "weight": 103, 
+      "title": "Integrative genomic analysis in K562 chronic myelogenous leukemia cells reveals that proximal NCOR1 binding positively regulates genes that govern erythroid differentiation and Imatinib sensitivity.", 
+      "journal": "Nucleic acids research", 
+      "pubDate": "Sep 2015", 
+      "authors": "Long, van den Berg, Russell", 
+      "id": "26117541"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "23622249", 
+      "pubDate": "Apr 2013", 
+      "title": "Punctuated evolution of prostate cancer genomes.", 
+      "journal": "Cell", 
+      "authors": "Baca, Prandi, Lawrence", 
+      "id": "23622249"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "19561018", 
+      "pubDate": "Nov 2009", 
+      "title": "Pindel: a pattern growth approach to detect break points of large deletions and medium sized insertions from paired-end short reads.", 
+      "journal": "Bioinformatics (Oxford, England)", 
+      "authors": "Ye, Schulz, Long", 
+      "id": "19561018"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "18766170", 
+      "pubDate": "Oct 2008", 
+      "title": "Characterization of microRNAs in serum: a novel class of biomarkers for diagnosis of cancer and other diseases.", 
+      "journal": "Cell research", 
+      "authors": "Chen, Ba, Ma", 
+      "id": "18766170"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "8631002", 
+      "pubDate": "Feb 1996", 
+      "title": "Localization of an ovarian cancer tumor suppressor gene to a 0.5-cM region between D22S284 and CYP2D, on chromosome 22q.", 
+      "journal": "Cancer research", 
+      "authors": "Bryan, Watson, Davis", 
+      "id": "8631002"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "12204535", 
+      "pubDate": "Aug 2002", 
+      "title": "Telomere dysfunction provokes regional amplification and deletion in cancer genomes.", 
+      "journal": "Cancer cell", 
+      "authors": "O'Hagan, Chang, Maser", 
+      "id": "12204535"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "22722201", 
+      "pubDate": "May 2012", 
+      "title": "The landscape of cancer genes and mutational processes in breast cancer.", 
+      "journal": "Nature", 
+      "authors": "Stephens, Tarpey, Davies", 
+      "id": "22722201"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "16923398", 
+      "pubDate": "Aug 2006", 
+      "title": "Nuclear receptor expression links the circadian clock to metabolism.", 
+      "journal": "Cell", 
+      "authors": "Yang, Downes, Yu", 
+      "id": "16923398"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "16923397", 
+      "pubDate": "Aug 2006", 
+      "title": "Anatomical profiling of nuclear receptor expression reveals a hierarchical transcriptional network.", 
+      "journal": "Cell", 
+      "authors": "Bookout, Jeong, Downes", 
+      "id": "16923397"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "23715323", 
+      "pubDate": "Jun 2013", 
+      "title": "The Genotype-Tissue Expression (GTEx) project.", 
+      "journal": "Nature genetics", 
+      "authors": "", 
+      "id": "23715323"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "11720436", 
+      "pubDate": "Nov 2001", 
+      "title": "Prostate cancer risk: associations with ultraviolet radiation, tyrosinase and melanocortin-1 receptor genotypes.", 
+      "journal": "British journal of cancer", 
+      "authors": "Luscombe, French, Liu", 
+      "id": "11720436"
+    }, 
+    {
+      "group": "Searched", 
+      "name": "25180064", 
+      "weight": 45, 
+      "title": "Niche displacement of human leukemic stem cells uniquely allows their competitive replacement with healthy HSPCs.", 
+      "journal": "The Journal of experimental medicine", 
+      "pubDate": "Sep 2014", 
+      "authors": "Boyd, Campbell, Hopkins", 
+      "id": "25180064"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "21252315", 
+      "pubDate": "Mar 2011", 
+      "title": "DAXX/ATRX, MEN1, and mTOR pathway genes are frequently altered in pancreatic neuroendocrine tumors.", 
+      "journal": "Science (New York, N.Y.)", 
+      "authors": "Jiao, Shi, Edil", 
+      "id": "21252315"
+    }, 
+    {
+      "group": "Searched", 
+      "name": "25849990", 
+      "weight": 66, 
+      "title": "Genetic variation at MECOM, TERT, JAK2 and HBS1L-MYB predisposes to myeloproliferative neoplasms.", 
+      "journal": "Nature communications", 
+      "pubDate": "Apr 2015", 
+      "authors": "Tapper, Jones, Kralovics", 
+      "id": "25849990"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "18948947", 
+      "pubDate": "Oct 2008", 
+      "title": "Somatic mutations affect key pathways in lung adenocarcinoma.", 
+      "journal": "Nature", 
+      "authors": "Ding, Getz, Wheeler", 
+      "id": "18948947"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "18322525", 
+      "pubDate": "Mar 2008", 
+      "title": "Cyclical DNA methylation of a transcriptionally active promoter.", 
+      "journal": "Nature", 
+      "authors": "M\u00e9tivier, Gallais, Tiffoche", 
+      "id": "18322525"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "16254181", 
+      "pubDate": "Oct 2005", 
+      "title": "Recurrent fusion of TMPRSS2 and ETS transcription factor genes in prostate cancer.", 
+      "journal": "Science (New York, N.Y.)", 
+      "authors": "Tomlins, Rhodes, Perner", 
+      "id": "16254181"
+    }, 
+    {
+      "group": "Searched", 
+      "name": "24391651", 
+      "weight": 163, 
+      "title": "Combination immune therapies to enhance anti-tumor responses by NK cells.", 
+      "journal": "Frontiers in immunology", 
+      "pubDate": "Dec 2013", 
+      "authors": "Mentlik James, Cohen, Campbell", 
+      "id": "24391651"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "19657110", 
+      "pubDate": "Sep 2009", 
+      "title": "Recurring mutations found by sequencing an acute myeloid leukemia genome.", 
+      "journal": "The New England journal of medicine", 
+      "authors": "Mardis, Ding, Dooling", 
+      "id": "19657110"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "22223823", 
+      "pubDate": "Mar 2012", 
+      "title": "Targeting hedgehog in hematologic malignancy.", 
+      "journal": "Blood", 
+      "authors": "Irvine, Copland", 
+      "id": "22223823"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "8566748", 
+      "pubDate": "Jan 1996", 
+      "title": "Transcriptional activation of the Cdk inhibitor p21 by vitamin D3 leads to the induced differentiation of the myelomonocytic cell line U937.", 
+      "journal": "Genes & development", 
+      "authors": "Liu, Lee, Cohen", 
+      "id": "8566748"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "20033038", 
+      "weight": 37, 
+      "title": "Complex landscapes of somatic rearrangement in human breast cancer genomes.", 
+      "journal": "Nature", 
+      "pubDate": "Dec 2009", 
+      "authors": "Stephens, McBride, Lin", 
+      "id": "20033038"
+    }, 
+    {
+      "group": "Searched", 
+      "name": "23535730", 
+      "weight": 36, 
+      "title": "GWAS meta-analysis and replication identifies three new susceptibility loci for ovarian cancer.", 
+      "journal": "Nature genetics", 
+      "pubDate": "Apr 2013", 
+      "authors": "Pharoah, Tsai, Ramus", 
+      "id": "23535730"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "22810696", 
+      "pubDate": "Jul 2012", 
+      "title": "Comprehensive molecular characterization of human colon and rectal cancer.", 
+      "journal": "Nature", 
+      "authors": "", 
+      "id": "22810696"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "14675539", 
+      "pubDate": "Dec 2003", 
+      "title": "Estrogen receptor-alpha directs ordered, cyclical, and combinatorial recruitment of cofactors on a natural target promoter.", 
+      "journal": "Cell", 
+      "authors": "M\u00e9tivier, Penot, H\u00fcbner", 
+      "id": "14675539"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "17485671", 
+      "pubDate": "May 2007", 
+      "title": "Evidence for mutation showers.", 
+      "journal": "Proceedings of the National Academy of Sciences of the United States of America", 
+      "authors": "Wang, Gonzalez, Scaringe", 
+      "id": "17485671"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "21655089", 
+      "pubDate": "Jun 2011", 
+      "title": "Multiple common susceptibility variants near BMP pathway loci GREM1, BMP4, and BMP2 explain part of the missing heritability of colorectal cancer.", 
+      "journal": "PLoS genetics", 
+      "authors": "Tomlinson, Carvajal-Carmona, Dobbins", 
+      "id": "21655089"
+    }, 
+    {
+      "group": "Searched", 
+      "name": "15217503", 
+      "weight": 20, 
+      "title": "No germline mutations in the histone acetyltransferase gene EP300 in BRCA1 and BRCA2 negative families with breast cancer and gastric, pancreatic, or colorectal cancer.", 
+      "journal": "Breast cancer research : BCR", 
+      "pubDate": " 2004", 
+      "authors": "Campbell, Choong, Chenevix-Trench", 
+      "id": "15217503"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "25261935", 
+      "pubDate": "Nov 2014", 
+      "title": "Genome-wide analysis of noncoding regulatory mutations in cancer.", 
+      "journal": "Nature genetics", 
+      "authors": "Weinhold, Jacobsen, Schultz", 
+      "id": "25261935"
+    }, 
+    {
+      "group": "Cited", 
+      "name": "17571346", 
+      "pubDate": "Jun 2007", 
+      "title": "Identification and analysis of functional elements in 1% of the human genome by the ENCODE pilot project.", 
+      "journal": "Nature", 
+      "authors": ", Birney, Stamatoyannopoulos", 
+      "id": "17571346"
+    }
+  ], 
+  "links": [
+    {
+      "source": "21441907", 
+      "target": "23535730"
+    }, 
+    {
+      "source": "21441907", 
+      "target": "25574665"
+    }, 
+    {
+      "source": "26094914", 
+      "target": "27765926"
+    }, 
+    {
+      "source": "22722839", 
+      "target": "24316979"
+    }, 
+    {
+      "source": "22722839", 
+      "target": "23945592"
+    }, 
+    {
+      "source": "11306457", 
+      "target": "23098689"
+    }, 
+    {
+      "source": "11306457", 
+      "target": "21088000"
+    }, 
+    {
+      "source": "25990418", 
+      "target": "15965027"
+    }, 
+    {
+      "source": "25990418", 
+      "target": "12111919"
+    }, 
+    {
+      "source": "25990418", 
+      "target": "21655089"
+    }, 
+    {
+      "source": "25990418", 
+      "target": "24836286"
+    }, 
+    {
+      "source": "25990418", 
+      "target": "24390350"
+    }, 
+    {
+      "source": "25990418", 
+      "target": "10891514"
+    }, 
+    {
+      "source": "25990418", 
+      "target": "24487276"
+    }, 
+    {
+      "source": "25990418", 
+      "target": "22588877"
+    }, 
+    {
+      "source": "25990418", 
+      "target": "22634755"
+    }, 
+    {
+      "source": "25990418", 
+      "target": "17618284"
+    }, 
+    {
+      "source": "25990418", 
+      "target": "23128226"
+    }, 
+    {
+      "source": "25990418", 
+      "target": "17934461"
+    }, 
+    {
+      "source": "25990418", 
+      "target": "25105248"
+    }, 
+    {
+      "source": "25990418", 
+      "target": "17701901"
+    }, 
+    {
+      "source": "25990418", 
+      "target": "20972440"
+    }, 
+    {
+      "source": "25990418", 
+      "target": "18372901"
+    }, 
+    {
+      "source": "25990418", 
+      "target": "24737748"
+    }, 
+    {
+      "source": "25990418", 
+      "target": "18372905"
+    }, 
+    {
+      "source": "25990418", 
+      "target": "23266556"
+    }, 
+    {
+      "source": "6895862", 
+      "target": "24860511"
+    }, 
+    {
+      "source": "6895862", 
+      "target": "23098689"
+    }, 
+    {
+      "source": "6895862", 
+      "target": "21088000"
+    }, 
+    {
+      "source": "23770567", 
+      "target": "27135926"
+    }, 
+    {
+      "source": "23770567", 
+      "target": "24429703"
+    }, 
+    {
+      "source": "23770567", 
+      "target": "25355519"
+    }, 
+    {
+      "source": "19221487", 
+      "target": "24860511"
+    }, 
+    {
+      "source": "19221487", 
+      "target": "21088000"
+    }, 
+    {
+      "source": "20952405", 
+      "target": "23535730"
+    }, 
+    {
+      "source": "20952405", 
+      "target": "24443148"
+    }, 
+    {
+      "source": "23415222", 
+      "target": "24443148"
+    }, 
+    {
+      "source": "23415222", 
+      "target": "24429703"
+    }, 
+    {
+      "source": "22155872", 
+      "target": "24443148"
+    }, 
+    {
+      "source": "22155872", 
+      "target": "24148783"
+    }, 
+    {
+      "source": "23000897", 
+      "target": "27498871"
+    }, 
+    {
+      "source": "23000897", 
+      "target": "26618344"
+    }, 
+    {
+      "source": "23000897", 
+      "target": "27135926"
+    }, 
+    {
+      "source": "23958951", 
+      "target": "27102296"
+    }, 
+    {
+      "source": "23087083", 
+      "target": "26117541"
+    }, 
+    {
+      "source": "23087083", 
+      "target": "24860511"
+    }, 
+    {
+      "source": "11244035", 
+      "target": "24391651"
+    }, 
+    {
+      "source": "6257495", 
+      "target": "23098689"
+    }, 
+    {
+      "source": "6257495", 
+      "target": "21088000"
+    }, 
+    {
+      "source": "22343920", 
+      "target": "24443148"
+    }, 
+    {
+      "source": "22343920", 
+      "target": "25574665"
+    }, 
+    {
+      "source": "22955616", 
+      "target": "25298093"
+    }, 
+    {
+      "source": "22955616", 
+      "target": "24202443"
+    }, 
+    {
+      "source": "22955616", 
+      "target": "25849990"
+    }, 
+    {
+      "source": "22955616", 
+      "target": "27135926"
+    }, 
+    {
+      "source": "22955616", 
+      "target": "27459855"
+    }, 
+    {
+      "source": "22955613", 
+      "target": "26117541"
+    }, 
+    {
+      "source": "22955613", 
+      "target": "24860511"
+    }, 
+    {
+      "source": "2263572", 
+      "target": "23098689"
+    }, 
+    {
+      "source": "2263572", 
+      "target": "21088000"
+    }, 
+    {
+      "source": "23535729", 
+      "target": "26618344"
+    }, 
+    {
+      "source": "23535729", 
+      "target": "27459855"
+    }, 
+    {
+      "source": "24202443", 
+      "target": "15300237"
+    }, 
+    {
+      "source": "24202443", 
+      "target": "16434701"
+    }, 
+    {
+      "source": "24202443", 
+      "target": "23622244"
+    }, 
+    {
+      "source": "24202443", 
+      "target": "18636162"
+    }, 
+    {
+      "source": "24202443", 
+      "target": "20736230"
+    }, 
+    {
+      "source": "24202443", 
+      "target": "17999998"
+    }, 
+    {
+      "source": "24202443", 
+      "target": "10877839"
+    }, 
+    {
+      "source": "24202443", 
+      "target": "21088000"
+    }, 
+    {
+      "source": "24202443", 
+      "target": "21846776"
+    }, 
+    {
+      "source": "24202443", 
+      "target": "20227041"
+    }, 
+    {
+      "source": "24202443", 
+      "target": "7883998"
+    }, 
+    {
+      "source": "24202443", 
+      "target": "16086669"
+    }, 
+    {
+      "source": "24202443", 
+      "target": "23178257"
+    }, 
+    {
+      "source": "24202443", 
+      "target": "8566748"
+    }, 
+    {
+      "source": "24202443", 
+      "target": "22108803"
+    }, 
+    {
+      "source": "19890130", 
+      "target": "27307795"
+    }, 
+    {
+      "source": "19890130", 
+      "target": "27604819"
+    }, 
+    {
+      "source": "11553815", 
+      "target": "27498871"
+    }, 
+    {
+      "source": "11553815", 
+      "target": "22608084"
+    }, 
+    {
+      "source": "11553815", 
+      "target": "20033038"
+    }, 
+    {
+      "source": "17536787", 
+      "target": "27765926"
+    }, 
+    {
+      "source": "17536787", 
+      "target": "27102296"
+    }, 
+    {
+      "source": "22634755", 
+      "target": "26553438"
+    }, 
+    {
+      "source": "23527218", 
+      "target": "27765926"
+    }, 
+    {
+      "source": "23527218", 
+      "target": "27102296"
+    }, 
+    {
+      "source": "25298093", 
+      "target": "23887589"
+    }, 
+    {
+      "source": "25298093", 
+      "target": "20354512"
+    }, 
+    {
+      "source": "25298093", 
+      "target": "22955989"
+    }, 
+    {
+      "source": "25298093", 
+      "target": "15965027"
+    }, 
+    {
+      "source": "25298093", 
+      "target": "24092746"
+    }, 
+    {
+      "source": "25298093", 
+      "target": "23715323"
+    }, 
+    {
+      "source": "25298093", 
+      "target": "20944595"
+    }, 
+    {
+      "source": "25298093", 
+      "target": "24487276"
+    }, 
+    {
+      "source": "25298093", 
+      "target": "19451168"
+    }, 
+    {
+      "source": "25298093", 
+      "target": "20513432"
+    }, 
+    {
+      "source": "25298093", 
+      "target": "22064851"
+    }, 
+    {
+      "source": "25298093", 
+      "target": "23348506"
+    }, 
+    {
+      "source": "25298093", 
+      "target": "23348503"
+    }, 
+    {
+      "source": "25298093", 
+      "target": "22608084"
+    }, 
+    {
+      "source": "20702402", 
+      "target": "25849990"
+    }, 
+    {
+      "source": "20702402", 
+      "target": "26553438"
+    }, 
+    {
+      "source": "24737748", 
+      "target": "26553438"
+    }, 
+    {
+      "source": "22832583", 
+      "target": "24316979"
+    }, 
+    {
+      "source": "22832583", 
+      "target": "26647970"
+    }, 
+    {
+      "source": "22960745", 
+      "target": "27498871"
+    }, 
+    {
+      "source": "22960745", 
+      "target": "24316979"
+    }, 
+    {
+      "source": "22960745", 
+      "target": "24714652"
+    }, 
+    {
+      "source": "23634996", 
+      "target": "25574665"
+    }, 
+    {
+      "source": "23634996", 
+      "target": "27102296"
+    }, 
+    {
+      "source": "23634996", 
+      "target": "26647970"
+    }, 
+    {
+      "source": "12453430", 
+      "target": "23945592"
+    }, 
+    {
+      "source": "12453430", 
+      "target": "22608084"
+    }, 
+    {
+      "source": "12111919", 
+      "target": "26553438"
+    }, 
+    {
+      "source": "17320507", 
+      "target": "19330029"
+    }, 
+    {
+      "source": "17320507", 
+      "target": "21248752"
+    }, 
+    {
+      "source": "21376230", 
+      "target": "25243985"
+    }, 
+    {
+      "source": "21376230", 
+      "target": "25271376"
+    }, 
+    {
+      "source": "21376230", 
+      "target": "24567448"
+    }, 
+    {
+      "source": "21376230", 
+      "target": "22608083"
+    }, 
+    {
+      "source": "25243985", 
+      "target": "23001348"
+    }, 
+    {
+      "source": "25243985", 
+      "target": "13298683"
+    }, 
+    {
+      "source": "25243985", 
+      "target": "10647931"
+    }, 
+    {
+      "source": "21215367", 
+      "target": "20393555"
+    }, 
+    {
+      "source": "21215367", 
+      "target": "17675364"
+    }, 
+    {
+      "source": "21215367", 
+      "target": "24714652"
+    }, 
+    {
+      "source": "21215367", 
+      "target": "20016485"
+    }, 
+    {
+      "source": "21215367", 
+      "target": "18316005"
+    }, 
+    {
+      "source": "21215367", 
+      "target": "20016488"
+    }, 
+    {
+      "source": "21215367", 
+      "target": "19812674"
+    }, 
+    {
+      "source": "21215367", 
+      "target": "22608083"
+    }, 
+    {
+      "source": "21215367", 
+      "target": "20164920"
+    }, 
+    {
+      "source": "21215367", 
+      "target": "24670643"
+    }, 
+    {
+      "source": "21215367", 
+      "target": "17485671"
+    }, 
+    {
+      "source": "21215367", 
+      "target": "19657110"
+    }, 
+    {
+      "source": "21215367", 
+      "target": "20054297"
+    }, 
+    {
+      "source": "21215367", 
+      "target": "27498871"
+    }, 
+    {
+      "source": "21215367", 
+      "target": "27615322"
+    }, 
+    {
+      "source": "21215367", 
+      "target": "17247004"
+    }, 
+    {
+      "source": "21215367", 
+      "target": "18438408"
+    }, 
+    {
+      "source": "21215367", 
+      "target": "19541911"
+    }, 
+    {
+      "source": "21215367", 
+      "target": "12204535"
+    }, 
+    {
+      "source": "21215367", 
+      "target": "24429703"
+    }, 
+    {
+      "source": "21215367", 
+      "target": "19360079"
+    }, 
+    {
+      "source": "21215367", 
+      "target": "22608084"
+    }, 
+    {
+      "source": "21215367", 
+      "target": "20164919"
+    }, 
+    {
+      "source": "21215367", 
+      "target": "20033038"
+    }, 
+    {
+      "source": "21215367", 
+      "target": "20981101"
+    }, 
+    {
+      "source": "21067377", 
+      "target": "22608083"
+    }, 
+    {
+      "source": "21067377", 
+      "target": "26647970"
+    }, 
+    {
+      "source": "26437366", 
+      "target": "22683710"
+    }, 
+    {
+      "source": "26437366", 
+      "target": "24218140"
+    }, 
+    {
+      "source": "26437366", 
+      "target": "22897849"
+    }, 
+    {
+      "source": "26437366", 
+      "target": "21796119"
+    }, 
+    {
+      "source": "26437366", 
+      "target": "21677750"
+    }, 
+    {
+      "source": "22683710", 
+      "target": "23945592"
+    }, 
+    {
+      "source": "22658127", 
+      "target": "24391651"
+    }, 
+    {
+      "source": "23802087", 
+      "target": "27765926"
+    }, 
+    {
+      "source": "17020998", 
+      "target": "23098689"
+    }, 
+    {
+      "source": "17020998", 
+      "target": "21088000"
+    }, 
+    {
+      "source": "17475214", 
+      "target": "24316979"
+    }, 
+    {
+      "source": "17475214", 
+      "target": "24148783"
+    }, 
+    {
+      "source": "20164920", 
+      "target": "24670643"
+    }, 
+    {
+      "source": "20164920", 
+      "target": "22608083"
+    }, 
+    {
+      "source": "21642962", 
+      "target": "24316979"
+    }, 
+    {
+      "source": "21642962", 
+      "target": "27135926"
+    }, 
+    {
+      "source": "21642962", 
+      "target": "22608083"
+    }, 
+    {
+      "source": "21642962", 
+      "target": "23945592"
+    }, 
+    {
+      "source": "21642962", 
+      "target": "26647970"
+    }, 
+    {
+      "source": "20210320", 
+      "target": "26117541"
+    }, 
+    {
+      "source": "20210320", 
+      "target": "23098689"
+    }, 
+    {
+      "source": "18425107", 
+      "target": "27102296"
+    }, 
+    {
+      "source": "18425106", 
+      "target": "24391651"
+    }, 
+    {
+      "source": "18425106", 
+      "target": "27102296"
+    }, 
+    {
+      "source": "17234643", 
+      "target": "20033038"
+    }, 
+    {
+      "source": "17234643", 
+      "target": "20016488"
+    }, 
+    {
+      "source": "7509044", 
+      "target": "21637284"
+    }, 
+    {
+      "source": "7509044", 
+      "target": "25180064"
+    }, 
+    {
+      "source": "7509044", 
+      "target": "25691811"
+    }, 
+    {
+      "source": "17085482", 
+      "target": "26117541"
+    }, 
+    {
+      "source": "17085482", 
+      "target": "23098689"
+    }, 
+    {
+      "source": "17701901", 
+      "target": "25849990"
+    }, 
+    {
+      "source": "21088000", 
+      "target": "19185382"
+    }, 
+    {
+      "source": "21088000", 
+      "target": "15958597"
+    }, 
+    {
+      "source": "21088000", 
+      "target": "2241107"
+    }, 
+    {
+      "source": "21088000", 
+      "target": "11313934"
+    }, 
+    {
+      "source": "21088000", 
+      "target": "19126649"
+    }, 
+    {
+      "source": "21088000", 
+      "target": "16651407"
+    }, 
+    {
+      "source": "21088000", 
+      "target": "9278857"
+    }, 
+    {
+      "source": "21088000", 
+      "target": "7508338"
+    }, 
+    {
+      "source": "21088000", 
+      "target": "20091860"
+    }, 
+    {
+      "source": "21088000", 
+      "target": "16434701"
+    }, 
+    {
+      "source": "21088000", 
+      "target": "12520532"
+    }, 
+    {
+      "source": "21088000", 
+      "target": "24860511"
+    }, 
+    {
+      "source": "21088000", 
+      "target": "19738047"
+    }, 
+    {
+      "source": "21088000", 
+      "target": "16751179"
+    }, 
+    {
+      "source": "21088000", 
+      "target": "18663219"
+    }, 
+    {
+      "source": "21088000", 
+      "target": "18776219"
+    }, 
+    {
+      "source": "21088000", 
+      "target": "19487572"
+    }, 
+    {
+      "source": "21088000", 
+      "target": "23098689"
+    }, 
+    {
+      "source": "21088000", 
+      "target": "10398275"
+    }, 
+    {
+      "source": "21088000", 
+      "target": "17062566"
+    }, 
+    {
+      "source": "21088000", 
+      "target": "15868450"
+    }, 
+    {
+      "source": "21088000", 
+      "target": "19098224"
+    }, 
+    {
+      "source": "21088000", 
+      "target": "11042697"
+    }, 
+    {
+      "source": "21088000", 
+      "target": "14675539"
+    }, 
+    {
+      "source": "21088000", 
+      "target": "18212054"
+    }, 
+    {
+      "source": "21088000", 
+      "target": "16462763"
+    }, 
+    {
+      "source": "21088000", 
+      "target": "11720436"
+    }, 
+    {
+      "source": "21088000", 
+      "target": "14530388"
+    }, 
+    {
+      "source": "21088000", 
+      "target": "15919092"
+    }, 
+    {
+      "source": "21088000", 
+      "target": "11075874"
+    }, 
+    {
+      "source": "21088000", 
+      "target": "18509362"
+    }, 
+    {
+      "source": "21088000", 
+      "target": "18766170"
+    }, 
+    {
+      "source": "21088000", 
+      "target": "19122196"
+    }, 
+    {
+      "source": "21088000", 
+      "target": "10706079"
+    }, 
+    {
+      "source": "21088000", 
+      "target": "17855664"
+    }, 
+    {
+      "source": "21088000", 
+      "target": "18412986"
+    }, 
+    {
+      "source": "21088000", 
+      "target": "14527417"
+    }, 
+    {
+      "source": "21088000", 
+      "target": "19351832"
+    }, 
+    {
+      "source": "21088000", 
+      "target": "16741990"
+    }, 
+    {
+      "source": "21088000", 
+      "target": "6946774"
+    }, 
+    {
+      "source": "21088000", 
+      "target": "16406067"
+    }, 
+    {
+      "source": "21088000", 
+      "target": "16609009"
+    }, 
+    {
+      "source": "21088000", 
+      "target": "15300237"
+    }, 
+    {
+      "source": "21088000", 
+      "target": "6946446"
+    }, 
+    {
+      "source": "20466759", 
+      "target": "26117541"
+    }, 
+    {
+      "source": "20466759", 
+      "target": "23098689"
+    }, 
+    {
+      "source": "23758877", 
+      "target": "24443148"
+    }, 
+    {
+      "source": "23758877", 
+      "target": "26647970"
+    }, 
+    {
+      "source": "25271376", 
+      "target": "23945592"
+    }, 
+    {
+      "source": "25271376", 
+      "target": "20016488"
+    }, 
+    {
+      "source": "25271376", 
+      "target": "22608084"
+    }, 
+    {
+      "source": "25271376", 
+      "target": "17344846"
+    }, 
+    {
+      "source": "25271376", 
+      "target": "20016485"
+    }, 
+    {
+      "source": "25271376", 
+      "target": "22517427"
+    }, 
+    {
+      "source": "25271376", 
+      "target": "20981092"
+    }, 
+    {
+      "source": "25271376", 
+      "target": "16783027"
+    }, 
+    {
+      "source": "25271376", 
+      "target": "19451168"
+    }, 
+    {
+      "source": "25271376", 
+      "target": "19360079"
+    }, 
+    {
+      "source": "25271376", 
+      "target": "23001348"
+    }, 
+    {
+      "source": "25271376", 
+      "target": "22608083"
+    }, 
+    {
+      "source": "18212054", 
+      "target": "24860511"
+    }, 
+    {
+      "source": "27157927", 
+      "target": "6776413"
+    }, 
+    {
+      "source": "27157927", 
+      "target": "17845852"
+    }, 
+    {
+      "source": "27157927", 
+      "target": "19169242"
+    }, 
+    {
+      "source": "27157927", 
+      "target": "18480811"
+    }, 
+    {
+      "source": "27157927", 
+      "target": "21203400"
+    }, 
+    {
+      "source": "27157927", 
+      "target": "22642671"
+    }, 
+    {
+      "source": "27157927", 
+      "target": "18772113"
+    }, 
+    {
+      "source": "27157927", 
+      "target": "22223823"
+    }, 
+    {
+      "source": "27157927", 
+      "target": "17360475"
+    }, 
+    {
+      "source": "27157927", 
+      "target": "24900187"
+    }, 
+    {
+      "source": "27157927", 
+      "target": "22184410"
+    }, 
+    {
+      "source": "25105248", 
+      "target": "26553438"
+    }, 
+    {
+      "source": "22495314", 
+      "target": "24316979"
+    }, 
+    {
+      "source": "22495314", 
+      "target": "27135926"
+    }, 
+    {
+      "source": "20972440", 
+      "target": "26553438"
+    }, 
+    {
+      "source": "10398275", 
+      "target": "24860511"
+    }, 
+    {
+      "source": "10398275", 
+      "target": "23098689"
+    }, 
+    {
+      "source": "9058730", 
+      "target": "27307795"
+    }, 
+    {
+      "source": "9058730", 
+      "target": "25574665"
+    }, 
+    {
+      "source": "27604819", 
+      "target": "16646809"
+    }, 
+    {
+      "source": "27604819", 
+      "target": "25574665"
+    }, 
+    {
+      "source": "27604819", 
+      "target": "23070040"
+    }, 
+    {
+      "source": "27604819", 
+      "target": "21998214"
+    }, 
+    {
+      "source": "27604819", 
+      "target": "24030381"
+    }, 
+    {
+      "source": "27604819", 
+      "target": "24218140"
+    }, 
+    {
+      "source": "27604819", 
+      "target": "7660125"
+    }, 
+    {
+      "source": "27604819", 
+      "target": "21995386"
+    }, 
+    {
+      "source": "27604819", 
+      "target": "24220272"
+    }, 
+    {
+      "source": "27604819", 
+      "target": "21677750"
+    }, 
+    {
+      "source": "24325356", 
+      "target": "25849990"
+    }, 
+    {
+      "source": "24325356", 
+      "target": "25691811"
+    }, 
+    {
+      "source": "18253031", 
+      "target": "24481202"
+    }, 
+    {
+      "source": "18253031", 
+      "target": "22567363"
+    }, 
+    {
+      "source": "20981092", 
+      "target": "27459855"
+    }, 
+    {
+      "source": "20981092", 
+      "target": "22608083"
+    }, 
+    {
+      "source": "20981092", 
+      "target": "23028338"
+    }, 
+    {
+      "source": "10706079", 
+      "target": "23098689"
+    }, 
+    {
+      "source": "17344846", 
+      "target": "20016488"
+    }, 
+    {
+      "source": "17344846", 
+      "target": "22608084"
+    }, 
+    {
+      "source": "17344846", 
+      "target": "22608083"
+    }, 
+    {
+      "source": "17344846", 
+      "target": "20033038"
+    }, 
+    {
+      "source": "24567448", 
+      "target": "19553641"
+    }, 
+    {
+      "source": "2241107", 
+      "target": "23098689"
+    }, 
+    {
+      "source": "17013392", 
+      "target": "18528521"
+    }, 
+    {
+      "source": "17013392", 
+      "target": "24860511"
+    }, 
+    {
+      "source": "16329184", 
+      "target": "24391651"
+    }, 
+    {
+      "source": "17934461", 
+      "target": "26553438"
+    }, 
+    {
+      "source": "21248752", 
+      "target": "16015333"
+    }, 
+    {
+      "source": "21248752", 
+      "target": "20826764"
+    }, 
+    {
+      "source": "21248752", 
+      "target": "19561018"
+    }, 
+    {
+      "source": "21248752", 
+      "target": "24148783"
+    }, 
+    {
+      "source": "21248752", 
+      "target": "20054297"
+    }, 
+    {
+      "source": "21248752", 
+      "target": "19330029"
+    }, 
+    {
+      "source": "21248752", 
+      "target": "24429703"
+    }, 
+    {
+      "source": "21248752", 
+      "target": "18772397"
+    }, 
+    {
+      "source": "9365836", 
+      "target": "24481202"
+    }, 
+    {
+      "source": "9365836", 
+      "target": "22567363"
+    }, 
+    {
+      "source": "19126649", 
+      "target": "26117541"
+    }, 
+    {
+      "source": "19126649", 
+      "target": "23098689"
+    }, 
+    {
+      "source": "19299558", 
+      "target": "26117541"
+    }, 
+    {
+      "source": "19299558", 
+      "target": "23098689"
+    }, 
+    {
+      "source": "14530388", 
+      "target": "24860511"
+    }, 
+    {
+      "source": "15919092", 
+      "target": "18528521"
+    }, 
+    {
+      "source": "15919092", 
+      "target": "24860511"
+    }, 
+    {
+      "source": "26647970", 
+      "target": "23318258"
+    }, 
+    {
+      "source": "26647970", 
+      "target": "20393554"
+    }, 
+    {
+      "source": "26647970", 
+      "target": "24132290"
+    }, 
+    {
+      "source": "26647970", 
+      "target": "19451168"
+    }, 
+    {
+      "source": "26647970", 
+      "target": "23945592"
+    }, 
+    {
+      "source": "26647970", 
+      "target": "23396013"
+    }, 
+    {
+      "source": "26647970", 
+      "target": "20644199"
+    }, 
+    {
+      "source": "19541911", 
+      "target": "20016488"
+    }, 
+    {
+      "source": "24092746", 
+      "target": "27135926"
+    }, 
+    {
+      "source": "25799995", 
+      "target": "25207766"
+    }, 
+    {
+      "source": "25799995", 
+      "target": "10224280"
+    }, 
+    {
+      "source": "18322535", 
+      "target": "23098689"
+    }, 
+    {
+      "source": "18322535", 
+      "target": "24860511"
+    }, 
+    {
+      "source": "23070040", 
+      "target": "25574665"
+    }, 
+    {
+      "source": "16015333", 
+      "target": "24316979"
+    }, 
+    {
+      "source": "22158988", 
+      "target": "24316979"
+    }, 
+    {
+      "source": "22158988", 
+      "target": "23945592"
+    }, 
+    {
+      "source": "17675364", 
+      "target": "22608083"
+    }, 
+    {
+      "source": "17675364", 
+      "target": "20033038"
+    }, 
+    {
+      "source": "15292512", 
+      "target": "24429703"
+    }, 
+    {
+      "source": "15292512", 
+      "target": "22608083"
+    }, 
+    {
+      "source": "16462763", 
+      "target": "24860511"
+    }, 
+    {
+      "source": "20944595", 
+      "target": "25849990"
+    }, 
+    {
+      "source": "20944595", 
+      "target": "25574665"
+    }, 
+    {
+      "source": "22521691", 
+      "target": "26117541"
+    }, 
+    {
+      "source": "22521691", 
+      "target": "23098689"
+    }, 
+    {
+      "source": "21430775", 
+      "target": "22608084"
+    }, 
+    {
+      "source": "21430775", 
+      "target": "24429703"
+    }, 
+    {
+      "source": "21430775", 
+      "target": "22608083"
+    }, 
+    {
+      "source": "24205370", 
+      "target": "15461798"
+    }, 
+    {
+      "source": "19122196", 
+      "target": "24860511"
+    }, 
+    {
+      "source": "19122196", 
+      "target": "23098689"
+    }, 
+    {
+      "source": "18372901", 
+      "target": "26553438"
+    }, 
+    {
+      "source": "18372905", 
+      "target": "26553438"
+    }, 
+    {
+      "source": "7508338", 
+      "target": "24860511"
+    }, 
+    {
+      "source": "7508338", 
+      "target": "23098689"
+    }, 
+    {
+      "source": "24030381", 
+      "target": "24443148"
+    }, 
+    {
+      "source": "24030381", 
+      "target": "25574665"
+    }, 
+    {
+      "source": "22608083", 
+      "target": "20393555"
+    }, 
+    {
+      "source": "22608083", 
+      "target": "24714652"
+    }, 
+    {
+      "source": "22608083", 
+      "target": "24443148"
+    }, 
+    {
+      "source": "22608083", 
+      "target": "21160474"
+    }, 
+    {
+      "source": "22608083", 
+      "target": "22237025"
+    }, 
+    {
+      "source": "22608083", 
+      "target": "20016485"
+    }, 
+    {
+      "source": "22608083", 
+      "target": "27135926"
+    }, 
+    {
+      "source": "22608083", 
+      "target": "20016488"
+    }, 
+    {
+      "source": "22608083", 
+      "target": "20164919"
+    }, 
+    {
+      "source": "22608083", 
+      "target": "19812674"
+    }, 
+    {
+      "source": "22608083", 
+      "target": "23945592"
+    }, 
+    {
+      "source": "22608083", 
+      "target": "27498871"
+    }, 
+    {
+      "source": "22608083", 
+      "target": "27615322"
+    }, 
+    {
+      "source": "22608083", 
+      "target": "21994251"
+    }, 
+    {
+      "source": "22608083", 
+      "target": "12204535"
+    }, 
+    {
+      "source": "22608083", 
+      "target": "24429703"
+    }, 
+    {
+      "source": "22608083", 
+      "target": "21995386"
+    }, 
+    {
+      "source": "22608083", 
+      "target": "19360079"
+    }, 
+    {
+      "source": "22608083", 
+      "target": "20837533"
+    }, 
+    {
+      "source": "22608083", 
+      "target": "18772397"
+    }, 
+    {
+      "source": "22608083", 
+      "target": "20981101"
+    }, 
+    {
+      "source": "21720365", 
+      "target": "23535730"
+    }, 
+    {
+      "source": "21720365", 
+      "target": "22536442"
+    }, 
+    {
+      "source": "21531982", 
+      "target": "24316979"
+    }, 
+    {
+      "source": "21531982", 
+      "target": "25849990"
+    }, 
+    {
+      "source": "16322242", 
+      "target": "18528521"
+    }, 
+    {
+      "source": "16322242", 
+      "target": "25691811"
+    }, 
+    {
+      "source": "19487572", 
+      "target": "24860511"
+    }, 
+    {
+      "source": "15837627", 
+      "target": "24481202"
+    }, 
+    {
+      "source": "15837627", 
+      "target": "25691811"
+    }, 
+    {
+      "source": "7883998", 
+      "target": "24860511"
+    }, 
+    {
+      "source": "25355519", 
+      "target": "20562413"
+    }, 
+    {
+      "source": "25355519", 
+      "target": "20393554"
+    }, 
+    {
+      "source": "25355519", 
+      "target": "26618344"
+    }, 
+    {
+      "source": "25355519", 
+      "target": "15188009"
+    }, 
+    {
+      "source": "25355519", 
+      "target": "14993899"
+    }, 
+    {
+      "source": "16646809", 
+      "target": "25574665"
+    }, 
+    {
+      "source": "25691811", 
+      "target": "17360475"
+    }, 
+    {
+      "source": "25691811", 
+      "target": "21203400"
+    }, 
+    {
+      "source": "25691811", 
+      "target": "22184410"
+    }, 
+    {
+      "source": "25691811", 
+      "target": "19169242"
+    }, 
+    {
+      "source": "25691811", 
+      "target": "17845852"
+    }, 
+    {
+      "source": "25691811", 
+      "target": "6776413"
+    }, 
+    {
+      "source": "25691811", 
+      "target": "22642671"
+    }, 
+    {
+      "source": "25691811", 
+      "target": "22223823"
+    }, 
+    {
+      "source": "25691811", 
+      "target": "9212098"
+    }, 
+    {
+      "source": "25691811", 
+      "target": "24900187"
+    }, 
+    {
+      "source": "25691811", 
+      "target": "18480811"
+    }, 
+    {
+      "source": "25691811", 
+      "target": "18772113"
+    }, 
+    {
+      "source": "17251918", 
+      "target": "27307795"
+    }, 
+    {
+      "source": "17251918", 
+      "target": "25574665"
+    }, 
+    {
+      "source": "18509362", 
+      "target": "24860511"
+    }, 
+    {
+      "source": "22980975", 
+      "target": "24316979"
+    }, 
+    {
+      "source": "22980975", 
+      "target": "23945592"
+    }, 
+    {
+      "source": "20610543", 
+      "target": "22699290"
+    }, 
+    {
+      "source": "20610543", 
+      "target": "24391651"
+    }, 
+    {
+      "source": "27459855", 
+      "target": "20852631"
+    }, 
+    {
+      "source": "27459855", 
+      "target": "22955989"
+    }, 
+    {
+      "source": "27459855", 
+      "target": "22522925"
+    }, 
+    {
+      "source": "27459855", 
+      "target": "22064851"
+    }, 
+    {
+      "source": "27459855", 
+      "target": "22492648"
+    }, 
+    {
+      "source": "17247004", 
+      "target": "24481202"
+    }, 
+    {
+      "source": "17247004", 
+      "target": "22567363"
+    }, 
+    {
+      "source": "20562413", 
+      "target": "23028338"
+    }, 
+    {
+      "source": "20837533", 
+      "target": "24429703"
+    }, 
+    {
+      "source": "20837533", 
+      "target": "27615322"
+    }, 
+    {
+      "source": "20837533", 
+      "target": "22608084"
+    }, 
+    {
+      "source": "20837533", 
+      "target": "24148783"
+    }, 
+    {
+      "source": "20837533", 
+      "target": "27135926"
+    }, 
+    {
+      "source": "20164919", 
+      "target": "22608084"
+    }, 
+    {
+      "source": "23178257", 
+      "target": "24860511"
+    }, 
+    {
+      "source": "22898679", 
+      "target": "11287973"
+    }, 
+    {
+      "source": "22898679", 
+      "target": "10749961"
+    }, 
+    {
+      "source": "12239137", 
+      "target": "25849990"
+    }, 
+    {
+      "source": "12239137", 
+      "target": "22567363"
+    }, 
+    {
+      "source": "27615322", 
+      "target": "23622249"
+    }, 
+    {
+      "source": "27615322", 
+      "target": "20016488"
+    }, 
+    {
+      "source": "27615322", 
+      "target": "27135926"
+    }, 
+    {
+      "source": "27615322", 
+      "target": "23945592"
+    }, 
+    {
+      "source": "27615322", 
+      "target": "24429703"
+    }, 
+    {
+      "source": "27615322", 
+      "target": "20080505"
+    }, 
+    {
+      "source": "27615322", 
+      "target": "22608084"
+    }, 
+    {
+      "source": "27615322", 
+      "target": "20981101"
+    }, 
+    {
+      "source": "23028338", 
+      "target": "20354512"
+    }, 
+    {
+      "source": "23028338", 
+      "target": "19451168"
+    }, 
+    {
+      "source": "23028338", 
+      "target": "9497246"
+    }, 
+    {
+      "source": "23028338", 
+      "target": "11337480"
+    }, 
+    {
+      "source": "23028338", 
+      "target": "20644199"
+    }, 
+    {
+      "source": "17855664", 
+      "target": "23098689"
+    }, 
+    {
+      "source": "23389445", 
+      "target": "23945592"
+    }, 
+    {
+      "source": "23389445", 
+      "target": "24148783"
+    }, 
+    {
+      "source": "12684393", 
+      "target": "26117541"
+    }, 
+    {
+      "source": "12684393", 
+      "target": "23098689"
+    }, 
+    {
+      "source": "11030619", 
+      "target": "26117541"
+    }, 
+    {
+      "source": "11030619", 
+      "target": "23098689"
+    }, 
+    {
+      "source": "17062566", 
+      "target": "18528521"
+    }, 
+    {
+      "source": "22754791", 
+      "target": "27765926"
+    }, 
+    {
+      "source": "22754791", 
+      "target": "27102296"
+    }, 
+    {
+      "source": "14527417", 
+      "target": "26117541"
+    }, 
+    {
+      "source": "14527417", 
+      "target": "23098689"
+    }, 
+    {
+      "source": "9625766", 
+      "target": "27102296"
+    }, 
+    {
+      "source": "6946774", 
+      "target": "23098689"
+    }, 
+    {
+      "source": "20091860", 
+      "target": "26117541"
+    }, 
+    {
+      "source": "16086669", 
+      "target": "18528521"
+    }, 
+    {
+      "source": "16086669", 
+      "target": "23098689"
+    }, 
+    {
+      "source": "21994251", 
+      "target": "24670643"
+    }, 
+    {
+      "source": "22895193", 
+      "target": "24316979"
+    }, 
+    {
+      "source": "22895193", 
+      "target": "23945592"
+    }, 
+    {
+      "source": "20393555", 
+      "target": "22608084"
+    }, 
+    {
+      "source": "20393554", 
+      "target": "23945592"
+    }, 
+    {
+      "source": "20393554", 
+      "target": "22608084"
+    }, 
+    {
+      "source": "22197930", 
+      "target": "23945592"
+    }, 
+    {
+      "source": "22197930", 
+      "target": "24148783"
+    }, 
+    {
+      "source": "20644199", 
+      "target": "22536442"
+    }, 
+    {
+      "source": "22842228", 
+      "target": "24316979"
+    }, 
+    {
+      "source": "22842228", 
+      "target": "24148783"
+    }, 
+    {
+      "source": "20385089", 
+      "target": "23098689"
+    }, 
+    {
+      "source": "20385089", 
+      "target": "24860511"
+    }, 
+    {
+      "source": "16751179", 
+      "target": "26117541"
+    }, 
+    {
+      "source": "10219069", 
+      "target": "20033038"
+    }, 
+    {
+      "source": "10219069", 
+      "target": "23399893"
+    }, 
+    {
+      "source": "21846776", 
+      "target": "26117541"
+    }, 
+    {
+      "source": "21846776", 
+      "target": "23098689"
+    }, 
+    {
+      "source": "21846776", 
+      "target": "24860511"
+    }, 
+    {
+      "source": "20227041", 
+      "target": "24860511"
+    }, 
+    {
+      "source": "19098224", 
+      "target": "24860511"
+    }, 
+    {
+      "source": "19098224", 
+      "target": "26117541"
+    }, 
+    {
+      "source": "19098224", 
+      "target": "23098689"
+    }, 
+    {
+      "source": "22064851", 
+      "target": "25849990"
+    }, 
+    {
+      "source": "11337480", 
+      "target": "26553438"
+    }, 
+    {
+      "source": "23266556", 
+      "target": "26553438"
+    }, 
+    {
+      "source": "21479216", 
+      "target": "19297565"
+    }, 
+    {
+      "source": "16651407", 
+      "target": "24860511"
+    }, 
+    {
+      "source": "18987736", 
+      "target": "22608084"
+    }, 
+    {
+      "source": "18987736", 
+      "target": "20016488"
+    }, 
+    {
+      "source": "15868450", 
+      "target": "23098689"
+    }, 
+    {
+      "source": "21546393", 
+      "target": "26117541"
+    }, 
+    {
+      "source": "21546393", 
+      "target": "24549417"
+    }, 
+    {
+      "source": "12379884", 
+      "target": "23945592"
+    }, 
+    {
+      "source": "12379884", 
+      "target": "22608084"
+    }, 
+    {
+      "source": "12379884", 
+      "target": "20016488"
+    }, 
+    {
+      "source": "22492648", 
+      "target": "26618344"
+    }, 
+    {
+      "source": "20852631", 
+      "target": "23535730"
+    }, 
+    {
+      "source": "23128226", 
+      "target": "24316979"
+    }, 
+    {
+      "source": "23128226", 
+      "target": "23945592"
+    }, 
+    {
+      "source": "16406067", 
+      "target": "24860511"
+    }, 
+    {
+      "source": "26618344", 
+      "target": "16199517"
+    }, 
+    {
+      "source": "26618344", 
+      "target": "15461798"
+    }, 
+    {
+      "source": "26618344", 
+      "target": "22522925"
+    }, 
+    {
+      "source": "24159160", 
+      "target": "27765926"
+    }, 
+    {
+      "source": "24159160", 
+      "target": "27102296"
+    }, 
+    {
+      "source": "23143597", 
+      "target": "24316979"
+    }, 
+    {
+      "source": "23143597", 
+      "target": "23945592"
+    }, 
+    {
+      "source": "24443148", 
+      "target": "8668867"
+    }, 
+    {
+      "source": "24443148", 
+      "target": "21436442"
+    }, 
+    {
+      "source": "24443148", 
+      "target": "20080505"
+    }, 
+    {
+      "source": "24443148", 
+      "target": "22722201"
+    }, 
+    {
+      "source": "24443148", 
+      "target": "23396013"
+    }, 
+    {
+      "source": "24443148", 
+      "target": "21995386"
+    }, 
+    {
+      "source": "24443148", 
+      "target": "21998214"
+    }, 
+    {
+      "source": "21499247", 
+      "target": "24316979"
+    }, 
+    {
+      "source": "21499247", 
+      "target": "24148783"
+    }, 
+    {
+      "source": "11948134", 
+      "target": "18528521"
+    }, 
+    {
+      "source": "11948134", 
+      "target": "26117541"
+    }, 
+    {
+      "source": "11948134", 
+      "target": "23098689"
+    }, 
+    {
+      "source": "10891514", 
+      "target": "23535730"
+    }, 
+    {
+      "source": "10891514", 
+      "target": "26553438"
+    }, 
+    {
+      "source": "22484628", 
+      "target": "24316979"
+    }, 
+    {
+      "source": "22484628", 
+      "target": "23945592"
+    }, 
+    {
+      "source": "27498871", 
+      "target": "19812674"
+    }, 
+    {
+      "source": "27498871", 
+      "target": "22522925"
+    }, 
+    {
+      "source": "27498871", 
+      "target": "10963602"
+    }, 
+    {
+      "source": "27498871", 
+      "target": "19360079"
+    }, 
+    {
+      "source": "27498871", 
+      "target": "22608084"
+    }, 
+    {
+      "source": "27498871", 
+      "target": "23636398"
+    }, 
+    {
+      "source": "27498871", 
+      "target": "20033038"
+    }, 
+    {
+      "source": "21798897", 
+      "target": "24316979"
+    }, 
+    {
+      "source": "21798897", 
+      "target": "23945592"
+    }, 
+    {
+      "source": "24670643", 
+      "target": "18438408"
+    }, 
+    {
+      "source": "24670643", 
+      "target": "20981101"
+    }, 
+    {
+      "source": "24670643", 
+      "target": "19360079"
+    }, 
+    {
+      "source": "21890490", 
+      "target": "23098689"
+    }, 
+    {
+      "source": "21890490", 
+      "target": "24860511"
+    }, 
+    {
+      "source": "16741990", 
+      "target": "24860511"
+    }, 
+    {
+      "source": "24860511", 
+      "target": "15300237"
+    }, 
+    {
+      "source": "24860511", 
+      "target": "9278857"
+    }, 
+    {
+      "source": "24860511", 
+      "target": "23622244"
+    }, 
+    {
+      "source": "24860511", 
+      "target": "21241896"
+    }, 
+    {
+      "source": "24860511", 
+      "target": "11313934"
+    }, 
+    {
+      "source": "24860511", 
+      "target": "18766170"
+    }, 
+    {
+      "source": "24860511", 
+      "target": "18663219"
+    }, 
+    {
+      "source": "24860511", 
+      "target": "22108803"
+    }, 
+    {
+      "source": "24860511", 
+      "target": "18322525"
+    }, 
+    {
+      "source": "24860511", 
+      "target": "16923398"
+    }, 
+    {
+      "source": "24860511", 
+      "target": "23715323"
+    }, 
+    {
+      "source": "24860511", 
+      "target": "19738047"
+    }, 
+    {
+      "source": "24860511", 
+      "target": "17571346"
+    }, 
+    {
+      "source": "24860511", 
+      "target": "20736230"
+    }, 
+    {
+      "source": "24860511", 
+      "target": "19351832"
+    }, 
+    {
+      "source": "24860511", 
+      "target": "19185382"
+    }, 
+    {
+      "source": "24860511", 
+      "target": "18776219"
+    }, 
+    {
+      "source": "24860511", 
+      "target": "22955989"
+    }, 
+    {
+      "source": "24860511", 
+      "target": "22955972"
+    }, 
+    {
+      "source": "24860511", 
+      "target": "23193274"
+    }, 
+    {
+      "source": "24860511", 
+      "target": "8566748"
+    }, 
+    {
+      "source": "24860511", 
+      "target": "22962707"
+    }, 
+    {
+      "source": "24860511", 
+      "target": "24583788"
+    }, 
+    {
+      "source": "24860511", 
+      "target": "16434701"
+    }, 
+    {
+      "source": "24860511", 
+      "target": "14675539"
+    }, 
+    {
+      "source": "24860511", 
+      "target": "17999998"
+    }, 
+    {
+      "source": "24860511", 
+      "target": "10877839"
+    }, 
+    {
+      "source": "24860511", 
+      "target": "11470825"
+    }, 
+    {
+      "source": "24860511", 
+      "target": "12667452"
+    }, 
+    {
+      "source": "13298683", 
+      "target": "18528521"
+    }, 
+    {
+      "source": "24366519", 
+      "target": "27765926"
+    }, 
+    {
+      "source": "24366519", 
+      "target": "27102296"
+    }, 
+    {
+      "source": "24714652", 
+      "target": "24316979"
+    }, 
+    {
+      "source": "24714652", 
+      "target": "22722201"
+    }, 
+    {
+      "source": "24714652", 
+      "target": "24413735"
+    }, 
+    {
+      "source": "24714652", 
+      "target": "23945592"
+    }, 
+    {
+      "source": "24714652", 
+      "target": "16783027"
+    }, 
+    {
+      "source": "24714652", 
+      "target": "19360079"
+    }, 
+    {
+      "source": "24714652", 
+      "target": "21995386"
+    }, 
+    {
+      "source": "24714652", 
+      "target": "20080505"
+    }, 
+    {
+      "source": "24714652", 
+      "target": "22608084"
+    }, 
+    {
+      "source": "24714652", 
+      "target": "20033038"
+    }, 
+    {
+      "source": "24714652", 
+      "target": "20981101"
+    }, 
+    {
+      "source": "22941189", 
+      "target": "24316979"
+    }, 
+    {
+      "source": "22941189", 
+      "target": "23945592"
+    }, 
+    {
+      "source": "22941188", 
+      "target": "24316979"
+    }, 
+    {
+      "source": "22941188", 
+      "target": "23945592"
+    }, 
+    {
+      "source": "23539594", 
+      "target": "25574665"
+    }, 
+    {
+      "source": "23539594", 
+      "target": "26117541"
+    }, 
+    {
+      "source": "23539594", 
+      "target": "24429703"
+    }, 
+    {
+      "source": "22955972", 
+      "target": "26117541"
+    }, 
+    {
+      "source": "18528521", 
+      "target": "15300237"
+    }, 
+    {
+      "source": "18528521", 
+      "target": "10944117"
+    }, 
+    {
+      "source": "18528521", 
+      "target": "16923398"
+    }, 
+    {
+      "source": "18528521", 
+      "target": "16923397"
+    }, 
+    {
+      "source": "18528521", 
+      "target": "12667452"
+    }, 
+    {
+      "source": "18528521", 
+      "target": "10647931"
+    }, 
+    {
+      "source": "18528521", 
+      "target": "14675539"
+    }, 
+    {
+      "source": "19360079", 
+      "target": "23945592"
+    }, 
+    {
+      "source": "19360079", 
+      "target": "20016488"
+    }, 
+    {
+      "source": "19360079", 
+      "target": "22608084"
+    }, 
+    {
+      "source": "19360079", 
+      "target": "27135926"
+    }, 
+    {
+      "source": "19360079", 
+      "target": "20033038"
+    }, 
+    {
+      "source": "23201682", 
+      "target": "24316979"
+    }, 
+    {
+      "source": "23201682", 
+      "target": "23945592"
+    }, 
+    {
+      "source": "22281684", 
+      "target": "24429703"
+    }, 
+    {
+      "source": "16199517", 
+      "target": "24549417"
+    }, 
+    {
+      "source": "20513432", 
+      "target": "26117541"
+    }, 
+    {
+      "source": "24836286", 
+      "target": "26553438"
+    }, 
+    {
+      "source": "14993899", 
+      "target": "22536442"
+    }, 
+    {
+      "source": "14993899", 
+      "target": "20033038"
+    }, 
+    {
+      "source": "14993899", 
+      "target": "24148783"
+    }, 
+    {
+      "source": "25688242", 
+      "target": "27765926"
+    }, 
+    {
+      "source": "25688242", 
+      "target": "27102296"
+    }, 
+    {
+      "source": "21221095", 
+      "target": "22536442"
+    }, 
+    {
+      "source": "21221095", 
+      "target": "24148783"
+    }, 
+    {
+      "source": "18772397", 
+      "target": "20016488"
+    }, 
+    {
+      "source": "24148783", 
+      "target": "20016488"
+    }, 
+    {
+      "source": "24148783", 
+      "target": "23348503"
+    }, 
+    {
+      "source": "24148783", 
+      "target": "22722201"
+    }, 
+    {
+      "source": "24148783", 
+      "target": "19561018"
+    }, 
+    {
+      "source": "24148783", 
+      "target": "22057237"
+    }, 
+    {
+      "source": "24148783", 
+      "target": "22622578"
+    }, 
+    {
+      "source": "24148783", 
+      "target": "22608084"
+    }, 
+    {
+      "source": "24148783", 
+      "target": "16783027"
+    }, 
+    {
+      "source": "24148783", 
+      "target": "22817889"
+    }, 
+    {
+      "source": "24148783", 
+      "target": "23348506"
+    }, 
+    {
+      "source": "24148783", 
+      "target": "22517427"
+    }, 
+    {
+      "source": "24148783", 
+      "target": "20080505"
+    }, 
+    {
+      "source": "18077718", 
+      "target": "27102296"
+    }, 
+    {
+      "source": "8668867", 
+      "target": "25574665"
+    }, 
+    {
+      "source": "18412986", 
+      "target": "23098689"
+    }, 
+    {
+      "source": "22037554", 
+      "target": "24316979"
+    }, 
+    {
+      "source": "22037554", 
+      "target": "23945592"
+    }, 
+    {
+      "source": "23318258", 
+      "target": "27135926"
+    }, 
+    {
+      "source": "23318258", 
+      "target": "23945592"
+    }, 
+    {
+      "source": "23318258", 
+      "target": "24429703"
+    }, 
+    {
+      "source": "12520532", 
+      "target": "23098689"
+    }, 
+    {
+      "source": "7566127", 
+      "target": "26117541"
+    }, 
+    {
+      "source": "7566127", 
+      "target": "23098689"
+    }, 
+    {
+      "source": "24390350", 
+      "target": "27135926"
+    }, 
+    {
+      "source": "24390350", 
+      "target": "26553438"
+    }, 
+    {
+      "source": "11287973", 
+      "target": "23399893"
+    }, 
+    {
+      "source": "11075874", 
+      "target": "23098689"
+    }, 
+    {
+      "source": "25574665", 
+      "target": "21998214"
+    }, 
+    {
+      "source": "25574665", 
+      "target": "22897849"
+    }, 
+    {
+      "source": "25574665", 
+      "target": "21436442"
+    }, 
+    {
+      "source": "25574665", 
+      "target": "18772890"
+    }, 
+    {
+      "source": "25574665", 
+      "target": "24220272"
+    }, 
+    {
+      "source": "22608084", 
+      "target": "19553641"
+    }, 
+    {
+      "source": "22608084", 
+      "target": "27135926"
+    }, 
+    {
+      "source": "22608084", 
+      "target": "20016485"
+    }, 
+    {
+      "source": "22608084", 
+      "target": "24316979"
+    }, 
+    {
+      "source": "22608084", 
+      "target": "19023283"
+    }, 
+    {
+      "source": "22608084", 
+      "target": "20016488"
+    }, 
+    {
+      "source": "22608084", 
+      "target": "19812674"
+    }, 
+    {
+      "source": "22608084", 
+      "target": "18438408"
+    }, 
+    {
+      "source": "22608084", 
+      "target": "15748635"
+    }, 
+    {
+      "source": "22608084", 
+      "target": "21436442"
+    }, 
+    {
+      "source": "22608084", 
+      "target": "19657110"
+    }, 
+    {
+      "source": "22608084", 
+      "target": "17485671"
+    }, 
+    {
+      "source": "22608084", 
+      "target": "23945592"
+    }, 
+    {
+      "source": "22608084", 
+      "target": "10963602"
+    }, 
+    {
+      "source": "22608084", 
+      "target": "19287394"
+    }, 
+    {
+      "source": "22608084", 
+      "target": "19451168"
+    }, 
+    {
+      "source": "22608084", 
+      "target": "19561018"
+    }, 
+    {
+      "source": "22608084", 
+      "target": "24429703"
+    }, 
+    {
+      "source": "22608084", 
+      "target": "21307934"
+    }, 
+    {
+      "source": "22608084", 
+      "target": "20033038"
+    }, 
+    {
+      "source": "19287394", 
+      "target": "27135926"
+    }, 
+    {
+      "source": "15300237", 
+      "target": "23098689"
+    }, 
+    {
+      "source": "15300237", 
+      "target": "26117541"
+    }, 
+    {
+      "source": "23518691", 
+      "target": "27765926"
+    }, 
+    {
+      "source": "7660125", 
+      "target": "24316979"
+    }, 
+    {
+      "source": "21796119", 
+      "target": "24316979"
+    }, 
+    {
+      "source": "21796119", 
+      "target": "23945592"
+    }, 
+    {
+      "source": "20981101", 
+      "target": "24429703"
+    }, 
+    {
+      "source": "20981101", 
+      "target": "22567363"
+    }, 
+    {
+      "source": "15461798", 
+      "target": "26117541"
+    }, 
+    {
+      "source": "17618284", 
+      "target": "26553438"
+    }, 
+    {
+      "source": "10963602", 
+      "target": "20033038"
+    }, 
+    {
+      "source": "20080505", 
+      "target": "24429703"
+    }, 
+    {
+      "source": "18316005", 
+      "target": "20016488"
+    }, 
+    {
+      "source": "7566114", 
+      "target": "26117541"
+    }, 
+    {
+      "source": "7566114", 
+      "target": "23098689"
+    }, 
+    {
+      "source": "22588877", 
+      "target": "26553438"
+    }, 
+    {
+      "source": "22588877", 
+      "target": "25825497"
+    }, 
+    {
+      "source": "26553438", 
+      "target": "20354512"
+    }, 
+    {
+      "source": "26553438", 
+      "target": "22955989"
+    }, 
+    {
+      "source": "26553438", 
+      "target": "24316577"
+    }, 
+    {
+      "source": "26553438", 
+      "target": "21655089"
+    }, 
+    {
+      "source": "26553438", 
+      "target": "23550210"
+    }, 
+    {
+      "source": "10749961", 
+      "target": "23399893"
+    }, 
+    {
+      "source": "26082773", 
+      "target": "27765926"
+    }, 
+    {
+      "source": "9278857", 
+      "target": "23098689"
+    }, 
+    {
+      "source": "21504715", 
+      "target": "24481202"
+    }, 
+    {
+      "source": "21504715", 
+      "target": "22567363"
+    }, 
+    {
+      "source": "23945592", 
+      "target": "20826764"
+    }, 
+    {
+      "source": "23945592", 
+      "target": "19023283"
+    }, 
+    {
+      "source": "23945592", 
+      "target": "27135926"
+    }, 
+    {
+      "source": "23945592", 
+      "target": "22237025"
+    }, 
+    {
+      "source": "23945592", 
+      "target": "22810696"
+    }, 
+    {
+      "source": "23945592", 
+      "target": "15748635"
+    }, 
+    {
+      "source": "23945592", 
+      "target": "22817890"
+    }, 
+    {
+      "source": "23945592", 
+      "target": "22622578"
+    }, 
+    {
+      "source": "23945592", 
+      "target": "23334666"
+    }, 
+    {
+      "source": "23945592", 
+      "target": "21252315"
+    }, 
+    {
+      "source": "23945592", 
+      "target": "23334668"
+    }, 
+    {
+      "source": "23945592", 
+      "target": "22817889"
+    }, 
+    {
+      "source": "23945592", 
+      "target": "18948947"
+    }, 
+    {
+      "source": "23945592", 
+      "target": "22975805"
+    }, 
+    {
+      "source": "23945592", 
+      "target": "24429703"
+    }, 
+    {
+      "source": "23945592", 
+      "target": "11125122"
+    }, 
+    {
+      "source": "23945592", 
+      "target": "23202128"
+    }, 
+    {
+      "source": "23945592", 
+      "target": "22610119"
+    }, 
+    {
+      "source": "23945592", 
+      "target": "22722201"
+    }, 
+    {
+      "source": "23945592", 
+      "target": "23636398"
+    }, 
+    {
+      "source": "23945592", 
+      "target": "21307934"
+    }, 
+    {
+      "source": "22962707", 
+      "target": "26117541"
+    }, 
+    {
+      "source": "19451168", 
+      "target": "27135926"
+    }, 
+    {
+      "source": "24429703", 
+      "target": "21160474"
+    }, 
+    {
+      "source": "24429703", 
+      "target": "22722201"
+    }, 
+    {
+      "source": "24429703", 
+      "target": "19561018"
+    }, 
+    {
+      "source": "24429703", 
+      "target": "23103869"
+    }, 
+    {
+      "source": "24429703", 
+      "target": "22460902"
+    }, 
+    {
+      "source": "24429703", 
+      "target": "16783027"
+    }, 
+    {
+      "source": "24429703", 
+      "target": "21410373"
+    }, 
+    {
+      "source": "24429703", 
+      "target": "21995386"
+    }, 
+    {
+      "source": "24429703", 
+      "target": "22817890"
+    }, 
+    {
+      "source": "15598662", 
+      "target": "26117541"
+    }, 
+    {
+      "source": "15598662", 
+      "target": "23098689"
+    }, 
+    {
+      "source": "19528259", 
+      "target": "27765926"
+    }, 
+    {
+      "source": "11470825", 
+      "target": "23098689"
+    }, 
+    {
+      "source": "22975805", 
+      "target": "24316979"
+    }, 
+    {
+      "source": "21241896", 
+      "target": "25849990"
+    }, 
+    {
+      "source": "27307795", 
+      "target": "22740453"
+    }, 
+    {
+      "source": "21637284", 
+      "target": "9212098"
+    }, 
+    {
+      "source": "22522925", 
+      "target": "27135926"
+    }, 
+    {
+      "source": "23193274", 
+      "target": "26117541"
+    }, 
+    {
+      "source": "19553641", 
+      "target": "27135926"
+    }, 
+    {
+      "source": "16434701", 
+      "target": "23098689"
+    }, 
+    {
+      "source": "27765926", 
+      "target": "18006589"
+    }, 
+    {
+      "source": "27765926", 
+      "target": "15941912"
+    }, 
+    {
+      "source": "27765926", 
+      "target": "27102296"
+    }, 
+    {
+      "source": "24316577", 
+      "target": "25849990"
+    }, 
+    {
+      "source": "23334666", 
+      "target": "24316979"
+    }, 
+    {
+      "source": "163658", 
+      "target": "26117541"
+    }, 
+    {
+      "source": "163658", 
+      "target": "23399893"
+    }, 
+    {
+      "source": "22740453", 
+      "target": "24316979"
+    }, 
+    {
+      "source": "15452344", 
+      "target": "26117541"
+    }, 
+    {
+      "source": "15452344", 
+      "target": "23098689"
+    }, 
+    {
+      "source": "20645416", 
+      "target": "24481202"
+    }, 
+    {
+      "source": "20645416", 
+      "target": "22567363"
+    }, 
+    {
+      "source": "11536166", 
+      "target": "27102296"
+    }, 
+    {
+      "source": "16783027", 
+      "target": "24316979"
+    }, 
+    {
+      "source": "16783027", 
+      "target": "27135926"
+    }, 
+    {
+      "source": "24316979", 
+      "target": "20826764"
+    }, 
+    {
+      "source": "24316979", 
+      "target": "20354512"
+    }, 
+    {
+      "source": "24316979", 
+      "target": "23103869"
+    }, 
+    {
+      "source": "24316979", 
+      "target": "22610119"
+    }, 
+    {
+      "source": "24316979", 
+      "target": "22622578"
+    }, 
+    {
+      "source": "24316979", 
+      "target": "22057237"
+    }, 
+    {
+      "source": "24316979", 
+      "target": "21252315"
+    }, 
+    {
+      "source": "24316979", 
+      "target": "22722201"
+    }, 
+    {
+      "source": "24316979", 
+      "target": "21307934"
+    }, 
+    {
+      "source": "24316979", 
+      "target": "11125122"
+    }, 
+    {
+      "source": "24316979", 
+      "target": "23202128"
+    }, 
+    {
+      "source": "24316979", 
+      "target": "22460902"
+    }, 
+    {
+      "source": "18772890", 
+      "target": "20033038"
+    }, 
+    {
+      "source": "23887589", 
+      "target": "27135926"
+    }, 
+    {
+      "source": "18636162", 
+      "target": "23098689"
+    }, 
+    {
+      "source": "23098689", 
+      "target": "18322525"
+    }, 
+    {
+      "source": "23098689", 
+      "target": "15958597"
+    }, 
+    {
+      "source": "23098689", 
+      "target": "11313934"
+    }, 
+    {
+      "source": "23098689", 
+      "target": "16019133"
+    }, 
+    {
+      "source": "23098689", 
+      "target": "16923397"
+    }, 
+    {
+      "source": "23098689", 
+      "target": "22266197"
+    }, 
+    {
+      "source": "23098689", 
+      "target": "22465074"
+    }, 
+    {
+      "source": "23098689", 
+      "target": "11720436"
+    }, 
+    {
+      "source": "23098689", 
+      "target": "8566748"
+    }, 
+    {
+      "source": "23098689", 
+      "target": "6946446"
+    }, 
+    {
+      "source": "23098689", 
+      "target": "19185382"
+    }, 
+    {
+      "source": "23098689", 
+      "target": "11042697"
+    }, 
+    {
+      "source": "23098689", 
+      "target": "16254181"
+    }, 
+    {
+      "source": "23098689", 
+      "target": "16609009"
+    }, 
+    {
+      "source": "23098689", 
+      "target": "10944117"
+    }, 
+    {
+      "source": "23399893", 
+      "target": "10224280"
+    }, 
+    {
+      "source": "16019133", 
+      "target": "26117541"
+    }, 
+    {
+      "source": "9497246", 
+      "target": "15217503"
+    }, 
+    {
+      "source": "18438408", 
+      "target": "20016488"
+    }, 
+    {
+      "source": "18438408", 
+      "target": "20033038"
+    }, 
+    {
+      "source": "21410373", 
+      "target": "24391651"
+    }, 
+    {
+      "source": "22955989", 
+      "target": "25849990"
+    }, 
+    {
+      "source": "19330029", 
+      "target": "20016488"
+    }, 
+    {
+      "source": "23348506", 
+      "target": "27135926"
+    }, 
+    {
+      "source": "27102296", 
+      "target": "15941912"
+    }, 
+    {
+      "source": "22266197", 
+      "target": "26117541"
+    }, 
+    {
+      "source": "10944117", 
+      "target": "26117541"
+    }, 
+    {
+      "source": "22465074", 
+      "target": "26117541"
+    }, 
+    {
+      "source": "16609009", 
+      "target": "26117541"
+    }, 
+    {
+      "source": "22536442", 
+      "target": "8631002"
+    }, 
+    {
+      "source": "19185382", 
+      "target": "26117541"
+    }, 
+    {
+      "source": "27135926", 
+      "target": "20016488"
+    }, 
+    {
+      "source": "27135926", 
+      "target": "20016485"
+    }, 
+    {
+      "source": "27135926", 
+      "target": "19561018"
+    }, 
+    {
+      "source": "27135926", 
+      "target": "22722201"
+    }, 
+    {
+      "source": "27135926", 
+      "target": "25261935"
+    }, 
+    {
+      "source": "20016488", 
+      "target": "18948947"
+    }, 
+    {
+      "source": "9212098", 
+      "target": "25180064"
+    }, 
+    {
+      "source": "23375020", 
+      "target": "26117541"
+    }, 
+    {
+      "source": "22567363", 
+      "target": "12204535"
+    }, 
+    {
+      "source": "26117541", 
+      "target": "22722201"
+    }, 
+    {
+      "source": "8631002", 
+      "target": "15217503"
+    }, 
+    {
+      "source": "16254181", 
+      "target": "20033038"
+    }
+  ], 
+  "multigraph": false
+}
