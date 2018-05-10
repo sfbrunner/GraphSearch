@@ -51,10 +51,10 @@ cytoscape.use( euler );
 var searchedNodeStyle = {
     selector: "node[group = 'Searched']",
     style: {
-        'label': 'data(group)',
+        'label': 'data(journal_iso)',
         'width': '20px',
         'height': '20px',
-        'color': 'white',
+        'color': 'black',
         'background-fit': 'contain',
         'background-clip': 'none',
         'background-color': '#004cc6',
@@ -74,10 +74,10 @@ var searchedNodeStyle = {
 var citedNodeStyle = {
     selector: "node[group = 'Cited']",
     style: {
-        'label': 'data(group)',
+        'label': 'data(journal_iso)',
         'width': '15px',
         'height': '15px',
-        'color': 'white',
+        'color': 'black',
         'background-fit': 'contain',
         'background-clip': 'none',
         'background-color': 'data(node_col)',
@@ -747,7 +747,7 @@ class CytoGraph extends React.Component {
             style: cytoStyle,
             layout: cytoEuler,
             minZoom: 0.1,
-            maxZoom: 1.5,
+            maxZoom: 10,
             zoomingEnabled: true,
             userZoomingEnabled: true,
         });

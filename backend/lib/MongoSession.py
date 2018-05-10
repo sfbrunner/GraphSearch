@@ -118,12 +118,16 @@ class MongoSession(object):
         summaryDict['Journal'] = ''
         summaryDict['Authors'] = []
         summaryDict['PubDate'] = ''
+        summaryDict['Journaliso'] = ''
         
         if 'title' in meta_doc:
             summaryDict['Title'] = meta_doc['title']
             
         if 'journal' in meta_doc:
                 summaryDict['Journal'] = meta_doc['journal']
+            
+        if 'journal_iso' in meta_doc:
+                summaryDict['Journaliso'] = meta_doc['journal_iso']
         
         if 'authors' in meta_doc:
             if len(meta_doc['authors']) > 0:

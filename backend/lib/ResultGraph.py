@@ -92,10 +92,11 @@ class ResultGraph():
 
             node_lst.append({'data': {'id':node['id'], 
                                       'name': node['id'], 
-                                      'key': node['id'],
+                                      'key': node['id'], 'label': node['journal'],
                                       'group':node['group'],
                                       'title':node['title'],
                                       'journal':node['journal'],
+                                      'journal_iso':node['journal_iso'],
                                       'pubDate':node['pubDate'],
                                       'authors':node['authors'], 'cite_color':'black', 
                                       'node_col':node_col.hex }}) #, 'label': node['id']}})
@@ -332,6 +333,7 @@ class ResultGraph():
             if len(dataDict_lst)>0:
                 dataDict = dataDict_lst[0]
                 self.G.node[node]['journal'] = dataDict['Journal']
+                self.G.node[node]['journal_iso'] = dataDict['Journaliso']
                 self.G.node[node]['title'] = dataDict['Title']
                 self.G.node[node]['pubDate'] = dataDict['PubDate']
                 self.G.node[node]['authors'] = ', '.join(dataDict['Authors'][0:3])
