@@ -8,6 +8,7 @@ from numpy import sqrt
 from colour import Color
 import colorsys
 from collections import Counter
+import itertools
 
 class ResultGraph():
 
@@ -154,7 +155,16 @@ class ResultGraph():
         top_journals = journal_counts.most_common(n_most_common)
         top_journals = ', '.join(['{0} ({1})'.format(journal[0], journal[1]) for journal in top_journals])
 
-        return({'num_results': num_results, 'num_citations': num_citations, 'num_links': num_links, 'max_degree_cited': max_degree, 'top_journals':top_journals})
+        # Get top authors
+        author_lst = [node['authors_all'] for node in n_json['nodes']]
+        author_lst = list(itertools.chain.from_iterable(author_lst))
+        author_lst = [author for author in author_lst if author!='']
+        author_counts = Counter(author_lst)
+        top_authors = author_counts.most_common(5)
+        top_authors = ', '.join(['{0} ({1})'.format(author[0], author[1]) for author in top_authors])
+
+        return({'num_results': num_results, 'num_citations': num_citations, 'num_links': num_links, 'max_degree_cited': max_degree, 
+                    'top_journals':top_journals, 'top_authors':top_authors})
 
     def get_sigma_json(self):
         n_json = json_graph.node_link_data(self.G)
