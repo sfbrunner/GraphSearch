@@ -696,6 +696,9 @@ class GraphInfo extends React.Component {
                 <div style={{whiteSpace: 'nowrap', overflow:'hidden', display:'inline-block', textAlign:'left'}}>
                     <strong>0 </strong>{ gradient_svg }<strong> {this.state.stats.max_degree_cited}</strong>
                 </div>
+                <p><br/></p>
+                <p><strong>Top journals:</strong></p>
+                <p>{ this.state.stats.top_journals }</p>
                 </Row>
             </div>
         )
