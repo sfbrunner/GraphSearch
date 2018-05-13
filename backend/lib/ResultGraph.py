@@ -7,6 +7,7 @@ log = LogHandler.get_logger('__name__')
 from numpy import sqrt
 from colour import Color
 import colorsys
+from collections import Counter
 
 class ResultGraph():
 
@@ -146,7 +147,14 @@ class ResultGraph():
         # Get max degree of citation nodes
         max_degree = self.get_max_degree_cited()
 
-        return({'num_results': num_results, 'num_citations': num_citations, 'num_links': num_links, 'max_degree_cited': max_degree})
+        # Get top journals
+        n_most_common = 5
+        journal_lst = [node['journal_iso'] for node in n_json['nodes']]
+        journal_counts = Counter(journal_lst)
+        top_journals = journal_counts.most_common(n_most_common)
+        top_journals = ', '.join(['{0} ({1})'.format(journal[0], journal[1]) for journal in top_journals])
+
+        return({'num_results': num_results, 'num_citations': num_citations, 'num_links': num_links, 'max_degree_cited': max_degree, 'top_journals':top_journals})
 
     def get_sigma_json(self):
         n_json = json_graph.node_link_data(self.G)
@@ -337,6 +345,7 @@ class ResultGraph():
                 self.G.node[node]['title'] = dataDict['Title']
                 self.G.node[node]['pubDate'] = dataDict['PubDate']
                 self.G.node[node]['authors'] = ', '.join(dataDict['Authors'][0:3])
+                self.G.node[node]['authors_all'] = dataDict['Authors']
             else:
                 node_flag_lst.append(node)
         
