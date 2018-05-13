@@ -7,3 +7,4 @@ backend/dump.rdb
 *.pyc
 *.swp
 *.log
+dump.rdb
