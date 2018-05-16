@@ -82,6 +82,7 @@
     "yargs": "^8.0.1"
   },
   "dependencies": {
+    "@data-ui/histogram": "0.0.54",
     "babel-loader": "^7.1.2",
     "babel-plugin-add-module-exports": "^0.2.1",
     "babel-plugin-react-html-attrs": "^2.1.0",
