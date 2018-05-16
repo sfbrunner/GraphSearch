@@ -8,6 +8,7 @@ import { Image, Grid, Col, Clearfix, Row } from 'react-bootstrap'
 import ReactToolip from 'react-tooltip';
 import { DotLoader } from 'react-spinners';
 import ReactGA from 'react-ga';
+import { Histogram, DensitySeries, BarSeries, withParentSize, XAxis, YAxis } from '@data-ui/histogram';
 
 window.$ = window.jQuery = require('jquery');
 var cytoscape = require('cytoscape');
@@ -647,6 +648,14 @@ export class CytoMain extends React.Component {
     }
 }
 
+const ResponsiveHistogram = withParentSize(({ parentWidth, parentHeight, ...rest}) => (
+    <Histogram
+    width={parentWidth}
+    height={parentHeight}
+    {...rest}
+    />
+));
+
 class GraphInfo extends React.Component {
     
     constructor(props){
@@ -699,6 +708,21 @@ class GraphInfo extends React.Component {
                 <p><br/></p>
                 <p><strong>Top journals: </strong>{ this.state.stats.top_journals }</p>
                 <p><strong>Top authors: </strong>{ this.state.stats.top_authors }</p>
+                </Row>
+                <Row style={cytoDivStyle}>
+                    <div style={{height:'200px'}}>
+                    <ResponsiveHistogram
+                        ariaLabel="My histogram of ..."
+                        orientation="vertical"
+                        margin={{ top: 30, right: 12, bottom: 50, left: 12}}
+                    >
+                        <BarSeries
+                            animated
+                            rawData={ [2001, 2001, 2008, 2010] }
+                        />
+                        <XAxis label='Pub year' />
+                    </ResponsiveHistogram>
+                    </div>
                 </Row>
             </div>
         )

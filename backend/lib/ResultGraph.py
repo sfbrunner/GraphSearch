@@ -354,6 +354,7 @@ class ResultGraph():
                 self.G.node[node]['journal_iso'] = dataDict['Journaliso']
                 self.G.node[node]['title'] = dataDict['Title']
                 self.G.node[node]['pubDate'] = dataDict['PubDate']
+                self.G.node[node]['year'] = dataDict['Year']
                 self.G.node[node]['authors'] = ', '.join(dataDict['Authors'][0:3])
                 self.G.node[node]['authors_all'] = dataDict['Authors']
             else:

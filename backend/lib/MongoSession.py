@@ -118,6 +118,7 @@ class MongoSession(object):
         summaryDict['Journal'] = ''
         summaryDict['Authors'] = []
         summaryDict['PubDate'] = ''
+        summaryDict['Year'] = ''
         summaryDict['Journaliso'] = ''
         
         if 'title' in meta_doc:
@@ -140,6 +141,7 @@ class MongoSession(object):
                 
         if 'year' in meta_doc:
             summaryDict['PubDate'] = summaryDict['PubDate'] + ' ' + str(meta_doc['year'])
+            summaryDict['Year'] = str(meta_doc['year'])
             
         return summaryDict
 
