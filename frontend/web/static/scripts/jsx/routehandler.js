@@ -17,7 +17,7 @@ const Layout = ({ burger, routehandler}) => (
 			<div class="col-xs-12" style={{ height:"36px" }}></div>
 			<Grid>
 				<Row className="show-grid">
-					<Col md={10} xs={12}></Col>
+					<Col md={12} xs={12}></Col>
 				</Row>
 				<Row className="show-grid">
 					<Col style={{height:"3vh"}}></Col>
@@ -39,6 +39,7 @@ class RouteHandler extends Component {
 					<Route exact path='/' component={SearchLanding} />
 					<Route path='/about' component={About} />
 					<Route path='/searchlanding' component={SearchLanding} />
+					<Route path='/searchactive' component={SearchActive} />
 				</Switch>
 			</BrowserRouter>
 		)

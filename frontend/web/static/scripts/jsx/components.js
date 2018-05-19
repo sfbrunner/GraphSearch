@@ -43,7 +43,24 @@ var divContentLanding = {
     }
 }
 
+const Request = ({ onSubmit }) => (
+    <FRC.Form onSubmit={onSubmit}>
+        <fieldset>
+            <Input
+                name="search_string"
+                layout="vertical"
+                id="search_string"
+                value="epigenetics idh oncogenic"
+                type="text"
+                help="Let us create a network of your search results."
+                addonAfter={<span type="submit" className="glyphicon glyphicon-search" defaultValue="Submit" />}
+            />
+        </fieldset>
+    </FRC.Form>
+)
+
 export class SearchLanding extends Component {
+
 	render() {
 		return (
 		  	<Grid>
@@ -53,13 +70,13 @@ export class SearchLanding extends Component {
 				    </Col>
 				</Row>
 				<Row className="show-grid">
-				    <Col md={8} xs={12}>
+				    <Col md={12} xs={12}>
             		    <h2 style={divContentLanding.h2}>GraphSearch</h2>
 					    <p></p>
 					    <p style={divContentLanding.p}>Welcome to the GraphSearch platform. Our mission is to make your biomedical literature search experience the best it can be. We take your search query and return a network of publications to you. The network contains the direct results of your search (in blue) as well as the publications they cite (in red). The structure of the network helps you to find highly cited publications and quickly identify publications that belong together.</p>
 				    </Col>
 				</Row>
-				<Row className="show-grid" md={8} xs={12}>
+				<Row className="show-grid" md={12} xs={12}>
                     <CytoMain />
 				</Row>
 			</Grid>
