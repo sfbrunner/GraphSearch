@@ -629,28 +629,25 @@ export class CytoMain extends React.Component {
         return (
             <Grid>
                 <Row className="show-grid">
-                    <Col xs={6} md={8}>
+                    <Col xs={1} md={2}></Col>
+                    <Col xs={10} md={8}>
                         <Request onSubmit={this.onSubmit} />
                     </Col>
+                    <Col xs={1} md={2}></Col>
                 </Row>
                 <Row className="show-grid">
-                    <Col xs={1} md={3}></Col>
-                    <Col xs={1} md={2}>
+                    <Col xs={1} md={4}></Col>
+                    <Col xs={1} md={4}>
                         <DotLoader color={'#000000'} loading={loading} />
                     </Col>
-                    <Col xs={1} md={3}> </Col>
+                    <Col xs={1} md={4}> </Col>
                 </Row>
                 <Row className="show-grid">
-                    <Col md={8} xs={8}>
+                    <Col md={12} xs={12}>
                         {map(keys(graphJson), id => !this.state.loading
-                            ? (this.state.foundResults ? <CytoGraph data={graphJson[id]} /> : <h2>{noRestultsString}</h2>)
+                            ? (this.state.foundResults ? <CytoGraph data={graphJson[id]}/> : <h2>{noRestultsString}</h2>)
                             : {})
                         }
-                    </Col>
-                    <Col md={3} xs={3}>
-                        {map(sortBy(keys(graphJson), [x => -x]), id => (this.state.foundResults && !this.state.loading)
-                            ? <GraphInfo data={graphJson[id]} />
-                            : {})}
                     </Col>
                 </Row>
             </Grid>
@@ -672,13 +669,23 @@ class GraphInfo extends React.Component {
     }
 
     render() {
-        var cytoDivStyle = {
-            position: 'relative', // Relative position necessary for cytoscape lib features!
-            width: '100%',
+        var statsMenuStyle = {
             backgroundColor: 'lightgrey',
             paddingRight: '20px',
             paddingLeft: '20px',
-            verticalAlign: 'middle'
+            verticalAlign: 'middle',
+            display: 'block',
+            position: 'absolute', 
+            left: '80%',
+            top:  20,
+            pointerEvents: 'all',
+            background: 'grey',
+            opacity: 0.9,
+            width: '20%',
+            height: '160px',
+            borderRadius: '7px',
+            padding: '7px',
+            zIndex: '1001'
         };
 
         var gradient_svg = <svg width="100" height="20">
@@ -696,12 +703,10 @@ class GraphInfo extends React.Component {
                 <Row style={{ height: "2vh" }}>
                     <div style={{ height: '100px' }}></div>
                 </Row>
-                <Row style={cytoDivStyle}>
-                    <h4>Search stats:</h4>
+                <Row style={statsMenuStyle}>
                     <p><strong>Direct hits: (</strong><strong style={{ color: '#004cc6' }}>blue</strong><strong>): </strong>{this.state.stats.num_results}</p>
                     <p><strong>Cited publications: (</strong><strong style={{ color: 'red' }}>red</strong><strong>): </strong>{this.state.stats.num_citations}</p>
                     <p><strong>Citations: </strong>{this.state.stats.num_links}</p>
-                    <p><br /></p>
                     <p><strong>Citations per publication:</strong></p>
                     <div style={{ whiteSpace: 'nowrap', overflow: 'hidden', display: 'inline-block', textAlign: 'left' }}>
                         <strong>0 </strong>{gradient_svg}<strong> {this.state.stats.max_degree_cited}</strong>
@@ -724,31 +729,39 @@ class ContextMenu extends React.Component {
         return {contextMenuLocation: ''};
     }
 
+    shouldComponentUpdate(){
+        return true;
+    }
+
     render() {
-        var tooltipWidth = 300;
+        var tooltipWidth = 250;
         var tooltipHeight = 180;
         var location = this.state.contextMenuLocation;
         var contentMenuStyle = {
-            display: location ? 'block' : 'none',
+            display: this.state.tooltipString != null && location ? 'block' : 'none',
             position: 'absolute', 
-            left: location ? (location.x-tooltipWidth/2) : 0,
-            top: location ? (location.y-tooltipHeight) : 0,
-            pointerEvents: 'inherit',
-            background: 'grey',
-            opacity: 0.95,
+            left: location ? (location.x-tooltipWidth/2+15) : 0,
+            top: location ? (location.y) : 0,
+            pointerEvents: 'all',
             width: tooltipWidth,
             height: tooltipHeight,
             borderRadius: '7px',
-            padding: '7px',
-            zIndex: '100'
+            padding: '0px',
+            zIndex: '100100',
         };
+        var popoverStyle = 
+        {
+            positionTop: location ? (location.x-tooltipWidth/2+15) : 0,
+            positionLeft: location ? (location.y) : 0,
+        }
+
         return (
-            <div id="results" style={contentMenuStyle} onClick={(e) => {e.stopPropagation(); e.nativeEvent.stopImmediatePropagation()}}>
-                <div dangerouslySetInnerHTML={{ __html: this.state.tooltipString}} />
-                <ButtonToolbar >
-                    <Button>Save</Button>
-                    <Button>Remove</Button>
-                </ButtonToolbar >
+            <div id="results" 
+                style={contentMenuStyle} 
+                onClick={(e) => {e.stopPropagation(); e.nativeEvent.stopImmediatePropagation()}}>
+                <Popover id="tooltipPopover" placement="bottom" style={popoverStyle}>
+                    <div dangerouslySetInnerHTML={{ __html: this.state.tooltipString}} />
+                </Popover>
             </div>
         );
     }
@@ -766,8 +779,6 @@ class CytoGraph extends React.Component {
         this._refocusGraph = this._refocusGraph.bind(this);
         this._hideSecondaryNodes = this._hideSecondaryNodes.bind(this);
         this._hidePrimaryNodes = this._hidePrimaryNodes.bind(this);
-        this._getNodePopover = this._getNodePopover.bind(this);
-        this._getNodeTooltip = this._getNodeTooltip.bind(this);
         this.eles = null;
         this.primaryEles = null;
     }
@@ -825,42 +836,6 @@ class CytoGraph extends React.Component {
         return this.cy;
     }
 
-    _getNodePopover() {
-        var positionLeft = this.tooltipTarget == null ? 30 : this.tooltipTarget.pan.x;
-        var positionTop = this.tooltipTarget == null ? 50 : this.tooltipTarget.pan.y;
-        const popover = (
-            <Popover id="popover-basic" placement="top" title="parazz" positionLeft={positionLeft} positionTop={positionTop}>
-                <strong>{() => this.state.tooltipString}</strong> <a href="www.google.com">Check this info.</a>
-                <ButtonGroup >
-                    <Button>Refocus graph</Button>
-                    <Button>Show/Hide cited papers</Button>
-                    <Button>Show/Hide direct hits</Button>
-                </ButtonGroup >
-            </Popover>
-        );
-
-        return popover;
-
-    }
-
-    _getNodeTooltip() {
-        var positionLeft = this.tooltipTarget == null ? 30 : this.tooltipTarget.pan.x;
-        var positionTop = this.tooltipTarget == null ? 50 : this.tooltipTarget.pan.y;
-        const tooltip = (
-            <Tooltip id="tooltip" placement="top" positionLeft={positionLeft} positionTop={positionTop}>
-                <strong>{() => this.state.tooltipString}</strong> <a href="www.google.com">Check this info.</a>
-                <ButtonGroup >
-                    <Button>Refocus graph</Button>
-                    <Button>Show/Hide cited papers</Button>
-                    <Button>Show/Hide direct hits</Button>
-                </ButtonGroup >
-            </Tooltip>
-        );
-
-        return tooltip;
-
-    }
-
     componentDidMount() {
         this.contextMenu = this.refs.contextMenu;
         var cy = cytoscape({
@@ -872,12 +847,40 @@ class CytoGraph extends React.Component {
             maxZoom: 2.5,
             zoomingEnabled: true,
             userZoomingEnabled: true,
+            boxSelectionEnabled: true
         });
+
+        function _hideTooltip(event){
+            this.setState({ 
+                tooltipString: null, 
+                tooltipShow: false, 
+                contextMenuLocation: {'x' : 0, 'y': 0},
+                tooltipTarget: null,
+            });
+        }
+
+        function _formatNodeMouseover(event){
+            event.target.animate(
+                { style: {borderColor: '#9ecaed', borderWidth: '2px solid #dadada'} },
+                { duration: 100 }
+            );
+        }
+
+        function _formatNodeMouseout(event){
+            event.target.animate(
+                { style: {borderColor: 'gray', borderWidth: '0.5'} },
+                { duration: 100 }
+            );
+        }
 
         function _renderTooltip(event) {
             var ncbiUrl = 'https://www.ncbi.nlm.nih.gov/pubmed/';
             this.state.cytoTarget = event.target;
-            if (event.target === cy) {
+            if (event.target == this.contextMenu)
+            { 
+                return;
+            }
+            else if (event.target === cy) {
                 this.state.tooltipString = null;
             } else if (event.target.group() == 'nodes') {
                 var node = this._nodeSelector(event.target.data().id);
@@ -898,7 +901,11 @@ class CytoGraph extends React.Component {
                 contextMenuLocation: {'x' : event.renderedPosition.x, 'y': event.renderedPosition.y}
               });
         }
-        cy.on('tap', _renderTooltip.bind(this));
+        cy.on('tap', _renderTooltip.bind(this) );
+        cy.on('zoom', _hideTooltip.bind(this) );
+        cy.on('mouseover', 'node', _formatNodeMouseover.bind(this) );
+        cy.on('mouseout', 'node', _formatNodeMouseout.bind(this) );
+        //var pr = cy.elements().pageRank();
         this.cy = cy; // TODO: pass event to state and use this binding
     }
 
@@ -907,17 +914,34 @@ class CytoGraph extends React.Component {
             position: 'relative', // Relative position necessary for cytoscape lib features!
             height: '600px',
             width: '100%',
+            padding: '0px'
+        };
+        var graphMenuStyle = {
+            paddingRight: '20px',
+            paddingLeft: '20px',
+            verticalAlign: 'middle',
+            display: 'block',
+            position: 'absolute', 
+            left: '1%',
+            top: 10,
+            pointerEvents: 'all',
+            width: '40%',
+            height: '100px',
+            borderRadius: '7px',
+            padding: '7px',
+            zIndex: '1001'
         };
         return (
             <div>
-                <ButtonToolbar >
-                    <Button onClick={this._refocusGraph}>Refocus graph</Button>
-                    <Button onClick={this._hideSecondaryNodes}>Show/Hide cited papers</Button>
-                    <Button onClick={this._hidePrimaryNodes}>Show/Hide direct hits</Button>
+                <ButtonToolbar style={graphMenuStyle} >
+                    <Button onClick={this._refocusGraph}>Refocus</Button>
+                    <Button onClick={this._hideSecondaryNodes}>Cited papers</Button>
+                    <Button onClick={this._hidePrimaryNodes}>Direct hits</Button>
                 </ButtonToolbar >
-                <div id="cy" name="cy" style={cytoDivStyle}> 
-                    <ContextMenu ref="contextMenu" />
+                <div id="cy" name="cy" style={cytoDivStyle}>
+                    <GraphInfo data={this.props.data} />
                 </div>
+                <ContextMenu ref="contextMenu" />
             </div>
         )
     }
