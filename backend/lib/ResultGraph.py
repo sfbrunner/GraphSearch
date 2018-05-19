@@ -164,7 +164,13 @@ class ResultGraph():
         top_authors = ', '.join(['{0} ({1})'.format(author[0], author[1]) for author in top_authors])
 
         # Get list of publication years
-        pub_years = [int(node['year']) for node in n_json['nodes']]
+        pub_years = []
+        for node in n_json['nodes']:
+            try:
+                pub_years.append(int(node['year']))
+            except:
+                continue
+        #pub_years = [int(node['year']) for node in n_json['nodes']]
 
         # Evaluate number of required bins
         if pub_years:
