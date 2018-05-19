@@ -167,11 +167,14 @@ class ResultGraph():
         pub_years = [int(node['year']) for node in n_json['nodes']]
 
         # Evaluate number of required bins
-        min_year = min(pub_years)
-        min_year = min_year - (min_year%2)
-        max_year = max(pub_years)
-        max_year = max_year + (max_year%2)
-        num_bin = (max_year-min_year)/2
+        if pub_years:
+            min_year = min(pub_years)
+            min_year = min_year - (min_year%2)
+            max_year = max(pub_years)
+            max_year = max_year + (max_year%2)
+            num_bin = (max_year-min_year)/2
+        else:
+            num_bin = 0
 
         return({'num_results': num_results, 'num_citations': num_citations, 'num_links': num_links, 'max_degree_cited': max_degree, 
                     'top_journals':top_journals, 'top_authors':top_authors, 'pub_years':{'values':pub_years, 'num_bin':num_bin}})
