@@ -163,8 +163,18 @@ class ResultGraph():
         top_authors = author_counts.most_common(5)
         top_authors = ', '.join(['{0} ({1})'.format(author[0], author[1]) for author in top_authors])
 
+        # Get list of publication years
+        pub_years = [int(node['year']) for node in n_json['nodes']]
+
+        # Evaluate number of required bins
+        min_year = min(pub_years)
+        min_year = min_year - (min_year%2)
+        max_year = max(pub_years)
+        max_year = max_year + (max_year%2)
+        num_bin = (max_year-min_year)/2
+
         return({'num_results': num_results, 'num_citations': num_citations, 'num_links': num_links, 'max_degree_cited': max_degree, 
-                    'top_journals':top_journals, 'top_authors':top_authors})
+                    'top_journals':top_journals, 'top_authors':top_authors, 'pub_years':{'values':pub_years, 'num_bin':num_bin}})
 
     def get_sigma_json(self):
         n_json = json_graph.node_link_data(self.G)

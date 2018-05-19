@@ -8,7 +8,9 @@ import { Image, Grid, Col, Clearfix, Row } from 'react-bootstrap'
 import ReactToolip from 'react-tooltip';
 import { DotLoader } from 'react-spinners';
 import ReactGA from 'react-ga';
-import { Histogram, DensitySeries, BarSeries, withParentSize, XAxis, YAxis } from '@data-ui/histogram';
+import { Histogram, DensitySeries, BarSeries, withParentSize, XAxis, YAxis, WithTooltip } from '@data-ui/histogram';
+import * as d3 from "d3";
+import renderTooltip from './renderHistogramTooltip'; 
 
 window.$ = window.jQuery = require('jquery');
 var cytoscape = require('cytoscape');
@@ -652,6 +654,7 @@ const ResponsiveHistogram = withParentSize(({ parentWidth, parentHeight, ...rest
     <Histogram
     width={parentWidth}
     height={parentHeight}
+    renderTooltip={renderTooltip}
     {...rest}
     />
 ));
@@ -715,12 +718,16 @@ class GraphInfo extends React.Component {
                         ariaLabel="My histogram of ..."
                         orientation="vertical"
                         margin={{ top: 30, right: 12, bottom: 50, left: 12}}
+                        binCount={ this.state.stats.pub_years.num_bin }
                     >
                         <BarSeries
                             animated
-                            rawData={ [2001, 2001, 2008, 2010] }
+                            rawData={ this.state.stats.pub_years.values }
+                        /> )}
+                        <XAxis 
+                            label='Pub year' numTicks={ 3 } 
+                            tickFormat={ d3.format('.4') }
                         />
-                        <XAxis label='Pub year' />
                     </ResponsiveHistogram>
                     </div>
                 </Row>

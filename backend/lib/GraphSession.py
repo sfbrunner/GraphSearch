@@ -43,7 +43,7 @@ class GraphSession(object):
             resultGraph.add_metadata_to_graph(metadataList)
         elif mode=='demo':
             log.info('Using demo mode for data retrieval.')
-            resultGraph.G = resultGraph.read_json_file('../notebooks/output/demo_network_authors.json')
+            resultGraph.G = resultGraph.read_json_file('../notebooks/output/demo_network_pubyear.json')
             resultGraph.extract_by_connectivity(connectivity=2)
         else:
             log.info('Unknown data retrieval mode.')
