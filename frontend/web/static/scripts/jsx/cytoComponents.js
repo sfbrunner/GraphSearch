@@ -11,6 +11,7 @@ import ReactGA from 'react-ga';
 import { Histogram, DensitySeries, BarSeries, withParentSize, XAxis, YAxis, WithTooltip } from '@data-ui/histogram';
 import * as d3 from "d3";
 import renderTooltip from './renderHistogramTooltip'; 
+//import weaverjs from 'weaverjs';
 
 window.$ = window.jQuery = require('jquery');
 var cytoscape = require('cytoscape');
@@ -18,7 +19,9 @@ var cytoscape = require('cytoscape');
 var cyqtip = require('cytoscape-qtip');
 var cycola = require('cytoscape-cola');
 var cyforcelayout = require('cytoscape-ngraph.forcelayout');
-
+var spread = require('cytoscape-spread');
+var weaver = require('weaverjs');
+spread(cytoscape, weaver);
 
 //cyforcelayout['iterations'] = 10000
 //require(['cytoscape', 'cytoscape-ngraph.forcelayout'], function( cytoscape, cyforcelayout ){
@@ -39,7 +42,7 @@ cyforcelayout( cytoscape );
 import coseBilkent from 'cytoscape-cose-bilkent';
 import euler from 'cytoscape-euler';
 
-cytoscape.use( euler );
+cytoscape.use( spread );
 
 //var cyarbor = require('cytoscape-arbor');
 //var arbor = require('arbor');
@@ -402,6 +405,25 @@ var cytoCoseBilkentLayout = {
     randomize: true
   };
 
+var cytoSpread = {
+    name: 'spread',
+    animate: false, // Whether to show the layout as it's running
+    ready: undefined, // Callback on layoutready
+    stop: undefined, // Callback on layoutstop
+    fit: true, // Reset viewport to fit default simulationBounds
+    minDist: 20, // Minimum distance between nodes
+    padding: 10, // Padding
+    expandingFactor: -1.0, // If the network does not satisfy the minDist
+    // criterium then it expands the network of this amount
+    // If it is set to -1.0 the amount of expansion is automatically
+    // calculated based on the minDist, the aspect ratio and the
+    // number of nodes
+    prelayout: { name: 'cose' }, // Layout options for the first phase
+    maxExpandIterations: 10, // Maximum number of expanding iterations
+    boundingBox: undefined, // Constrain layout bounds; { x1, y1, x2, y2 } or { x1, y1, w, h }
+    randomize: false // Uses random initial node positions on true
+}
+
 var cytoArborLayout = {
     animate: true, // whether to show the layout as it's running
     maxSimulationTime: 1000, // max length in ms to run the layout
@@ -757,7 +779,7 @@ class CytoGraph extends React.Component {
             this.cy.elements().remove();
             this.cy.add(nextProps.data.graph);
             this.cy.json(nextProps.data.graph);
-            this.cy.layout(cytoEuler).run();
+            this.cy.layout(cytoSpread).run();
             this.cy.fit();
         }
     }
@@ -779,7 +801,7 @@ class CytoGraph extends React.Component {
             container: document.getElementById('cy'),
             elements: this.state.graph,
             style: cytoStyle,
-            layout: cytoEuler,
+            layout: cytoSpread,
             minZoom: 0.1,
             maxZoom: 10,
             zoomingEnabled: true,
