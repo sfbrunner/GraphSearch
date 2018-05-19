@@ -25,10 +25,14 @@ def list_tasks():
 def get_task(task_id):
     '''returns the requested task if ready'''
     response = {'task_id': task_id}
-    task = TASKS[task_id]
-    if task.ready():
-        response['result'] = task.get()
-    return jsonify(response)
+    try:
+        task = TASKS[task_id]
+        if task.ready():
+            response['result'] = task.get()
+    except KeyError:
+        response['result'] = {'stats': {'num_results': 0}}
+    finally:
+        return jsonify(response)
 
 @app.route('/api/', methods=['PUT'])
 def put_task():
@@ -36,8 +40,8 @@ def put_task():
     search_string = request.json['search_string']
     graph_format = request.json['graph_format']
     task_id = len(TASKS)
-    #TASKS[task_id] = getGraph.delay(search_string, graph_format=graph_format, mode='demo')
-    TASKS[task_id] = getGraph.delay(search_string, graph_format=graph_format, mode='live')
+    TASKS[task_id] = getGraph.delay(search_string, graph_format=graph_format, mode='demo')
+    #TASKS[task_id] = getGraph.delay(search_string, graph_format=graph_format, mode='live')
     response = {'result': task_id}
     return jsonify(response)
 
