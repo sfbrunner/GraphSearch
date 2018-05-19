@@ -99,12 +99,7 @@ class MongoSession(object):
         log.debug(pmid_lst)
         resultList = []
         pmid_lst_int = [int(pmid) for pmid in pmid_lst]
-        pmid_iter = self.client.gs.pubmed1.find({"pmid":{"$in": pmid_lst_int}})
-        for doc in pmid_iter:
-            summaryDict = self._parse_meta_doc(doc)
-            resultList.append(summaryDict)
-            
-        pmid_iter = self.client.gs.pubmed2.find({"pmid":{"$in": pmid_lst_int}})
+        pmid_iter = self.client.gs.pubmed.find({"pmid":{"$in": pmid_lst_int}})
         for doc in pmid_iter:
             summaryDict = self._parse_meta_doc(doc)
             resultList.append(summaryDict)

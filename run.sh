@@ -19,7 +19,7 @@ screen -S celery -d -m celery -A worker worker --loglevel=debug -P solo
 cd ..
 
 # we need an instance of mongo db running
-screen -S mongod -d -m mongod
+screen -S mongod -d -m "sudo mongod --dbpath /data1/mongodb"
 
 # we need our frontend to run
 screen -S httpserver -d -m python frontend/web/httpserver.py
