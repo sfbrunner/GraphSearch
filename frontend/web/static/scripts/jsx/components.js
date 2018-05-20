@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom'
-import { Image, Grid, Col, Clearfix, Row, Navbar, Nav, NavItem, NavDropdown, MenuItem, Button, form, ButtonToolbar, FormGroup, FormControl, InputGroup, Glyphicon } from 'react-bootstrap'
+import { Image, Grid, Col, Clearfix, Row, Navbar, Nav, NavItem, NavDropdown, MenuItem, Button, form, ButtonToolbar, FormGroup, FormControl, InputGroup, Glyphicon, Panel } from 'react-bootstrap'
 import { CytoGraph, GraphInfo } from './cytoComponents'
 import { DotLoader } from 'react-spinners';
 import { keys, map, isArray, sortBy } from 'lodash';
 import ReactGA from 'react-ga';
 import numeral from 'numeral'
 import request from 'superagent'
+
+var bgImage = require('../../images/main_img-01.svg')
 
 var divContentLanding = {
     contenttest: {
@@ -38,11 +40,12 @@ var divContentLanding = {
         lineHeight:'30px',
         position:'relative',
         top:'100%',
-        textAlign:'center'
+        textAlign:'center',
+        color:'#dadada'
     },
     p: {
         textAlign:'center',
-        color:'gray'
+        color:'#dadada'
     }
 }
 
@@ -72,16 +75,30 @@ export class SearchLanding extends Component {
 
 	render() {
 		return (
-            <div style={{width:'100%', float:'left', height:'80%', position: 'absolute', left: '0%',}}>
+            <div style={{width:'100%', float:'left', height:'80%', position: 'absolute', left: '0%', 
+            backgroundImage: "url(" + bgImage + ")", backgroundRepeat: "no-repeat" }}>
 		  	<Grid>
-                <Row style={{height:'20vh'}}></Row>
+                <Row style={{height:'20vh'}}>
+                </Row>
 				<Row className="show-grid">
                     <Col md={2}></Col>
 				    <Col md={8}>
+                    <Panel style={{backgroundColor: '#0000007d', borderStyle: 'none'}}>
+                        <Panel.Body>
             		    <h2 style={divContentLanding.h2}>GraphSearch</h2>
 					    <p></p>
 					    <p style={divContentLanding.p}>Welcome to the GraphSearch platform. Our mission is to make your biomedical literature search experience the best it can be. We take your search query and return a network of publications to you. The network contains the direct results of your search (in blue) as well as the publications they cite (in red). The structure of the network helps you to find highly cited publications and quickly identify publications that belong together.</p>
-				    </Col>
+                        <form>
+                        <InputGroup>
+                        <FormControl type="text" placeholder="Type your search query and hit <Enter>"/>
+                        <InputGroup.Addon>
+                        <Glyphicon glyph="search" />
+                        </InputGroup.Addon>
+                        </InputGroup>
+                        </form>
+                        </Panel.Body>
+                    </Panel>
+                    </Col>
                     <Col md={2}></Col>
 				</Row>
 				<Row className="show-grid">
@@ -89,19 +106,6 @@ export class SearchLanding extends Component {
 				    <Col md={8}><p><br/></p></Col>
                     <Col md={2}></Col>
 				</Row>
-                <Row>
-                    <Col md={2}></Col>
-				    <Col md={8}><form>
-                    <InputGroup>
-                    <FormControl type="text" />
-                    <InputGroup.Addon>
-                    <Glyphicon glyph="search" />
-                    </InputGroup.Addon>
-                    </InputGroup>
-                    </form>
-                    </Col>
-                    <Col md={2}></Col>
-                </Row>
 			</Grid>
             </div>
 		)
