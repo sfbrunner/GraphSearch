@@ -170,6 +170,10 @@ export class SearchActive4 extends Component {
         this.onSubmit = this.onSubmit.bind(this);
         this.cytoGraph = React.createRef();
         this.search = this.search.bind(this);
+        this.searchHint = 'other hint'
+    }
+
+    componentDidMount() {
         if(this.props.location.state != undefined)
         {
             const values = this.props.location.state.searchQuery
@@ -177,8 +181,6 @@ export class SearchActive4 extends Component {
             console.log(values)
             this.searchHint = values
             this.search(values)
-        } else {
-            this.searchHint = 'other hint'
         }
     }
 
@@ -277,7 +279,7 @@ export class SearchActive4 extends Component {
                             <div style={{left:'10px'}}>
                             <form onSubmit={this.onSubmit}>
                                 <InputGroup>
-                                    <FormControl type="text" id="searchString" placeholder = { this.searchHint }/>
+                                    <FormControl type="text" id="searchString" defaultValue = { this.searchHint }/>
                                     <InputGroup.Addon>
                                         <Glyphicon glyph="search" />
                                     </InputGroup.Addon>
@@ -305,7 +307,7 @@ export class SearchActive4 extends Component {
                     </div>
                     <div id='cy' style={{width:'100vw', float:'left', height:'90vh', position: 'relative'}}>
                     {map(keys(graphJson), id => !this.state.loading
-                            ? (this.state.foundResults ? <CytoGraph ref={this.cytoGraph} data={graphJson[id]}/> : <h2>{noRestultsString}</h2>)
+                            ? (this.state.foundResults ? <CytoGraph data={graphJson[id]}/> : <h2>{noRestultsString}</h2>)
                             : {})}
                     </div>
                     {!this.state.loading && this.state.foundResults ? 

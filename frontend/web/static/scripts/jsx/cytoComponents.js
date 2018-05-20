@@ -9,6 +9,7 @@ import ReactGA from 'react-ga';
 import { Histogram, DensitySeries, BarSeries, withParentSize, XAxis, YAxis, WithTooltip } from '@data-ui/histogram';
 import * as d3 from "d3";
 import renderTooltip from './renderHistogramTooltip'; 
+import { BrowserRouter, Route, Link, Switch, hashHistory } from 'react-router-dom'
 
 window.$ = window.jQuery = require('jquery');
 var cytoscape = require('cytoscape');
@@ -610,6 +611,14 @@ export class GraphInfo extends React.Component {
             <rect fill="url(#MyGradient)" x="0" y="10" width="100" height="20" />
         </svg>
 
+        const journal_list = this.state.stats.top_journals_list.map((journal) =>
+            <Badge style={{backgroundColor:'lightgrey'}}>{journal}</Badge>
+        );
+
+        const author_list = this.state.stats.top_authors_list.map((author) =>
+            <Badge style={{backgroundColor:'lightgrey'}}>{author}</Badge>
+        );
+
         return (
             <div id="netstats" name="netstats">
                 <Row style={statsMenuStyle}>
@@ -650,8 +659,8 @@ export class GraphInfo extends React.Component {
                 </div>
                 </Row>
                 <Row style={statsMenuStyle}>
-                <p><strong>Top 5 journals: </strong>{ this.state.stats.top_journals }</p>
-                <p><strong>Top 5 authors: </strong>{ this.state.stats.top_authors }</p>
+                <p><strong>Top 5 journals: </strong>{ journal_list }</p>
+                <p><strong>Top 5 authors: </strong>{ author_list }</p>
                 </Row>
             </div>
         )
