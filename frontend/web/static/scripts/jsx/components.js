@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom'
-import { slide as Menu } from 'react-burger-menu'
-import FRC, { Checkbox, CheckboxGroup, Input, RadioGroup, Row as FormsyRow, Select, File, Textarea } from 'formsy-react-components'
-import { Image, Grid, Col, Clearfix, Row, Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap'
-import { CytoMain, CytoGraph, GraphInfo } from './cytoComponents'
+import { Image, Grid, Col, Clearfix, Row, Navbar, Nav, NavItem, NavDropdown, MenuItem, Button, ButtonToolbar, FormGroup, FormControl, InputGroup, Glyphicon } from 'react-bootstrap'
+import { CytoGraph, GraphInfo } from './cytoComponents'
 import { DotLoader } from 'react-spinners';
 import { keys, map, isArray, sortBy } from 'lodash';
 import ReactGA from 'react-ga';
@@ -88,7 +86,6 @@ export class SearchLanding extends Component {
 				    </Col>
 				</Row>
 				<Row className="show-grid" md={12} xs={12}>
-                    <CytoMain />
 				</Row>
 			</Grid>
 		)
@@ -106,7 +103,6 @@ export class SearchActive extends Component {
                 </Row>
                 <Row className="show-grid">
                     <Col md={8} xs={12} style={{marginLeft:"20px"}}>
-                        <CytoMain />
                     </Col>
                 </Row>
             </Grid>
@@ -127,22 +123,6 @@ export class SearchActive2 extends Component {
 	) }
 }
 
-//////////
-const Request = ({ onSubmit }) => (
-    <FRC.Form onSubmit={onSubmit}>
-        <fieldset>
-            <Input
-                name="search_string"
-                layout="vertical"
-                id="search_string"
-                value="epigenetics idh oncogenic"
-                type="text"
-                addonAfter={<span type="submit" className="glyphicon glyphicon-search" defaultValue="Submit" />}
-            />
-        </fieldset>
-    </FRC.Form>
-)
-
 const rootUrl = new URL(window.location.origin)
 rootUrl.port = 8080
 const apiUrl = new URL("/api/", rootUrl)
@@ -153,8 +133,9 @@ export class SearchActive4 extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { graphJson: {}, pending: {}, loading: false, foundResults: false, numApiCalls: 0 };
+        this.state = { graphJson: {}, pending: {}, loading: false, foundResults: false, numApiCalls: 0, searchString: null };
         this.onSubmit = this.onSubmit.bind(this);
+        this.cytoGraph = React.createRef();
     }
 
     poll(id) {
@@ -190,10 +171,11 @@ export class SearchActive4 extends Component {
         }
     }
 
-    onSubmit({ search_string }) {
-        this.setState({ loading: true });
-        ReactGA.event({ category: 'Search', action: 'Submitted search', label: search_string });
-        const payload = { 'search_string': search_string, 'graph_format': 'cytoscape' };
+    onSubmit(event) {
+        event.preventDefault();
+        this.setState({ loading: true, searchString: event.target.childNodes[0].children.searchString.value});
+        ReactGA.event({ category: 'Search', action: 'Submitted search', label: this.state.searchString });
+        const payload = { 'search_string': event.target.childNodes[0].children.searchString.value, 'graph_format': 'cytoscape' };
         request.put(apiUrl).send(payload)
             .end((err, res) => {
                 if (err) return;
@@ -206,7 +188,22 @@ export class SearchActive4 extends Component {
     }
 
 	render() {
-        const noRestultsString = "Sorry, your search yielded no results. Please try again."
+        var graphMenuStyle = {
+            paddingRight: '20px',
+            paddingLeft: '20px',
+            verticalAlign: 'middle',
+            display: 'block',
+            position: 'absolute', 
+            left: '75%',
+            top: '95%',
+            pointerEvents: 'all',
+            width: '40%',
+            height: '100px',
+            borderRadius: '7px',
+            padding: '7px',
+            zIndex: '10100'
+        };
+        const noRestultsString = "Sorry, your search yielded no results. Please try again.";
         const { graphJson, pending, loading } = this.state;
 		return (
             <div style={{width:'100%', float:'left', height:'100%'}}>
@@ -230,7 +227,14 @@ export class SearchActive4 extends Component {
                         </Col>
                         <Col md={10}>
                             <div style={{left:'10px'}}>
-                            <Request onSubmit={this.onSubmit} />
+                            <form onSubmit={this.onSubmit}>
+                                <InputGroup>
+                                    <FormControl type="text" id="searchString" />
+                                    <InputGroup.Addon>
+                                        <Glyphicon glyph="search" />
+                                    </InputGroup.Addon>
+                                </InputGroup>
+                            </form>
                             </div>
                         </Col>
                         <Col md={1}>
@@ -253,10 +257,16 @@ export class SearchActive4 extends Component {
                     </div>
                     <div id='cy' style={{width:'100vw', float:'left', height:'90vh', position: 'relative'}}>
                     {map(keys(graphJson), id => !this.state.loading
-                            ? (this.state.foundResults ? <CytoGraph data={graphJson[id]}/> : <h2>{noRestultsString}</h2>)
-                            : {})
-                        }
+                            ? (this.state.foundResults ? <CytoGraph ref={this.cytoGraph} data={graphJson[id]}/> : <h2>{noRestultsString}</h2>)
+                            : {})}
                     </div>
+                    {!this.state.loading && this.state.foundResults ? 
+                    <ButtonToolbar style={graphMenuStyle} >
+                        <Button onClick={this.cytoGraph._refocusGraph}><span class="glyphicon glyphicon-fullscreen"></span></Button>
+                        <Button onClick={this.cytoGraph._hideSecondaryNodes}><span class="glyphicon glyphicon-plus"></span></Button>
+                        <Button onClick={this.cytoGraph._hidePrimaryNodes}><span class="glyphicon glyphicon-minus"></span></Button>
+                    </ButtonToolbar >
+                    : <div/>}
                 </div>
             </div>
 	) }
