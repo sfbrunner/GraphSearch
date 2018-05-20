@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { render } from 'react-dom'
 import { BrowserRouter, Route, Link, Switch, hashHistory } from 'react-router-dom'
 import { BurgerTest } from './burgercomponent'
-import { SearchLanding, SearchActive, About } from './components'
+import { SearchLanding, SearchActive, SearchActive2, SearchActive3, SearchActive4, About, MainNav } from './components'
 import { Image, Grid, Row, Col, Clearfix } from 'react-bootstrap'
 import ReactGA from 'react-ga';
 import createHistory from 'history/createBrowserHistory'
@@ -10,23 +10,10 @@ import createHistory from 'history/createBrowserHistory'
 ReactGA.initialize('UA-116488460-1', { debug: true })
 ReactGA.pageview(window.location.pathname + window.location.search);
 
-const Layout = ({ burger, routehandler}) => (
+const Layout = ({ routehandler}) => (
     <div className="container-fluid wrapper" id="outer-container">
-		{ burger }
-		<main id="page-wrap">
-			<div class="col-xs-12" style={{ height:"36px" }}></div>
-			<Grid>
-				<Row className="show-grid">
-					<Col md={12} xs={12}></Col>
-				</Row>
-				<Row className="show-grid">
-					<Col style={{height:"3vh"}}></Col>
-				</Row>
-				<Row>
-					{routehandler}
-				</Row>
-			</Grid>
-		</main>
+			<div style={{ height:"36px" }}><MainNav/></div>
+			<div style={{width:'100%'}}>{routehandler}</div>
 	</div>
 ) 
 
@@ -40,6 +27,7 @@ class RouteHandler extends Component {
 					<Route path='/about' component={About} />
 					<Route path='/searchlanding' component={SearchLanding} />
 					<Route path='/searchactive' component={SearchActive} />
+					<Route path='/searchactive2' component={SearchActive4} />
 				</Switch>
 			</BrowserRouter>
 		)
@@ -51,6 +39,6 @@ function gaTracking() {
 }
 
 render(
-<Layout burger={<BurgerTest />} routehandler={<RouteHandler />}/>,
+<Layout routehandler={<RouteHandler />}/>,
   document.getElementById('app')
 );

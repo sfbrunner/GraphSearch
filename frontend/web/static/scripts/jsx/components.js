@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { render } from 'react-dom'
 import { slide as Menu } from 'react-burger-menu'
 import FRC, { Checkbox, CheckboxGroup, Input, RadioGroup, Row as FormsyRow, Select, File, Textarea } from 'formsy-react-components'
-import { Image, Grid, Col, Clearfix, Row } from 'react-bootstrap'
+import { Image, Grid, Col, Clearfix, Row, Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap'
 import { CytoMain } from './cytoComponents'
 
 var divContentLanding = {
@@ -59,6 +59,28 @@ const Request = ({ onSubmit }) => (
     </FRC.Form>
 )
 
+export class MainNav extends Component {
+    render() {
+        return (
+            <Navbar fixedTop={ true } inverse={ false } fluid={ true }>
+                <Navbar.Header>
+                    <Navbar.Brand>
+                    <a href="/">GraphSearch</a>
+                    </Navbar.Brand>
+                </Navbar.Header>
+                <Nav>
+                    <NavItem eventKey={1} href="/about">
+                    About
+                    </NavItem>
+                    <NavItem eventKey={2} href="/searchactive2">
+                    Search
+                    </NavItem>
+                </Nav>
+            </Navbar>
+        )
+    }
+}
+
 export class SearchLanding extends Component {
 
 	render() {
@@ -96,6 +118,78 @@ export class SearchActive extends Component {
                 <Row className="show-grid">
                     <Col md={8} xs={12} style={{marginLeft:"20px"}}>
                         <CytoMain />
+                    </Col>
+                </Row>
+            </Grid>
+	) }
+}
+
+export class SearchActive2 extends Component {
+	render() {
+		return (
+            <div style={{width:'100%', float:'left', height:'100%'}}>
+                <div style={{background:'grey', height:'100%', width:'20%'}}>
+                    <h2>Info div</h2>
+                </div>
+                <div style={{background:'red', height:'100%', width:'70%'}}>
+                    <h2>Main network</h2>
+                </div>
+            </div>
+	) }
+}
+
+export class SearchActive4 extends Component {
+	render() {
+		return (
+            <div style={{width:'100%', float:'left', height:'100%'}}>
+                <div style={{background:'white',
+                        verticalAlign: 'middle',
+                        display: 'block',
+                        position: 'absolute', 
+                        left: '0%',
+                        top:  36,
+                        pointerEvents: 'all',
+                        opacity: 0.9,
+                        width: '20%',
+                        height: '100%',
+                        zIndex: '1001',
+                        borderStyle: 'solid',
+                        borderColor: 'grey'
+                    }}>
+                    <Row>
+                    <FRC.Form>
+                    <fieldset>
+                        <Input
+                            name="search_string"
+                            layout="vertical"
+                            id="search_string"
+                            value="epigenetics idh oncogenic"
+                            type="text"
+                            help="Let us create a network of your search results."
+                            addonAfter={<span type="submit" className="glyphicon glyphicon-search" defaultValue="Submit" />}
+                        />
+                    </fieldset>
+                    </FRC.Form>
+                    </Row>
+                    <h2>Info div</h2>
+                </div>
+                <div style={{background:'red', height:'100%', width:'100%'}}>
+                    <h2>Main network</h2>
+                </div>
+            </div>
+	) }
+}
+
+export class SearchActive3 extends Component {
+	render() {
+		return (
+            <Grid>
+                <Row className="show-grid" style={{noGutters:'true'}}>
+                    <Col md={3} style={{background:'yellow', height:'90vh'}}>
+                        <h2>Hello</h2>
+                    </Col>
+                    <Col md={9} style={{background:'grey', height:'90vh'}}>
+                        <h2>Main network</h2>
                     </Col>
                 </Row>
             </Grid>
