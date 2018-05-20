@@ -4,7 +4,7 @@ import FRC, { Checkbox, CheckboxGroup, Input, RadioGroup, Row as FormsyRow, Sele
 import numeral from 'numeral'
 import request from 'superagent'
 import { render } from 'react-dom'
-import { Image, Grid, Col, Clearfix, Row, Button, ButtonToolbar, ButtonGroup, Popover, Overlay, OverlayTrigger, Tooltip, Modal, Alert } from 'react-bootstrap'
+import { Image, Grid, Col, Clearfix, Row, Button, ButtonToolbar, ButtonGroup, Popover, Overlay, OverlayTrigger, Tooltip, Modal, Alert, Badge } from 'react-bootstrap'
 import ReactToolip from 'react-tooltip';
 import { DotLoader } from 'react-spinners';
 import ReactGA from 'react-ga';
@@ -594,16 +594,15 @@ export class GraphInfo extends React.Component {
 
     render() {
         var statsMenuStyle = {
-            paddingRight: '20px',
-            paddingLeft: '20px',
             display: 'block',
-            position: 'absolute',
-            top:  '20%',
             pointerEvents: 'all',
-            opacity: 0.9,
-            width: '100%',
-            padding: '7px',
-            zIndex: '1001'
+            zIndex: '1001',
+            marginTop: '10px',
+            padding: '10px',
+            paddingBottom: '0px',
+            borderWidth: '0.5px',
+            borderRadius: '5px',
+            background:'white'
         };
 
         var gradient_svg = <svg width="100" height="20">
@@ -618,41 +617,46 @@ export class GraphInfo extends React.Component {
 
         return (
             <div id="netstats" name="netstats">
-                <Row style={{ height: "2vh" }}>
-                    <div style={{ height: '100px' }}></div>
-                </Row>
                 <Row style={statsMenuStyle}>
-                <h4>Search stats:</h4>
-                <p><strong>Direct hits: (</strong><strong style={{color:'#004cc6'}}>blue</strong><strong>): </strong>{ this.state.stats.num_results }</p>
-                <p><strong>Cited publications: (</strong><strong style={{color:'red'}}>red</strong><strong>): </strong>{ this.state.stats.num_citations }</p>
-                <p><strong>Citations: </strong>{ this.state.stats.num_links }</p>
-                <p><br/></p>
-                <p><strong>Citations per publication:</strong></p>
-                <div style={{whiteSpace: 'nowrap', overflow:'hidden', display:'inline-block', textAlign:'left'}}>
-                    <strong>0 </strong>{ gradient_svg }<strong> {this.state.stats.max_degree_cited}</strong>
-                </div>
-                <p><br/></p>
-                <p><strong>Top journals: </strong>{ this.state.stats.top_journals }</p>
-                <p><strong>Top authors: </strong>{ this.state.stats.top_authors }</p>
-                </Row>
-                <Row style={statsMenuStyle}>
-                    <div style={{height:'200px'}}>
-                    <ResponsiveHistogram
-                        ariaLabel="My histogram of ..."
-                        orientation="vertical"
-                        margin={{ top: 30, right: 12, bottom: 50, left: 12}}
-                        binCount={ this.state.stats.pub_years.num_bin }
-                    >
-                        <BarSeries
-                            animated
-                            rawData={ this.state.stats.pub_years.values }
-                        /> )}
-                        <XAxis 
-                            label='Pub year' numTicks={ 3 } 
-                            tickFormat={ d3.format('.4') }
-                        />
-                    </ResponsiveHistogram>
+                    <div style={{height:'150px'}}>
+                        <p><strong>Publications per year</strong></p>
+                        <ResponsiveHistogram
+                            ariaLabel=''
+                            orientation="vertical"
+                            margin={{ top: 10, right: 12, bottom: 60, left: 12}}
+                            binCount={ this.state.stats.pub_years.num_bin }
+                        >
+                            <BarSeries
+                                animated
+                                rawData={ this.state.stats.pub_years.values }
+                                fill='grey'
+                                strokeWidth={ 0 }
+                            /> )}
+                            <XAxis 
+                                numTicks={ 3 } 
+                                tickFormat={ d3.format('.4') }
+                            />
+                        </ResponsiveHistogram>
                     </div>
+                </Row>
+                <Row style={statsMenuStyle}>
+                <p><strong>Direct hits </strong>
+                    <Badge style={{backgroundColor:'#004cc6'}}>{ this.state.stats.num_results }</Badge></p>
+                <p><strong>Cited publications </strong>
+                    <Badge style={{backgroundColor:'red'}}>{ this.state.stats.num_citations }</Badge></p>
+                <p><strong>Citation links </strong>
+                    <Badge style={{backgroundColor:'lightgrey'}}>{ this.state.stats.num_links }</Badge></p>
+                </Row>
+                <Row style={statsMenuStyle}>
+                <div style={{whiteSpace: 'nowrap', overflow:'hidden', display:'inline-block', textAlign:'left'}}>
+                    <p><strong>Citations per publication</strong></p>
+                    <Badge style={{backgroundColor:'lightgrey'}}>0</Badge>{'\u00A0'}{ gradient_svg }{'\u00A0'}
+                    <Badge style={{backgroundColor:'red'}}>{this.state.stats.max_degree_cited}</Badge>
+                </div>
+                </Row>
+                <Row style={statsMenuStyle}>
+                <p><strong>Top 5 journals: </strong>{ this.state.stats.top_journals }</p>
+                <p><strong>Top 5 authors: </strong>{ this.state.stats.top_authors }</p>
                 </Row>
             </div>
         )

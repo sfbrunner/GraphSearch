@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { render } from 'react-dom'
 import { slide as Menu } from 'react-burger-menu'
 import FRC, { Checkbox, CheckboxGroup, Input, RadioGroup, Row as FormsyRow, Select, File, Textarea } from 'formsy-react-components'
-import { Image, Grid, Col, Clearfix, Row, Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap'
+import { Image, Grid, Col, Clearfix, Row, Navbar, Nav, NavItem, NavDropdown, MenuItem, form, FormGroup, InputGroup, FormControl, Glyphicon, Button } from 'react-bootstrap'
 import { CytoMain, CytoGraph, GraphInfo } from './cytoComponents'
 import { DotLoader } from 'react-spinners';
 import { keys, map, isArray, sortBy } from 'lodash';
@@ -74,23 +74,38 @@ export class SearchLanding extends Component {
 
 	render() {
 		return (
+            <div style={{width:'100%', float:'left', height:'80%', position: 'absolute', left: '0%',}}>
 		  	<Grid>
+                <Row style={{height:'20vh'}}></Row>
 				<Row className="show-grid">
-				    <Col md={8} xs={6}>
-				        <div class="col-xs-12" style={{height:"2vh"}}></div>
-				    </Col>
-				</Row>
-				<Row className="show-grid">
-				    <Col md={12} xs={12}>
+                    <Col md={2}></Col>
+				    <Col md={8}>
             		    <h2 style={divContentLanding.h2}>GraphSearch</h2>
 					    <p></p>
 					    <p style={divContentLanding.p}>Welcome to the GraphSearch platform. Our mission is to make your biomedical literature search experience the best it can be. We take your search query and return a network of publications to you. The network contains the direct results of your search (in blue) as well as the publications they cite (in red). The structure of the network helps you to find highly cited publications and quickly identify publications that belong together.</p>
 				    </Col>
+                    <Col md={2}></Col>
 				</Row>
-				<Row className="show-grid" md={12} xs={12}>
-                    <CytoMain />
+				<Row className="show-grid">
+                    <Col md={2}></Col>
+				    <Col md={8}><p><br/></p></Col>
+                    <Col md={2}></Col>
 				</Row>
+                <Row>
+                    <Col md={2}></Col>
+				    <Col md={8}><form>
+                    <InputGroup>
+                    <FormControl type="text" />
+                    <InputGroup.Addon>
+                    <Glyphicon glyph="search" />
+                    </InputGroup.Addon>
+                    </InputGroup>
+                    </form>
+                    </Col>
+                    <Col md={2}></Col>
+                </Row>
 			</Grid>
+            </div>
 		)
 	}
 }
@@ -110,20 +125,6 @@ export class SearchActive extends Component {
                     </Col>
                 </Row>
             </Grid>
-	) }
-}
-
-export class SearchActive2 extends Component {
-	render() {
-		return (
-            <div style={{width:'100%', float:'left', height:'100%'}}>
-                <div style={{background:'grey', height:'100%', width:'20%'}}>
-                    <h2>Info div</h2>
-                </div>
-                <div style={{background:'red', height:'100%', width:'70%'}}>
-                    <h2>Main network</h2>
-                </div>
-            </div>
 	) }
 }
 
@@ -209,27 +210,27 @@ export class SearchActive4 extends Component {
         const noRestultsString = "Sorry, your search yielded no results. Please try again."
         const { graphJson, pending, loading } = this.state;
 		return (
-            <div style={{width:'100%', float:'left', height:'100%'}}>
-                <div style={{background:'white',
+            <div>
+                <div style={{background:'#d3d3d34d',
                         verticalAlign: 'left',
                         display: 'block',
                         position: 'absolute', 
                         left: '0%',
                         top:  36,
                         pointerEvents: 'all',
-                        opacity: 0.9,
-                        width: '20vw',
+                        width: '22vw',
                         height: '100%',
                         zIndex: '1001',
                         borderStyle: 'solid',
-                        borderColor: 'grey',
+                        borderColor: 'lightgrey',
                         borderWidth: '0.5px'
                     }}>
+                    <Row style={{height:'2vh'}}></Row>
                     <Row>
                         <Col md={1}>
                         </Col>
                         <Col md={10}>
-                            <div style={{left:'10px'}}>
+                            <div>
                             <Request onSubmit={this.onSubmit} />
                             </div>
                         </Col>
@@ -259,22 +260,6 @@ export class SearchActive4 extends Component {
                     </div>
                 </div>
             </div>
-	) }
-}
-
-export class SearchActive3 extends Component {
-	render() {
-		return (
-            <Grid>
-                <Row className="show-grid" style={{noGutters:'true'}}>
-                    <Col md={3} style={{background:'yellow', height:'90vh'}}>
-                        <h2>Hello</h2>
-                    </Col>
-                    <Col md={9} style={{background:'grey', height:'90vh'}}>
-                        <h2>Main network</h2>
-                    </Col>
-                </Row>
-            </Grid>
 	) }
 }
 
