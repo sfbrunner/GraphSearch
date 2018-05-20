@@ -588,7 +588,7 @@ const Request = ({ onSubmit }) => (
 const rootUrl = new URL(window.location.origin)
 rootUrl.port = 8080
 const apiUrl = new URL("/api/", rootUrl)
-const maxTime = 10 * 1000;
+const maxTime = 60 * 1000;
 const pollInterval = 500;
 
 export class CytoMain extends React.Component {
