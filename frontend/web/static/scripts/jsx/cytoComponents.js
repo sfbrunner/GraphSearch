@@ -779,6 +779,7 @@ export class CytoGraph extends React.Component {
 
     componentDidMount() {
         this.contextMenu = this.refs.contextMenu;
+
         var cy = cytoscape({
             container: document.getElementById('cy'),
             elements: this.state.graph,

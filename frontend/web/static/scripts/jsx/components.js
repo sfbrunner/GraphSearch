@@ -7,6 +7,7 @@ import { keys, map, isArray, sortBy } from 'lodash';
 import ReactGA from 'react-ga';
 import numeral from 'numeral'
 import request from 'superagent'
+import queryString from 'query-string'
 
 var bgImage = require('../../images/main_img-01.svg')
 
@@ -73,6 +74,18 @@ export class MainNav extends Component {
 
 export class SearchLanding extends Component {
 
+    constructor(props) {
+        super(props);
+        this.handleForm = this.handleForm.bind(this);
+    }
+
+    handleForm(event) {
+        event.preventDefault();
+        var searchString = event.target.childNodes[0].children.searchString.value;
+        console.log(searchString)
+        this.props.history.push({pathname: '/searchactive2', state: {searchQuery: searchString}})
+    }
+
 	render() {
 		return (
             <div style={{width:'100%', float:'left', height:'80%', position: 'absolute', left: '0%', 
@@ -88,9 +101,9 @@ export class SearchLanding extends Component {
             		    <h2 style={divContentLanding.h2}>GraphSearch</h2>
 					    <p></p>
 					    <p style={divContentLanding.p}>Welcome to the GraphSearch platform. Our mission is to make your biomedical literature search experience the best it can be. We take your search query and return a network of publications to you. The network contains the direct results of your search (in blue) as well as the publications they cite (in red). The structure of the network helps you to find highly cited publications and quickly identify publications that belong together.</p>
-                        <form>
+                        <form onSubmit={this.handleForm}>
                         <InputGroup>
-                        <FormControl type="text" placeholder="Type your search query and hit <Enter>"/>
+                        <FormControl type="text" placeholder="Type your search query and hit <Enter>" id="searchString"/>
                         <InputGroup.Addon>
                         <Glyphicon glyph="search" />
                         </InputGroup.Addon>
@@ -156,6 +169,17 @@ export class SearchActive4 extends Component {
         this.state = { graphJson: {}, pending: {}, loading: false, foundResults: false, numApiCalls: 0, searchString: null };
         this.onSubmit = this.onSubmit.bind(this);
         this.cytoGraph = React.createRef();
+        this.search = this.search.bind(this);
+        if(this.props.location.state != undefined)
+        {
+            const values = this.props.location.state.searchQuery
+            console.log('in constructor')
+            console.log(values)
+            this.searchHint = values
+            this.search(values)
+        } else {
+            this.searchHint = 'other hint'
+        }
     }
 
     poll(id) {
@@ -191,11 +215,10 @@ export class SearchActive4 extends Component {
         }
     }
 
-    onSubmit(event) {
-        event.preventDefault();
-        this.setState({ loading: true, searchString: event.target.childNodes[0].children.searchString.value});
-        ReactGA.event({ category: 'Search', action: 'Submitted search', label: this.state.searchString });
-        const payload = { 'search_string': event.target.childNodes[0].children.searchString.value, 'graph_format': 'cytoscape' };
+    search(searchQuery) {
+        this.setState({ loading: true}) //, searchString: searchQuery});
+        ReactGA.event({ category: 'Search', action: 'Submitted search', label: searchQuery });
+        const payload = { 'search_string': searchQuery, 'graph_format': 'cytoscape' };
         request.put(apiUrl).send(payload)
             .end((err, res) => {
                 if (err) return;
@@ -205,6 +228,11 @@ export class SearchActive4 extends Component {
                 setTimeout(() => { clearInterval( timers[id] );}, maxTime * 1.5);
                 this.setState({ pending: { ...pending, ...timers } });
             })
+    }
+
+    onSubmit(event) {
+        event.preventDefault();
+        this.search(event.target.childNodes[0].children.searchString.value);
     }
 
 	render() {
@@ -249,7 +277,7 @@ export class SearchActive4 extends Component {
                             <div style={{left:'10px'}}>
                             <form onSubmit={this.onSubmit}>
                                 <InputGroup>
-                                    <FormControl type="text" id="searchString" />
+                                    <FormControl type="text" id="searchString" placeholder = { this.searchHint }/>
                                     <InputGroup.Addon>
                                         <Glyphicon glyph="search" />
                                     </InputGroup.Addon>
