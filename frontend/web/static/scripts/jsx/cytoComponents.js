@@ -588,12 +588,14 @@ const Request = ({ onSubmit }) => (
 const rootUrl = new URL(window.location.origin)
 rootUrl.port = 8080
 const apiUrl = new URL("/api/", rootUrl)
+const maxTime = 10 * 1000;
+const pollInterval = 500;
 
 export class CytoMain extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = { graphJson: {}, pending: {}, loading: false, foundResults: false };
+        this.state = { graphJson: {}, pending: {}, loading: false, foundResults: false, numApiCalls: 0 };
         this.onSubmit = this.onSubmit.bind(this);
     }
 
@@ -603,11 +605,29 @@ export class CytoMain extends React.Component {
                 .end((err, res) => { // call api with id -> will return task_id and if ready result
                     if (err) return;
                     const { result } = res.body;
-                    if (!result) return;
-                    const { graphJson, pending, loading } = this.state;
-                    clearInterval(pending[id]);
-                    delete pending[id];
-                    this.setState({ graphJson: { [id]: result }, loading: false, foundResults: (result.stats.num_results > 0) });
+                    const { numApiCalls } = this.state;
+                    if (!result) 
+                    {
+                        if (numApiCalls > maxTime/pollInterval)
+                        {
+                            const { pending } = this.state;
+                            clearInterval(pending[id]);
+                            delete pending[id];
+                            this.setState({ graphJson: {[id]: null }, loading: false, foundResults: false, numApiCalls: 0 });
+                        }
+                        else
+                        {
+                            this.setState({numApiCalls: numApiCalls+1});
+                        }
+                        return;
+                    }
+                    else
+                    {
+                        const { pending } = this.state;
+                        clearInterval(pending[id]);
+                        delete pending[id];
+                        this.setState({ graphJson: { [id]: result }, loading: false, foundResults: (result.stats.num_results > 0), numApiCalls: 0 });
+                    }
                 })
         }
     }
@@ -621,7 +641,8 @@ export class CytoMain extends React.Component {
                 if (err) return;
                 const { graphJson, pending, loading, foundResults } = this.state;
                 const { result: id } = res.body;
-                const timers = { [id]: setInterval(this.poll(id), 500) };
+                const timers = { [id]: setInterval(this.poll(id), pollInterval) };
+                setTimeout(() => { clearInterval( timers[id] );}, maxTime * 1.5);
                 this.setState({ pending: { ...pending, ...timers } });
             })
     }
