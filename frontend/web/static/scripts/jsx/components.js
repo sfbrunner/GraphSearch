@@ -3,7 +3,12 @@ import { render } from 'react-dom'
 import { slide as Menu } from 'react-burger-menu'
 import FRC, { Checkbox, CheckboxGroup, Input, RadioGroup, Row as FormsyRow, Select, File, Textarea } from 'formsy-react-components'
 import { Image, Grid, Col, Clearfix, Row, Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap'
-import { CytoMain } from './cytoComponents'
+import { CytoMain, CytoGraph, GraphInfo } from './cytoComponents'
+import { DotLoader } from 'react-spinners';
+import { keys, map, isArray, sortBy } from 'lodash';
+import ReactGA from 'react-ga';
+import numeral from 'numeral'
+import request from 'superagent'
 
 var divContentLanding = {
     contenttest: {
@@ -42,22 +47,6 @@ var divContentLanding = {
         color:'gray'
     }
 }
-
-const Request = ({ onSubmit }) => (
-    <FRC.Form onSubmit={onSubmit}>
-        <fieldset>
-            <Input
-                name="search_string"
-                layout="vertical"
-                id="search_string"
-                value="epigenetics idh oncogenic"
-                type="text"
-                help="Let us create a network of your search results."
-                addonAfter={<span type="submit" className="glyphicon glyphicon-search" defaultValue="Submit" />}
-            />
-        </fieldset>
-    </FRC.Form>
-)
 
 export class MainNav extends Component {
     render() {
@@ -138,8 +127,88 @@ export class SearchActive2 extends Component {
 	) }
 }
 
+//////////
+const Request = ({ onSubmit }) => (
+    <FRC.Form onSubmit={onSubmit}>
+        <fieldset>
+            <Input
+                name="search_string"
+                layout="vertical"
+                id="search_string"
+                value="epigenetics idh oncogenic"
+                type="text"
+                help="Let us create a network of your search results."
+                addonAfter={<span type="submit" className="glyphicon glyphicon-search" defaultValue="Submit" />}
+            />
+        </fieldset>
+    </FRC.Form>
+)
+
+const rootUrl = new URL(window.location.origin)
+rootUrl.port = 8080
+const apiUrl = new URL("/api/", rootUrl)
+const maxTime = 60 * 1000;
+const pollInterval = 500;
+
 export class SearchActive4 extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = { graphJson: {}, pending: {}, loading: false, foundResults: false, numApiCalls: 0 };
+        this.onSubmit = this.onSubmit.bind(this);
+    }
+
+    poll(id) {
+        return () => {
+            request.get(new URL(id, apiUrl))
+                .end((err, res) => { // call api with id -> will return task_id and if ready result
+                    if (err) return;
+                    const { result } = res.body;
+                    const { numApiCalls } = this.state;
+                    if (!result) 
+                    {
+                        if (numApiCalls > maxTime/pollInterval)
+                        {
+                            const { pending } = this.state;
+                            clearInterval(pending[id]);
+                            delete pending[id];
+                            this.setState({ graphJson: {[id]: null }, loading: false, foundResults: false, numApiCalls: 0 });
+                        }
+                        else
+                        {
+                            this.setState({numApiCalls: numApiCalls+1});
+                        }
+                        return;
+                    }
+                    else
+                    {
+                        const { pending } = this.state;
+                        clearInterval(pending[id]);
+                        delete pending[id];
+                        this.setState({ graphJson: { [id]: result }, loading: false, foundResults: (result.stats.num_results > 0), numApiCalls: 0 });
+                    }
+                })
+        }
+    }
+
+    onSubmit({ search_string }) {
+        this.setState({ loading: true });
+        ReactGA.event({ category: 'Search', action: 'Submitted search', label: search_string });
+        const payload = { 'search_string': search_string, 'graph_format': 'cytoscape' };
+        request.put(apiUrl).send(payload)
+            .end((err, res) => {
+                if (err) return;
+                const { graphJson, pending, loading, foundResults } = this.state;
+                const { result: id } = res.body;
+                const timers = { [id]: setInterval(this.poll(id), pollInterval) };
+                setTimeout(() => { clearInterval( timers[id] );}, maxTime * 1.5);
+                this.setState({ pending: { ...pending, ...timers } });
+            })
+    }
+
 	render() {
+        const noRestultsString = "Sorry, your search yielded no results. Please try again."
+        const { graphJson, pending, loading } = this.state;
 		return (
             <div style={{width:'100%', float:'left', height:'100%'}}>
                 <div style={{background:'white',
@@ -157,24 +226,23 @@ export class SearchActive4 extends Component {
                         borderColor: 'grey'
                     }}>
                     <Row>
-                    <FRC.Form>
-                    <fieldset>
-                        <Input
-                            name="search_string"
-                            layout="vertical"
-                            id="search_string"
-                            value="epigenetics idh oncogenic"
-                            type="text"
-                            help="Let us create a network of your search results."
-                            addonAfter={<span type="submit" className="glyphicon glyphicon-search" defaultValue="Submit" />}
-                        />
-                    </fieldset>
-                    </FRC.Form>
+                    <Request onSubmit={this.onSubmit} />
                     </Row>
-                    <h2>Info div</h2>
+                    <Row>
+                        {map(keys(graphJson), id => !this.state.loading
+                            ? (this.state.foundResults ? <GraphInfo data={graphJson[id].stats}/> : <h2>{noRestultsString}</h2>)
+                            : {})
+                        }
+                    </Row>
                 </div>
-                <div style={{background:'red', height:'100%', width:'100%'}}>
-                    <h2>Main network</h2>
+                <div style={{width:'100%', float:'left', height:'100%'}}>
+                    <DotLoader color={'#000000'} loading={loading} />
+                    <div id='cy' style={{width:'100vw', float:'left', height:'100vh', position: 'relative'}}>
+                    {map(keys(graphJson), id => !this.state.loading
+                            ? (this.state.foundResults ? <CytoGraph data={graphJson[id]}/> : <h2>{noRestultsString}</h2>)
+                            : {})
+                        }
+                    </div>
                 </div>
             </div>
 	) }

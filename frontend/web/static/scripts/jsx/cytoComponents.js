@@ -569,115 +569,6 @@ var divContentSearch = {
 }
 
 
-const Request = ({ onSubmit }) => (
-    <FRC.Form onSubmit={onSubmit}>
-        <fieldset>
-            <Input
-                name="search_string"
-                layout="vertical"
-                id="search_string"
-                value="epigenetics idh oncogenic"
-                type="text"
-                help="Let us create a network of your search results."
-                addonAfter={<span type="submit" className="glyphicon glyphicon-search" defaultValue="Submit" />}
-            />
-        </fieldset>
-    </FRC.Form>
-)
-
-const rootUrl = new URL(window.location.origin)
-rootUrl.port = 8080
-const apiUrl = new URL("/api/", rootUrl)
-const maxTime = 60 * 1000;
-const pollInterval = 500;
-
-export class CytoMain extends React.Component {
-
-    constructor(props) {
-        super(props);
-        this.state = { graphJson: {}, pending: {}, loading: false, foundResults: false, numApiCalls: 0 };
-        this.onSubmit = this.onSubmit.bind(this);
-    }
-
-    poll(id) {
-        return () => {
-            request.get(new URL(id, apiUrl))
-                .end((err, res) => { // call api with id -> will return task_id and if ready result
-                    if (err) return;
-                    const { result } = res.body;
-                    const { numApiCalls } = this.state;
-                    if (!result) 
-                    {
-                        if (numApiCalls > maxTime/pollInterval)
-                        {
-                            const { pending } = this.state;
-                            clearInterval(pending[id]);
-                            delete pending[id];
-                            this.setState({ graphJson: {[id]: null }, loading: false, foundResults: false, numApiCalls: 0 });
-                        }
-                        else
-                        {
-                            this.setState({numApiCalls: numApiCalls+1});
-                        }
-                        return;
-                    }
-                    else
-                    {
-                        const { pending } = this.state;
-                        clearInterval(pending[id]);
-                        delete pending[id];
-                        this.setState({ graphJson: { [id]: result }, loading: false, foundResults: (result.stats.num_results > 0), numApiCalls: 0 });
-                    }
-                })
-        }
-    }
-
-    onSubmit({ search_string }) {
-        this.setState({ loading: true });
-        ReactGA.event({ category: 'Search', action: 'Submitted search', label: search_string });
-        const payload = { 'search_string': search_string, 'graph_format': 'cytoscape' };
-        request.put(apiUrl).send(payload)
-            .end((err, res) => {
-                if (err) return;
-                const { graphJson, pending, loading, foundResults } = this.state;
-                const { result: id } = res.body;
-                const timers = { [id]: setInterval(this.poll(id), pollInterval) };
-                setTimeout(() => { clearInterval( timers[id] );}, maxTime * 1.5);
-                this.setState({ pending: { ...pending, ...timers } });
-            })
-    }
-
-    render() {
-        const noRestultsString = "Sorry, your search yielded no results. Please try again."
-        const { graphJson, pending, loading } = this.state;
-        return (
-            <Grid>
-                <Row className="show-grid">
-                    <Col xs={1} md={2}></Col>
-                    <Col xs={10} md={8}>
-                        <Request onSubmit={this.onSubmit} />
-                    </Col>
-                    <Col xs={1} md={2}></Col>
-                </Row>
-                <Row className="show-grid">
-                    <Col xs={1} md={4}></Col>
-                    <Col xs={1} md={4}>
-                        <DotLoader color={'#000000'} loading={loading} />
-                    </Col>
-                    <Col xs={1} md={4}> </Col>
-                </Row>
-                <Row className="show-grid">
-                    <Col md={12} xs={12}>
-                        {map(keys(graphJson), id => !this.state.loading
-                            ? (this.state.foundResults ? <CytoGraph data={graphJson[id]}/> : <h2>{noRestultsString}</h2>)
-                            : {})
-                        }
-                    </Col>
-                </Row>
-            </Grid>
-        )
-    }
-}
 
 const ResponsiveHistogram = withParentSize(({ parentWidth, parentHeight, ...rest}) => (
     <Histogram
@@ -688,16 +579,16 @@ const ResponsiveHistogram = withParentSize(({ parentWidth, parentHeight, ...rest
     />
 ));
 
-class GraphInfo extends React.Component {
+export class GraphInfo extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = { stats: props.data.stats };
+        this.state = { stats: props.data };
     }
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.data.stats !== this.state) {
-            this.state = { stats: nextProps.data.stats };
+            this.state = { stats: nextProps.data };
         }
     }
 
@@ -825,7 +716,7 @@ class ContextMenu extends React.Component {
 
 }
 
-class CytoGraph extends React.Component {
+export class CytoGraph extends React.Component {
     // See https://github.com/cytoscape/cytoscape.js/issues/1468 for implementation recommendations
 
     constructor(props) {
@@ -995,9 +886,6 @@ class CytoGraph extends React.Component {
                     <Button onClick={this._hideSecondaryNodes}>Cited papers</Button>
                     <Button onClick={this._hidePrimaryNodes}>Direct hits</Button>
                 </ButtonToolbar >
-                <div id="cy" name="cy" style={cytoDivStyle}>
-                    <GraphInfo data={this.props.data} />
-                </div>
                 <ContextMenu ref="contextMenu" />
             </div>
         )
