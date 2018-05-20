@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import { keys, map, isArray, sortBy } from 'lodash';
-import FRC, { Checkbox, CheckboxGroup, Input, RadioGroup, Row as FormsyRow, Select, File, Textarea } from 'formsy-react-components'
 import numeral from 'numeral'
 import request from 'superagent'
 import { render } from 'react-dom'
 import { Image, Grid, Col, Clearfix, Row, Button, ButtonToolbar, ButtonGroup, Popover, Overlay, OverlayTrigger, Tooltip, Modal, Alert, Badge } from 'react-bootstrap'
-import ReactToolip from 'react-tooltip';
 import { DotLoader } from 'react-spinners';
 import ReactGA from 'react-ga';
 import { Histogram, DensitySeries, BarSeries, withParentSize, XAxis, YAxis, WithTooltip } from '@data-ui/histogram';
@@ -15,7 +13,6 @@ import renderTooltip from './renderHistogramTooltip';
 window.$ = window.jQuery = require('jquery');
 var cytoscape = require('cytoscape');
 //var cyforcelayout = require('cytoscape-ngraph.forcelayout');
-var cyqtip = require('cytoscape-qtip');
 var cycola = require('cytoscape-cola');
 var cyforcelayout = require('cytoscape-ngraph.forcelayout');
 
@@ -32,7 +29,6 @@ var cyforcelayout = require('cytoscape-ngraph.forcelayout');
 // register extensions
 //cyforcelayout( cytoscape );
 //cytoscape.use( qtip );
-cyqtip(cytoscape);
 cycola(cytoscape);
 cyforcelayout(cytoscape);
 //var cycola = require('cytoscape-cola');
@@ -176,7 +172,6 @@ var physics = {
 //cyforcelayout['stableThreshold'] = false
 //cyforcelayout['animate'] = false
 //cyforcelayout['fit'] = true
-console.log(cyforcelayout.ngraph)
 var cytoCoseBilkentLayout = {
     name: 'cose-bilkent',
     // Called on `layoutready`
@@ -862,28 +857,8 @@ export class CytoGraph extends React.Component {
             width: '100%',
             padding: '0px'
         };
-        var graphMenuStyle = {
-            paddingRight: '20px',
-            paddingLeft: '20px',
-            verticalAlign: 'middle',
-            display: 'block',
-            position: 'absolute', 
-            left: '1%',
-            top: 10,
-            pointerEvents: 'all',
-            width: '40%',
-            height: '100px',
-            borderRadius: '7px',
-            padding: '7px',
-            zIndex: '1001'
-        };
         return (
             <div>
-                <ButtonToolbar style={graphMenuStyle} >
-                    <Button onClick={this._refocusGraph}>Refocus</Button>
-                    <Button onClick={this._hideSecondaryNodes}>Cited papers</Button>
-                    <Button onClick={this._hidePrimaryNodes}>Direct hits</Button>
-                </ButtonToolbar >
                 <ContextMenu ref="contextMenu" />
             </div>
         )
