@@ -8,3 +8,4 @@ backend/dump.rdb
 *.swp
 *.log
 dump.rdb
+frontend/package-lock.json
