@@ -594,20 +594,14 @@ export class GraphInfo extends React.Component {
 
     render() {
         var statsMenuStyle = {
-            backgroundColor: 'lightgrey',
             paddingRight: '20px',
             paddingLeft: '20px',
-            verticalAlign: 'middle',
             display: 'block',
-            position: 'absolute', 
-            left: '80%',
-            top:  20,
+            position: 'absolute',
+            top:  '20%',
             pointerEvents: 'all',
-            background: 'grey',
             opacity: 0.9,
-            width: '20%',
-            height: '160px',
-            borderRadius: '7px',
+            width: '100%',
             padding: '7px',
             zIndex: '1001'
         };

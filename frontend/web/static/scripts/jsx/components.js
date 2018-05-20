@@ -137,7 +137,6 @@ const Request = ({ onSubmit }) => (
                 id="search_string"
                 value="epigenetics idh oncogenic"
                 type="text"
-                help="Let us create a network of your search results."
                 addonAfter={<span type="submit" className="glyphicon glyphicon-search" defaultValue="Submit" />}
             />
         </fieldset>
@@ -212,32 +211,47 @@ export class SearchActive4 extends Component {
 		return (
             <div style={{width:'100%', float:'left', height:'100%'}}>
                 <div style={{background:'white',
-                        verticalAlign: 'middle',
+                        verticalAlign: 'left',
                         display: 'block',
                         position: 'absolute', 
                         left: '0%',
                         top:  36,
                         pointerEvents: 'all',
                         opacity: 0.9,
-                        width: '20%',
+                        width: '20vw',
                         height: '100%',
                         zIndex: '1001',
                         borderStyle: 'solid',
-                        borderColor: 'grey'
+                        borderColor: 'grey',
+                        borderWidth: '0.5px'
                     }}>
                     <Row>
-                    <Request onSubmit={this.onSubmit} />
+                        <Col md={1}>
+                        </Col>
+                        <Col md={10}>
+                            <div style={{left:'10px'}}>
+                            <Request onSubmit={this.onSubmit} />
+                            </div>
+                        </Col>
+                        <Col md={1}>
+                        </Col>
                     </Row>
                     <Row>
+                        <Col md={1}></Col>
+                        <Col md={10}>
                         {map(keys(graphJson), id => !this.state.loading
                             ? (this.state.foundResults ? <GraphInfo data={graphJson[id].stats}/> : <h2>{noRestultsString}</h2>)
                             : {})
                         }
+                        </Col>
+                        <Col md={1}></Col>
                     </Row>
                 </div>
                 <div style={{width:'100%', float:'left', height:'100%'}}>
+                    <div style={{verticalAlign: 'middle', left: '50%', top:'20%'}}>
                     <DotLoader color={'#000000'} loading={loading} />
-                    <div id='cy' style={{width:'100vw', float:'left', height:'100vh', position: 'relative'}}>
+                    </div>
+                    <div id='cy' style={{width:'100vw', float:'left', height:'90vh', position: 'relative'}}>
                     {map(keys(graphJson), id => !this.state.loading
                             ? (this.state.foundResults ? <CytoGraph data={graphJson[id]}/> : <h2>{noRestultsString}</h2>)
                             : {})
