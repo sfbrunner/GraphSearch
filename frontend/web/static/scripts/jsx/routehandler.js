@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { render } from 'react-dom'
 import { BrowserRouter, Route, Link, Switch, hashHistory } from 'react-router-dom'
 import { BurgerTest } from './burgercomponent'
-import { SearchLanding, SearchActive, SearchActive2, SearchActive3, SearchActive4, About, MainNav } from './components'
+import { SearchLanding, SearchActive, SearchActive2, SearchActive3, SearchActive4, About, MainNav, FeedbackModal } from './components'
 import { Image, Grid, Row, Col, Clearfix } from 'react-bootstrap'
 import ReactGA from 'react-ga';
 import createHistory from 'history/createBrowserHistory'
@@ -14,6 +14,7 @@ const Layout = ({ routehandler}) => (
     <div className="container-fluid wrapper" id="outer-container">
 			<div style={{ height:"36px" }}><MainNav/></div>
 			<div style={{width:'100%'}}>{routehandler}</div>
+			<div>{ FeedbackModal }</div>
 	</div>
 ) 
 

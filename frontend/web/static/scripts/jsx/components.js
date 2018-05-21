@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom'
-import { Image, Grid, Col, Clearfix, Row, Navbar, Nav, NavItem, NavDropdown, MenuItem, Button, form, ButtonToolbar, FormGroup, FormControl, InputGroup, Glyphicon, Panel } from 'react-bootstrap'
+import { Image, Grid, Col, Clearfix, Row, Navbar, Nav, NavItem, NavDropdown, MenuItem, Button, form, ButtonToolbar, FormGroup, FormControl, InputGroup, Glyphicon, Panel, ControlLabel, Modal } from 'react-bootstrap'
 import { CytoGraph, GraphInfo } from './cytoComponents'
 import { DotLoader } from 'react-spinners';
 import { keys, map, isArray, sortBy } from 'lodash';
@@ -8,8 +8,10 @@ import ReactGA from 'react-ga';
 import numeral from 'numeral'
 import request from 'superagent'
 import queryString from 'query-string'
-
+//import createIssue from 'github-create-issue';
+var createIssue = require( 'github-create-issue');
 var bgImage = require('../../images/main_img-01.svg')
+//var feedbackUrl = require('https://microfeedback-github-vbaphuxutm.now.sh/')
 
 var divContentLanding = {
     contenttest: {
@@ -51,6 +53,11 @@ var divContentLanding = {
 }
 
 export class MainNav extends Component {
+
+    constructor(props) {
+        super(props);
+    }
+
     render() {
         return (
             <Navbar fixedTop={ true } inverse={ false } fluid={ true }>
@@ -67,6 +74,9 @@ export class MainNav extends Component {
                     Search
                     </NavItem>
                 </Nav>
+                <Navbar.Form pullRight>
+                <FeedbackModal/>                
+                </Navbar.Form>
             </Navbar>
         )
     }
@@ -77,6 +87,7 @@ export class SearchLanding extends Component {
     constructor(props) {
         super(props);
         this.handleForm = this.handleForm.bind(this);
+
     }
 
     handleForm(event) {
@@ -348,3 +359,102 @@ export class About extends Component {
             </Grid>
 	) }
 }
+
+export class FeedbackModal extends Component {
+    constructor() {
+      super();
+  
+      this.state = {
+        modalIsOpen: false
+      };
+  
+      this.openModal = this.openModal.bind(this);
+      this.afterOpenModal = this.afterOpenModal.bind(this);
+      this.closeModal = this.closeModal.bind(this);
+      this.issue_callback = this.issue_callback.bind(this);
+      this.hideModal = this.hideModal.bind(this);
+
+    }
+     
+    issue_callback( error, issue, info ) {
+        // Check for rate limit information...
+        if ( info ) {
+            console.error( 'Limit: %d', info.limit );
+            console.error( 'Remaining: %d', info.remaining );
+            console.error( 'Reset: %s', (new Date( info.reset*1000 )).toISOString() );
+        }
+        if ( error ) {
+            throw new Error( error.message );
+        }
+        console.log( JSON.stringify( issue ) );
+        // returns <issue_data>
+    }
+  
+    afterOpenModal() {
+      // references are now sync'd and can be accessed.
+    }
+  
+    openModal() {
+      this.setState({modalIsOpen: true});
+    }
+
+    hideModal() {
+        this.setState({modalIsOpen: false});
+    }
+  
+    closeModal(event) {
+        event.preventDefault();
+        var feedback_title = event.target.childNodes[0].children.feedback_title.value;
+        var feedback_body = event.target.childNodes[0].children.feedback_body.value;
+
+        var github_opts = {
+          'token': 'dd27030f6d6f26803f6aab50820f2838bfd87eb9',
+          'body': feedback_body,
+          'labels': ['feedback'] 
+        }
+      //ReactGA.event({category: 'Feedback', action: 'Submitted feedback', label: feedback_string });
+      createIssue( 'sfbrunner/GraphSearch', feedback_title, github_opts, this.issue_callback );
+      this.setState({modalIsOpen: false});
+    }
+  
+    render() {
+      return (
+        <div>
+            <Button onClick={this.openModal}>Feedback</Button>
+            <Modal 
+                show={this.state.modalIsOpen}
+                onHide={this.hideModal}
+                container={this}
+                aria-labelledby="contained-modal-title"
+            >
+                <Modal.Header closeButton>
+                    <Modal.Title id="contained-modal-title">
+                    Please provide us with your feedback.
+                    </Modal.Title>
+                </Modal.Header>
+                
+                <Modal.Body>
+                <form onSubmit={this.closeModal}>
+                <FormGroup>
+                    <ControlLabel>Subject</ControlLabel>
+                    <FormControl id='feedback_title' type='text' label='Subject' placeholder="Feedback subject"/>
+                <FormGroup>
+                </FormGroup>
+                    <ControlLabel>Your email (optional)</ControlLabel>
+                    <FormControl id='useremail' type='email' label='Email address (optional)' placeholder="your@email.com"/>
+                <FormGroup>
+                </FormGroup>
+                    <ControlLabel>Your feedback</ControlLabel>
+                    <FormControl id='feedback_body' componentClass="textarea" placeholder="Type your feedback here."/>
+                </FormGroup>
+                <Button type="cancel" onClick={this.hideModal}>Cancel</Button>
+                <Button type="submit">Submit</Button>
+                </form>
+                </Modal.Body>
+
+                
+            </Modal>
+        </div>
+      );
+    }
+  }
