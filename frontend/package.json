@@ -41,8 +41,6 @@
     "d3-force": "1.1.0",
     "del": "^2.2.0",
     "envify": "^4.0.0",
-    "formsy-react": "^1.1.4",
-    "formsy-react-components": "^1.0.0",
     "jquery": "2.2.4",
     "less": "^2.7.3",
     "lodash": "^4.17.4",

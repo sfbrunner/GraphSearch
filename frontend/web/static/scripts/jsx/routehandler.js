@@ -14,7 +14,6 @@ const Layout = ({ routehandler}) => (
     <div className="container-fluid wrapper" id="outer-container">
 			<div style={{ height:"36px" }}><MainNav/></div>
 			<div style={{width:'100%'}}>{routehandler}</div>
-			<div>{ FeedbackModal }</div>
 	</div>
 ) 
 

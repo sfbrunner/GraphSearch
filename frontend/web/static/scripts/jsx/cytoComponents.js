@@ -3,7 +3,7 @@ import { keys, map, isArray, sortBy } from 'lodash';
 import numeral from 'numeral'
 import request from 'superagent'
 import { render } from 'react-dom'
-import { Image, Grid, Col, Clearfix, Row, Button, ButtonToolbar, ButtonGroup, Popover, Overlay, OverlayTrigger, Tooltip, Modal, Alert, Badge } from 'react-bootstrap'
+import { Image, Grid, Col, Clearfix, Row, Button, ButtonToolbar, ButtonGroup, Popover, Overlay, OverlayTrigger, Tooltip, Modal, Alert, Badge, Checkbox, ToggleButton } from 'react-bootstrap'
 import { DotLoader } from 'react-spinners';
 import ReactGA from 'react-ga';
 import { Histogram, DensitySeries, BarSeries, withParentSize, XAxis, YAxis, WithTooltip } from '@data-ui/histogram';
@@ -67,7 +67,6 @@ var searchedNodeStyle = {
         //'text-background-opacity': 0.8,
         //'text-background-shape': 'roundrectangle',
         //'text-outline-color': 'white',
-        "text-valign": "bottom center",
         "text-max-width": 70,
         "text-wrap": 'ellipsis'
     },
@@ -579,7 +578,29 @@ export class GraphInfo extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = { stats: props.data };
+        this.state = { 
+            stats: props.data, 
+            primaryNodesActive: true,
+            secondaryNodesActive: true,
+            citationsActive: true
+        };
+        this.primaryNodeHandler = this.primaryNodeHandler.bind(this);
+        this.secondaryNodeHandler = this.secondaryNodeHandler.bind(this);
+        this.citationHandler = this.citationHandler.bind(this);
+    }
+
+    citationHandler(e){
+
+    }
+
+    secondaryNodeHandler(e){
+
+    }
+
+    primaryNodeHandler(e){
+        const { primaryNodesActive } = this.state;
+        this.setState({primaryNodesActive: !primaryNodesActive})
+        this.props.nodeHandler();
     }
 
     componentWillReceiveProps(nextProps) {
@@ -592,7 +613,7 @@ export class GraphInfo extends React.Component {
         var statsMenuStyle = {
             display: 'block',
             pointerEvents: 'all',
-            zIndex: '1001',
+            zIndex: '10001',
             marginTop: '10px',
             padding: '10px',
             paddingBottom: '0px',
@@ -618,6 +639,7 @@ export class GraphInfo extends React.Component {
         const author_list = this.state.stats.top_authors_list.map((author) =>
             <Badge style={{backgroundColor:'lightgrey'}}>{author}</Badge>
         );
+        const { primaryNodesActive, secondaryNodesActive, citationsActive } = this.state;
 
         return (
             <div id="netstats" name="netstats">
@@ -644,19 +666,27 @@ export class GraphInfo extends React.Component {
                     </div>
                 </Row>
                 <Row style={statsMenuStyle}>
-                <p><strong>Direct hits </strong>
-                    <Badge style={{backgroundColor:'#004cc6'}}>{ this.state.stats.num_results }</Badge></p>
-                <p><strong>Cited publications </strong>
-                    <Badge style={{backgroundColor:'red'}}>{ this.state.stats.num_citations }</Badge></p>
-                <p><strong>Citation links </strong>
-                    <Badge style={{backgroundColor:'lightgrey'}}>{ this.state.stats.num_links }</Badge></p>
+                    <ButtonGroup vertical>
+                        <Button onClick={this.primaryNodeHandler} active={primaryNodesActive} bsSize="small">
+                            <strong>Direct hits </strong>
+                            <Badge style={{backgroundColor:'#004cc6'}}>{ this.state.stats.num_results }</Badge>
+                        </Button>
+                        <Button onClick={this.secondaryNodeHandler} bsSize="small" style={{backgroundColor:'white'}}>
+                            <strong>Cited publications </strong>
+                            <Badge style={{backgroundColor:'red'}}>{ this.state.stats.num_citations }</Badge>
+                        </Button>
+                        <Button onClick={this.citationHandler} bsSize="small" style={{backgroundColor:'white'}}>
+                            <strong>Citation links </strong>
+                            <Badge style={{backgroundColor:'lightgrey'}}>{ this.state.stats.num_links }</Badge>
+                        </Button>
+                    </ButtonGroup>
                 </Row>
                 <Row style={statsMenuStyle}>
-                <div style={{whiteSpace: 'nowrap', overflow:'hidden', display:'inline-block', textAlign:'left'}}>
-                    <p><strong>Citations per publication</strong></p>
-                    <Badge style={{backgroundColor:'lightgrey'}}>0</Badge>{'\u00A0'}{ gradient_svg }{'\u00A0'}
-                    <Badge style={{backgroundColor:'red'}}>{this.state.stats.max_degree_cited}</Badge>
-                </div>
+                    <div style={{whiteSpace: 'nowrap', overflow:'hidden', display:'inline-block', textAlign:'left'}}>
+                        <p><strong>Citations per publication</strong></p>
+                        <Badge style={{backgroundColor:'lightgrey'}}>0</Badge>{'\u00A0'}{ gradient_svg }{'\u00A0'}
+                        <Badge style={{backgroundColor:'red'}}>{this.state.stats.max_degree_cited}</Badge>
+                    </div>
                 </Row>
                 <Row style={statsMenuStyle}>
                 <p><strong>Top 5 journals: </strong>{ journal_list }</p>
@@ -667,12 +697,11 @@ export class GraphInfo extends React.Component {
     }
 }
 
-class ContextMenu extends React.Component {
+export class ContextMenu extends React.Component {
 
     constructor(props){
         super(props);
         this.state = {contextMenuLocation: "", tooltipString: ""};
-
     }
 
     getInitialState(){
@@ -690,18 +719,18 @@ class ContextMenu extends React.Component {
         var contentMenuStyle = {
             display: this.state.tooltipString != null && location ? 'block' : 'none',
             position: 'absolute', 
-            left: location ? (location.x-tooltipWidth/2+15) : 0,
+            left: location ? (location.x-tooltipWidth/2) : 0,
             top: location ? (location.y) : 0,
             pointerEvents: 'all',
             width: tooltipWidth,
             height: tooltipHeight,
             borderRadius: '7px',
             padding: '0px',
-            zIndex: '100100',
+            zIndex: '10000',
         };
         var popoverStyle = 
         {
-            positionTop: location ? (location.x-tooltipWidth/2+15) : 0,
+            positionTop: location ? (location.x-tooltipWidth/2) : 0,
             positionLeft: location ? (location.y) : 0,
         }
 
@@ -724,24 +753,54 @@ export class CytoGraph extends React.Component {
     constructor(props) {
         super(props);
         this.cy = null;
-        this.state = { graph: props.data.graph, tooltipString: null, cytoTarget: null, tooltipShow: false };
+        this.state = { 
+            graph: props.data.graph, 
+            tooltipString: null, 
+            cytoTarget: null, 
+            tooltipShow: false, 
+            refocus: false,
+            zoomIn: false,
+            zoomOut: false
+        };
         this._nodeSelector = this._nodeSelector.bind(this);
-        this._refocusGraph = this._refocusGraph.bind(this);
-        this._hideSecondaryNodes = this._hideSecondaryNodes.bind(this);
-        this._hidePrimaryNodes = this._hidePrimaryNodes.bind(this);
+        this.refocusGraph = this.refocusGraph.bind(this);
+        this.zoomInGraph = this.zoomInGraph.bind(this);
+        this.zoomOutGraph = this.zoomOutGraph.bind(this);
+        this.hideSecondaryNodes = this.hideSecondaryNodes.bind(this);
+        this.hidePrimaryNodes = this.hidePrimaryNodes.bind(this);
+        this.nodeHandler = this.nodeHandler.bind(this);
         this.eles = null;
         this.primaryEles = null;
+        this.contextMenu = props.contextMenu;
+        this.highlightNodes = this.highlightNodes.bind(this)
     }
+
 
     _nodeSelector(nodeId) {
         return this.state.graph.nodes.filter(function (obj) { return obj.data.id == nodeId })[0].data;
     }
 
-    _refocusGraph() {
-        this.cy.fit();
+    nodeHandler()
+    {
+        this.hidePrimaryNodes();
     }
 
-    _hideSecondaryNodes() {
+    refocusGraph() {
+        this.cy.fit();
+        this.setState({refocus: false});
+    }
+
+    zoomInGraph() {
+        this.cy.zoom(this.cy.zoom() + 0.1);
+        this.setState({zoomIn: false})
+    }
+
+    zoomOutGraph() {
+        this.cy.zoom(this.cy.zoom() - 0.1);
+        this.setState({zoomOut: false})
+    }
+
+    hideSecondaryNodes() {
         if (this.eles != null) {
             this.eles.restore();
             this.eles = null;
@@ -752,7 +811,7 @@ export class CytoGraph extends React.Component {
         }
     }
 
-    _hidePrimaryNodes() {
+    hidePrimaryNodes() {
         if (this.primaryEles != null) {
             this.primaryEles.restore();
             this.primaryEles = null;
@@ -763,14 +822,35 @@ export class CytoGraph extends React.Component {
         }
     }
 
+    highlightNodes(filter)
+    {
+        var nodes = this.cy.$('node[${filter}]').select();
+        nodes.animate(
+            { style: {borderColor: 'black', borderWidth: '2px solid #dadada'} },
+            { duration: 0 }
+        );
+    }
+
     componentWillReceiveProps(nextProps) {
         if (nextProps.data.graph !== this.state.graph) {
-            this.state.graph = nextProps.data.graph;
+            this.setState({ graph: nextProps.data.graph });
             this.cy.elements().remove();
             this.cy.add(nextProps.data.graph);
             this.cy.json(nextProps.data.graph);
             this.cy.layout(cytoEuler).run();
             this.cy.fit();
+        }
+        if (nextProps.refocus){
+            this.refocusGraph();
+        }
+        else if (nextProps.zoomIn){
+            this.zoomInGraph();
+        }
+        else if (nextProps.zoomOut){
+            this.zoomOutGraph();
+        }
+        if (nextProps.nodes != ''){
+            this.hidePrimaryNodes();
         }
     }
 
@@ -786,9 +866,9 @@ export class CytoGraph extends React.Component {
         return this.cy;
     }
 
-    componentDidMount() {
-        this.contextMenu = this.refs.contextMenu;
 
+
+    componentDidMount() {
         var cy = cytoscape({
             container: document.getElementById('cy'),
             elements: this.state.graph,
@@ -812,15 +892,15 @@ export class CytoGraph extends React.Component {
 
         function _formatNodeMouseover(event){
             event.target.animate(
-                { style: {borderColor: '#9ecaed', borderWidth: '2px solid #dadada'} },
-                { duration: 100 }
+                { style: {borderColor: 'black', borderWidth: '2px solid #dadada'} },
+                { duration: 10 }
             );
         }
 
         function _formatNodeMouseout(event){
             event.target.animate(
                 { style: {borderColor: 'gray', borderWidth: '0.5'} },
-                { duration: 100 }
+                { duration: 10 }
             );
         }
 
@@ -865,11 +945,11 @@ export class CytoGraph extends React.Component {
             position: 'relative', // Relative position necessary for cytoscape lib features!
             height: '600px',
             width: '100%',
-            padding: '0px'
+            padding: '0px',
+            zIndex: '1000'
         };
         return (
             <div>
-                <ContextMenu ref="contextMenu" />
             </div>
         )
     }

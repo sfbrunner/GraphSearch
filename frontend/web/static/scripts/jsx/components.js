@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom'
 import { Image, Grid, Col, Clearfix, Row, Navbar, Nav, NavItem, NavDropdown, MenuItem, Button, form, ButtonToolbar, FormGroup, FormControl, InputGroup, Glyphicon, Panel, ControlLabel, Modal } from 'react-bootstrap'
-import { CytoGraph, GraphInfo } from './cytoComponents'
+import { CytoGraph, GraphInfo, ContextMenu } from './cytoComponents'
 import { DotLoader } from 'react-spinners';
 import { keys, map, isArray, sortBy } from 'lodash';
 import ReactGA from 'react-ga';
@@ -167,6 +167,53 @@ export class SearchActive2 extends Component {
 	) }
 }
 
+class GraphHelperMenu extends Component {
+
+    constructor(props){
+        super(props);
+        this.handleRefocus = this.handleRefocus.bind(this);
+        this.handleZoomIn = this.handleZoomIn.bind(this);
+        this.handleZoomOut = this.handleZoomOut.bind(this);
+    }
+
+    handleRefocus(e){
+        this.props.handleRefocus();
+    }
+
+    handleZoomIn(e){
+        this.props.handleZoomIn();
+    }
+
+    handleZoomOut(e){
+        this.props.handleZoomOut();
+    }
+
+    render(){
+        var graphHelperMenuStyle = {
+            paddingRight: '20px',
+            paddingLeft: '20px',
+            verticalAlign: 'middle',
+            display: 'block',
+            position: 'absolute', 
+            left: '80%',
+            top: '93%',
+            pointerEvents: 'all',
+            width: '40%',
+            height: '100px',
+            borderRadius: '7px',
+            padding: '7px',
+            zIndex: '10100'
+        };
+        return(
+            <ButtonToolbar style={graphHelperMenuStyle} >
+                <Button onClick={this.handleRefocus}><span class="glyphicon glyphicon-fullscreen"></span></Button>
+                <Button onClick={this.handleZoomIn}><span class="glyphicon glyphicon-plus"></span></Button>
+                <Button onClick={this.handleZoomOut}><span class="glyphicon glyphicon-minus"></span></Button>
+            </ButtonToolbar >
+        )
+    }
+}
+
 const rootUrl = new URL(window.location.origin)
 rootUrl.port = 8080
 const apiUrl = new URL("/api/", rootUrl)
@@ -177,11 +224,28 @@ export class SearchActive4 extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { graphJson: {}, pending: {}, loading: false, foundResults: false, numApiCalls: 0, searchString: null };
+        this.state = { 
+            graphJson: {}, 
+            pending: {}, 
+            loading: false, 
+            foundResults: false, 
+            numApiCalls: 0, 
+            searchString: null,
+            refocus: false,
+            zoomIn: false,
+            zoomOut: true,
+            nodes: ''
+         };
         this.onSubmit = this.onSubmit.bind(this);
         this.cytoGraph = React.createRef();
         this.search = this.search.bind(this);
         this.searchHint = 'other hint'
+        
+        this.contextMenu = React.createRef();
+        this.handleRefocus = this.handleRefocus.bind(this);
+        this.handleZoomIn = this.handleZoomIn.bind(this);
+        this.handleZoomOut = this.handleZoomOut.bind(this);
+        this.nodeHandler = this.nodeHandler.bind(this);
     }
 
     componentDidMount() {
@@ -193,6 +257,27 @@ export class SearchActive4 extends Component {
             this.searchHint = values
             this.search(values)
         }
+    }
+
+    nodeHandler(){
+        this.setState({nodes: 'cited'});
+    }
+
+    handleZoomIn(){
+        this.setState({zoomIn: true})
+    }
+
+    handleZoomOut(){
+        this.setState({zoomOut: true})
+    }
+
+    handleRefocus(){
+        this.setState({refocus: true});
+    }
+
+    setCytoGraphRef(ref)
+    {
+        this.cytoGraph = ref;
     }
 
     poll(id) {
@@ -250,38 +335,25 @@ export class SearchActive4 extends Component {
 
 	render() {
         var graphMenuStyle = {
-            paddingRight: '20px',
-            paddingLeft: '20px',
-            verticalAlign: 'middle',
+            background:'#d3d3d34d',
+            verticalAlign: 'left',
             display: 'block',
             position: 'absolute', 
-            left: '75%',
-            top: '95%',
+            left: '0%',
+            top:  36,
             pointerEvents: 'all',
-            width: '40%',
-            height: '100px',
-            borderRadius: '7px',
-            padding: '7px',
-            zIndex: '10100'
-        };
+            width: '22vw',
+            height: '100%',
+            zIndex: '1001',
+            borderStyle: 'solid',
+            borderColor: 'lightgrey',
+            borderWidth: '0.5px'
+        }
         const noRestultsString = "Sorry, your search yielded no results. Please try again.";
         const { graphJson, pending, loading } = this.state;
 		return (
             <div>
-                <div style={{background:'#d3d3d34d',
-                        verticalAlign: 'left',
-                        display: 'block',
-                        position: 'absolute', 
-                        left: '0%',
-                        top:  36,
-                        pointerEvents: 'all',
-                        width: '22vw',
-                        height: '100%',
-                        zIndex: '1001',
-                        borderStyle: 'solid',
-                        borderColor: 'lightgrey',
-                        borderWidth: '0.5px'
-                    }}>
+                <div style={graphMenuStyle}>
                     <Row style={{height:'2vh'}}></Row>
                     <Row>
                         <Col md={1}>
@@ -305,29 +377,24 @@ export class SearchActive4 extends Component {
                         <Col md={1}></Col>
                         <Col md={10}>
                         {map(keys(graphJson), id => !this.state.loading
-                            ? (this.state.foundResults ? <GraphInfo data={graphJson[id].stats}/> : <h2>{noRestultsString}</h2>)
+                            ? (this.state.foundResults ? <GraphInfo data={graphJson[id].stats} cytoGraph={this.cytoGraph.current} nodeHandler={this.nodeHandler}/> : <h2>{noRestultsString}</h2>)
                             : {})
                         }
                         </Col>
                         <Col md={1}></Col>
                     </Row>
                 </div>
+                <div style={{left: '60%', top:'40%', position: 'absolute', bottom: 0, height: '50px'}}>
+                    <DotLoader color={'#000000'} loading={loading}/>
+                </div>
                 <div style={{width:'100%', float:'left', height:'100%'}}>
-                    <div style={{verticalAlign: 'middle', left: '50%', top:'20%'}}>
-                    <DotLoader color={'#000000'} loading={loading} />
+                    <div id='cy' style={{width:'100vw', float:'left', height:'90vh', position: 'relative', zIndex: '1000'}}>
+                        <ContextMenu ref={this.contextMenu} />
+                        {map(keys(graphJson), id => !this.state.loading
+                                ? (this.state.foundResults ? <CytoGraph ref={this.cytoGraph} data={graphJson[id]} contextMenu={this.contextMenu.current} refocus={this.state.refocus} zoomIn={this.state.zoomIn} zoomOut={this.state.zoomOut} nodes={this.state.nodes} /> : <h2>{noRestultsString}</h2>)
+                                : {})}
                     </div>
-                    <div id='cy' style={{width:'100vw', float:'left', height:'90vh', position: 'relative'}}>
-                    {map(keys(graphJson), id => !this.state.loading
-                            ? (this.state.foundResults ? <CytoGraph data={graphJson[id]}/> : <h2>{noRestultsString}</h2>)
-                            : {})}
-                    </div>
-                    {!this.state.loading && this.state.foundResults ? 
-                    <ButtonToolbar style={graphMenuStyle} >
-                        <Button onClick={this.cytoGraph._refocusGraph}><span class="glyphicon glyphicon-fullscreen"></span></Button>
-                        <Button onClick={this.cytoGraph._hideSecondaryNodes}><span class="glyphicon glyphicon-plus"></span></Button>
-                        <Button onClick={this.cytoGraph._hidePrimaryNodes}><span class="glyphicon glyphicon-minus"></span></Button>
-                    </ButtonToolbar >
-                    : <div/>}
+                    <GraphHelperMenu handleRefocus={this.handleRefocus} handleZoomIn={this.handleZoomIn} handleZoomOut={this.handleZoomOut}/>
                 </div>
             </div>
 	) }
