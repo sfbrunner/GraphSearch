@@ -153,6 +153,7 @@ class ResultGraph():
         journal_lst = [node['journal_iso'] for node in n_json['nodes']]
         journal_counts = Counter(journal_lst)
         top_journals = journal_counts.most_common(n_most_common)
+        top_journals_list = ['{0} ({1})'.format(str(journal[0]), str(journal[1])) for journal in top_journals]
         top_journals = ', '.join(['{0} ({1})'.format(journal[0], journal[1]) for journal in top_journals])
 
         # Get top authors
@@ -161,6 +162,7 @@ class ResultGraph():
         author_lst = [author for author in author_lst if author!='']
         author_counts = Counter(author_lst)
         top_authors = author_counts.most_common(5)
+        top_authors_list = ['{0} ({1})'.format(str(author[0]), str(author[1])) for author in top_authors]
         top_authors = ', '.join(['{0} ({1})'.format(author[0], author[1]) for author in top_authors])
 
         # Get list of publication years
@@ -183,7 +185,8 @@ class ResultGraph():
             num_bin = 0
 
         return({'num_results': num_results, 'num_citations': num_citations, 'num_links': num_links, 'max_degree_cited': max_degree, 
-                    'top_journals':top_journals, 'top_authors':top_authors, 'pub_years':{'values':pub_years, 'num_bin':num_bin}})
+                    'top_journals':top_journals, 'top_journals_list':top_journals_list, 
+                    'top_authors':top_authors, 'top_authors_list':top_authors_list, 'pub_years':{'values':pub_years, 'num_bin':num_bin}})
 
     def get_sigma_json(self):
         n_json = json_graph.node_link_data(self.G)

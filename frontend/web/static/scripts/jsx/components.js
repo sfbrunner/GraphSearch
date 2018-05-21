@@ -1,12 +1,17 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom'
-import { Image, Grid, Col, Clearfix, Row, Navbar, Nav, NavItem, NavDropdown, MenuItem, Button, form, ButtonToolbar, FormGroup, FormControl, InputGroup, Glyphicon } from 'react-bootstrap'
+import { Image, Grid, Col, Clearfix, Row, Navbar, Nav, NavItem, NavDropdown, MenuItem, Button, form, ButtonToolbar, FormGroup, FormControl, InputGroup, Glyphicon, Panel, ControlLabel, Modal } from 'react-bootstrap'
 import { CytoGraph, GraphInfo, ContextMenu } from './cytoComponents'
 import { DotLoader } from 'react-spinners';
 import { keys, map, isArray, sortBy } from 'lodash';
 import ReactGA from 'react-ga';
 import numeral from 'numeral'
 import request from 'superagent'
+import queryString from 'query-string'
+//import createIssue from 'github-create-issue';
+var createIssue = require( 'github-create-issue');
+var bgImage = require('../../images/main_img-01.svg')
+//var feedbackUrl = require('https://microfeedback-github-vbaphuxutm.now.sh/')
 
 var divContentLanding = {
     contenttest: {
@@ -38,15 +43,21 @@ var divContentLanding = {
         lineHeight:'30px',
         position:'relative',
         top:'100%',
-        textAlign:'center'
+        textAlign:'center',
+        color:'#dadada'
     },
     p: {
         textAlign:'center',
-        color:'gray'
+        color:'#dadada'
     }
 }
 
 export class MainNav extends Component {
+
+    constructor(props) {
+        super(props);
+    }
+
     render() {
         return (
             <Navbar fixedTop={ true } inverse={ false } fluid={ true }>
@@ -63,6 +74,9 @@ export class MainNav extends Component {
                     Search
                     </NavItem>
                 </Nav>
+                <Navbar.Form pullRight>
+                <FeedbackModal/>                
+                </Navbar.Form>
             </Navbar>
         )
     }
@@ -70,18 +84,45 @@ export class MainNav extends Component {
 
 export class SearchLanding extends Component {
 
+    constructor(props) {
+        super(props);
+        this.handleForm = this.handleForm.bind(this);
+
+    }
+
+    handleForm(event) {
+        event.preventDefault();
+        var searchString = event.target.childNodes[0].children.searchString.value;
+        console.log(searchString)
+        this.props.history.push({pathname: '/searchactive2', state: {searchQuery: searchString}})
+    }
+
 	render() {
 		return (
-            <div style={{width:'100%', float:'left', height:'80%', position: 'absolute', left: '0%',}}>
+            <div style={{width:'100%', float:'left', height:'80%', position: 'absolute', left: '0%', 
+            backgroundImage: "url(" + bgImage + ")", backgroundRepeat: "no-repeat" }}>
 		  	<Grid>
-                <Row style={{height:'20vh'}}></Row>
+                <Row style={{height:'20vh'}}>
+                </Row>
 				<Row className="show-grid">
                     <Col md={2}></Col>
 				    <Col md={8}>
+                    <Panel style={{backgroundColor: '#0000007d', borderStyle: 'none'}}>
+                        <Panel.Body>
             		    <h2 style={divContentLanding.h2}>GraphSearch</h2>
 					    <p></p>
 					    <p style={divContentLanding.p}>Welcome to the GraphSearch platform. Our mission is to make your biomedical literature search experience the best it can be. We take your search query and return a network of publications to you. The network contains the direct results of your search (in blue) as well as the publications they cite (in red). The structure of the network helps you to find highly cited publications and quickly identify publications that belong together.</p>
-				    </Col>
+                        <form onSubmit={this.handleForm}>
+                        <InputGroup>
+                        <FormControl type="text" placeholder="Type your search query and hit <Enter>" id="searchString"/>
+                        <InputGroup.Addon>
+                        <Glyphicon glyph="search" />
+                        </InputGroup.Addon>
+                        </InputGroup>
+                        </form>
+                        </Panel.Body>
+                    </Panel>
+                    </Col>
                     <Col md={2}></Col>
 				</Row>
 				<Row className="show-grid">
@@ -89,19 +130,6 @@ export class SearchLanding extends Component {
 				    <Col md={8}><p><br/></p></Col>
                     <Col md={2}></Col>
 				</Row>
-                <Row>
-                    <Col md={2}></Col>
-				    <Col md={8}><form>
-                    <InputGroup>
-                    <FormControl type="text" />
-                    <InputGroup.Addon>
-                    <Glyphicon glyph="search" />
-                    </InputGroup.Addon>
-                    </InputGroup>
-                    </form>
-                    </Col>
-                    <Col md={2}></Col>
-                </Row>
 			</Grid>
             </div>
 		)
@@ -210,11 +238,25 @@ export class SearchActive4 extends Component {
          };
         this.onSubmit = this.onSubmit.bind(this);
         this.cytoGraph = React.createRef();
+        this.search = this.search.bind(this);
+        this.searchHint = 'other hint'
+        
         this.contextMenu = React.createRef();
         this.handleRefocus = this.handleRefocus.bind(this);
         this.handleZoomIn = this.handleZoomIn.bind(this);
         this.handleZoomOut = this.handleZoomOut.bind(this);
         this.nodeHandler = this.nodeHandler.bind(this);
+    }
+
+    componentDidMount() {
+        if(this.props.location.state != undefined)
+        {
+            const values = this.props.location.state.searchQuery
+            console.log('in constructor')
+            console.log(values)
+            this.searchHint = values
+            this.search(values)
+        }
     }
 
     nodeHandler(){
@@ -271,11 +313,10 @@ export class SearchActive4 extends Component {
         }
     }
 
-    onSubmit(event) {
-        event.preventDefault();
-        this.setState({ loading: true, searchString: event.target.childNodes[0].children.searchString.value});
-        ReactGA.event({ category: 'Search', action: 'Submitted search', label: this.state.searchString });
-        const payload = { 'search_string': event.target.childNodes[0].children.searchString.value, 'graph_format': 'cytoscape' };
+    search(searchQuery) {
+        this.setState({ loading: true}) //, searchString: searchQuery});
+        ReactGA.event({ category: 'Search', action: 'Submitted search', label: searchQuery });
+        const payload = { 'search_string': searchQuery, 'graph_format': 'cytoscape' };
         request.put(apiUrl).send(payload)
             .end((err, res) => {
                 if (err) return;
@@ -285,6 +326,11 @@ export class SearchActive4 extends Component {
                 setTimeout(() => { clearInterval( timers[id] );}, maxTime * 1.5);
                 this.setState({ pending: { ...pending, ...timers } });
             })
+    }
+
+    onSubmit(event) {
+        event.preventDefault();
+        this.search(event.target.childNodes[0].children.searchString.value);
     }
 
 	render() {
@@ -316,7 +362,7 @@ export class SearchActive4 extends Component {
                             <div style={{left:'10px'}}>
                             <form onSubmit={this.onSubmit}>
                                 <InputGroup>
-                                    <FormControl type="text" id="searchString" />
+                                    <FormControl type="text" id="searchString" defaultValue = { this.searchHint }/>
                                     <InputGroup.Addon>
                                         <Glyphicon glyph="search" />
                                     </InputGroup.Addon>
@@ -380,3 +426,102 @@ export class About extends Component {
             </Grid>
 	) }
 }
+
+export class FeedbackModal extends Component {
+    constructor() {
+      super();
+  
+      this.state = {
+        modalIsOpen: false
+      };
+  
+      this.openModal = this.openModal.bind(this);
+      this.afterOpenModal = this.afterOpenModal.bind(this);
+      this.closeModal = this.closeModal.bind(this);
+      this.issue_callback = this.issue_callback.bind(this);
+      this.hideModal = this.hideModal.bind(this);
+
+    }
+     
+    issue_callback( error, issue, info ) {
+        // Check for rate limit information...
+        if ( info ) {
+            console.error( 'Limit: %d', info.limit );
+            console.error( 'Remaining: %d', info.remaining );
+            console.error( 'Reset: %s', (new Date( info.reset*1000 )).toISOString() );
+        }
+        if ( error ) {
+            throw new Error( error.message );
+        }
+        console.log( JSON.stringify( issue ) );
+        // returns <issue_data>
+    }
+  
+    afterOpenModal() {
+      // references are now sync'd and can be accessed.
+    }
+  
+    openModal() {
+      this.setState({modalIsOpen: true});
+    }
+
+    hideModal() {
+        this.setState({modalIsOpen: false});
+    }
+  
+    closeModal(event) {
+        event.preventDefault();
+        var feedback_title = event.target.childNodes[0].children.feedback_title.value;
+        var feedback_body = event.target.childNodes[0].children.feedback_body.value;
+
+        var github_opts = {
+          'token': 'dd27030f6d6f26803f6aab50820f2838bfd87eb9',
+          'body': feedback_body,
+          'labels': ['feedback'] 
+        }
+      //ReactGA.event({category: 'Feedback', action: 'Submitted feedback', label: feedback_string });
+      createIssue( 'sfbrunner/GraphSearch', feedback_title, github_opts, this.issue_callback );
+      this.setState({modalIsOpen: false});
+    }
+  
+    render() {
+      return (
+        <div>
+            <Button onClick={this.openModal}>Feedback</Button>
+            <Modal 
+                show={this.state.modalIsOpen}
+                onHide={this.hideModal}
+                container={this}
+                aria-labelledby="contained-modal-title"
+            >
+                <Modal.Header closeButton>
+                    <Modal.Title id="contained-modal-title">
+                    Please provide us with your feedback.
+                    </Modal.Title>
+                </Modal.Header>
+                
+                <Modal.Body>
+                <form onSubmit={this.closeModal}>
+                <FormGroup>
+                    <ControlLabel>Subject</ControlLabel>
+                    <FormControl id='feedback_title' type='text' label='Subject' placeholder="Feedback subject"/>
+                <FormGroup>
+                </FormGroup>
+                    <ControlLabel>Your email (optional)</ControlLabel>
+                    <FormControl id='useremail' type='email' label='Email address (optional)' placeholder="your@email.com"/>
+                <FormGroup>
+                </FormGroup>
+                    <ControlLabel>Your feedback</ControlLabel>
+                    <FormControl id='feedback_body' componentClass="textarea" placeholder="Type your feedback here."/>
+                </FormGroup>
+                <Button type="cancel" onClick={this.hideModal}>Cancel</Button>
+                <Button type="submit">Submit</Button>
+                </form>
+                </Modal.Body>
+
+                
+            </Modal>
+        </div>
+      );
+    }
+  }
