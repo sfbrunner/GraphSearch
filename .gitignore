@@ -7,5 +7,5 @@ backend/dump.rdb
 *.pyc
 *.swp
 *.log
-dump.rdb
+backend/dump.rdb
 frontend/package-lock.json
