@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom'
-import { Image, Grid, Col, Clearfix, Row, Navbar, Nav, NavItem, NavDropdown, MenuItem, Button, form, ButtonToolbar, FormGroup, FormControl, InputGroup, Glyphicon, Panel, ControlLabel, Modal } from 'react-bootstrap'
+import { Image, Grid, Col, Clearfix, Row, Navbar, Nav, NavItem, NavDropdown, MenuItem, Button, form, ButtonToolbar, FormGroup, FormControl, InputGroup, Glyphicon, Panel, ControlLabel, Form, Modal } from 'react-bootstrap'
 import { CytoGraph, GraphInfo, ContextMenu } from './cytoComponents'
 import { DotLoader } from 'react-spinners';
 import { keys, map, isArray, sortBy } from 'lodash';
 import ReactGA from 'react-ga';
 import numeral from 'numeral'
 import request from 'superagent'
-import queryString from 'query-string'
+//import queryString from 'query-string'
+//import Modal from 'react-bootstrap-modal'
+//var Modal = require('react-bootstrap-modal')
 //import createIssue from 'github-create-issue';
 var createIssue = require( 'github-create-issue');
 var bgImage = require('../../images/main_img-01.svg')
@@ -63,7 +65,7 @@ export class MainNav extends Component {
             <Navbar fixedTop={ true } inverse={ false } fluid={ true }>
                 <Navbar.Header>
                     <Navbar.Brand>
-                    <a href="/">GraphSearch</a>
+                    <a href="/">brightfield.io</a>
                     </Navbar.Brand>
                 </Navbar.Header>
                 <Nav>
@@ -100,7 +102,7 @@ export class SearchLanding extends Component {
 	render() {
 		return (
             <div style={{width:'100%', float:'left', height:'80%', position: 'absolute', left: '0%', 
-            backgroundImage: "url(" + bgImage + ")", backgroundRepeat: "no-repeat" }}>
+            backgroundImage: "url(" + bgImage + ")", backgroundRepeat: "no-repeat", backgroundSize:'cover' }}>
 		  	<Grid>
                 <Row style={{height:'20vh'}}>
                 </Row>
@@ -109,9 +111,9 @@ export class SearchLanding extends Component {
 				    <Col md={8}>
                     <Panel style={{backgroundColor: '#0000007d', borderStyle: 'none'}}>
                         <Panel.Body>
-            		    <h2 style={divContentLanding.h2}>GraphSearch</h2>
+            		    <h2 style={divContentLanding.h2}>Let us illuminate your research.</h2>
 					    <p></p>
-					    <p style={divContentLanding.p}>Welcome to the GraphSearch platform. Our mission is to make your biomedical literature search experience the best it can be. We take your search query and return a network of publications to you. The network contains the direct results of your search (in blue) as well as the publications they cite (in red). The structure of the network helps you to find highly cited publications and quickly identify publications that belong together.</p>
+					    <p style={divContentLanding.p}>Our mission is to make your biomedical literature search experience the best it can be. We take your search query and return a network of publications to you. The network contains the direct results of your search (in blue) as well as the publications they cite (in red). The structure of the network helps you to find highly cited publications and quickly identify publications that belong together.</p>
                         <form onSubmit={this.handleForm}>
                         <InputGroup>
                         <FormControl type="text" placeholder="Type your search query and hit <Enter>" id="searchString"/>
@@ -432,7 +434,8 @@ export class FeedbackModal extends Component {
       super();
   
       this.state = {
-        modalIsOpen: false
+        modalIsOpen: false,
+        col_title: 'black'
       };
   
       this.openModal = this.openModal.bind(this);
@@ -473,7 +476,10 @@ export class FeedbackModal extends Component {
         event.preventDefault();
         var feedback_title = event.target.childNodes[0].children.feedback_title.value;
         var feedback_body = event.target.childNodes[0].children.feedback_body.value;
-
+        { feedback_title==''
+            ? this.setState({col_title: 'red'})
+            : this.setState({col_title: 'black'})
+        }
         var github_opts = {
           'token': 'ff087a2639f785667f246312a64d2709d6965229',
           'body': feedback_body,
@@ -488,10 +494,9 @@ export class FeedbackModal extends Component {
       return (
         <div>
             <Button onClick={this.openModal}>Feedback</Button>
-            <Modal 
+            <Modal
                 show={this.state.modalIsOpen}
                 onHide={this.hideModal}
-                container={this}
                 aria-labelledby="contained-modal-title"
             >
                 <Modal.Header closeButton>
@@ -499,26 +504,17 @@ export class FeedbackModal extends Component {
                     Please provide us with your feedback.
                     </Modal.Title>
                 </Modal.Header>
-                
-                <Modal.Body>
-                <form onSubmit={this.closeModal}>
-                <FormGroup>
-                    <ControlLabel>Subject</ControlLabel>
-                    <FormControl id='feedback_title' type='text' label='Subject' placeholder="Feedback subject"/>
-                <FormGroup>
-                </FormGroup>
-                    <ControlLabel>Your email (optional)</ControlLabel>
-                    <FormControl id='useremail' type='email' label='Email address (optional)' placeholder="your@email.com"/>
-                <FormGroup>
-                </FormGroup>
-                    <ControlLabel>Your feedback</ControlLabel>
-                    <FormControl id='feedback_body' componentClass="textarea" placeholder="Type your feedback here."/>
-                </FormGroup>
-                <Button type="cancel" onClick={this.hideModal}>Cancel</Button>
-                <Button type="submit">Submit</Button>
-                </form>
-                </Modal.Body>
-
+                <form>
+                    <Modal.Body>
+                    <h5>Subject<FormControl id='feedback_title' type='text' label='Subject' placeholder="Feedback subject"/></h5>
+                    <h5>Your email (optional)<FormControl id='useremail' type='email' label='Email address (optional)' placeholder="your@email.com"/></h5>
+                    <h5>Your feedback<FormControl id='feedback_body' rows='5' componentClass="textarea" placeholder="Type your feedback here."/></h5>
+                    </Modal.Body>
+                    <Modal.Footer>
+                    <Button onClick={this.hideModal}>Cancel</Button>  
+                    <Button type="submit" bsStyle="primary">Submit</Button>
+                    </Modal.Footer>
+                    </form>
                 
             </Modal>
         </div>
