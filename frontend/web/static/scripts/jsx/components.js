@@ -475,7 +475,7 @@ export class FeedbackModal extends Component {
         var feedback_body = event.target.childNodes[0].children.feedback_body.value;
 
         var github_opts = {
-          'token': 'dd27030f6d6f26803f6aab50820f2838bfd87eb9',
+          'token': 'ff087a2639f785667f246312a64d2709d6965229',
           'body': feedback_body,
           'labels': ['feedback'] 
         }
