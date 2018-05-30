@@ -232,12 +232,15 @@ export class SearchActive4 extends Component {
             loading: false, 
             foundResults: false, 
             numApiCalls: 0, 
+            //searchHint: 'cell division',
             searchString: null,
+            oldSearchString: null,
             refocus: false,
             zoomIn: false,
-            zoomOut: true,
+            zoomOut: false,
             nodes: ''
          };
+        this.handleForm = this.handleForm.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         this.cytoGraph = React.createRef();
         this.search = this.search.bind(this);
@@ -248,6 +251,7 @@ export class SearchActive4 extends Component {
         this.handleZoomIn = this.handleZoomIn.bind(this);
         this.handleZoomOut = this.handleZoomOut.bind(this);
         this.nodeHandler = this.nodeHandler.bind(this);
+        this._handleFieldChange = this._handleFieldChange.bind(this);
     }
 
     componentDidMount() {
@@ -256,8 +260,19 @@ export class SearchActive4 extends Component {
             const values = this.props.location.state.searchQuery
             console.log('in constructor')
             console.log(values)
-            this.searchHint = values
-            this.search(values)
+            //this.searchHint = values
+            //this.setState({ searchQuery: values })
+            this.setState( { searchQuery: values, searchString: values } )
+            //this.search(values)
+        }
+    }
+
+    componentDidUpdate() {
+        //console.log('did update')
+        if(this.state.searchString != this.state.oldSearchString) {
+            console.log('New search query')
+            this.setState({oldSearchString: this.state.searchString})
+            this.search(this.state.searchString)
         }
     }
 
@@ -316,7 +331,9 @@ export class SearchActive4 extends Component {
     }
 
     search(searchQuery) {
-        this.setState({ loading: true}) //, searchString: searchQuery});
+        //this.setState({ oldSearchString: this.state.searchQuery })
+        //this.setState({ loading: true, searchString: searchQuery});
+        this.setState({ searchHint: searchQuery })
         ReactGA.event({ category: 'Search', action: 'Submitted search', label: searchQuery });
         const payload = { 'search_string': searchQuery, 'graph_format': 'cytoscape' };
         request.put(apiUrl).send(payload)
@@ -330,9 +347,24 @@ export class SearchActive4 extends Component {
             })
     }
 
+    handleForm(event) {
+        event.preventDefault();
+        var searchString = event.target.childNodes[0].children.searchString.value;
+        console.log(searchString)
+        this.setState({refocus: true});
+        this.setState({oldSearchString: this.state.searchString, searchHint: this.state.searchString, searchString: searchString})
+        //this.setState({searchString: searchString})
+        //this.props.history.push({pathname: '/searchactive2', state: {searchQuery: searchString}})
+    }
+
     onSubmit(event) {
         event.preventDefault();
         this.search(event.target.childNodes[0].children.searchString.value);
+    }
+    
+    //re-render when input changes
+    _handleFieldChange(event) {
+        this.setState({searchHint: event.target.value});
     }
 
 	render() {
@@ -351,6 +383,7 @@ export class SearchActive4 extends Component {
             borderColor: 'lightgrey',
             borderWidth: '0.5px'
         }
+        
         const noRestultsString = "Sorry, your search yielded no results. Please try again.";
         const { graphJson, pending, loading } = this.state;
 		return (
@@ -362,9 +395,9 @@ export class SearchActive4 extends Component {
                         </Col>
                         <Col md={10}>
                             <div style={{left:'10px'}}>
-                            <form onSubmit={this.onSubmit}>
+                            <form onSubmit={this.handleForm}>
                                 <InputGroup>
-                                    <FormControl type="text" id="searchString" defaultValue = { this.searchHint }/>
+                                    <FormControl type="text" id="searchString" onChange={this._handleFieldChange} value = { this.state.searchHint }/>
                                     <InputGroup.Addon>
                                         <Glyphicon glyph="search" />
                                     </InputGroup.Addon>
