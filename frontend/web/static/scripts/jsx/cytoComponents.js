@@ -9,14 +9,14 @@ import ReactGA from 'react-ga';
 import { Histogram, DensitySeries, BarSeries, withParentSize, XAxis, YAxis, WithTooltip } from '@data-ui/histogram';
 import * as d3 from "d3";
 import renderTooltip from './renderHistogramTooltip'; 
-import { BrowserRouter, Route, Link, Switch, hashHistory } from 'react-router-dom'
+import { BrowserRouter, Route, Link, Switch, hashHistory } from 'react-router-dom';
+import { TagCloud } from "react-tagcloud";
 
 window.$ = window.jQuery = require('jquery');
 var cytoscape = require('cytoscape');
 //var cyforcelayout = require('cytoscape-ngraph.forcelayout');
 var cycola = require('cytoscape-cola');
 var cyforcelayout = require('cytoscape-ngraph.forcelayout');
-
 
 //cyforcelayout['iterations'] = 10000
 //require(['cytoscape', 'cytoscape-ngraph.forcelayout'], function( cytoscape, cyforcelayout ){
@@ -587,6 +587,11 @@ export class GraphInfo extends React.Component {
         this.primaryNodeHandler = this.primaryNodeHandler.bind(this);
         this.secondaryNodeHandler = this.secondaryNodeHandler.bind(this);
         this.citationHandler = this.citationHandler.bind(this);
+        this.nodeHighlighter = this.nodeHighlighter.bind(this);
+    }
+
+    paperHandler(tag){
+
     }
 
     citationHandler(e){
@@ -595,6 +600,10 @@ export class GraphInfo extends React.Component {
 
     secondaryNodeHandler(e){
 
+    }
+
+    nodeHighlighter(filter){
+        this.props.nodeHighlighter(filter);
     }
 
     primaryNodeHandler(e){
@@ -667,7 +676,7 @@ export class GraphInfo extends React.Component {
                 </Row>
                 <Row style={statsMenuStyle}>
                     <ButtonGroup vertical>
-                        <Button onClick={this.primaryNodeHandler} active={primaryNodesActive} bsSize="small">
+                        <Button onClick={this.primaryNodeHandler} bsSize="small" style={{backgroundColor:'white'}}>
                             <strong>Direct hits </strong>
                             <Badge style={{backgroundColor:'#004cc6'}}>{ this.state.stats.num_results }</Badge>
                         </Button>
@@ -689,6 +698,18 @@ export class GraphInfo extends React.Component {
                     </div>
                 </Row>
                 <Row style={statsMenuStyle}>
+                <TagCloud minSize={12}
+                    maxSize={35}
+                    tags={Object.entries(this.state.stats.top_journal_dict).map(
+                        function(entry){
+                            var tagEntry = {};
+                            tagEntry['value'] = `${entry[0]}`;
+                            tagEntry['count'] = entry[1];
+                            return tagEntry;
+                        })
+                    }
+                    onClick={tag => this.nodeHighlighter(tag.value)}
+                    className="simple-cloud" />
                 <p><strong>Top 5 journals: </strong>{ journal_list }</p>
                 <p><strong>Top 5 authors: </strong>{ author_list }</p>
                 </Row>
@@ -719,14 +740,14 @@ export class ContextMenu extends React.Component {
         var contentMenuStyle = {
             display: this.state.tooltipString != null && location ? 'block' : 'none',
             position: 'absolute', 
-            left: location ? (location.x-tooltipWidth/2) : 0,
-            top: location ? (location.y) : 0,
+            left: location ? (location.x-tooltipWidth/2 + 15) : 0, // 15px offset from  container-fluid padding
+            top: location ? (location.y + 36) : 0, // 36px offset from div height
             pointerEvents: 'all',
             width: tooltipWidth,
             height: tooltipHeight,
             borderRadius: '7px',
             padding: '0px',
-            zIndex: '10000',
+            zIndex: '10001',
         };
         var popoverStyle = 
         {
@@ -760,7 +781,8 @@ export class CytoGraph extends React.Component {
             tooltipShow: false, 
             refocus: false,
             zoomIn: false,
-            zoomOut: false
+            zoomOut: false,
+            nodeHighlighter: null
         };
         this._nodeSelector = this._nodeSelector.bind(this);
         this.refocusGraph = this.refocusGraph.bind(this);
@@ -772,7 +794,12 @@ export class CytoGraph extends React.Component {
         this.eles = null;
         this.primaryEles = null;
         this.contextMenu = props.contextMenu;
-        this.highlightNodes = this.highlightNodes.bind(this)
+        this.highlightNodes = this.highlightNodes.bind(this);
+        this._formatNodeMouseout = this._formatNodeMouseout.bind(this);
+        this._formatNodeMouseover = this._formatNodeMouseover.bind(this);
+        this._hideTooltip = this._hideTooltip.bind(this);
+        this._renderTooltip = this._renderTooltip.bind(this);
+        this.tooltipTimeout = null;
     }
 
 
@@ -787,17 +814,14 @@ export class CytoGraph extends React.Component {
 
     refocusGraph() {
         this.cy.fit();
-        this.setState({refocus: false});
     }
 
     zoomInGraph() {
         this.cy.zoom(this.cy.zoom() + 0.1);
-        this.setState({zoomIn: false})
     }
 
     zoomOutGraph() {
         this.cy.zoom(this.cy.zoom() - 0.1);
-        this.setState({zoomOut: false})
     }
 
     hideSecondaryNodes() {
@@ -824,11 +848,15 @@ export class CytoGraph extends React.Component {
 
     highlightNodes(filter)
     {
-        var nodes = this.cy.$('node[${filter}]').select();
+        var nodes = this.cy.$(`node[${filter}]`).select();
         nodes.animate(
             { style: {borderColor: 'black', borderWidth: '2px solid #dadada'} },
             { duration: 0 }
         );
+    }
+
+    highlightPapers(paperName){
+        this.highlightNodes(`journal_iso="${paperName}"`);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -852,6 +880,10 @@ export class CytoGraph extends React.Component {
         if (nextProps.nodes != ''){
             this.hidePrimaryNodes();
         }
+        if (nextProps.nodeFilter != null)
+        {
+            this.highlightPapers(nextProps.nodeFilter);
+        }
     }
 
     shouldComponentUpdate() {
@@ -866,7 +898,64 @@ export class CytoGraph extends React.Component {
         return this.cy;
     }
 
+    _hideTooltip(event){
+        this.contextMenu.setState({ 
+            tooltipString: null, 
+            tooltipShow: false, 
+            contextMenuLocation: {'x' : 0, 'y': 0},
+            tooltipTarget: null,
+        });
+    }
 
+    _formatNodeMouseover(event){
+        event.target.animate(
+            { style: {borderColor: 'black', borderWidth: '2px solid #dadada'} },
+            { duration: 10 }
+        );
+        this.tooltipTimeout = setTimeout(this._renderTooltip, 400, event);
+    }
+
+    _formatNodeMouseout(event){
+        event.target.animate(
+            { style: {borderColor: 'gray', borderWidth: '0.5'} },
+            { duration: 10 }
+        );
+        clearTimeout(this.tooltipTimeout);
+        this._hideTooltip(event);
+        //setTimeout(this._hideTooltip, 300, event);
+    }
+
+    _renderTooltip(event) {
+        var ncbiUrl = 'https://www.ncbi.nlm.nih.gov/pubmed/';
+        this.state.cytoTarget = event.target;
+        if (event.target == this.contextMenu)
+        { 
+            return;
+        }
+        else if (event.target === cy) {
+            this.state.tooltipString = null;
+        } else if (event.target.group() == 'nodes') {
+            var node = this._nodeSelector(event.target.data().id);
+            this.state.tooltipString = `<b><a href="${ncbiUrl}${node.id}" target="_blank">${node.title}</b></a>
+            <br><i>${node.journal}</i><br><i>${node.pubDate}</i><br>${node.authors}`;
+        } else if (event.target.group() == 'edges') {
+            var citedNode = this._nodeSelector(event.target.data().target);
+            var citingNode = this._nodeSelector(event.target.data().source);
+            this.state.tooltipString = `<b>Citation</b>:<br><a href="${ncbiUrl}${citingNode.id}" target="_blank">
+            ${citingNode.title}</a> (${citingNode.pubDate})<br><i>cites</i><br>
+            <a href="${ncbiUrl}${citedNode.id}" target="_blank">${citedNode.title}</a> (${citedNode.pubDate})`;
+        } else {
+            this.state.tooltipString = null;
+        }
+        this.setState({ tooltipTarget: event.target, tooltipShow: !this.state.tooltipShow})
+        this.contextMenu.setState({
+            tooltipString: this.state.tooltipString,
+            contextMenuLocation: {
+                'x' : event.target.renderedPosition().x, 
+                'y' : event.target.renderedPosition().y + event.target.renderedHeight()/2
+            }
+          });
+    }
 
     componentDidMount() {
         var cy = cytoscape({
@@ -874,85 +963,20 @@ export class CytoGraph extends React.Component {
             elements: this.state.graph,
             style: cytoStyle,
             layout: cytoEuler,
-            minZoom: 0.1,
-            maxZoom: 10,
+            minZoom: 0.5,
+            maxZoom: 3.0,
             zoomingEnabled: true,
             userZoomingEnabled: true,
             boxSelectionEnabled: true
         });
-
-        function _hideTooltip(event){
-            this.setState({ 
-                tooltipString: null, 
-                tooltipShow: false, 
-                contextMenuLocation: {'x' : 0, 'y': 0},
-                tooltipTarget: null,
-            });
-        }
-
-        function _formatNodeMouseover(event){
-            event.target.animate(
-                { style: {borderColor: 'black', borderWidth: '2px solid #dadada'} },
-                { duration: 10 }
-            );
-        }
-
-        function _formatNodeMouseout(event){
-            event.target.animate(
-                { style: {borderColor: 'gray', borderWidth: '0.5'} },
-                { duration: 10 }
-            );
-        }
-
-        function _renderTooltip(event) {
-            var ncbiUrl = 'https://www.ncbi.nlm.nih.gov/pubmed/';
-            this.state.cytoTarget = event.target;
-            if (event.target == this.contextMenu)
-            { 
-                return;
-            }
-            else if (event.target === cy) {
-                this.state.tooltipString = null;
-            } else if (event.target.group() == 'nodes') {
-                var node = this._nodeSelector(event.target.data().id);
-                this.state.tooltipString = `<b><a href="${ncbiUrl}${node.id}" target="_blank">${node.title}</b></a>
-                <br><i>${node.journal}</i><br><i>${node.pubDate}</i><br>${node.authors}`;
-            } else if (event.target.group() == 'edges') {
-                var citedNode = this._nodeSelector(event.target.data().target);
-                var citingNode = this._nodeSelector(event.target.data().source);
-                this.state.tooltipString = `<b>Citation</b>:<br><a href="${ncbiUrl}${citingNode.id}" target="_blank">
-                ${citingNode.title}</a> (${citingNode.pubDate})<br><i>cites</i><br>
-                <a href="${ncbiUrl}${citedNode.id}" target="_blank">${citedNode.title}</a> (${citedNode.pubDate})`;
-            } else {
-                this.state.tooltipString = null;
-            }
-            this.setState({ tooltipTarget: event.target, tooltipShow: !this.state.tooltipShow})
-            this.contextMenu.setState({
-                tooltipString: this.state.tooltipString,
-                contextMenuLocation: {'x' : event.renderedPosition.x, 'y': event.renderedPosition.y}
-              });
-        }
-        cy.on('tap', _renderTooltip.bind(this) );
-        cy.on('zoom', _hideTooltip.bind(this) );
-        cy.on('mouseover', 'node', _formatNodeMouseover.bind(this) );
-        cy.on('mouseout', 'node', _formatNodeMouseout.bind(this) );
+        cy.on('zoom', this._hideTooltip );
+        cy.on('mouseover', 'node', this._formatNodeMouseover );
+        cy.on('mouseout', 'node', this._formatNodeMouseout );
         //var pr = cy.elements().pageRank();
         this.cy = cy; // TODO: pass event to state and use this binding
     }
 
-    render() {
-        var cytoDivStyle = {
-            position: 'relative', // Relative position necessary for cytoscape lib features!
-            height: '600px',
-            width: '100%',
-            padding: '0px',
-            zIndex: '1000'
-        };
-        return (
-            <div>
-            </div>
-        )
-    }
+    render() { return ( <div/> ) }
 }
 
 

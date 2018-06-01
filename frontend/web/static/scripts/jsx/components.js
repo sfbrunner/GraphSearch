@@ -217,7 +217,7 @@ class GraphHelperMenu extends Component {
 const rootUrl = new URL(window.location.origin)
 rootUrl.port = 8080
 const apiUrl = new URL("/api/", rootUrl)
-const maxTime = 60 * 1000;
+const maxTime = 30 * 1000; // miliseconds
 const pollInterval = 500;
 
 export class SearchActive4 extends Component {
@@ -234,7 +234,8 @@ export class SearchActive4 extends Component {
             refocus: false,
             zoomIn: false,
             zoomOut: true,
-            nodes: ''
+            nodes: '',
+            nodeFilter: null
          };
         this.onSubmit = this.onSubmit.bind(this);
         this.cytoGraph = React.createRef();
@@ -246,21 +247,29 @@ export class SearchActive4 extends Component {
         this.handleZoomIn = this.handleZoomIn.bind(this);
         this.handleZoomOut = this.handleZoomOut.bind(this);
         this.nodeHandler = this.nodeHandler.bind(this);
+        this.nodeHighlighter = this.nodeHighlighter.bind(this);
+        this.handleForm = this.handleForm.bind(this);
     }
 
     componentDidMount() {
         if(this.props.location.state != undefined)
         {
+            if (this.state.searchString == null)
+            {
             const values = this.props.location.state.searchQuery
             console.log('in constructor')
             console.log(values)
             this.searchHint = values
             this.search(values)
-        }
+        }   }
     }
 
     nodeHandler(){
         this.setState({nodes: 'cited'});
+    }
+
+    nodeHighlighter(filter){
+        this.setState({nodeFilter: filter});
     }
 
     handleZoomIn(){
@@ -333,6 +342,13 @@ export class SearchActive4 extends Component {
         this.search(event.target.childNodes[0].children.searchString.value);
     }
 
+    handleForm(event) {
+        event.preventDefault();
+        var searchString = event.target.childNodes[0].children.searchString.value;
+        console.log(searchString)
+        this.props.history.push({pathname: '/searchactive2', state: {searchQuery: searchString}})
+    }
+
 	render() {
         var graphMenuStyle = {
             background:'#d3d3d34d',
@@ -377,7 +393,7 @@ export class SearchActive4 extends Component {
                         <Col md={1}></Col>
                         <Col md={10}>
                         {map(keys(graphJson), id => !this.state.loading
-                            ? (this.state.foundResults ? <GraphInfo data={graphJson[id].stats} cytoGraph={this.cytoGraph.current} nodeHandler={this.nodeHandler}/> : <h2>{noRestultsString}</h2>)
+                            ? (this.state.foundResults ? <GraphInfo data={graphJson[id].stats} cytoGraph={this.cytoGraph.current} nodeHandler={this.nodeHandler} nodeHighlighter={this.nodeHighlighter}/> : <h2>{noRestultsString}</h2>)
                             : {})
                         }
                         </Col>
@@ -388,12 +404,12 @@ export class SearchActive4 extends Component {
                     <DotLoader color={'#000000'} loading={loading}/>
                 </div>
                 <div style={{width:'100%', float:'left', height:'100%'}}>
-                    <div id='cy' style={{width:'100vw', float:'left', height:'90vh', position: 'relative', zIndex: '1000'}}>
-                        <ContextMenu ref={this.contextMenu} />
+                    <div id='cy' style={{width:'100%', float:'left', height:'100%', position: 'absolute', zIndex: '999'}}>
                         {map(keys(graphJson), id => !this.state.loading
-                                ? (this.state.foundResults ? <CytoGraph ref={this.cytoGraph} data={graphJson[id]} contextMenu={this.contextMenu.current} refocus={this.state.refocus} zoomIn={this.state.zoomIn} zoomOut={this.state.zoomOut} nodes={this.state.nodes} /> : <h2>{noRestultsString}</h2>)
+                                ? (this.state.foundResults ? <CytoGraph ref={this.cytoGraph} data={graphJson[id]} contextMenu={this.contextMenu.current} refocus={this.state.refocus} zoomIn={this.state.zoomIn} zoomOut={this.state.zoomOut} nodes={this.state.nodes} nodeFilter={this.state.nodeFilter} /> : <div/>)
                                 : {})}
                     </div>
+                    <ContextMenu ref={this.contextMenu} />
                     <GraphHelperMenu handleRefocus={this.handleRefocus} handleZoomIn={this.handleZoomIn} handleZoomOut={this.handleZoomOut}/>
                 </div>
             </div>
