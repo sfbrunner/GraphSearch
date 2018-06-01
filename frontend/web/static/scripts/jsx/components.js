@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom'
-import { Image, Grid, Col, Clearfix, Row, Navbar, Nav, NavItem, NavDropdown, MenuItem, Button, form, ButtonToolbar, FormGroup, FormControl, InputGroup, Glyphicon, Panel, ControlLabel, Modal } from 'react-bootstrap'
+import { Image, Grid, Col, Clearfix, Row, Navbar, Nav, NavItem, NavDropdown, MenuItem, Button, form, ButtonToolbar, FormGroup, FormControl, InputGroup, Glyphicon, Panel, ControlLabel, Form, Modal } from 'react-bootstrap'
 import { CytoGraph, GraphInfo, ContextMenu } from './cytoComponents'
 import { DotLoader } from 'react-spinners';
 import { keys, map, isArray, sortBy } from 'lodash';
 import ReactGA from 'react-ga';
 import numeral from 'numeral'
 import request from 'superagent'
-import queryString from 'query-string'
+//import queryString from 'query-string'
+//import Modal from 'react-bootstrap-modal'
+//var Modal = require('react-bootstrap-modal')
 //import createIssue from 'github-create-issue';
 var createIssue = require( 'github-create-issue');
 var bgImage = require('../../images/main_img-01.svg')
@@ -63,7 +65,7 @@ export class MainNav extends Component {
             <Navbar fixedTop={ true } inverse={ false } fluid={ true }>
                 <Navbar.Header>
                     <Navbar.Brand>
-                    <a href="/">GraphSearch</a>
+                    <a href="/">brightfield.io</a>
                     </Navbar.Brand>
                 </Navbar.Header>
                 <Nav>
@@ -100,7 +102,7 @@ export class SearchLanding extends Component {
 	render() {
 		return (
             <div style={{width:'100%', float:'left', height:'80%', position: 'absolute', left: '0%', 
-            backgroundImage: "url(" + bgImage + ")", backgroundRepeat: "no-repeat" }}>
+            backgroundImage: "url(" + bgImage + ")", backgroundRepeat: "no-repeat", backgroundSize:'cover' }}>
 		  	<Grid>
                 <Row style={{height:'20vh'}}>
                 </Row>
@@ -109,9 +111,9 @@ export class SearchLanding extends Component {
 				    <Col md={8}>
                     <Panel style={{backgroundColor: '#0000007d', borderStyle: 'none'}}>
                         <Panel.Body>
-            		    <h2 style={divContentLanding.h2}>GraphSearch</h2>
+            		    <h2 style={divContentLanding.h2}>Let us illuminate your research.</h2>
 					    <p></p>
-					    <p style={divContentLanding.p}>Welcome to the GraphSearch platform. Our mission is to make your biomedical literature search experience the best it can be. We take your search query and return a network of publications to you. The network contains the direct results of your search (in blue) as well as the publications they cite (in red). The structure of the network helps you to find highly cited publications and quickly identify publications that belong together.</p>
+					    <p style={divContentLanding.p}>Our mission is to make your biomedical literature search experience the best it can be. We take your search query and return a network of publications to you. The network contains the direct results of your search (in blue) as well as the publications they cite (in red). The structure of the network helps you to find highly cited publications and quickly identify publications that belong together.</p>
                         <form onSubmit={this.handleForm}>
                         <InputGroup>
                         <FormControl type="text" placeholder="Type your search query and hit <Enter>" id="searchString"/>
@@ -230,13 +232,16 @@ export class SearchActive4 extends Component {
             loading: false, 
             foundResults: false, 
             numApiCalls: 0, 
+            //searchHint: 'cell division',
             searchString: null,
+            oldSearchString: null,
             refocus: false,
             zoomIn: false,
-            zoomOut: true,
+            zoomOut: false,
             nodes: '',
             nodeFilter: null
          };
+        this.handleForm = this.handleForm.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         this.cytoGraph = React.createRef();
         this.search = this.search.bind(this);
@@ -249,6 +254,7 @@ export class SearchActive4 extends Component {
         this.nodeHandler = this.nodeHandler.bind(this);
         this.nodeHighlighter = this.nodeHighlighter.bind(this);
         this.handleForm = this.handleForm.bind(this);
+        this._handleFieldChange = this._handleFieldChange.bind(this);
     }
 
     componentDidMount() {
@@ -259,9 +265,20 @@ export class SearchActive4 extends Component {
             const values = this.props.location.state.searchQuery
             console.log('in constructor')
             console.log(values)
-            this.searchHint = values
-            this.search(values)
-        }   }
+            //this.searchHint = values
+            //this.setState({ searchQuery: values })
+            this.setState( { searchQuery: values, searchString: values } )
+            //this.search(values)
+        }
+    }
+
+    componentDidUpdate() {
+        //console.log('did update')
+        if(this.state.searchString != this.state.oldSearchString) {
+            console.log('New search query')
+            this.setState({oldSearchString: this.state.searchString})
+            this.search(this.state.searchString)
+        }
     }
 
     nodeHandler(){
@@ -323,7 +340,9 @@ export class SearchActive4 extends Component {
     }
 
     search(searchQuery) {
-        this.setState({ loading: true}) //, searchString: searchQuery});
+        //this.setState({ oldSearchString: this.state.searchQuery })
+        //this.setState({ loading: true, searchString: searchQuery});
+        this.setState({ searchHint: searchQuery })
         ReactGA.event({ category: 'Search', action: 'Submitted search', label: searchQuery });
         const payload = { 'search_string': searchQuery, 'graph_format': 'cytoscape' };
         request.put(apiUrl).send(payload)
@@ -337,9 +356,24 @@ export class SearchActive4 extends Component {
             })
     }
 
+    handleForm(event) {
+        event.preventDefault();
+        var searchString = event.target.childNodes[0].children.searchString.value;
+        console.log(searchString)
+        this.setState({refocus: true});
+        this.setState({oldSearchString: this.state.searchString, searchHint: this.state.searchString, searchString: searchString})
+        //this.setState({searchString: searchString})
+        //this.props.history.push({pathname: '/searchactive2', state: {searchQuery: searchString}})
+    }
+
     onSubmit(event) {
         event.preventDefault();
         this.search(event.target.childNodes[0].children.searchString.value);
+    }
+    
+    //re-render when input changes
+    _handleFieldChange(event) {
+        this.setState({searchHint: event.target.value});
     }
 
     handleForm(event) {
@@ -365,6 +399,7 @@ export class SearchActive4 extends Component {
             borderColor: 'lightgrey',
             borderWidth: '0.5px'
         }
+        
         const noRestultsString = "Sorry, your search yielded no results. Please try again.";
         const { graphJson, pending, loading } = this.state;
 		return (
@@ -376,9 +411,9 @@ export class SearchActive4 extends Component {
                         </Col>
                         <Col md={10}>
                             <div style={{left:'10px'}}>
-                            <form onSubmit={this.onSubmit}>
+                            <form onSubmit={this.handleForm}>
                                 <InputGroup>
-                                    <FormControl type="text" id="searchString" defaultValue = { this.searchHint }/>
+                                    <FormControl type="text" id="searchString" onChange={this._handleFieldChange} value = { this.state.searchHint }/>
                                     <InputGroup.Addon>
                                         <Glyphicon glyph="search" />
                                     </InputGroup.Addon>
@@ -448,7 +483,8 @@ export class FeedbackModal extends Component {
       super();
   
       this.state = {
-        modalIsOpen: false
+        modalIsOpen: false,
+        col_title: 'black'
       };
   
       this.openModal = this.openModal.bind(this);
@@ -489,7 +525,10 @@ export class FeedbackModal extends Component {
         event.preventDefault();
         var feedback_title = event.target.childNodes[0].children.feedback_title.value;
         var feedback_body = event.target.childNodes[0].children.feedback_body.value;
-
+        { feedback_title==''
+            ? this.setState({col_title: 'red'})
+            : this.setState({col_title: 'black'})
+        }
         var github_opts = {
           'token': 'dd27030f6d6f26803f6aab50820f2838bfd87eb9',
           'body': feedback_body,
@@ -504,10 +543,9 @@ export class FeedbackModal extends Component {
       return (
         <div>
             <Button onClick={this.openModal}>Feedback</Button>
-            <Modal 
+            <Modal
                 show={this.state.modalIsOpen}
                 onHide={this.hideModal}
-                container={this}
                 aria-labelledby="contained-modal-title"
             >
                 <Modal.Header closeButton>
@@ -515,26 +553,17 @@ export class FeedbackModal extends Component {
                     Please provide us with your feedback.
                     </Modal.Title>
                 </Modal.Header>
-                
-                <Modal.Body>
-                <form onSubmit={this.closeModal}>
-                <FormGroup>
-                    <ControlLabel>Subject</ControlLabel>
-                    <FormControl id='feedback_title' type='text' label='Subject' placeholder="Feedback subject"/>
-                <FormGroup>
-                </FormGroup>
-                    <ControlLabel>Your email (optional)</ControlLabel>
-                    <FormControl id='useremail' type='email' label='Email address (optional)' placeholder="your@email.com"/>
-                <FormGroup>
-                </FormGroup>
-                    <ControlLabel>Your feedback</ControlLabel>
-                    <FormControl id='feedback_body' componentClass="textarea" placeholder="Type your feedback here."/>
-                </FormGroup>
-                <Button type="cancel" onClick={this.hideModal}>Cancel</Button>
-                <Button type="submit">Submit</Button>
-                </form>
-                </Modal.Body>
-
+                <form>
+                    <Modal.Body>
+                    <h5>Subject<FormControl id='feedback_title' type='text' label='Subject' placeholder="Feedback subject"/></h5>
+                    <h5>Your email (optional)<FormControl id='useremail' type='email' label='Email address (optional)' placeholder="your@email.com"/></h5>
+                    <h5>Your feedback<FormControl id='feedback_body' rows='5' componentClass="textarea" placeholder="Type your feedback here."/></h5>
+                    </Modal.Body>
+                    <Modal.Footer>
+                    <Button onClick={this.hideModal}>Cancel</Button>  
+                    <Button type="submit" bsStyle="primary">Submit</Button>
+                    </Modal.Footer>
+                    </form>
                 
             </Modal>
         </div>
