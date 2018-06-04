@@ -271,6 +271,7 @@ export class SearchActive4 extends Component {
             //this.search(values)
         }
     }
+    }
 
     componentDidUpdate() {
         //console.log('did update')
