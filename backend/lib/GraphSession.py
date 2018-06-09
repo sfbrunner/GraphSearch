@@ -51,6 +51,15 @@ class GraphSession(object):
         
         return resultGraph.get_graph(graph_format=graph_format)
 
+    def return_empty_graph(self):
+        ''' Returns an empty graph. Useful to generate a default return value in case of errors.
+        '''
+        return {"graph": {"nodes": [], "edges": []}, 
+            "stats": {"num_citations": 0, 
+                        "pub_years": {"values": [], "num_bin": 0}, 
+                        "num_results": 0, "top_authors": "", "top_journals": "", "top_journals_list": [], 
+                        "num_links": 0, "top_authors_list": [], "max_degree_cited": 1.0}}
+
     @staticmethod
     def parseInput(userInput): #check user input with regex?
         return [pmid.strip() for pmid in userInput.split(',')]
