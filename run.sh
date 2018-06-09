@@ -15,7 +15,7 @@ screen -S restapi -d -m python backend/restapi.py
 
 # we need celery to run -> change arguments when multi threading possible
 cd backend
-screen -S celery -d -m celery -A worker worker --loglevel=debug -P solo
+screen -S celery -d -m celery -A worker worker --loglevel=debug -P solo -f logs/worker_logs.txt
 cd ..
 
 # we need an instance of mongo db running
