@@ -315,7 +315,8 @@ export class SearchActive4 extends Component {
                         }
                         else
                         {
-                            this.setState({numApiCalls: numApiCalls+1});
+                            //this.setState({numApiCalls: numApiCalls+1});
+                            this.setState({ graphJson: {[id]: null }, loading: false, foundResults: false, numApiCalls: numApiCalls+1 });
                         }
                         return;
                     }
