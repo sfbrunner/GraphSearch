@@ -162,8 +162,8 @@ class ResultGraph():
         author_lst = [author for author in author_lst if author!='']
         author_counts = Counter(author_lst)
         top_authors = author_counts.most_common(5)
-        top_authors_list = ['{0} ({1})'.format(str(author[0]), str(author[1])) for author in top_authors]
-        top_authors = ', '.join(['{0} ({1})'.format(author[0], author[1]) for author in top_authors])
+        top_authors_list = ['{0} ({1})'.format(author[0].encode('utf-8'), str(author[1])) for author in top_authors]
+        top_authors = ', '.join(['{0} ({1})'.format(author[0].encode('utf-8'), str(author[1])) for author in top_authors])
 
         # Get list of publication years
         pub_years = []
