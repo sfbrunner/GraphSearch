@@ -40,4 +40,5 @@ def getGraph(*args, **kwargs):
         return graphJSON
     except Exception:
         log.error(traceback.print_exc())
+        traceback.print_exc()
         return graphSession.return_empty_graph()
