@@ -4,6 +4,9 @@ from flask import Flask
 from flask import jsonify
 from flask import request
 
+from utils.logger import get_logger
+log = get_logger(__name__, fpath='backend/logs/restapi_logs.txt')
+
 from worker import getGraph
 
 from flask_cors import CORS, cross_origin
@@ -25,6 +28,7 @@ def list_tasks():
 def get_task(task_id):
     '''returns the requested task if ready'''
     response = {'task_id': task_id}
+    log.info('Logging in get_task of restapi')
     try:
         task = TASKS[task_id]
         if task.ready():
@@ -40,8 +44,8 @@ def put_task():
     search_string = request.json['search_string']
     graph_format = request.json['graph_format']
     task_id = len(TASKS)
-    TASKS[task_id] = getGraph.delay(search_string, graph_format=graph_format, mode='demo')
-    #TASKS[task_id] = getGraph.delay(search_string, graph_format=graph_format, mode='live')
+    #TASKS[task_id] = getGraph.delay(search_string, graph_format=graph_format, mode='demo')
+    TASKS[task_id] = getGraph.delay(search_string, graph_format=graph_format, mode='live')
     response = {'result': task_id}
     return jsonify(response)
 

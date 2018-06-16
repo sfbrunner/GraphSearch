@@ -5,7 +5,7 @@ def get_logger(log_name = '', fpath = None):
     Either returns an already existing log handle from LogHandler class attribute,
     or generates a new Log Handle.
     '''
-    
+    print 'In get_logger'
     # Retrieve class attribute from LogHandler
     lh = LogHandler().lh
     
@@ -36,14 +36,17 @@ class LogHandler():
         
         # If lh is not set, generate new log handler
         if not LogHandler.lh:
-            #print "not lh"
+            print "not lh"
+            print fpath
             # Initialise logger
             logger = logging.getLogger(log_name)
+            LogHandler.format_logger(logger, fpath=fpath, debug=debug)
+            '''
             logger.setLevel(logging.DEBUG)
 
             # Create file handler which logs all messages, including debug level
             if fpath:
-                fh = logging.FileHandler(fpath)
+                fh = logging.FileHandler(fpath, mode='a+')
                 fh.setLevel(logging.DEBUG)
 
             # Create console handler that only logs at the info level
@@ -63,7 +66,43 @@ class LogHandler():
             if fpath:
                 logger.addHandler(fh)
             logger.addHandler(ch)
+            '''
             
             LogHandler.lh = logger
         
+            LogHandler.lh.info('Created new log.')
+
         return LogHandler.lh
+
+    @staticmethod
+    def format_logger(logger_obj, fpath=None, debug=False):
+        
+        logger = logger_obj
+
+        logger.setLevel(logging.DEBUG)
+
+        # Create file handler which logs all messages, including debug level
+        if fpath:
+            fh = logging.FileHandler(fpath, mode='a+')
+            fh.setLevel(logging.DEBUG)
+
+        # Create console handler that only logs at the info level
+        ch = logging.StreamHandler()
+        if debug:
+            ch.setLevel(logging.DEBUG)
+        else:
+            ch.setLevel(logging.INFO)
+
+        # Create formatter and add it to the handlers
+        formatter = logging.Formatter(
+            fmt='%(asctime)s [%(levelname)s]: %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
+        if fpath:
+            fh.setFormatter(formatter)
+        ch.setFormatter(formatter)
+
+        # Add the handlers to the logger
+        if fpath:
+            logger.addHandler(fh)
+        logger.addHandler(ch)
+
+        return(logger)

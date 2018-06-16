@@ -275,7 +275,7 @@ export class SearchActive4 extends Component {
     }
 
     componentDidUpdate() {
-        //console.log('did update')
+        console.log('did update')
         if(this.state.searchString != this.state.oldSearchString) {
             console.log('New search query')
             this.setState({oldSearchString: this.state.searchString})
@@ -326,7 +326,9 @@ export class SearchActive4 extends Component {
                         }
                         else
                         {
-                            this.setState({numApiCalls: numApiCalls+1});
+                            //this.setState({numApiCalls: numApiCalls+1});
+							console.log('Found no result.')
+                            this.setState({ graphJson: {[id]: null }, loading: false, foundResults: false, numApiCalls: numApiCalls+1 });
                         }
                         return;
                     }
@@ -362,7 +364,7 @@ export class SearchActive4 extends Component {
         event.preventDefault();
         var searchString = event.target.childNodes[0].children.searchString.value;
         console.log(searchString)
-        this.setState({refocus: true});
+        //this.setState({refocus: true});
         this.setState({oldSearchString: this.state.searchString, searchHint: this.state.searchString, searchString: searchString})
         //this.setState({searchString: searchString})
         //this.props.history.push({pathname: '/searchactive2', state: {searchQuery: searchString}})
@@ -532,7 +534,7 @@ export class FeedbackModal extends Component {
             : this.setState({col_title: 'black'})
         }
         var github_opts = {
-          'token': 'dd27030f6d6f26803f6aab50820f2838bfd87eb9',
+          'token': 'ff087a2639f785667f246312a64d2709d6965229',
           'body': feedback_body,
           'labels': ['feedback'] 
         }
