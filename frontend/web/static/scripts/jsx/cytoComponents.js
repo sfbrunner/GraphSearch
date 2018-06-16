@@ -574,6 +574,60 @@ const ResponsiveHistogram = withParentSize(({ parentWidth, parentHeight, ...rest
     />
 ));
 
+class GraphTagCloud extends React.Component{
+
+    constructor(props){
+        super(props);
+        this.state = {
+            tags: Object.entries(props.topJournalDict).map(
+                function(entry){
+                    var tagEntry = {};
+                    tagEntry['value'] = `${entry[0]}`;
+                    tagEntry['count'] = entry[1];
+                    return tagEntry;
+                })
+        }
+        this.nodeHighlighter = this.nodeHighlighter.bind(this);
+    }
+
+    nodeHighlighter(filter){
+        this.props.nodeHighlighter(filter);
+    }
+
+    render(){
+        const options = {
+            luminosity: 'dark',
+            hue: 'monochrome'
+          };
+
+        const customRenderer = (tag, size, color) => (
+        <span key={tag.value}
+                style={{
+                fontSize: `${size}px`,
+                border: `0.5px solid ${color}`,
+                margin: '1px',
+                padding: '1.5px',
+                borderRadius: '5px',
+                cursor: 'pointer',
+                whiteSpace: 'pre-line',
+                }}>{tag.value}</span>
+        );
+
+        return(
+        <div>
+            <TagCloud 
+                minSize={12}
+                maxSize={24}
+                colorOptions={options}
+                tags={this.state.tags}
+                renderer={customRenderer}
+                onClick={tag => this.nodeHighlighter(tag.value)}
+                className="simple-cloud" />
+        </div>
+        )
+    }
+}
+
 export class GraphInfo extends React.Component {
 
     constructor(props) {
@@ -587,7 +641,6 @@ export class GraphInfo extends React.Component {
         this.primaryNodeHandler = this.primaryNodeHandler.bind(this);
         this.secondaryNodeHandler = this.secondaryNodeHandler.bind(this);
         this.citationHandler = this.citationHandler.bind(this);
-        this.nodeHighlighter = this.nodeHighlighter.bind(this);
     }
 
     paperHandler(tag){
@@ -600,10 +653,6 @@ export class GraphInfo extends React.Component {
 
     secondaryNodeHandler(e){
 
-    }
-
-    nodeHighlighter(filter){
-        this.props.nodeHighlighter(filter);
     }
 
     primaryNodeHandler(e){
@@ -698,18 +747,7 @@ export class GraphInfo extends React.Component {
                     </div>
                 </Row>
                 <Row style={statsMenuStyle}>
-                <TagCloud minSize={12}
-                    maxSize={35}
-                    tags={Object.entries(this.state.stats.top_journal_dict).map(
-                        function(entry){
-                            var tagEntry = {};
-                            tagEntry['value'] = `${entry[0]}`;
-                            tagEntry['count'] = entry[1];
-                            return tagEntry;
-                        })
-                    }
-                    onClick={tag => this.nodeHighlighter(tag.value)}
-                    className="simple-cloud" />
+                <GraphTagCloud topJournalDict={this.state.stats.top_journal_dict} nodeHighlighter={this.props.nodeHighlighter} />
                 <p><strong>Top 5 journals: </strong>{ journal_list }</p>
                 <p><strong>Top 5 authors: </strong>{ author_list }</p>
                 </Row>
@@ -768,7 +806,11 @@ export class ContextMenu extends React.Component {
 
 }
 
+var NodeBorderColor = Object.freeze({ 'default': 'grey', 'highlight': 'black' });
+var NodeBorderWidth = Object.freeze({ 'default': '0.5', 'highlight': '2px solid #dadada' });
+
 export class CytoGraph extends React.Component {
+    // Wraps the cytoscape js library into react component
     // See https://github.com/cytoscape/cytoscape.js/issues/1468 for implementation recommendations
 
     constructor(props) {
@@ -782,12 +824,11 @@ export class CytoGraph extends React.Component {
             refocus: false,
             zoomIn: false,
             zoomOut: false,
-            nodeHighlighter: null
+            nodeHighlighter: null,
         };
         this._nodeSelector = this._nodeSelector.bind(this);
         this.refocusGraph = this.refocusGraph.bind(this);
-        this.zoomInGraph = this.zoomInGraph.bind(this);
-        this.zoomOutGraph = this.zoomOutGraph.bind(this);
+        this.zoomGraph = this.zoomGraph.bind(this);
         this.hideSecondaryNodes = this.hideSecondaryNodes.bind(this);
         this.hidePrimaryNodes = this.hidePrimaryNodes.bind(this);
         this.nodeHandler = this.nodeHandler.bind(this);
@@ -802,7 +843,6 @@ export class CytoGraph extends React.Component {
         this.tooltipTimeout = null;
     }
 
-
     _nodeSelector(nodeId) {
         return this.state.graph.nodes.filter(function (obj) { return obj.data.id == nodeId })[0].data;
     }
@@ -816,12 +856,8 @@ export class CytoGraph extends React.Component {
         this.cy.fit();
     }
 
-    zoomInGraph() {
-        this.cy.zoom(this.cy.zoom() + 0.1);
-    }
-
-    zoomOutGraph() {
-        this.cy.zoom(this.cy.zoom() - 0.1);
+    zoomGraph(level){
+        this.cy.zoom(level);
     }
 
     hideSecondaryNodes() {
@@ -846,11 +882,14 @@ export class CytoGraph extends React.Component {
         }
     }
 
-    highlightNodes(filter)
+    highlightNodes(selector)
     {
-        var nodes = this.cy.$(`node[${filter}]`).select();
+        /**
+        * @param {string} selector the selector according to http://js.cytoscape.org/#selectors
+        */
+        var nodes = this.cy.$(`node[${selector}]`).select();
         nodes.animate(
-            { style: {borderColor: 'black', borderWidth: '2px solid #dadada'} },
+            { style: { borderColor: NodeBorderColor.highlight, borderWidth: NodeBorderWidth.highlight } },
             { duration: 0 }
         );
     }
@@ -861,6 +900,7 @@ export class CytoGraph extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.data.graph !== this.state.graph) {
+            // need to render new graph if new data is passed
             this.setState({ graph: nextProps.data.graph });
             this.cy.elements().remove();
             this.cy.add(nextProps.data.graph);
@@ -868,18 +908,23 @@ export class CytoGraph extends React.Component {
             this.cy.layout(cytoEuler).run();
             this.cy.fit();
         }
-        if (nextProps.refocus){
+
+        if (nextProps.zoomLevel == 1.0)
+        {
+            // Refocus event
             this.refocusGraph();
         }
-        else if (nextProps.zoomIn){
-            this.zoomInGraph();
+        else 
+        {
+            // Else it is a zoom event
+            this.zoomGraph(nextProps.zoomLevel);
         }
-        else if (nextProps.zoomOut){
-            this.zoomOutGraph();
-        }
-        if (nextProps.nodes != ''){
+
+        if (nextProps.nodes != '')
+        {
             this.hidePrimaryNodes();
         }
+
         if (nextProps.nodeFilter != null)
         {
             this.highlightPapers(nextProps.nodeFilter);
@@ -909,7 +954,7 @@ export class CytoGraph extends React.Component {
 
     _formatNodeMouseover(event){
         event.target.animate(
-            { style: {borderColor: 'black', borderWidth: '2px solid #dadada'} },
+            { style: { borderColor: NodeBorderColor.highlight, borderWidth: NodeBorderWidth.highlight } },
             { duration: 10 }
         );
         this.tooltipTimeout = setTimeout(this._renderTooltip, 400, event);
@@ -917,7 +962,7 @@ export class CytoGraph extends React.Component {
 
     _formatNodeMouseout(event){
         event.target.animate(
-            { style: {borderColor: 'gray', borderWidth: '0.5'} },
+            { style: {borderColor: NodeBorderColor.default, borderWidth: NodeBorderWidth.default} },
             { duration: 10 }
         );
         clearTimeout(this.tooltipTimeout);

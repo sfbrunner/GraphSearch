@@ -239,7 +239,8 @@ export class SearchActive4 extends Component {
             zoomIn: false,
             zoomOut: false,
             nodes: '',
-            nodeFilter: null
+            nodeFilter: null,
+            zoomLevel: 1.0
          };
         this.handleForm = this.handleForm.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
@@ -291,15 +292,15 @@ export class SearchActive4 extends Component {
     }
 
     handleZoomIn(){
-        this.setState({zoomIn: true})
+        this.setState({zoomIn: true, zoomLevel: Math.min(this.state.zoomLevel + 0.1, 3.0)});
     }
 
     handleZoomOut(){
-        this.setState({zoomOut: true})
+        this.setState({zoomOut: true,  zoomLevel: Math.max(this.state.zoomLevel - 0.1, 0.0)});
     }
 
     handleRefocus(){
-        this.setState({refocus: true});
+        this.setState({refocus: true, zoomLevel: 1.0});
     }
 
     setCytoGraphRef(ref)
@@ -442,7 +443,7 @@ export class SearchActive4 extends Component {
                 <div style={{width:'100%', float:'left', height:'100%'}}>
                     <div id='cy' style={{width:'100%', float:'left', height:'100%', position: 'absolute', zIndex: '999'}}>
                         {map(keys(graphJson), id => !this.state.loading
-                                ? (this.state.foundResults ? <CytoGraph ref={this.cytoGraph} data={graphJson[id]} contextMenu={this.contextMenu.current} refocus={this.state.refocus} zoomIn={this.state.zoomIn} zoomOut={this.state.zoomOut} nodes={this.state.nodes} nodeFilter={this.state.nodeFilter} /> : <div/>)
+                                ? (this.state.foundResults ? <CytoGraph ref={this.cytoGraph} data={graphJson[id]} contextMenu={this.contextMenu.current} zoomLevel={this.state.zoomLevel} nodes={this.state.nodes} nodeFilter={this.state.nodeFilter} /> : <div/>)
                                 : {})}
                     </div>
                     <ContextMenu ref={this.contextMenu} />
