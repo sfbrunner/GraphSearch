@@ -563,8 +563,6 @@ var divContentSearch = {
     }
 }
 
-
-
 const ResponsiveHistogram = withParentSize(({ parentWidth, parentHeight, ...rest}) => (
     <Histogram
     width={parentWidth}
@@ -578,15 +576,7 @@ class GraphTagCloud extends React.Component{
 
     constructor(props){
         super(props);
-        this.state = {
-            tags: Object.entries(props.topJournalDict).map(
-                function(entry){
-                    var tagEntry = {};
-                    tagEntry['value'] = `${entry[0]}`;
-                    tagEntry['count'] = entry[1];
-                    return tagEntry;
-                })
-        }
+        this.state = { tags: props.tags }
         this.nodeHighlighter = this.nodeHighlighter.bind(this);
     }
 
@@ -604,12 +594,15 @@ class GraphTagCloud extends React.Component{
         <span key={tag.value}
                 style={{
                 fontSize: `${size}px`,
-                border: `0.5px solid ${color}`,
+                border: `0.0px solid ${color}`,
                 margin: '1px',
-                padding: '1.5px',
+                backgroundColor: 'grey',
+                padding: '3px',
+                color: 'white',
                 borderRadius: '5px',
                 cursor: 'pointer',
-                whiteSpace: 'pre-line',
+                whiteSpace: 'pre-wrap',
+                display: 'inline-block',
                 }}>{tag.value}</span>
         );
 
@@ -620,6 +613,7 @@ class GraphTagCloud extends React.Component{
                 maxSize={24}
                 colorOptions={options}
                 tags={this.state.tags}
+                shuffle={false}
                 renderer={customRenderer}
                 onClick={tag => this.nodeHighlighter(tag.value)}
                 className="simple-cloud" />
@@ -663,7 +657,7 @@ export class GraphInfo extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.data !== this.state) {
-            this.state = { stats: nextProps.data };
+            this.setState({ stats: nextProps.data });
         }
     }
 
@@ -680,6 +674,13 @@ export class GraphInfo extends React.Component {
             background:'white'
         };
 
+        function tagCreator(entry){
+            var tagEntry = {};
+            tagEntry['value'] = `${entry[0]}`;
+            tagEntry['count'] = entry[1];
+            return tagEntry;
+        }
+
         var gradient_svg = <svg width="100" height="20">
             <defs>
                 <linearGradient id="MyGradient">
@@ -689,14 +690,6 @@ export class GraphInfo extends React.Component {
             </defs>
             <rect fill="url(#MyGradient)" x="0" y="10" width="100" height="20" />
         </svg>
-
-        const journal_list = this.state.stats.top_journals_list.map((journal) =>
-            <Badge style={{backgroundColor:'lightgrey'}}>{journal}</Badge>
-        );
-
-        const author_list = this.state.stats.top_authors_list.map((author) =>
-            <Badge style={{backgroundColor:'lightgrey'}}>{author}</Badge>
-        );
         const { primaryNodesActive, secondaryNodesActive, citationsActive } = this.state;
 
         return (
@@ -747,9 +740,16 @@ export class GraphInfo extends React.Component {
                     </div>
                 </Row>
                 <Row style={statsMenuStyle}>
-                <GraphTagCloud topJournalDict={this.state.stats.top_journal_dict} nodeHighlighter={this.props.nodeHighlighter} />
-                <p><strong>Top 5 journals: </strong>{ journal_list }</p>
-                <p><strong>Top 5 authors: </strong>{ author_list }</p>
+                <p><strong>Top Journals</strong></p>
+                <GraphTagCloud 
+                    tags={Object.entries(this.state.stats.top_journal_dict).map(tagCreator)} 
+                    nodeHighlighter={this.props.nodeHighlighter} />
+                </Row>
+                <Row style={statsMenuStyle}>
+                <p><strong>Top Authors</strong></p>
+                <GraphTagCloud 
+                    tags={Object.entries(this.state.stats.top_author_dict).map(tagCreator)} 
+                    nodeHighlighter={this.props.nodeHighlighter} />
                 </Row>
             </div>
         )
