@@ -426,16 +426,6 @@ export class SearchActive4 extends Component {
             })
     }
 
-    handleForm(event) {
-        event.preventDefault();
-        var searchString = event.target.childNodes[0].children.searchString.value;
-        console.log(searchString)
-        //this.setState({refocus: true});
-        this.setState({oldSearchString: this.state.searchString, searchHint: this.state.searchString, searchString: searchString})
-        //this.setState({searchString: searchString})
-        //this.props.history.push({pathname: '/searchactive2', state: {searchQuery: searchString}})
-    }
-
     onSubmit(event) {
         event.preventDefault();
         this.search(event.target.childNodes[0].children.searchString.value);
@@ -512,6 +502,8 @@ export class SearchActive4 extends Component {
 export class About extends Component {
 	render() {
 		return (
+            <div>
+            <div style={{ height:"36px" }}><MainNav/></div>
             <Grid>
                 <Row className="show-grid">
                     <Col md={8} xs={12}>
@@ -533,6 +525,7 @@ export class About extends Component {
                 <p><strong><a href="https://www.linkedin.com/in/simon-brunner-3631521a/" target="_blank">Simon Brunner.</a> </strong>{"Simon holds a Bachelor's degree in Biochemistry and a Master's degree in Systems Biology from ETH Zurich. He then pursued doctoral studies at the Lab of Molecular Biology (MRC-LMB) in Cambridge, United Kingdom and graduated with a PhD from the University of Cambridge. He currently pursues post-doctoral research at The Sanger Wellcome Trust Institute in Cambridge, UK."}</p>
                 </Col></Row>
             </Grid>
+            </div>
 	) }
 }
 
