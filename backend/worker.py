@@ -38,6 +38,7 @@ def getGraph(*args, **kwargs):
         graphJSON = json.loads(graphSession.get_cy_json(graph_format=kwargs['graph_format'], mode=kwargs['mode']))
         log.info('Logging in getGraph of worker')
         return graphJSON
-    except Exception:
-        log.error(traceback.print_exc())
+    except Exception as e:
+        traceback_str = traceback.format_exc()
+        log.error(traceback_str)
         return graphSession.return_empty_graph()

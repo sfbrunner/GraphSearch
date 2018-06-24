@@ -315,7 +315,9 @@ export class SearchActive4 extends Component {
                         }
                         else
                         {
-                            this.setState({numApiCalls: numApiCalls+1});
+                            //this.setState({numApiCalls: numApiCalls+1});
+							console.log('Found no result.')
+                            this.setState({ graphJson: {[id]: null }, loading: false, foundResults: false, numApiCalls: numApiCalls+1 });
                         }
                         return;
                     }
@@ -412,7 +414,7 @@ export class SearchActive4 extends Component {
                         <Col md={1}></Col>
                         <Col md={10}>
                         {map(keys(graphJson), id => !this.state.loading
-                            ? (this.state.foundResults ? <GraphInfo data={graphJson[id].stats} cytoGraph={this.cytoGraph.current} nodeHandler={this.nodeHandler}/> : <h2>{noRestultsString}</h2>)
+                            ? (this.state.foundResults ? <GraphInfo data={graphJson[id].stats} nodeHandler={this.nodeHandler}/> : <h2>{noRestultsString}</h2>)
                             : {})
                         }
                         </Col>

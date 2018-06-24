@@ -4,7 +4,7 @@ from flask import Flask
 from flask import render_template
 
 from utils.logger import get_logger
-log = get_logger('__name__', fpath='backend/logs/httpserver_logs.txt')
+log = get_logger('__name__') #, fpath='backend/logs/httpserver_logs.txt')
 
 app = Flask(__name__)
 app.secret_key = 'big_secret'
