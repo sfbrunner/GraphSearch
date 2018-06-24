@@ -62,23 +62,67 @@ export class MainNav extends Component {
 
     render() {
         return (
-            <Navbar fixedTop={ true } inverse={ false } fluid={ true }>
+            <Navbar fixedTop={ true } inverse={ true } fluid={ true }>
                 <Navbar.Header>
                     <Navbar.Brand>
                     <a href="/">brightfield.io</a>
                     </Navbar.Brand>
                 </Navbar.Header>
-                <Nav>
-                    <NavItem eventKey={1} href="/about">
-                    About
-                    </NavItem>
-                    <NavItem eventKey={2} href="/searchactive2">
-                    Search
-                    </NavItem>
-                </Nav>
-                <Navbar.Form pullRight>
-                <FeedbackModal/>                
-                </Navbar.Form>
+                <Navbar.Collapse>
+                    <Nav>
+                        <NavItem eventKey={1} href="/about">
+                            About
+                        </NavItem>
+                        </Nav>
+                    <Nav pullRight>
+                        <Navbar.Form >
+                            <FeedbackModal/>                
+                        </Navbar.Form>
+                    </Nav>
+                </Navbar.Collapse>
+            </Navbar>
+        )
+    }
+}
+
+export class SearchNav extends Component {
+
+    constructor(props) {
+        super(props);
+    }
+
+    render() {
+        return (
+            <Navbar fixedTop={ true } inverse={ true } fluid={ true }>
+                <Navbar.Header>
+                    <Navbar.Brand>
+                    <a href="/">brightfield.io</a>
+                    </Navbar.Brand>
+                </Navbar.Header>
+                <Navbar.Collapse>
+                    <Nav>
+                        <NavItem eventKey={1} href="/about">
+                            About
+                        </NavItem>
+                        </Nav>
+                        <Nav>
+                        <Navbar.Form>
+                            <form onSubmit={this.props.formHandler}>
+                                <InputGroup>
+                                    <FormControl type="text" id="searchString" style={{width:'400px'}}/>
+                                    <InputGroup.Addon>
+                                        <Glyphicon glyph="search" />
+                                    </InputGroup.Addon>
+                                </InputGroup>
+                            </form>
+                        </Navbar.Form>
+                        </Nav>
+                    <Nav pullRight>
+                        <Navbar.Form >
+                            <FeedbackModal/>                
+                        </Navbar.Form>
+                    </Nav>
+                </Navbar.Collapse>
             </Navbar>
         )
     }
@@ -101,6 +145,8 @@ export class SearchLanding extends Component {
 
 	render() {
 		return (
+            <div>
+            <div style={{ height:"36px" }}><MainNav/></div>
             <div style={{width:'100%', float:'left', height:'80%', position: 'absolute', left: '0%', 
             backgroundImage: "url(" + bgImage + ")", backgroundRepeat: "no-repeat", backgroundSize:'cover' }}>
 		  	<Grid>
@@ -133,6 +179,7 @@ export class SearchLanding extends Component {
                     <Col md={2}></Col>
 				</Row>
 			</Grid>
+            </div>
             </div>
 		)
 	}
@@ -226,7 +273,13 @@ export class SearchActive4 extends Component {
 
     constructor(props) {
         super(props);
+        var defaultVisualGraphState = {
+            zoomLevel: 1.0,
+            nodeFilter: null,
+            nodeHighlighter: null
+        };
         this.state = { 
+            visualGraphState: defaultVisualGraphState,
             graphJson: {}, 
             pending: {}, 
             loading: false, 
@@ -254,15 +307,16 @@ export class SearchActive4 extends Component {
         this.handleZoomOut = this.handleZoomOut.bind(this);
         this.nodeHandler = this.nodeHandler.bind(this);
         this.nodeHighlighter = this.nodeHighlighter.bind(this);
+        this.authorHighlighter = this.authorHighlighter.bind(this);
         this.handleForm = this.handleForm.bind(this);
         this._handleFieldChange = this._handleFieldChange.bind(this);
+        this.updateVisualGraphState = this.updateVisualGraphState.bind(this);
     }
 
     componentDidMount() {
         if(this.props.location.state != undefined)
         {
-            if (this.state.searchString == null)
-            {
+            if (this.state.searchString == null){
             const values = this.props.location.state.searchQuery
             console.log('in constructor')
             console.log(values)
@@ -270,8 +324,8 @@ export class SearchActive4 extends Component {
             //this.setState({ searchQuery: values })
             this.setState( { searchQuery: values, searchString: values } )
             //this.search(values)
+            }
         }
-    }
     }
 
     componentDidUpdate() {
@@ -283,24 +337,36 @@ export class SearchActive4 extends Component {
         }
     }
 
-    nodeHandler(){
-        this.setState({nodes: 'cited'});
+    updateVisualGraphState(updateDict){
+        var visualGraphState = this.state.visualGraphState;
+        for(var propertyName in updateDict){
+            visualGraphState[propertyName] = updateDict[propertyName];
+        };
+        this.setState({visualGraphState: visualGraphState});
+    }
+
+    nodeHandler(filter){
+        this.updateVisualGraphState({"nodeFilter": filter});
     }
 
     nodeHighlighter(filter){
-        this.setState({nodeFilter: filter});
+        this.updateVisualGraphState({"nodeHighlighter": filter});
+    }
+
+    authorHighlighter(filter){
+        this.updateVisualGraphState({"authorHighlighter": filter})
     }
 
     handleZoomIn(){
-        this.setState({zoomIn: true, zoomLevel: Math.min(this.state.zoomLevel + 0.1, 3.0)});
+        this.updateVisualGraphState({"zoomLevel": Math.min(this.state.visualGraphState.zoomLevel + 0.1, 3.0)});
     }
 
     handleZoomOut(){
-        this.setState({zoomOut: true,  zoomLevel: Math.max(this.state.zoomLevel - 0.1, 0.0)});
+        this.updateVisualGraphState({"zoomLevel": Math.max(this.state.visualGraphState.zoomLevel - 0.1, 0.0)});
     }
 
     handleRefocus(){
-        this.setState({refocus: true, zoomLevel: 1.0});
+        this.updateVisualGraphState({"zoomLevel": 1.0});
     }
 
     setCytoGraphRef(ref)
@@ -408,31 +474,18 @@ export class SearchActive4 extends Component {
         const { graphJson, pending, loading } = this.state;
 		return (
             <div>
+                <div style={{ height:"36px" }}><SearchNav formHandler={this.handleForm}/></div>
+            <div>
                 <div style={graphMenuStyle}>
                     <Row style={{height:'2vh'}}></Row>
                     <Row>
-                        <Col md={1}>
-                        </Col>
-                        <Col md={10}>
-                            <div style={{left:'10px'}}>
-                            <form onSubmit={this.handleForm}>
-                                <InputGroup>
-                                    <FormControl type="text" id="searchString" onChange={this._handleFieldChange} value = { this.state.searchHint }/>
-                                    <InputGroup.Addon>
-                                        <Glyphicon glyph="search" />
-                                    </InputGroup.Addon>
-                                </InputGroup>
-                            </form>
-                            </div>
-                        </Col>
-                        <Col md={1}>
-                        </Col>
+                        <Col md={1}/>
                     </Row>
                     <Row>
                         <Col md={1}></Col>
                         <Col md={10}>
                         {map(keys(graphJson), id => !this.state.loading
-                            ? (this.state.foundResults ? <GraphInfo data={graphJson[id].stats} cytoGraph={this.cytoGraph.current} nodeHandler={this.nodeHandler} nodeHighlighter={this.nodeHighlighter}/> : <h2>{noRestultsString}</h2>)
+                            ? (this.state.foundResults ? <GraphInfo data={graphJson[id].stats} cytoGraph={this.cytoGraph.current} nodeHandler={this.nodeHandler} nodeHighlighter={this.nodeHighlighter} authorHighlighter={this.authorHighlighter}/> : <h2>{noRestultsString}</h2>)
                             : {})
                         }
                         </Col>
@@ -445,12 +498,13 @@ export class SearchActive4 extends Component {
                 <div style={{width:'100%', float:'left', height:'100%'}}>
                     <div id='cy' style={{width:'100%', float:'left', height:'100%', position: 'absolute', zIndex: '999'}}>
                         {map(keys(graphJson), id => !this.state.loading
-                                ? (this.state.foundResults ? <CytoGraph ref={this.cytoGraph} data={graphJson[id]} contextMenu={this.contextMenu.current} zoomLevel={this.state.zoomLevel} nodes={this.state.nodes} nodeFilter={this.state.nodeFilter} /> : <div/>)
+                                ? (this.state.foundResults ? <CytoGraph ref={this.cytoGraph} data={graphJson[id]} contextMenu={this.contextMenu.current} visualGraphState={this.state.visualGraphState} zoomLevel={this.state.zoomLevel} nodes={this.state.nodes} nodeFilter={this.state.nodeFilter} /> : <div/>)
                                 : {})}
                     </div>
                     <ContextMenu ref={this.contextMenu} />
                     <GraphHelperMenu handleRefocus={this.handleRefocus} handleZoomIn={this.handleZoomIn} handleZoomOut={this.handleZoomOut}/>
                 </div>
+            </div>
             </div>
 	) }
 }

@@ -12,8 +12,7 @@ ReactGA.pageview(window.location.pathname + window.location.search);
 
 const Layout = ({ routehandler}) => (
     <div className="container-fluid wrapper" id="outer-container">
-			<div style={{ height:"36px" }}><MainNav/></div>
-			<div style={{width:'100%'}}>{routehandler}</div>
+		<div style={{ width:'100%' }}>{routehandler}</div>
 	</div>
 ) 
 
@@ -38,7 +37,4 @@ function gaTracking() {
 	ReactGA.pageview(window.location.hash)
 }
 
-render(
-<Layout routehandler={<RouteHandler />}/>,
-  document.getElementById('app')
-);
+render(<Layout routehandler={<RouteHandler />}/>, document.getElementById('app'));

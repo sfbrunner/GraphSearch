@@ -576,7 +576,7 @@ class GraphTagCloud extends React.Component{
 
     constructor(props){
         super(props);
-        this.state = { tags: props.tags }
+        this.state = { tags: props.tags, clickedTag: null }
         this.nodeHighlighter = this.nodeHighlighter.bind(this);
     }
 
@@ -596,7 +596,7 @@ class GraphTagCloud extends React.Component{
                 fontSize: `${size}px`,
                 border: `0.0px solid ${color}`,
                 margin: '1px',
-                backgroundColor: 'grey',
+                backgroundColor: tag.value==this.state.clickedTag? 'black' : 'grey',
                 padding: '3px',
                 color: 'white',
                 borderRadius: '5px',
@@ -615,7 +615,15 @@ class GraphTagCloud extends React.Component{
                 tags={this.state.tags}
                 shuffle={false}
                 renderer={customRenderer}
-                onClick={tag => this.nodeHighlighter(tag.value)}
+                onClick={tag => {
+                    if(tag.value==this.state.clickedTag){
+                        this.nodeHighlighter('');
+                        this.setState({clickedTag: null})
+                    }else{
+                        this.nodeHighlighter(tag.value); 
+                        this.setState({clickedTag: tag.value})
+                    }
+                }}
                 className="simple-cloud" />
         </div>
         )
@@ -667,8 +675,8 @@ export class GraphInfo extends React.Component {
             pointerEvents: 'all',
             zIndex: '10001',
             marginTop: '10px',
-            padding: '10px',
-            paddingBottom: '0px',
+            padding: '5px',
+            paddingBottom: '5px',
             borderWidth: '0.5px',
             borderRadius: '5px',
             background:'white'
@@ -717,23 +725,15 @@ export class GraphInfo extends React.Component {
                     </div>
                 </Row>
                 <Row style={statsMenuStyle}>
-                    <ButtonGroup vertical>
-                        <Button onClick={this.primaryNodeHandler} bsSize="small" style={{backgroundColor:'white'}}>
-                            <strong>Direct hits </strong>
-                            <Badge style={{backgroundColor:'#004cc6'}}>{ this.state.stats.num_results }</Badge>
-                        </Button>
-                        <Button onClick={this.secondaryNodeHandler} bsSize="small" style={{backgroundColor:'white'}}>
-                            <strong>Cited publications </strong>
-                            <Badge style={{backgroundColor:'red'}}>{ this.state.stats.num_citations }</Badge>
-                        </Button>
-                        <Button onClick={this.citationHandler} bsSize="small" style={{backgroundColor:'white'}}>
-                            <strong>Citation links </strong>
-                            <Badge style={{backgroundColor:'lightgrey'}}>{ this.state.stats.num_links }</Badge>
-                        </Button>
-                    </ButtonGroup>
+                    <strong>Direct hits </strong>
+                    <Badge style={{backgroundColor:'#004cc6'}}>{ this.state.stats.num_results }</Badge><br/>
+                    <strong>Cited publications </strong>
+                    <Badge style={{backgroundColor:'red'}}>{ this.state.stats.num_citations }</Badge><br/>
+                    <strong>Citation links </strong>
+                    <Badge style={{backgroundColor:'lightgrey'}}>{ this.state.stats.num_links }</Badge>
                 </Row>
                 <Row style={statsMenuStyle}>
-                    <div style={{whiteSpace: 'nowrap', overflow:'hidden', display:'inline-block', textAlign:'left'}}>
+                    <div style={{whiteSpace: 'nowrap', overflow:'hidden', display:'inline-block'}}>
                         <p><strong>Citations per publication</strong></p>
                         <Badge style={{backgroundColor:'lightgrey'}}>0</Badge>{'\u00A0'}{ gradient_svg }{'\u00A0'}
                         <Badge style={{backgroundColor:'red'}}>{this.state.stats.max_degree_cited}</Badge>
@@ -749,7 +749,7 @@ export class GraphInfo extends React.Component {
                 <p><strong>Top Authors</strong></p>
                 <GraphTagCloud 
                     tags={Object.entries(this.state.stats.top_author_dict).map(tagCreator)} 
-                    nodeHighlighter={this.props.nodeHighlighter} />
+                    nodeHighlighter={this.props.authorHighlighter} />
                 </Row>
             </div>
         )
@@ -818,12 +818,10 @@ export class CytoGraph extends React.Component {
         this.cy = null;
         this.state = { 
             graph: props.data.graph, 
+            visualGraphState: props.visualGraphState,
             tooltipString: null, 
             cytoTarget: null, 
             tooltipShow: false, 
-            refocus: false,
-            zoomIn: false,
-            zoomOut: false,
             nodeHighlighter: null,
         };
         this._nodeSelector = this._nodeSelector.bind(this);
@@ -836,11 +834,13 @@ export class CytoGraph extends React.Component {
         this.primaryEles = null;
         this.contextMenu = props.contextMenu;
         this.highlightNodes = this.highlightNodes.bind(this);
+        this.highlightNodes2 = this.highlightNodes2.bind(this);
         this._formatNodeMouseout = this._formatNodeMouseout.bind(this);
         this._formatNodeMouseover = this._formatNodeMouseover.bind(this);
         this._hideTooltip = this._hideTooltip.bind(this);
         this._renderTooltip = this._renderTooltip.bind(this);
         this.tooltipTimeout = null;
+        this.visualGraphUpdate = this.visualGraphUpdate.bind(this);
     }
 
     _nodeSelector(nodeId) {
@@ -886,48 +886,84 @@ export class CytoGraph extends React.Component {
     {
         /**
         * @param {string} selector the selector according to http://js.cytoscape.org/#selectors
+        * duration should not be set to 0 otherwise cytoscape will crash.
         */
-        var nodes = this.cy.$(`node[${selector}]`).select();
-        nodes.animate(
+        this.cy.nodes().animate(
+            { style: { borderColor: NodeBorderColor.default, borderWidth: NodeBorderWidth.default} },
+            { duration: 1 }
+        );
+        this.cy.$(`node[${selector}]`).select().animate(
             { style: { borderColor: NodeBorderColor.highlight, borderWidth: NodeBorderWidth.highlight } },
-            { duration: 0 }
+            { duration: 1 }
+        );
+    }
+
+    highlightNodes2(selector)
+    {
+        /**
+        * @param {string} selector the selector according to http://js.cytoscape.org/#selectors
+        * duration should not be set to 0 otherwise cytoscape will crash.
+        */
+        this.cy.nodes().animate(
+            { style: { 'color': 'black'} },
+            { duration: 1 }
+        );
+        this.cy.$(`node[${selector}]`).select().animate(
+            { style: { 'color': 'red'} },
+            { duration: 1 }
         );
     }
 
     highlightPapers(paperName){
-        this.highlightNodes(`journal_iso="${paperName}"`);
+        this.highlightNodes2(`journal_iso="${paperName}"`);
+    }
+
+    highlightAuthors(authorName){
+        if(authorName == ''){
+            this.highlightNodes(`authors="${'brazzasdfasdfff'}"`); //TODO: handle this properly
+        }else{
+            this.highlightNodes(`authors*="${authorName}"`);
+        }
     }
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.data.graph !== this.state.graph) {
-            // need to render new graph if new data is passed
             this.setState({ graph: nextProps.data.graph });
             this.cy.elements().remove();
             this.cy.add(nextProps.data.graph);
             this.cy.json(nextProps.data.graph);
             this.cy.layout(cytoEuler).run();
             this.cy.fit();
-        }
-
-        if (nextProps.zoomLevel == 1.0)
-        {
-            // Refocus event
-            this.refocusGraph();
-        }
+        } 
         else 
         {
-            // Else it is a zoom event
-            this.zoomGraph(nextProps.zoomLevel);
+            for (var propertyName in nextProps.visualGraphState){
+                var nextPropertyValue = nextProps.visualGraphState[propertyName];
+                var oldPropertyValue = this.state.visualGraphState[propertyName];
+                //if (nextPropertyValue !== oldPropertyValue){
+                    this.visualGraphUpdate(propertyName, nextPropertyValue);
+                //}
+            }
         }
+        this.setState({visualGraphState: nextProps.visualGraphState});
+    }
 
-        if (nextProps.nodes != '')
-        {
-            this.hidePrimaryNodes();
-        }
-
-        if (nextProps.nodeFilter != null)
-        {
-            this.highlightPapers(nextProps.nodeFilter);
+    visualGraphUpdate(propertyName, propertyValue){
+        switch(propertyName){
+            case "zoomLevel":
+                this.zoomGraph(propertyValue);
+                break;
+            case "nodeHighlighter":
+                this.highlightPapers(this.state.visualGraphState.nodeHighlighter);
+                this.highlightPapers(propertyValue);
+                break;
+            case "authorHighlighter":
+                this.highlightAuthors(this.state.visualGraphState.nodeHighlighter);
+                this.highlightAuthors(propertyValue);
+            case "journalHighlighter":
+                break;
+            case "nodeFilter":
+                break;
         }
     }
 
