@@ -786,6 +786,7 @@ export class CytoGraph extends React.Component {
     }
 
     refocusGraph() {
+        console.log('refocused graph')
         this.cy.fit();
         this.setState({refocus: false});
     }
