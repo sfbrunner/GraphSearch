@@ -7,13 +7,8 @@ import { keys, map, isArray, sortBy } from 'lodash';
 import ReactGA from 'react-ga';
 import numeral from 'numeral'
 import request from 'superagent'
-//import queryString from 'query-string'
-//import Modal from 'react-bootstrap-modal'
-//var Modal = require('react-bootstrap-modal')
-//import createIssue from 'github-create-issue';
 var createIssue = require( 'github-create-issue');
 var bgImage = require('../../images/main_img-01.svg')
-//var feedbackUrl = require('https://microfeedback-github-vbaphuxutm.now.sh/')
 
 var divContentLanding = {
     contenttest: {
@@ -62,7 +57,7 @@ export class MainNav extends Component {
 
     render() {
         return (
-            <Navbar fixedTop={ true } inverse={ true } fluid={ true }>
+            <Navbar fixedTop={true} inverse={true} fluid={true}>
                 <Navbar.Header>
                     <Navbar.Brand>
                     <a href="/">brightfield.io</a>
@@ -93,7 +88,7 @@ export class SearchNav extends Component {
 
     render() {
         return (
-            <Navbar fixedTop={ true } inverse={ true } fluid={ true }>
+            <Navbar fixedTop={true} inverse={true} fluid={true}>
                 <Navbar.Header>
                     <Navbar.Brand>
                     <a href="/">brightfield.io</a>
@@ -132,15 +127,13 @@ export class SearchLanding extends Component {
 
     constructor(props) {
         super(props);
-        this.handleForm = this.handleForm.bind(this);
-
+        this.onSubmit = this.onSubmit.bind(this);
     }
 
-    handleForm(event) {
+    onSubmit(event) {
         event.preventDefault();
         var searchString = event.target.childNodes[0].children.searchString.value;
-        console.log(searchString)
-        this.props.history.push({pathname: '/searchactive2', state: {searchQuery: searchString}})
+        this.props.history.push({pathname: '/searchactive', state: {searchQuery: searchString}})
     }
 
 	render() {
@@ -160,7 +153,7 @@ export class SearchLanding extends Component {
             		    <h2 style={divContentLanding.h2}>Let us illuminate your research.</h2>
 					    <p></p>
 					    <p style={divContentLanding.p}>Our mission is to make your biomedical literature search experience the best it can be. We take your search query and return a network of publications to you. The network contains the direct results of your search (in blue) as well as the publications they cite (in red). The structure of the network helps you to find highly cited publications and quickly identify publications that belong together.</p>
-                        <form onSubmit={this.handleForm}>
+                        <form onSubmit={this.onSubmit}>
                         <InputGroup>
                         <FormControl type="text" placeholder="Type your search query and hit <Enter>" id="searchString"/>
                         <InputGroup.Addon>
@@ -183,37 +176,6 @@ export class SearchLanding extends Component {
             </div>
 		)
 	}
-}
-
-export class SearchActive extends Component {
-	render() {
-		return (
-            <Grid>
-                <Row className="show-grid">
-                    <Col md={8} xs={12}>
-                        <h2>SearchActive</h2>
-                    </Col>
-                </Row>
-                <Row className="show-grid">
-                    <Col md={8} xs={12} style={{marginLeft:"20px"}}>
-                    </Col>
-                </Row>
-            </Grid>
-	) }
-}
-
-export class SearchActive2 extends Component {
-	render() {
-		return (
-            <div style={{width:'100%', float:'left', height:'100%'}}>
-                <div style={{background:'grey', height:'100%', width:'20%'}}>
-                    <h2>Info div</h2>
-                </div>
-                <div style={{background:'red', height:'100%', width:'70%'}}>
-                    <h2>Main network</h2>
-                </div>
-            </div>
-	) }
 }
 
 class GraphHelperMenu extends Component {
@@ -269,12 +231,12 @@ const apiUrl = new URL("/api/", rootUrl)
 const maxTime = 30 * 1000; // miliseconds
 const pollInterval = 500;
 
-export class SearchActive4 extends Component {
+export class SearchActive extends Component {
 
     constructor(props) {
         super(props);
         var defaultVisualGraphState = {
-            zoomLevel: 1.0,
+            zoomLevel: 0.7,
             nodeFilter: null,
             nodeHighlighter: null
         };
@@ -302,26 +264,65 @@ export class SearchActive4 extends Component {
     }
 
     componentDidMount() {
-        if(this.props.location.state != undefined)
-        {
-            if (this.state.searchString == null){
-            const values = this.props.location.state.searchQuery
-            console.log('in constructor')
-            console.log(values)
-            //this.searchHint = values
-            //this.setState({ searchQuery: values })
-            this.setState( { searchQuery: values, searchString: values } )
-            //this.search(values)
-            }
-        }
+        console.log(`componentDidMount: ${this.props.location.state.searchQuery}`);
+        this.search(this.props.location.state.searchQuery);
     }
 
     componentDidUpdate() {
-        console.log('did update')
-        if(this.state.searchString != this.state.oldSearchString) {
-            console.log('New search query')
-            this.setState({oldSearchString: this.state.searchString})
-            this.search(this.state.searchString)
+        console.log(`componentDidUpdate`)
+    }
+
+    onSubmit(event) {
+        event.preventDefault();
+        this.search(event.target.childNodes[0].children.searchString.value);
+    }
+
+    search(searchQuery) {
+        ReactGA.event({ category: 'Search', action: 'Submitted search', label: searchQuery });
+        const payload = { 'search_string': searchQuery, 'graph_format': 'cytoscape' };
+        request.put(apiUrl).send(payload)
+            .end((err, res) => {
+                if (err) return;
+                const { graphJson, pending, loading, foundResults } = this.state;
+                const { result: id } = res.body;
+                const timers = { [id]: setInterval(this.poll(id), pollInterval) };
+                setTimeout(() => { clearInterval( timers[id] );}, maxTime * 1.5);
+                this.setState({ pending: { ...pending, ...timers } });
+            })
+    }
+
+    poll(id) {
+        return () => {
+            request.get(new URL(id, apiUrl))
+                .end((err, res) => { // call api with id -> will return task_id and if ready result
+                    if (err) return;
+                    const { result } = res.body;
+                    const { numApiCalls } = this.state;
+                    if (!result) 
+                    {
+                        if (numApiCalls > maxTime / pollInterval)
+                        {
+                            const { pending } = this.state;
+                            clearInterval(pending[id]);
+                            delete pending[id];
+                            this.setState({ graphJson: {[id]: null }, loading: false, foundResults: false, numApiCalls: 0 });
+                        }
+                        else
+                        {
+                            //this.setState({numApiCalls: numApiCalls+1});
+							console.log('Found no result.')
+                            this.setState({ graphJson: {[id]: null }, loading: false, foundResults: false, numApiCalls: numApiCalls+1 });
+                        }
+                        return;
+                    }
+                    else
+                    {
+                        const { pending } = this.state;
+                        clearInterval(pending[id]);
+                        delete pending[id];
+                        this.setState({ graphJson: { [id]: result }, loading: false, foundResults: (result.stats.num_results > 0), numApiCalls: 0 });
+                    }
+                })
         }
     }
 
@@ -360,61 +361,6 @@ export class SearchActive4 extends Component {
     setCytoGraphRef(ref)
     {
         this.cytoGraph = ref;
-    }
-
-    poll(id) {
-        return () => {
-            request.get(new URL(id, apiUrl))
-                .end((err, res) => { // call api with id -> will return task_id and if ready result
-                    if (err) return;
-                    const { result } = res.body;
-                    const { numApiCalls } = this.state;
-                    if (!result) 
-                    {
-                        if (numApiCalls > maxTime/pollInterval)
-                        {
-                            const { pending } = this.state;
-                            clearInterval(pending[id]);
-                            delete pending[id];
-                            this.setState({ graphJson: {[id]: null }, loading: false, foundResults: false, numApiCalls: 0 });
-                        }
-                        else
-                        {
-                            //this.setState({numApiCalls: numApiCalls+1});
-							console.log('Found no result.')
-                            this.setState({ graphJson: {[id]: null }, loading: false, foundResults: false, numApiCalls: numApiCalls+1 });
-                        }
-                        return;
-                    }
-                    else
-                    {
-                        const { pending } = this.state;
-                        clearInterval(pending[id]);
-                        delete pending[id];
-                        this.setState({ graphJson: { [id]: result }, loading: false, foundResults: (result.stats.num_results > 0), numApiCalls: 0 });
-                    }
-                })
-        }
-    }
-
-    search(searchQuery) {
-        this.setState({ searchHint: searchQuery })
-        ReactGA.event({ category: 'Search', action: 'Submitted search', label: searchQuery });
-        const payload = { 'search_string': searchQuery, 'graph_format': 'cytoscape' };
-        request.put(apiUrl).send(payload)
-            .end((err, res) => {
-                if (err) return;
-                const { graphJson, pending, loading, foundResults } = this.state;
-                const { result: id } = res.body;
-                const timers = { [id]: setInterval(this.poll(id), pollInterval) };
-                setTimeout(() => { clearInterval( timers[id] );}, maxTime * 1.5);
-                this.setState({ pending: { ...pending, ...timers } });
-            })
-    }
-
-    onSubmit(event) {
-        event.preventDefault();
-        this.search(event.target.childNodes[0].children.searchString.value);
     }
 
 	render() {

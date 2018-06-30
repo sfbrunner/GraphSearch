@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { render } from 'react-dom'
 import { BrowserRouter, Route, Link, Switch, hashHistory } from 'react-router-dom'
 import { BurgerTest } from './burgercomponent'
-import { SearchLanding, SearchActive, SearchActive2, SearchActive3, SearchActive4, About, MainNav, FeedbackModal } from './components'
+import { SearchLanding, SearchActive, About, MainNav, FeedbackModal } from './components'
 import { Image, Grid, Row, Col, Clearfix } from 'react-bootstrap'
 import ReactGA from 'react-ga';
 import createHistory from 'history/createBrowserHistory'
@@ -26,7 +26,6 @@ class RouteHandler extends Component {
 					<Route path='/about' component={About} />
 					<Route path='/searchlanding' component={SearchLanding} />
 					<Route path='/searchactive' component={SearchActive} />
-					<Route path='/searchactive2' component={SearchActive4} />
 				</Switch>
 			</BrowserRouter>
 		)
