@@ -148,7 +148,7 @@ export class SearchLanding extends Component {
             <div>
             <div style={{ height:"36px" }}><MainNav/></div>
             <div style={{width:'100%', float:'left', height:'80%', position: 'absolute', left: '0%', 
-            backgroundImage: "url(" + bgImage + ")", backgroundRepeat: "no-repeat", backgroundSize:'cover' }}>
+            backgroundImage: `url(${bgImage})`, backgroundRepeat: "no-repeat", backgroundSize:'cover' }}>
 		  	<Grid>
                 <Row style={{height:'20vh'}}>
                 </Row>
@@ -285,22 +285,12 @@ export class SearchActive4 extends Component {
             loading: false, 
             foundResults: false, 
             numApiCalls: 0, 
-            //searchHint: 'cell division',
             searchString: null,
             oldSearchString: null,
-            refocus: false,
-            zoomIn: false,
-            zoomOut: false,
-            nodes: '',
-            nodeFilter: null,
-            zoomLevel: 1.0
          };
-        this.handleForm = this.handleForm.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         this.cytoGraph = React.createRef();
         this.search = this.search.bind(this);
-        this.searchHint = 'other hint'
-        
         this.contextMenu = React.createRef();
         this.handleRefocus = this.handleRefocus.bind(this);
         this.handleZoomIn = this.handleZoomIn.bind(this);
@@ -308,8 +298,6 @@ export class SearchActive4 extends Component {
         this.nodeHandler = this.nodeHandler.bind(this);
         this.nodeHighlighter = this.nodeHighlighter.bind(this);
         this.authorHighlighter = this.authorHighlighter.bind(this);
-        this.handleForm = this.handleForm.bind(this);
-        this._handleFieldChange = this._handleFieldChange.bind(this);
         this.updateVisualGraphState = this.updateVisualGraphState.bind(this);
     }
 
@@ -410,8 +398,6 @@ export class SearchActive4 extends Component {
     }
 
     search(searchQuery) {
-        //this.setState({ oldSearchString: this.state.searchQuery })
-        //this.setState({ loading: true, searchString: searchQuery});
         this.setState({ searchHint: searchQuery })
         ReactGA.event({ category: 'Search', action: 'Submitted search', label: searchQuery });
         const payload = { 'search_string': searchQuery, 'graph_format': 'cytoscape' };
@@ -429,18 +415,6 @@ export class SearchActive4 extends Component {
     onSubmit(event) {
         event.preventDefault();
         this.search(event.target.childNodes[0].children.searchString.value);
-    }
-    
-    //re-render when input changes
-    _handleFieldChange(event) {
-        this.setState({searchHint: event.target.value});
-    }
-
-    handleForm(event) {
-        event.preventDefault();
-        var searchString = event.target.childNodes[0].children.searchString.value;
-        console.log(searchString)
-        this.props.history.push({pathname: '/searchactive2', state: {searchQuery: searchString}})
     }
 
 	render() {
@@ -464,7 +438,7 @@ export class SearchActive4 extends Component {
         const { graphJson, pending, loading } = this.state;
 		return (
             <div>
-                <div style={{ height:"36px" }}><SearchNav formHandler={this.handleForm}/></div>
+                <div style={{ height:"36px" }}><SearchNav formHandler={this.onSubmit}/></div>
             <div>
                 <div style={graphMenuStyle}>
                     <Row style={{height:'2vh'}}></Row>
