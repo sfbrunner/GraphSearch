@@ -295,9 +295,7 @@ export class SearchActive extends Component {
     onSubmit(event) {
         event.preventDefault();
         event.stopPropagation();
-        var searchString = event.target.childNodes[0].children.searchString.value;
-        this.props.history.push({pathname: '/searchactive', state: {searchQuery: searchString}})
-//      this.search(event.target.childNodes[0].children.searchString.value);
+        this.search(event.target.childNodes[0].children.searchString.value);
     }
 
     search(searchQuery) {
@@ -418,10 +416,8 @@ export class SearchActive extends Component {
                     <DotLoader color={'#000000'} loading={this.state.loading}/>
                 </div>
                 <div style={{width:'100%', float:'left', height:'100%'}}>
-                    <div id='cy' style={{width:'100%', float:'left', height:'100%', position: 'absolute', zIndex: '999'}}>
-                        {map(keys(graphJson), id => !this.state.loading
-                                ? (this.state.foundResults ? <CytoGraph data={graphJson[id]} contextMenu={this.contextMenu.current} visualGraphState={this.state.visualGraphState} /> : <div/>)
-                                : <div/>)}
+                    <div id='cy' style={{width:'100%', float:'left', height:'100%', position: 'absolute', zIndex: '999', display: (this.state.loading? 'none' : 'block')}}>
+                        {map(keys(graphJson), id => <CytoGraph data={graphJson[id]} contextMenu={this.contextMenu.current} visualGraphState={this.state.visualGraphState} />)};
                     </div>
                     <ContextMenu ref={this.contextMenu} />
                     <GraphHelperMenu handleRefocus={this.handleRefocus} handleZoomIn={this.handleZoomIn} handleZoomOut={this.handleZoomOut}/>
