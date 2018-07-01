@@ -821,7 +821,6 @@ export class CytoGraph extends React.Component {
     }
 
     componentWillUnmount(){
-        this.cy.elements().remove();
         this.cy.destroy();
     }
 
@@ -910,12 +909,14 @@ export class CytoGraph extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.data.graph !== this.state.graph) {
-            this.setState({ graph: nextProps.data.graph });
             this.cy.elements().remove();
-            this.cy.add(nextProps.data.graph);
-            this.cy.json(nextProps.data.graph);
-            this.cy.layout(cytoEuler).run();
-            this.cy.fit();
+            this.setState({ graph: nextProps.data.graph });
+            if (nextProps.data.stats.num_results > 0){
+                this.cy.add(nextProps.data.graph);
+                this.cy.json(nextProps.data.graph);
+                this.cy.layout(cytoEuler).run();
+                this.cy.fit();
+            }
         } 
         else 
         {

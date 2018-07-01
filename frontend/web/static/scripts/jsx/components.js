@@ -416,7 +416,7 @@ export class SearchActive extends Component {
                     <DotLoader color={'#000000'} loading={this.state.loading}/>
                 </div>
                 <div style={{width:'100%', float:'left', height:'100%'}}>
-                    <div id='cy' style={{width:'100%', float:'left', height:'100%', position: 'absolute', zIndex: '999', display: (this.state.loading? 'none' : 'block')}}>
+                    <div id='cy' style={{width:'100%', float:'left', height:'100%', position: 'absolute', zIndex: '999'}}>
                         {map(keys(graphJson), id => <CytoGraph data={graphJson[id]} contextMenu={this.contextMenu.current} visualGraphState={this.state.visualGraphState} />)};
                     </div>
                     <ContextMenu ref={this.contextMenu} />
