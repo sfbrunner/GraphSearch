@@ -794,7 +794,7 @@ export class CytoGraph extends React.Component {
         super(props);
         this.cy = null;
         this.state = { 
-            graph: props.data.graph, 
+            graph: props.graph, 
             visualGraphState: props.visualGraphState,
             tooltipString: null, 
             cytoTarget: null, 
@@ -908,12 +908,12 @@ export class CytoGraph extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.data.graph !== this.state.graph) {
+        if (nextProps.graph !== this.state.graph) {
             this.cy.elements().remove();
-            this.setState({ graph: nextProps.data.graph });
-            if (nextProps.data.stats.num_results > 0){
-                this.cy.add(nextProps.data.graph);
-                this.cy.json(nextProps.data.graph);
+            this.setState({ graph: nextProps.graph });
+            if (nextProps.graph.nodes.length > 0){
+                this.cy.add(nextProps.graph);
+                this.cy.json(nextProps.graph);
                 this.cy.layout(cytoEuler).run();
                 this.cy.fit();
             }

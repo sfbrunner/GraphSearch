@@ -417,7 +417,7 @@ export class SearchActive extends Component {
                 </div>
                 <div style={{width:'100%', float:'left', height:'100%'}}>
                     <div id='cy' style={{width:'100%', float:'left', height:'100%', position: 'absolute', zIndex: '999'}}>
-                        {map(keys(graphJson), id => <CytoGraph data={graphJson[id]} contextMenu={this.contextMenu.current} visualGraphState={this.state.visualGraphState} />)};
+                        {map(keys(graphJson), id => <CytoGraph graph={graphJson[id].graph} contextMenu={this.contextMenu.current} visualGraphState={this.state.visualGraphState} />)};
                     </div>
                     <ContextMenu ref={this.contextMenu} />
                     <GraphHelperMenu handleRefocus={this.handleRefocus} handleZoomIn={this.handleZoomIn} handleZoomOut={this.handleZoomOut}/>
