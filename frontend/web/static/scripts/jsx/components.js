@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom'
-import { Image, Grid, Col, Clearfix, Row, Navbar, Nav, NavItem, NavDropdown, MenuItem, Button, form, ButtonToolbar, FormGroup, FormControl, InputGroup, Glyphicon, Panel, ControlLabel, Form, Modal } from 'react-bootstrap'
+import { 
+    Image, Grid, Col, Clearfix, Row, Navbar, Nav, NavItem, NavDropdown, MenuItem, 
+    Button, form, ButtonToolbar, FormGroup, FormControl, 
+    InputGroup, Glyphicon, Panel, ControlLabel, Form, Modal } from 'react-bootstrap'
 import { CytoGraph, GraphInfo, ContextMenu } from './cytoComponents'
 import { DotLoader } from 'react-spinners';
 import { keys, map, isArray, sortBy } from 'lodash';
@@ -46,6 +49,28 @@ var divContentLanding = {
     p: {
         textAlign:'center',
         color:'#dadada'
+    }
+}
+
+class ErrorBoundary extends React.Component {
+    constructor(props) {
+      super(props);
+      this.state = { hasError: false };
+    }
+  
+    componentDidCatch(error, info) {
+      // Display fallback UI
+      this.setState({ hasError: true });
+      // You can also log the error to an error reporting service
+      // logErrorToMyService(error, info);
+    }
+  
+    render() {
+      if (this.state.hasError) {
+        // You can render any custom fallback UI
+        return <h1>Sorry, something went wrong. Please try again.</h1>;
+      }
+      return this.props.children;
     }
 }
 
@@ -248,12 +273,11 @@ export class SearchActive extends Component {
             foundResults: false, 
             numApiCalls: 0, 
             searchString: null,
-            oldSearchString: null,
-         };
-        this.onSubmit = this.onSubmit.bind(this);
-        this.cytoGraph = React.createRef();
-        this.search = this.search.bind(this);
+        };
         this.contextMenu = React.createRef();
+
+        this.onSubmit = this.onSubmit.bind(this);
+        this.search = this.search.bind(this);
         this.handleRefocus = this.handleRefocus.bind(this);
         this.handleZoomIn = this.handleZoomIn.bind(this);
         this.handleZoomOut = this.handleZoomOut.bind(this);
@@ -268,17 +292,17 @@ export class SearchActive extends Component {
         this.search(this.props.location.state.searchQuery);
     }
 
-    componentDidUpdate() {
-        console.log(`componentDidUpdate`)
-    }
-
     onSubmit(event) {
         event.preventDefault();
-        this.search(event.target.childNodes[0].children.searchString.value);
+        event.stopPropagation();
+        var searchString = event.target.childNodes[0].children.searchString.value;
+        this.props.history.push({pathname: '/searchactive', state: {searchQuery: searchString}})
+//      this.search(event.target.childNodes[0].children.searchString.value);
     }
 
     search(searchQuery) {
         ReactGA.event({ category: 'Search', action: 'Submitted search', label: searchQuery });
+        this.setState({loading: true, foundResults: false});
         const payload = { 'search_string': searchQuery, 'graph_format': 'cytoscape' };
         request.put(apiUrl).send(payload)
             .end((err, res) => {
@@ -298,25 +322,18 @@ export class SearchActive extends Component {
                     if (err) return;
                     const { result } = res.body;
                     const { numApiCalls } = this.state;
-                    if (!result) 
-                    {
-                        if (numApiCalls > maxTime / pollInterval)
-                        {
+                    if (!result) {
+                        if (numApiCalls > maxTime / pollInterval) {
                             const { pending } = this.state;
                             clearInterval(pending[id]);
                             delete pending[id];
-                            this.setState({ graphJson: {[id]: null }, loading: false, foundResults: false, numApiCalls: 0 });
+                            this.setState({ graphJson: {[id]: null }, loading: false, numApiCalls: 0 });
                         }
-                        else
-                        {
-                            //this.setState({numApiCalls: numApiCalls+1});
-							console.log('Found no result.')
-                            this.setState({ graphJson: {[id]: null }, loading: false, foundResults: false, numApiCalls: numApiCalls+1 });
+                        else {
+                            this.setState({ graphJson: {[id]: null }, numApiCalls: numApiCalls + 1 });
                         }
-                        return;
                     }
-                    else
-                    {
+                    else {
                         const { pending } = this.state;
                         clearInterval(pending[id]);
                         delete pending[id];
@@ -358,11 +375,6 @@ export class SearchActive extends Component {
         this.updateVisualGraphState({"zoomLevel": 1.0});
     }
 
-    setCytoGraphRef(ref)
-    {
-        this.cytoGraph = ref;
-    }
-
 	render() {
         var graphMenuStyle = {
             background:'#d3d3d34d',
@@ -380,12 +392,13 @@ export class SearchActive extends Component {
             borderWidth: '0.5px'
         }
         
-        const noRestultsString = "Sorry, your search yielded no results. Please try again.";
+        const noResultsString = "Sorry, your search yielded no results. Please try again.";
         const { graphJson, pending, loading } = this.state;
 		return (
             <div>
                 <div style={{ height:"36px" }}><SearchNav formHandler={this.onSubmit}/></div>
             <div>
+                <ErrorBoundary>
                 <div style={graphMenuStyle}>
                     <Row style={{height:'2vh'}}></Row>
                     <Row>
@@ -395,25 +408,25 @@ export class SearchActive extends Component {
                         <Col md={1}></Col>
                         <Col md={10}>
                         {map(keys(graphJson), id => !this.state.loading
-                            ? (this.state.foundResults ? <GraphInfo data={graphJson[id].stats} cytoGraph={this.cytoGraph.current} nodeHandler={this.nodeHandler} nodeHighlighter={this.nodeHighlighter} authorHighlighter={this.authorHighlighter}/> : <h2>{noRestultsString}</h2>)
-                            : {})
-                        }
+                            ? (this.state.foundResults ? <GraphInfo data={graphJson[id].stats} nodeHandler={this.nodeHandler} nodeHighlighter={this.nodeHighlighter} authorHighlighter={this.authorHighlighter}/> : <h2>{noResultsString}</h2>)
+                            : <div/>)}
                         </Col>
                         <Col md={1}></Col>
                     </Row>
                 </div>
                 <div style={{left: '60%', top:'40%', position: 'absolute', bottom: 0, height: '50px'}}>
-                    <DotLoader color={'#000000'} loading={loading}/>
+                    <DotLoader color={'#000000'} loading={this.state.loading}/>
                 </div>
                 <div style={{width:'100%', float:'left', height:'100%'}}>
                     <div id='cy' style={{width:'100%', float:'left', height:'100%', position: 'absolute', zIndex: '999'}}>
                         {map(keys(graphJson), id => !this.state.loading
-                                ? (this.state.foundResults ? <CytoGraph ref={this.cytoGraph} data={graphJson[id]} contextMenu={this.contextMenu.current} visualGraphState={this.state.visualGraphState} zoomLevel={this.state.zoomLevel} nodes={this.state.nodes} nodeFilter={this.state.nodeFilter} /> : <div/>)
-                                : {})}
+                                ? (this.state.foundResults ? <CytoGraph data={graphJson[id]} contextMenu={this.contextMenu.current} visualGraphState={this.state.visualGraphState} /> : <div/>)
+                                : <div/>)}
                     </div>
                     <ContextMenu ref={this.contextMenu} />
                     <GraphHelperMenu handleRefocus={this.handleRefocus} handleZoomIn={this.handleZoomIn} handleZoomOut={this.handleZoomOut}/>
                 </div>
+                </ErrorBoundary>
             </div>
             </div>
 	) }

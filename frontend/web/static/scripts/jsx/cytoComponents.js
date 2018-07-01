@@ -91,7 +91,6 @@ var citedNodeStyle = {
         //'text-background-opacity': 0.8,
         //'text-background-shape': 'roundrectangle',
         //'text-outline-color': 'white',
-        "text-valign": "bottom center",
         "text-max-width": 70,
         "text-wrap": 'ellipsis'
     }
@@ -640,29 +639,7 @@ export class GraphInfo extends React.Component {
             secondaryNodesActive: true,
             citationsActive: true
         };
-        this.primaryNodeHandler = this.primaryNodeHandler.bind(this);
-        this.secondaryNodeHandler = this.secondaryNodeHandler.bind(this);
-        this.citationHandler = this.citationHandler.bind(this);
     }
-
-    paperHandler(tag){
-
-    }
-
-    citationHandler(e){
-
-    }
-
-    secondaryNodeHandler(e){
-
-    }
-
-    primaryNodeHandler(e){
-        const { primaryNodesActive } = this.state;
-        this.setState({primaryNodesActive: !primaryNodesActive})
-        this.props.nodeHandler();
-    }
-
     componentWillReceiveProps(nextProps) {
         if (nextProps.data !== this.state) {
             this.setState({ stats: nextProps.data });
@@ -843,6 +820,11 @@ export class CytoGraph extends React.Component {
         this.visualGraphUpdate = this.visualGraphUpdate.bind(this);
     }
 
+    componentWillUnmount(){
+        this.cy.elements().remove();
+        this.cy.destroy();
+    }
+
     _nodeSelector(nodeId) {
         return this.state.graph.nodes.filter(function (obj) { return obj.data.id == nodeId })[0].data;
     }
@@ -969,10 +951,6 @@ export class CytoGraph extends React.Component {
 
     shouldComponentUpdate() {
         return false;
-    }
-
-    componentWillUnmount() {
-        this.cy.destroy();
     }
 
     getCy() {
