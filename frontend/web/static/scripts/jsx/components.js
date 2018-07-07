@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { render } from 'react-dom'
 import { 
     Image, Grid, Col, Clearfix, Row, Navbar, Nav, NavItem, NavDropdown, MenuItem, 
-    Button, form, ButtonToolbar, FormGroup, FormControl, 
+    Button, form, ButtonToolbar, FormGroup, FormControl, Popover,
     InputGroup, Glyphicon, Panel, ControlLabel, Form, Modal } from 'react-bootstrap'
-import { CytoGraph, GraphInfo, ContextMenu } from './cytoComponents'
+import { CytoGraph, GraphInfo } from './cytoComponents'
 import { DotLoader } from 'react-spinners';
 import { keys, map, isArray, sortBy } from 'lodash';
 import ReactGA from 'react-ga';
@@ -203,6 +203,58 @@ export class SearchLanding extends Component {
 	}
 }
 
+class ContextMenu extends React.Component {
+
+    constructor(props){
+        super(props);
+        this.state = props.contextMenuState;
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.contextMenuState.tooltipString !== this.state.tooltipString) {
+            this.setState(nextProps.contextMenuState);
+        }
+    }
+
+    shouldComponentUpdate(){
+        return true;
+    }
+
+    render() {
+        var tooltipWidth = 250;
+        var tooltipHeight = 180;
+        var location = this.state.contextMenuLocation;
+        var contentMenuStyle = {
+            display: this.state.tooltipString != null && location ? 'block' : 'none',
+            position: 'absolute', 
+            left: location ? (location.x-tooltipWidth/2 + 15) : 0, // 15px offset from  container-fluid padding
+            top: location ? (location.y + 36) : 0, // 36px offset from div height
+            pointerEvents: 'all',
+            width: tooltipWidth,
+            height: tooltipHeight,
+            borderRadius: '7px',
+            padding: '0px',
+            zIndex: '10001',
+        };
+        var popoverStyle = 
+        {
+            positionTop: location ? (location.x-tooltipWidth/2) : 0,
+            positionLeft: location ? (location.y) : 0,
+        }
+
+        return (
+            <div id="results" 
+                style={contentMenuStyle} 
+                onClick={(e) => {e.stopPropagation(); e.nativeEvent.stopImmediatePropagation()}}>
+                <Popover id="tooltipPopover" placement="bottom" style={popoverStyle}>
+                    <div dangerouslySetInnerHTML={{ __html: this.state.tooltipString}} />
+                </Popover>
+            </div>
+        );
+    }
+
+}
+
 class GraphHelperMenu extends Component {
 
     constructor(props){
@@ -265,8 +317,13 @@ export class SearchActive extends Component {
             nodeFilter: null,
             nodeHighlighter: null
         };
+        var defaultContextMenuState = {
+            tooltipString: null,
+            contextMenuLocation: null,
+        };
         this.state = { 
             visualGraphState: defaultVisualGraphState,
+            contextMenuState: defaultContextMenuState,
             graphJson: {}, 
             pending: {}, 
             loading: false, 
@@ -274,8 +331,7 @@ export class SearchActive extends Component {
             numApiCalls: 0, 
             searchString: null,
         };
-        this.contextMenu = React.createRef();
-
+        this.contextMenuHandler = this.contextMenuHandler.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         this.search = this.search.bind(this);
         this.handleRefocus = this.handleRefocus.bind(this);
@@ -349,6 +405,10 @@ export class SearchActive extends Component {
         this.setState({visualGraphState: visualGraphState});
     }
 
+    contextMenuHandler(contextMenuState){
+        this.setState({contextMenuState: contextMenuState});
+    }
+
     nodeHandler(filter){
         this.updateVisualGraphState({"nodeFilter": filter});
     }
@@ -416,10 +476,10 @@ export class SearchActive extends Component {
                     <DotLoader color={'#000000'} loading={this.state.loading}/>
                 </div>
                 <div style={{width:'100%', float:'left', height:'100%'}}>
-                    <div id='cy' style={{width:'100%', float:'left', height:'100%', position: 'absolute', zIndex: '999'}}>
-                        {map(keys(graphJson), id => <CytoGraph graph={graphJson[id].graph} contextMenu={this.contextMenu.current} visualGraphState={this.state.visualGraphState} />)};
+                    <div id='cy' style={{width:'100%', float:'left', height:'100%', position:'absolute', zIndex:'999'}}>
+                        {map(keys(graphJson), id => <CytoGraph graph={graphJson[id].graph} contextMenuHandler={this.contextMenuHandler} visualGraphState={this.state.visualGraphState} />)};
                     </div>
-                    <ContextMenu ref={this.contextMenu} />
+                    <ContextMenu contextMenuState={this.state.contextMenuState} />
                     <GraphHelperMenu handleRefocus={this.handleRefocus} handleZoomIn={this.handleZoomIn} handleZoomOut={this.handleZoomOut}/>
                 </div>
                 </ErrorBoundary>

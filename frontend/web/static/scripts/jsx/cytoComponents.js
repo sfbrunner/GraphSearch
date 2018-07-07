@@ -733,56 +733,6 @@ export class GraphInfo extends React.Component {
     }
 }
 
-export class ContextMenu extends React.Component {
-
-    constructor(props){
-        super(props);
-        this.state = {contextMenuLocation: "", tooltipString: ""};
-    }
-
-    getInitialState(){
-        return {contextMenuLocation: ''};
-    }
-
-    shouldComponentUpdate(){
-        return true;
-    }
-
-    render() {
-        var tooltipWidth = 250;
-        var tooltipHeight = 180;
-        var location = this.state.contextMenuLocation;
-        var contentMenuStyle = {
-            display: this.state.tooltipString != null && location ? 'block' : 'none',
-            position: 'absolute', 
-            left: location ? (location.x-tooltipWidth/2 + 15) : 0, // 15px offset from  container-fluid padding
-            top: location ? (location.y + 36) : 0, // 36px offset from div height
-            pointerEvents: 'all',
-            width: tooltipWidth,
-            height: tooltipHeight,
-            borderRadius: '7px',
-            padding: '0px',
-            zIndex: '10001',
-        };
-        var popoverStyle = 
-        {
-            positionTop: location ? (location.x-tooltipWidth/2) : 0,
-            positionLeft: location ? (location.y) : 0,
-        }
-
-        return (
-            <div id="results" 
-                style={contentMenuStyle} 
-                onClick={(e) => {e.stopPropagation(); e.nativeEvent.stopImmediatePropagation()}}>
-                <Popover id="tooltipPopover" placement="bottom" style={popoverStyle}>
-                    <div dangerouslySetInnerHTML={{ __html: this.state.tooltipString}} />
-                </Popover>
-            </div>
-        );
-    }
-
-}
-
 var NodeBorderColor = Object.freeze({ 'default': 'grey', 'highlight': 'black' });
 var NodeBorderWidth = Object.freeze({ 'default': '0.5', 'highlight': '2px solid #dadada' });
 
@@ -796,10 +746,6 @@ export class CytoGraph extends React.Component {
         this.state = { 
             graph: props.graph, 
             visualGraphState: props.visualGraphState,
-            tooltipString: null, 
-            cytoTarget: null, 
-            tooltipShow: false, 
-            nodeHighlighter: null,
         };
         this._nodeSelector = this._nodeSelector.bind(this);
         this.refocusGraph = this.refocusGraph.bind(this);
@@ -809,7 +755,6 @@ export class CytoGraph extends React.Component {
         this.nodeHandler = this.nodeHandler.bind(this);
         this.eles = null;
         this.primaryEles = null;
-        this.contextMenu = props.contextMenu;
         this.highlightNodes = this.highlightNodes.bind(this);
         this.highlightNodes2 = this.highlightNodes2.bind(this);
         this._formatNodeMouseout = this._formatNodeMouseout.bind(this);
@@ -959,11 +904,9 @@ export class CytoGraph extends React.Component {
     }
 
     _hideTooltip(event){
-        this.contextMenu.setState({ 
+        this.props.contextMenuHandler({ 
             tooltipString: null, 
-            tooltipShow: false, 
             contextMenuLocation: {'x' : 0, 'y': 0},
-            tooltipTarget: null,
         });
     }
 
@@ -987,34 +930,28 @@ export class CytoGraph extends React.Component {
 
     _renderTooltip(event) {
         var ncbiUrl = 'https://www.ncbi.nlm.nih.gov/pubmed/';
-        this.state.cytoTarget = event.target;
-        if (event.target == this.contextMenu)
-        { 
-            return;
-        }
-        else if (event.target === cy) {
-            this.state.tooltipString = null;
+        var tooltipString = null;
+        if (event.target === cy) {
+            // nothing to do
         } else if (event.target.group() == 'nodes') {
             var node = this._nodeSelector(event.target.data().id);
-            this.state.tooltipString = `<b><a href="${ncbiUrl}${node.id}" target="_blank">${node.title}</b></a>
+            tooltipString = `<b><a href="${ncbiUrl}${node.id}" target="_blank">${node.title}</b></a>
             <br><i>${node.journal}</i><br><i>${node.pubDate}</i><br>${node.authors}`;
         } else if (event.target.group() == 'edges') {
             var citedNode = this._nodeSelector(event.target.data().target);
             var citingNode = this._nodeSelector(event.target.data().source);
-            this.state.tooltipString = `<b>Citation</b>:<br><a href="${ncbiUrl}${citingNode.id}" target="_blank">
+            tooltipString = `<b>Citation</b>:<br><a href="${ncbiUrl}${citingNode.id}" target="_blank">
             ${citingNode.title}</a> (${citingNode.pubDate})<br><i>cites</i><br>
             <a href="${ncbiUrl}${citedNode.id}" target="_blank">${citedNode.title}</a> (${citedNode.pubDate})`;
-        } else {
-            this.state.tooltipString = null;
-        }
-        this.setState({ tooltipTarget: event.target, tooltipShow: !this.state.tooltipShow})
-        this.contextMenu.setState({
-            tooltipString: this.state.tooltipString,
+        };
+        this.props.contextMenuHandler(
+            {tooltipString: tooltipString,
             contextMenuLocation: {
                 'x' : event.target.renderedPosition().x, 
-                'y' : event.target.renderedPosition().y + event.target.renderedHeight()/2
+                'y' : event.target.renderedPosition().y + event.target.renderedHeight() / 2
+                }
             }
-          });
+        );
     }
 
     componentDidMount() {
