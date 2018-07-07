@@ -325,10 +325,10 @@ export class SearchActive extends Component {
                             const { pending } = this.state;
                             clearInterval(pending[id]);
                             delete pending[id];
-                            this.setState({ graphJson: {[id]: null }, loading: false, numApiCalls: 0 });
+                            this.setState({ loading: false, numApiCalls: 0 });
                         }
                         else {
-                            this.setState({ graphJson: {[id]: null }, numApiCalls: numApiCalls + 1 });
+                            this.setState({ numApiCalls: numApiCalls + 1 });
                         }
                     }
                     else {
