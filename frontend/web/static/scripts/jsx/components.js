@@ -269,44 +269,16 @@ class GraphSummaryDisplay extends Component {
         var graphSummaryStyle = {
             paddingRight: '20px',
             paddingLeft: '20px',
+            marginTop: '5px',
             verticalAlign: 'middle',
             display: 'block',
             position: 'absolute', 
-            left: '78%',
             top: '5%',
-            pointerEvents: 'all',
-            width: '75%',
-            height: '100px',
-            borderRadius: '7px',
-            padding: '7px',
-            zIndex: '10001'
-        };
-        var graphSummaryStyleLeft = {
-            paddingRight: '20px',
-            paddingLeft: '20px',
-            verticalAlign: 'middle',
-            display: 'block',
-            position: 'absolute', 
             left: '23%',
-            top: '5%',
-            pointerEvents: 'all',
-            width: '75%',
-            height: '100px',
             borderRadius: '7px',
             padding: '7px',
-            zIndex: '10001'
         };
-        var statsMenuStyle = {
-            display: 'block',
-            pointerEvents: 'all',
-            zIndex: '10001',
-            marginTop: '10px',
-            padding: '5px',
-            paddingBottom: '5px',
-            borderWidth: '0.5px',
-            borderRadius: '5px',
-            background:'white'
-        };
+
         var gradient_svg = <svg width="100" height="20">
         <defs>
             <linearGradient id="MyGradient">
@@ -318,27 +290,17 @@ class GraphSummaryDisplay extends Component {
         </svg>
 
         return(
-        <div>
-        <div style={graphSummaryStyleLeft}>
-            <Row style={statsMenuStyle}>
+            <div style={graphSummaryStyle}>
                 <strong>Direct hits </strong>
                 <Badge style={{backgroundColor:'#004cc6'}}>{ this.state.stats.num_results }</Badge>
                 <strong> | Cited publications </strong>
                 <Badge style={{backgroundColor:'red'}}>{ this.state.stats.num_citations }</Badge>
                 <strong> | Citation links </strong>
                 <Badge style={{backgroundColor:'lightgrey'}}>{ this.state.stats.num_links }</Badge>
-            </Row>
-        </div>
-        <div style={graphSummaryStyle}>
-            <Row style={statsMenuStyle}>
-                <div style={{whiteSpace: 'nowrap', overflow:'hidden', display:'inline-block'}}>
-                    <strong>Citations per publication: </strong>
-                    <Badge style={{backgroundColor:'lightgrey'}}>0</Badge>{'\u00A0'}{ gradient_svg }{'\u00A0'}
-                    <Badge style={{backgroundColor:'red'}}>{this.state.stats.max_degree_cited}</Badge>
-                </div>
-            </Row>
-        </div>
-        </div>
+                <strong> | Citations per publication: </strong>
+                <Badge style={{backgroundColor:'lightgrey'}}>0</Badge>{'\u00A0'}{ gradient_svg }{'\u00A0'}
+                <Badge style={{backgroundColor:'red'}}>{this.state.stats.max_degree_cited}</Badge>
+            </div>         
         )
     }
 }
