@@ -3,7 +3,7 @@ import { keys, map, isArray, sortBy } from 'lodash';
 import numeral from 'numeral'
 import request from 'superagent'
 import { render } from 'react-dom'
-import { Image, Grid, Col, Clearfix, Row, Button, ButtonToolbar, ButtonGroup, Popover, Overlay, OverlayTrigger, Tooltip, Modal, Alert, Badge, Checkbox, ToggleButton } from 'react-bootstrap'
+import { Image, Grid, Col, Clearfix, Row, Button, ButtonToolbar, ButtonGroup, PanelGroup, Panel, Popover, Overlay, OverlayTrigger, Tooltip, Modal, Alert, Badge, Checkbox, ToggleButton } from 'react-bootstrap'
 import { DotLoader } from 'react-spinners';
 import ReactGA from 'react-ga';
 import { Histogram, DensitySeries, BarSeries, withParentSize, XAxis, YAxis, WithTooltip } from '@data-ui/histogram';
@@ -634,10 +634,7 @@ export class GraphInfo extends React.Component {
     constructor(props) {
         super(props);
         this.state = { 
-            stats: props.data, 
-            primaryNodesActive: true,
-            secondaryNodesActive: true,
-            citationsActive: true
+            stats: props.data
         };
     }
     componentWillReceiveProps(nextProps) {
@@ -651,12 +648,12 @@ export class GraphInfo extends React.Component {
             display: 'block',
             pointerEvents: 'all',
             zIndex: '10001',
+            width: '98%',
             marginTop: '10px',
             padding: '5px',
             paddingBottom: '5px',
             borderWidth: '0.5px',
             borderRadius: '5px',
-            background:'white'
         };
 
         function tagCreator(entry){
@@ -664,45 +661,39 @@ export class GraphInfo extends React.Component {
             tagEntry['value'] = `${entry[0]}`;
             tagEntry['count'] = entry[1];
             return tagEntry;
-        }
-        const { primaryNodesActive, secondaryNodesActive, citationsActive } = this.state;
+        };
 
         return (
             <div id="netstats" name="netstats">
-                <Row style={statsMenuStyle}>
-                    <div style={{height:'150px'}}>
-                        <p><strong>Publications per year</strong></p>
-                        <ResponsiveHistogram
-                            ariaLabel=''
-                            orientation="vertical"
-                            margin={{ top: 10, right: 12, bottom: 60, left: 12}}
-                            binCount={ this.state.stats.pub_years.num_bin }
-                        >
-                            <BarSeries
-                                animated
-                                rawData={ this.state.stats.pub_years.values }
-                                fill='grey'
-                                strokeWidth={ 0 }
-                            /> )}
-                            <XAxis 
-                                numTicks={ 3 } 
-                                tickFormat={ d3.format('.4') }
-                            />
+                <Panel id="top-author-panel" defaultExpanded>
+                    <Panel.Heading>
+                        <Panel.Title toggle>Top Authors</Panel.Title>
+                    </Panel.Heading>
+                    <Panel.Body collapsible expanded="true">
+                        <GraphTagCloud tags={Object.entries(this.state.stats.top_author_dict).map(tagCreator)} nodeHighlighter={this.props.authorHighlighter} />
+                    </Panel.Body>
+                </Panel>
+                <Panel id="top-journal-panel" defaultExpanded>
+                    <Panel.Heading>
+                        <Panel.Title toggle>Top Journals</Panel.Title>
+                    </Panel.Heading>
+                    <Panel.Body collapsible expanded="true">
+                    <GraphTagCloud tags={Object.entries(this.state.stats.top_journal_dict).map(tagCreator)} nodeHighlighter={this.props.nodeHighlighter} />
+                    </Panel.Body>
+                </Panel>
+                <Panel id="publications-per-year-panel" defaultExpanded>
+                    <Panel.Heading>
+                        <Panel.Title toggle>Publications per year</Panel.Title>
+                    </Panel.Heading>
+                    <Panel.Body collapsible expanded="true">
+                        <div style={{height:'140px'}}>
+                        <ResponsiveHistogram ariaLabel='' orientation="vertical" binCount={this.state.stats.pub_years.num_bin} margin={{ top: 10, right: 12, bottom: 60, left: 12}}>
+                        <BarSeries animated rawData={this.state.stats.pub_years.values} fill='grey' strokeWidth={0}/>
+                        <XAxis numTicks={3} tickFormat={d3.format('.4')}/>
                         </ResponsiveHistogram>
-                    </div>
-                </Row>
-                <Row style={statsMenuStyle}>
-                <p><strong>Top Journals</strong></p>
-                <GraphTagCloud 
-                    tags={Object.entries(this.state.stats.top_journal_dict).map(tagCreator)} 
-                    nodeHighlighter={this.props.nodeHighlighter} />
-                </Row>
-                <Row style={statsMenuStyle}>
-                <p><strong>Top Authors</strong></p>
-                <GraphTagCloud 
-                    tags={Object.entries(this.state.stats.top_author_dict).map(tagCreator)} 
-                    nodeHighlighter={this.props.authorHighlighter} />
-                </Row>
+                        </div>
+                    </Panel.Body>
+                </Panel>
             </div>
         )
     }
@@ -789,13 +780,14 @@ export class CytoGraph extends React.Component {
         * @param {string} selector the selector according to http://js.cytoscape.org/#selectors
         * duration should not be set to 0 otherwise cytoscape will crash.
         */
+        const DO_NOT_SET_TO_ZERO = 1;
         this.cy.nodes().animate(
-            { style: { borderColor: NodeBorderColor.default, borderWidth: NodeBorderWidth.default} },
-            { duration: 1 }
+            { style: { borderColor: NodeBorderColor.default, borderWidth: NodeBorderWidth.default } },
+            { duration: DO_NOT_SET_TO_ZERO }
         );
         this.cy.$(`node[${selector}]`).select().animate(
             { style: { borderColor: NodeBorderColor.highlight, borderWidth: NodeBorderWidth.highlight } },
-            { duration: 1 }
+            { duration: DO_NOT_SET_TO_ZERO }
         );
     }
 

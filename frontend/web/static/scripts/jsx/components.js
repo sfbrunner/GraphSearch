@@ -3,7 +3,7 @@ import { render } from 'react-dom'
 import { 
     Image, Grid, Col, Clearfix, Row, Navbar, Nav, NavItem, NavDropdown, MenuItem, 
     Button, form, ButtonToolbar, FormGroup, FormControl, Popover, Badge,
-    InputGroup, Glyphicon, Panel, ControlLabel, Form, Modal } from 'react-bootstrap'
+    InputGroup, Glyphicon, Panel, ControlLabel, Form, Modal, Well } from 'react-bootstrap'
 import { CytoGraph, GraphInfo } from './cytoComponents'
 import { DotLoader } from 'react-spinners';
 import { keys, map, isArray, sortBy } from 'lodash';
@@ -274,7 +274,7 @@ class GraphSummaryDisplay extends Component {
             display: 'block',
             position: 'absolute', 
             top: '5%',
-            left: '23%',
+            left: '30%',
             borderRadius: '7px',
             padding: '7px',
         };
@@ -290,17 +290,17 @@ class GraphSummaryDisplay extends Component {
         </svg>
 
         return(
-            <div style={graphSummaryStyle}>
+            <Well bsSize="small" style={graphSummaryStyle}>
                 <strong>Direct hits </strong>
                 <Badge style={{backgroundColor:'#004cc6'}}>{ this.state.stats.num_results }</Badge>
-                <strong> | Cited publications </strong>
+                <strong>  Cited publications </strong>
                 <Badge style={{backgroundColor:'red'}}>{ this.state.stats.num_citations }</Badge>
-                <strong> | Citation links </strong>
+                <strong>  Citation links </strong>
                 <Badge style={{backgroundColor:'lightgrey'}}>{ this.state.stats.num_links }</Badge>
-                <strong> | Citations per publication: </strong>
+                <strong>  Citations per publication </strong>
                 <Badge style={{backgroundColor:'lightgrey'}}>0</Badge>{'\u00A0'}{ gradient_svg }{'\u00A0'}
                 <Badge style={{backgroundColor:'red'}}>{this.state.stats.max_degree_cited}</Badge>
-            </div>         
+            </Well>         
         )
     }
 }
