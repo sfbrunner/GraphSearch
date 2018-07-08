@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { render } from 'react-dom'
 import { 
     Image, Grid, Col, Clearfix, Row, Navbar, Nav, NavItem, NavDropdown, MenuItem, 
-    Button, form, ButtonToolbar, FormGroup, FormControl, Popover,
+    Button, form, ButtonToolbar, FormGroup, FormControl, Popover, Badge,
     InputGroup, Glyphicon, Panel, ControlLabel, Form, Modal } from 'react-bootstrap'
 import { CytoGraph, GraphInfo } from './cytoComponents'
 import { DotLoader } from 'react-spinners';
@@ -204,6 +204,9 @@ export class SearchLanding extends Component {
 }
 
 class ContextMenu extends React.Component {
+/**
+ * Component to render tooltip on Graph
+ */
 
     constructor(props){
         super(props);
@@ -227,7 +230,7 @@ class ContextMenu extends React.Component {
         var contentMenuStyle = {
             display: this.state.tooltipString != null && location ? 'block' : 'none',
             position: 'absolute', 
-            left: location ? (location.x-tooltipWidth/2 + 15) : 0, // 15px offset from  container-fluid padding
+            left: location ? (location.x-tooltipWidth / 2 + 15) : 0, // 15px offset from  container-fluid padding
             top: location ? (location.y + 36) : 0, // 36px offset from div height
             pointerEvents: 'all',
             width: tooltipWidth,
@@ -253,6 +256,91 @@ class ContextMenu extends React.Component {
         );
     }
 
+}
+
+class GraphSummaryDisplay extends Component {
+
+    constructor(props){
+        super(props);
+        this.state = { stats: props.data };
+    }
+
+    render(){
+        var graphSummaryStyle = {
+            paddingRight: '20px',
+            paddingLeft: '20px',
+            verticalAlign: 'middle',
+            display: 'block',
+            position: 'absolute', 
+            left: '78%',
+            top: '5%',
+            pointerEvents: 'all',
+            width: '75%',
+            height: '100px',
+            borderRadius: '7px',
+            padding: '7px',
+            zIndex: '10001'
+        };
+        var graphSummaryStyleLeft = {
+            paddingRight: '20px',
+            paddingLeft: '20px',
+            verticalAlign: 'middle',
+            display: 'block',
+            position: 'absolute', 
+            left: '23%',
+            top: '5%',
+            pointerEvents: 'all',
+            width: '75%',
+            height: '100px',
+            borderRadius: '7px',
+            padding: '7px',
+            zIndex: '10001'
+        };
+        var statsMenuStyle = {
+            display: 'block',
+            pointerEvents: 'all',
+            zIndex: '10001',
+            marginTop: '10px',
+            padding: '5px',
+            paddingBottom: '5px',
+            borderWidth: '0.5px',
+            borderRadius: '5px',
+            background:'white'
+        };
+        var gradient_svg = <svg width="100" height="20">
+        <defs>
+            <linearGradient id="MyGradient">
+                <stop offset="5%" stopColor="white" />
+                <stop offset="95%" stopColor="red" />
+            </linearGradient>
+        </defs>
+        <rect fill="url(#MyGradient)" x="0" y="10" width="100" height="20" />
+        </svg>
+
+        return(
+        <div>
+        <div style={graphSummaryStyleLeft}>
+            <Row style={statsMenuStyle}>
+                <strong>Direct hits </strong>
+                <Badge style={{backgroundColor:'#004cc6'}}>{ this.state.stats.num_results }</Badge>
+                <strong> | Cited publications </strong>
+                <Badge style={{backgroundColor:'red'}}>{ this.state.stats.num_citations }</Badge>
+                <strong> | Citation links </strong>
+                <Badge style={{backgroundColor:'lightgrey'}}>{ this.state.stats.num_links }</Badge>
+            </Row>
+        </div>
+        <div style={graphSummaryStyle}>
+            <Row style={statsMenuStyle}>
+                <div style={{whiteSpace: 'nowrap', overflow:'hidden', display:'inline-block'}}>
+                    <strong>Citations per publication: </strong>
+                    <Badge style={{backgroundColor:'lightgrey'}}>0</Badge>{'\u00A0'}{ gradient_svg }{'\u00A0'}
+                    <Badge style={{backgroundColor:'red'}}>{this.state.stats.max_degree_cited}</Badge>
+                </div>
+            </Row>
+        </div>
+        </div>
+        )
+    }
 }
 
 class GraphHelperMenu extends Component {
@@ -315,7 +403,8 @@ export class SearchActive extends Component {
         var defaultVisualGraphState = {
             zoomLevel: 0.7,
             nodeFilter: null,
-            nodeHighlighter: null
+            nodeHighlighter: null,
+            displayNodes: true
         };
         var defaultContextMenuState = {
             tooltipString: null,
@@ -351,6 +440,7 @@ export class SearchActive extends Component {
     onSubmit(event) {
         event.preventDefault();
         event.stopPropagation();
+        this.updateVisualGraphState({"displayNodes": false}); // Need to remove graph manually
         this.search(event.target.childNodes[0].children.searchString.value);
     }
 
@@ -391,6 +481,7 @@ export class SearchActive extends Component {
                         const { pending } = this.state;
                         clearInterval(pending[id]);
                         delete pending[id];
+                        this.updateVisualGraphState({"displayNodes": true}); // Need to add graph manually
                         this.setState({ graphJson: { [id]: result }, loading: false, foundResults: (result.stats.num_results > 0), numApiCalls: 0 });
                     }
                 })
@@ -481,6 +572,9 @@ export class SearchActive extends Component {
                     </div>
                     <ContextMenu contextMenuState={this.state.contextMenuState} />
                     <GraphHelperMenu handleRefocus={this.handleRefocus} handleZoomIn={this.handleZoomIn} handleZoomOut={this.handleZoomOut}/>
+                    {map(keys(graphJson), id => !this.state.loading
+                        ? (this.state.foundResults ? <GraphSummaryDisplay data={graphJson[id].stats}/> : <div/>)
+                        : <div/>)}
                 </div>
                 </ErrorBoundary>
             </div>

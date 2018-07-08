@@ -665,16 +665,6 @@ export class GraphInfo extends React.Component {
             tagEntry['count'] = entry[1];
             return tagEntry;
         }
-
-        var gradient_svg = <svg width="100" height="20">
-            <defs>
-                <linearGradient id="MyGradient">
-                    <stop offset="5%" stopColor="white" />
-                    <stop offset="95%" stopColor="red" />
-                </linearGradient>
-            </defs>
-            <rect fill="url(#MyGradient)" x="0" y="10" width="100" height="20" />
-        </svg>
         const { primaryNodesActive, secondaryNodesActive, citationsActive } = this.state;
 
         return (
@@ -699,21 +689,6 @@ export class GraphInfo extends React.Component {
                                 tickFormat={ d3.format('.4') }
                             />
                         </ResponsiveHistogram>
-                    </div>
-                </Row>
-                <Row style={statsMenuStyle}>
-                    <strong>Direct hits </strong>
-                    <Badge style={{backgroundColor:'#004cc6'}}>{ this.state.stats.num_results }</Badge><br/>
-                    <strong>Cited publications </strong>
-                    <Badge style={{backgroundColor:'red'}}>{ this.state.stats.num_citations }</Badge><br/>
-                    <strong>Citation links </strong>
-                    <Badge style={{backgroundColor:'lightgrey'}}>{ this.state.stats.num_links }</Badge>
-                </Row>
-                <Row style={statsMenuStyle}>
-                    <div style={{whiteSpace: 'nowrap', overflow:'hidden', display:'inline-block'}}>
-                        <p><strong>Citations per publication</strong></p>
-                        <Badge style={{backgroundColor:'lightgrey'}}>0</Badge>{'\u00A0'}{ gradient_svg }{'\u00A0'}
-                        <Badge style={{backgroundColor:'red'}}>{this.state.stats.max_degree_cited}</Badge>
                     </div>
                 </Row>
                 <Row style={statsMenuStyle}>
@@ -877,6 +852,10 @@ export class CytoGraph extends React.Component {
     }
 
     visualGraphUpdate(propertyName, propertyValue){
+        /**
+        * @param {string} propertyName 
+        * @param {any} propertyValue
+        */
         switch(propertyName){
             case "zoomLevel":
                 this.zoomGraph(propertyValue);
@@ -889,6 +868,10 @@ export class CytoGraph extends React.Component {
                 this.highlightAuthors(this.state.visualGraphState.nodeHighlighter);
                 this.highlightAuthors(propertyValue);
             case "journalHighlighter":
+                break;
+            case "displayNodes":
+                // TODO: Encapsulate and not call graph method directly
+                propertyValue ? {} : this.cy.elements().remove();
                 break;
             case "nodeFilter":
                 break;
