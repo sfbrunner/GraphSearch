@@ -713,6 +713,8 @@ export class CytoGraph extends React.Component {
         super(props);
         this.cy = undefined;
         this.tooltipTimeout = undefined;
+        this.initialZoomLevel = undefined;
+        this.initialPanLevel = undefined;
         // TODO: This needs to be done smarter. As we pass state as a reference in props, we cannot compare to this.props as they are alway the same as nextProps
         this.visualGraphState = JSON.parse(JSON.stringify(props.visualGraphState)); 
         this._nodeSelector = this._nodeSelector.bind(this);
@@ -723,6 +725,7 @@ export class CytoGraph extends React.Component {
         this._formatNodeMouseover = this._formatNodeMouseover.bind(this);
         this._hideTooltip = this._hideTooltip.bind(this);
         this._renderTooltip = this._renderTooltip.bind(this);
+        this._mountCytoGraph = this._mountCytoGraph.bind(this);
         this.visualGraphUpdate = this.visualGraphUpdate.bind(this);
     }
 
@@ -732,18 +735,25 @@ export class CytoGraph extends React.Component {
 
     _nodeSelector(nodeId) {
         /**
-         * @param nodeId: The id of the node in the graph.
+         * @param {int} nodeId: The id of the node in the graph.
          * Returns the nodes data stored on this node. 
          */
         return this.props.graph.nodes.filter(function (obj) { return obj.data.id == nodeId })[0].data;
     }
 
-    zoomGraph(level){
-        if(Math.round(level * 10) == 10) {
-            this.cy.fit(); //TODO: Need to store initial zoom level after cy.fit(), then not call it again but zoom back to this level
+    zoomGraph(zoomIndicator){
+        /**
+         * @param {float} zoomIndicator: If zero refocus, if positive zoomIn, negative zoomOut
+         */
+        const zoomRate = 0.1;
+        if (zoomIndicator == 0.0) {
+            // This is a refocus event
+            this.cy.pan(this.initialPanLevel);
+            this.cy.zoom(this.initialZoomLevel);
         }
         else {
-            this.cy.zoom(this.cy.zoom() * level);
+            var relativeLevel = zoomIndicator > 0 ? (1 + zoomRate) : (1 - zoomRate)
+            this.cy.zoom(this.cy.zoom() * relativeLevel);
         }
     }
 
@@ -861,10 +871,6 @@ export class CytoGraph extends React.Component {
         }
     }
 
-    getCy() {
-        return this.cy;
-    }
-
     _hideTooltip(event){
         this.props.contextMenuHandler({ 
             tooltipString: null, 
@@ -914,11 +920,11 @@ export class CytoGraph extends React.Component {
             });
     }
 
-    componentDidMount() {
+    _mountCytoGraph(){
         /** 
          * Attaches a cytoscape instance to the DOM with the data 
         */
-        var cy = cytoscape({
+       var cy = cytoscape({
             container: document.getElementById('cy'),
             elements: this.props.graph,
             style: cytoStyle,
@@ -934,9 +940,13 @@ export class CytoGraph extends React.Component {
         cy.on('mouseout', 'node', this._formatNodeMouseout );
         //var pr = cy.elements().pageRank();
         this.cy = cy; // TODO: pass event to state and use this binding
+        this.initialZoomLevel = this.cy.zoom();
+        this.initialPanLevel = this.cy.pan();
+    }
+
+    componentDidMount() {
+        this._mountCytoGraph();
     }
 
     render() { return ( <div/> ) }
 }
-
-

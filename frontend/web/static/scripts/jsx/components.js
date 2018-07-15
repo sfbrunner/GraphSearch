@@ -475,15 +475,16 @@ export class SearchActive extends Component {
     }
 
     handleZoomIn(){
-        this.updateVisualGraphState({"zoomLevel": 1.1 });
+        // TODO: In a very unlikely case this producesa bug.
+        this.updateVisualGraphState({"zoomLevel": Math.round(Math.random() * 1000) / 1000});
     }
 
     handleZoomOut(){
-        this.updateVisualGraphState({"zoomLevel": 0.9 });
+        this.updateVisualGraphState({"zoomLevel": -Math.round(Math.random() * 1000) / 1000 });
     }
 
     handleRefocus(){
-        this.updateVisualGraphState({"zoomLevel": 1.0});
+        this.updateVisualGraphState({"zoomLevel": 0.0});
     }
 
 	render() {
