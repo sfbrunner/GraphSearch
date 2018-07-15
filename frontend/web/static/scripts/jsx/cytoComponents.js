@@ -3,20 +3,20 @@ import { keys, map, isArray, sortBy } from 'lodash';
 import numeral from 'numeral'
 import request from 'superagent'
 import { render } from 'react-dom'
-import { Image, Grid, Col, Clearfix, Row, Button, ButtonToolbar, ButtonGroup, Popover, Overlay, OverlayTrigger, Tooltip, Modal, Alert, Badge, Checkbox, ToggleButton } from 'react-bootstrap'
+import { Image, Grid, Col, Clearfix, Row, Button, ButtonToolbar, ButtonGroup, PanelGroup, Panel, Popover, Overlay, OverlayTrigger, Tooltip, Modal, Alert, Badge, Checkbox, ToggleButton } from 'react-bootstrap'
 import { DotLoader } from 'react-spinners';
 import ReactGA from 'react-ga';
 import { Histogram, DensitySeries, BarSeries, withParentSize, XAxis, YAxis, WithTooltip } from '@data-ui/histogram';
 import * as d3 from "d3";
 import renderTooltip from './renderHistogramTooltip'; 
-import { BrowserRouter, Route, Link, Switch, hashHistory } from 'react-router-dom'
+import { BrowserRouter, Route, Link, Switch, hashHistory } from 'react-router-dom';
+import { TagCloud } from "react-tagcloud";
 
 window.$ = window.jQuery = require('jquery');
 var cytoscape = require('cytoscape');
 //var cyforcelayout = require('cytoscape-ngraph.forcelayout');
 var cycola = require('cytoscape-cola');
 var cyforcelayout = require('cytoscape-ngraph.forcelayout');
-
 
 //cyforcelayout['iterations'] = 10000
 //require(['cytoscape', 'cytoscape-ngraph.forcelayout'], function( cytoscape, cyforcelayout ){
@@ -91,7 +91,6 @@ var citedNodeStyle = {
         //'text-background-opacity': 0.8,
         //'text-background-shape': 'roundrectangle',
         //'text-outline-color': 'white',
-        "text-valign": "bottom center",
         "text-max-width": 70,
         "text-wrap": 'ellipsis'
     }
@@ -563,8 +562,6 @@ var divContentSearch = {
     }
 }
 
-
-
 const ResponsiveHistogram = withParentSize(({ parentWidth, parentHeight, ...rest}) => (
     <Histogram
     width={parentWidth}
@@ -574,38 +571,75 @@ const ResponsiveHistogram = withParentSize(({ parentWidth, parentHeight, ...rest
     />
 ));
 
+class GraphTagCloud extends React.Component{
+
+    constructor(props){
+        super(props);
+        this.state = { tags: props.tags, clickedTag: null }
+        this.nodeHighlighter = this.nodeHighlighter.bind(this);
+    }
+
+    nodeHighlighter(filter){
+        this.props.nodeHighlighter(filter);
+    }
+
+    render(){
+        const options = {
+            luminosity: 'dark',
+            hue: 'monochrome'
+          };
+
+        const customRenderer = (tag, size, color) => (
+        <span key={tag.value}
+                style={{
+                fontSize: `${size}px`,
+                border: `0.0px solid ${color}`,
+                margin: '1px',
+                backgroundColor: tag.value==this.state.clickedTag? 'black' : 'grey',
+                padding: '3px',
+                color: 'white',
+                borderRadius: '5px',
+                cursor: 'pointer',
+                whiteSpace: 'pre-wrap',
+                display: 'inline-block',
+                }}>{tag.value}</span>
+        );
+
+        return(
+        <div>
+            <TagCloud 
+                minSize={12}
+                maxSize={24}
+                colorOptions={options}
+                tags={this.state.tags}
+                shuffle={false}
+                renderer={customRenderer}
+                onClick={tag => {
+                    if(tag.value==this.state.clickedTag){
+                        this.nodeHighlighter('');
+                        this.setState({clickedTag: null})
+                    }else{
+                        this.nodeHighlighter(tag.value); 
+                        this.setState({clickedTag: tag.value})
+                    }
+                }}
+                className="simple-cloud" />
+        </div>
+        )
+    }
+}
+
 export class GraphInfo extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = { 
-            stats: props.data, 
-            primaryNodesActive: true,
-            secondaryNodesActive: true,
-            citationsActive: true
+            stats: props.data
         };
-        this.primaryNodeHandler = this.primaryNodeHandler.bind(this);
-        this.secondaryNodeHandler = this.secondaryNodeHandler.bind(this);
-        this.citationHandler = this.citationHandler.bind(this);
     }
-
-    citationHandler(e){
-
-    }
-
-    secondaryNodeHandler(e){
-
-    }
-
-    primaryNodeHandler(e){
-        const { primaryNodesActive } = this.state;
-        this.setState({primaryNodesActive: !primaryNodesActive})
-        this.props.nodeHandler();
-    }
-
     componentWillReceiveProps(nextProps) {
         if (nextProps.data !== this.state) {
-            this.state = { stats: nextProps.data };
+            this.setState({ stats: nextProps.data });
         }
     }
 
@@ -614,345 +648,295 @@ export class GraphInfo extends React.Component {
             display: 'block',
             pointerEvents: 'all',
             zIndex: '10001',
+            width: '98%',
             marginTop: '10px',
-            padding: '10px',
-            paddingBottom: '0px',
+            padding: '5px',
+            paddingBottom: '5px',
             borderWidth: '0.5px',
             borderRadius: '5px',
-            background:'white'
         };
 
-        var gradient_svg = <svg width="100" height="20">
-            <defs>
-                <linearGradient id="MyGradient">
-                    <stop offset="5%" stopColor="white" />
-                    <stop offset="95%" stopColor="red" />
-                </linearGradient>
-            </defs>
-            <rect fill="url(#MyGradient)" x="0" y="10" width="100" height="20" />
-        </svg>
-
-        const journal_list = this.state.stats.top_journals_list.map((journal) =>
-            <Badge style={{backgroundColor:'lightgrey'}}>{journal}</Badge>
-        );
-
-        const author_list = this.state.stats.top_authors_list.map((author) =>
-            <Badge style={{backgroundColor:'lightgrey'}}>{author}</Badge>
-        );
-        const { primaryNodesActive, secondaryNodesActive, citationsActive } = this.state;
+        function tagCreator(entry){
+            var tagEntry = {};
+            tagEntry['value'] = `${entry[0]}`;
+            tagEntry['count'] = entry[1];
+            return tagEntry;
+        };
 
         return (
             <div id="netstats" name="netstats">
-                <Row style={statsMenuStyle}>
-                    <div style={{height:'150px'}}>
-                        <p><strong>Publications per year</strong></p>
-                        <ResponsiveHistogram
-                            ariaLabel=''
-                            orientation="vertical"
-                            margin={{ top: 10, right: 12, bottom: 60, left: 12}}
-                            binCount={ this.state.stats.pub_years.num_bin }
-                        >
-                            <BarSeries
-                                animated
-                                rawData={ this.state.stats.pub_years.values }
-                                fill='grey'
-                                strokeWidth={ 0 }
-                            /> )}
-                            <XAxis 
-                                numTicks={ 3 } 
-                                tickFormat={ d3.format('.4') }
-                            />
+                <Panel id="top-author-panel" defaultExpanded>
+                    <Panel.Heading>
+                        <Panel.Title toggle>Top Authors</Panel.Title>
+                    </Panel.Heading>
+                    <Panel.Body collapsible expanded="true">
+                        <GraphTagCloud tags={Object.entries(this.state.stats.top_author_dict).map(tagCreator)} nodeHighlighter={this.props.authorHighlighter} />
+                    </Panel.Body>
+                </Panel>
+                <Panel id="top-journal-panel" defaultExpanded>
+                    <Panel.Heading>
+                        <Panel.Title toggle>Top Journals</Panel.Title>
+                    </Panel.Heading>
+                    <Panel.Body collapsible expanded="true">
+                    <GraphTagCloud tags={Object.entries(this.state.stats.top_journal_dict).map(tagCreator)} nodeHighlighter={this.props.nodeHighlighter} />
+                    </Panel.Body>
+                </Panel>
+                <Panel id="publications-per-year-panel" defaultExpanded>
+                    <Panel.Heading>
+                        <Panel.Title toggle>Publications per year</Panel.Title>
+                    </Panel.Heading>
+                    <Panel.Body collapsible expanded="true">
+                        <div style={{height:'140px'}}>
+                        <ResponsiveHistogram ariaLabel='' orientation="vertical" binCount={this.state.stats.pub_years.num_bin} margin={{ top: 10, right: 12, bottom: 60, left: 12}}>
+                        <BarSeries animated rawData={this.state.stats.pub_years.values} fill='grey' strokeWidth={0}/>
+                        <XAxis numTicks={3} tickFormat={d3.format('.4')}/>
                         </ResponsiveHistogram>
-                    </div>
-                </Row>
-                <Row style={statsMenuStyle}>
-                    <ButtonGroup vertical>
-                        <Button onClick={this.primaryNodeHandler} active={primaryNodesActive} bsSize="small">
-                            <strong>Direct hits </strong>
-                            <Badge style={{backgroundColor:'#004cc6'}}>{ this.state.stats.num_results }</Badge>
-                        </Button>
-                        <Button onClick={this.secondaryNodeHandler} bsSize="small" style={{backgroundColor:'white'}}>
-                            <strong>Cited publications </strong>
-                            <Badge style={{backgroundColor:'red'}}>{ this.state.stats.num_citations }</Badge>
-                        </Button>
-                        <Button onClick={this.citationHandler} bsSize="small" style={{backgroundColor:'white'}}>
-                            <strong>Citation links </strong>
-                            <Badge style={{backgroundColor:'lightgrey'}}>{ this.state.stats.num_links }</Badge>
-                        </Button>
-                    </ButtonGroup>
-                </Row>
-                <Row style={statsMenuStyle}>
-                    <div style={{whiteSpace: 'nowrap', overflow:'hidden', display:'inline-block', textAlign:'left'}}>
-                        <p><strong>Citations per publication</strong></p>
-                        <Badge style={{backgroundColor:'lightgrey'}}>0</Badge>{'\u00A0'}{ gradient_svg }{'\u00A0'}
-                        <Badge style={{backgroundColor:'red'}}>{this.state.stats.max_degree_cited}</Badge>
-                    </div>
-                </Row>
-                <Row style={statsMenuStyle}>
-                <p><strong>Top 5 journals: </strong>{ journal_list }</p>
-                <p><strong>Top 5 authors: </strong>{ author_list }</p>
-                </Row>
+                        </div>
+                    </Panel.Body>
+                </Panel>
             </div>
         )
     }
 }
 
-export class ContextMenu extends React.Component {
-
-    constructor(props){
-        super(props);
-        this.state = {contextMenuLocation: "", tooltipString: ""};
-    }
-
-    getInitialState(){
-        return {contextMenuLocation: ''};
-    }
-
-    shouldComponentUpdate(){
-        return true;
-    }
-
-    render() {
-        var tooltipWidth = 250;
-        var tooltipHeight = 180;
-        var location = this.state.contextMenuLocation;
-        var contentMenuStyle = {
-            display: this.state.tooltipString != null && location ? 'block' : 'none',
-            position: 'absolute', 
-            left: location ? (location.x-tooltipWidth/2) : 0,
-            top: location ? (location.y) : 0,
-            pointerEvents: 'all',
-            width: tooltipWidth,
-            height: tooltipHeight,
-            borderRadius: '7px',
-            padding: '0px',
-            zIndex: '10000',
-        };
-        var popoverStyle = 
-        {
-            positionTop: location ? (location.x-tooltipWidth/2) : 0,
-            positionLeft: location ? (location.y) : 0,
-        }
-
-        return (
-            <div id="results" 
-                style={contentMenuStyle} 
-                onClick={(e) => {e.stopPropagation(); e.nativeEvent.stopImmediatePropagation()}}>
-                <Popover id="tooltipPopover" placement="bottom" style={popoverStyle}>
-                    <div dangerouslySetInnerHTML={{ __html: this.state.tooltipString}} />
-                </Popover>
-            </div>
-        );
-    }
-
-}
+var NodeBorderColor = Object.freeze({ 'default': 'grey', 'highlight': 'black' });
+var NodeBorderWidth = Object.freeze({ 'default': '0.5', 'highlight': '2px solid #dadada' });
 
 export class CytoGraph extends React.Component {
+    // Wraps the cytoscape js library into react component
     // See https://github.com/cytoscape/cytoscape.js/issues/1468 for implementation recommendations
 
     constructor(props) {
+        /**
+         * We do not set a state on this component as all data is passed via props.
+         */
         super(props);
-        this.cy = null;
-        this.state = { 
-            graph: props.data.graph, 
-            tooltipString: null, 
-            cytoTarget: null, 
-            tooltipShow: false, 
-            refocus: false,
-            zoomIn: false,
-            zoomOut: false
-        };
+        this.cy = undefined;
+        this.tooltipTimeout = undefined;
+        // TODO: This needs to be done smarter. As we pass state as a reference in props, we cannot compare to this.props as they are alway the same as nextProps
+        this.visualGraphState = JSON.parse(JSON.stringify(props.visualGraphState)); 
         this._nodeSelector = this._nodeSelector.bind(this);
-        this.refocusGraph = this.refocusGraph.bind(this);
-        this.zoomInGraph = this.zoomInGraph.bind(this);
-        this.zoomOutGraph = this.zoomOutGraph.bind(this);
-        this.hideSecondaryNodes = this.hideSecondaryNodes.bind(this);
-        this.hidePrimaryNodes = this.hidePrimaryNodes.bind(this);
-        this.nodeHandler = this.nodeHandler.bind(this);
-        this.eles = null;
-        this.primaryEles = null;
-        this.contextMenu = props.contextMenu;
-        this.highlightNodes = this.highlightNodes.bind(this)
+        this.zoomGraph = this.zoomGraph.bind(this);
+        this.highlightNodes = this.highlightNodes.bind(this);
+        this.highlightNodes2 = this.highlightNodes2.bind(this);
+        this._formatNodeMouseout = this._formatNodeMouseout.bind(this);
+        this._formatNodeMouseover = this._formatNodeMouseover.bind(this);
+        this._hideTooltip = this._hideTooltip.bind(this);
+        this._renderTooltip = this._renderTooltip.bind(this);
+        this.visualGraphUpdate = this.visualGraphUpdate.bind(this);
     }
 
+    componentWillUnmount(){
+        this.cy.destroy();
+    }
 
     _nodeSelector(nodeId) {
-        return this.state.graph.nodes.filter(function (obj) { return obj.data.id == nodeId })[0].data;
+        /**
+         * @param nodeId: The id of the node in the graph.
+         * Returns the nodes data stored on this node. 
+         */
+        return this.props.graph.nodes.filter(function (obj) { return obj.data.id == nodeId })[0].data;
     }
 
-    nodeHandler()
-    {
-        this.hidePrimaryNodes();
-    }
-
-    refocusGraph() {
-        this.cy.fit();
-        this.setState({refocus: false});
-    }
-
-    zoomInGraph() {
-        this.cy.zoom(this.cy.zoom() + 0.1);
-        this.setState({zoomIn: false})
-    }
-
-    zoomOutGraph() {
-        this.cy.zoom(this.cy.zoom() - 0.1);
-        this.setState({zoomOut: false})
-    }
-
-    hideSecondaryNodes() {
-        if (this.eles != null) {
-            this.eles.restore();
-            this.eles = null;
+    zoomGraph(level){
+        if(Math.round(level * 10) == 10) {
+            this.cy.fit(); //TODO: Need to store initial zoom level after cy.fit(), then not call it again but zoom back to this level
         }
         else {
-            var eles = this.cy.remove('node[group = "Cited"]');
-            this.eles = eles;
+            this.cy.zoom(this.cy.zoom() * level);
         }
     }
 
-    hidePrimaryNodes() {
-        if (this.primaryEles != null) {
-            this.primaryEles.restore();
-            this.primaryEles = null;
-        }
-        else {
-            var primaryEles = this.cy.remove('node[group = "Searched"]');
-            this.primaryEles = primaryEles;
-        }
-    }
-
-    highlightNodes(filter)
+    highlightNodes(selector)
     {
-        var nodes = this.cy.$('node[${filter}]').select();
-        nodes.animate(
-            { style: {borderColor: 'black', borderWidth: '2px solid #dadada'} },
-            { duration: 0 }
+        /**
+        * @param {string} selector the selector according to http://js.cytoscape.org/#selectors
+        * duration should not be set to 0 otherwise cytoscape will crash.
+        */
+        const DO_NOT_SET_TO_ZERO = 1;
+        this.cy.nodes().animate(
+            { style: { borderColor: NodeBorderColor.default, borderWidth: NodeBorderWidth.default } },
+            { duration: DO_NOT_SET_TO_ZERO }
+        );
+        this.cy.$(`node[${selector}]`).select().animate(
+            { style: { borderColor: NodeBorderColor.highlight, borderWidth: NodeBorderWidth.highlight } },
+            { duration: DO_NOT_SET_TO_ZERO }
         );
     }
 
+    highlightNodes2(selector)
+    {
+        /**
+        * @param {string} selector the selector according to http://js.cytoscape.org/#selectors
+        * styling according to http://js.cytoscape.org/#style/labels
+        * duration should not be set to 0 otherwise cytoscape will crash.
+        */
+        this.cy.nodes().animate(
+            { style: { 
+                'color': 'black', 
+                'text-background-color': 'white', 
+                'text-background-opacity': '0.0'
+            } },
+            { duration: 1 }
+        );
+        this.cy.$(`node[${selector}]`).select().animate(
+            { style: { 
+                'color': 'white', 
+                'text-background-color': 'black', 
+                'text-background-opacity': '0.6', 
+                'text-background-padding': '0.5px', 
+                'text-background-shape': 'roundrectangle'
+            } },
+            { duration: 1 }
+        );
+    }
+
+    highlightPapers(paperName){
+        this.highlightNodes2(`journal_iso="${paperName}"`);
+    }
+
+    highlightAuthors(authorName){
+        if(authorName == ''){
+            this.highlightNodes(`authors="${'brazzasdfasdfff'}"`); //TODO: handle this properly
+        }else{
+            this.highlightNodes(`authors*="${authorName}"`);
+        }
+    }
+
     componentWillReceiveProps(nextProps) {
-        if (nextProps.data.graph !== this.state.graph) {
-            this.setState({ graph: nextProps.data.graph });
+        /**
+         * When this method is called, it does not mean that props changed.
+         * This method is very perfomance critical.
+         */
+
+        if (nextProps.graph !== this.props.graph) {
             this.cy.elements().remove();
-            this.cy.add(nextProps.data.graph);
-            this.cy.json(nextProps.data.graph);
-            this.cy.layout(cytoEuler).run();
-            this.cy.fit();
+            if (nextProps.graph.nodes.length > 0){
+                this.cy.add(nextProps.graph);
+                this.cy.json(nextProps.graph);
+                this.cy.layout(cytoEuler).run();
+                this.cy.fit();
+            }
+        } 
+        else
+        {
+            for (var propertyName in nextProps.visualGraphState){
+                if (nextProps.visualGraphState[propertyName] !== this.visualGraphState[propertyName]){
+                    this.visualGraphUpdate(propertyName, nextProps.visualGraphState[propertyName]);
+                }
+            };
         }
-        if (nextProps.refocus){
-            this.refocusGraph();
-        }
-        else if (nextProps.zoomIn){
-            this.zoomInGraph();
-        }
-        else if (nextProps.zoomOut){
-            this.zoomOutGraph();
-        }
-        if (nextProps.nodes != ''){
-            this.hidePrimaryNodes();
-        }
+        // TODO: This needs to be done smarter. As we pass state as a reference in props, we cannot compare to this.props as they are alway the same as nextProps
+        this.visualGraphState = JSON.parse(JSON.stringify(nextProps.visualGraphState));
     }
 
     shouldComponentUpdate() {
-        return false;
+        return true;
     }
 
-    componentWillUnmount() {
-        this.cy.destroy();
+    visualGraphUpdate(propertyName, propertyValue){
+        /**
+        * @param {string} propertyName 
+        * @param {any} propertyValue
+        */
+        switch(propertyName){
+            case "zoomLevel":
+                this.zoomGraph(propertyValue);
+                break;
+            case "nodeHighlighter":
+                this.highlightPapers(this.props.visualGraphState.nodeHighlighter);
+                this.highlightPapers(propertyValue);
+                break;
+            case "authorHighlighter":
+                this.highlightAuthors(this.props.visualGraphState.nodeHighlighter);
+                this.highlightAuthors(propertyValue);
+            case "journalHighlighter":
+                break;
+            case "displayNodes":
+                // TODO: Encapsulate and not call graph method directly
+                propertyValue ? {} : this.cy.elements().remove();
+                break;
+            case "nodeFilter":
+                break;
+        }
     }
 
     getCy() {
         return this.cy;
     }
 
+    _hideTooltip(event){
+        this.props.contextMenuHandler({ 
+            tooltipString: null, 
+            contextMenuLocation: {'x' : 0, 'y': 0},
+        });
+    }
 
+    _formatNodeMouseover(event){
+        event.target.animate(
+            { style: { borderColor: NodeBorderColor.highlight, borderWidth: NodeBorderWidth.highlight } },
+            { duration: 10 }
+        );
+        this.tooltipTimeout = setTimeout(this._renderTooltip, 200, event);
+    }
+
+    _formatNodeMouseout(event){
+        event.target.animate(
+            { style: {borderColor: NodeBorderColor.default, borderWidth: NodeBorderWidth.default} },
+            { duration: 10 }
+        );
+        clearTimeout(this.tooltipTimeout);
+        this._hideTooltip(event);
+        //setTimeout(this._hideTooltip, 300, event);
+    }
+
+    _renderTooltip(event) {
+        var ncbiUrl = 'https://www.ncbi.nlm.nih.gov/pubmed/';
+        var tooltipString = null;
+        if (event.target === cy) {
+            // nothing to do
+        } else if (event.target.group() == 'nodes') {
+            var node = this._nodeSelector(event.target.data().id);
+            tooltipString = `<b><a href="${ncbiUrl}${node.id}" target="_blank">${node.title}</b></a>
+            <br><i>${node.journal}</i><br><i>${node.pubDate}</i><br>${node.authors}`;
+        } else if (event.target.group() == 'edges') {
+            var citedNode = this._nodeSelector(event.target.data().target);
+            var citingNode = this._nodeSelector(event.target.data().source);
+            tooltipString = `<b>Citation</b>:<br><a href="${ncbiUrl}${citingNode.id}" target="_blank">
+            ${citingNode.title}</a> (${citingNode.pubDate})<br><i>cites</i><br>
+            <a href="${ncbiUrl}${citedNode.id}" target="_blank">${citedNode.title}</a> (${citedNode.pubDate})`;
+        };
+        this.props.contextMenuHandler({
+            tooltipString: tooltipString,
+            contextMenuLocation: {
+                'x' : event.target.renderedPosition().x, 
+                'y' : event.target.renderedPosition().y + event.target.renderedHeight() / 2 }
+            });
+    }
 
     componentDidMount() {
+        /** 
+         * Attaches a cytoscape instance to the DOM with the data 
+        */
         var cy = cytoscape({
             container: document.getElementById('cy'),
-            elements: this.state.graph,
+            elements: this.props.graph,
             style: cytoStyle,
             layout: cytoEuler,
-            minZoom: 0.1,
-            maxZoom: 10,
+            minZoom: 0.5,
+            maxZoom: 3.0,
             zoomingEnabled: true,
             userZoomingEnabled: true,
             boxSelectionEnabled: true
         });
-
-        function _hideTooltip(event){
-            this.setState({ 
-                tooltipString: null, 
-                tooltipShow: false, 
-                contextMenuLocation: {'x' : 0, 'y': 0},
-                tooltipTarget: null,
-            });
-        }
-
-        function _formatNodeMouseover(event){
-            event.target.animate(
-                { style: {borderColor: 'black', borderWidth: '2px solid #dadada'} },
-                { duration: 10 }
-            );
-        }
-
-        function _formatNodeMouseout(event){
-            event.target.animate(
-                { style: {borderColor: 'gray', borderWidth: '0.5'} },
-                { duration: 10 }
-            );
-        }
-
-        function _renderTooltip(event) {
-            var ncbiUrl = 'https://www.ncbi.nlm.nih.gov/pubmed/';
-            this.state.cytoTarget = event.target;
-            if (event.target == this.contextMenu)
-            { 
-                return;
-            }
-            else if (event.target === cy) {
-                this.state.tooltipString = null;
-            } else if (event.target.group() == 'nodes') {
-                var node = this._nodeSelector(event.target.data().id);
-                this.state.tooltipString = `<b><a href="${ncbiUrl}${node.id}" target="_blank">${node.title}</b></a>
-                <br><i>${node.journal}</i><br><i>${node.pubDate}</i><br>${node.authors}`;
-            } else if (event.target.group() == 'edges') {
-                var citedNode = this._nodeSelector(event.target.data().target);
-                var citingNode = this._nodeSelector(event.target.data().source);
-                this.state.tooltipString = `<b>Citation</b>:<br><a href="${ncbiUrl}${citingNode.id}" target="_blank">
-                ${citingNode.title}</a> (${citingNode.pubDate})<br><i>cites</i><br>
-                <a href="${ncbiUrl}${citedNode.id}" target="_blank">${citedNode.title}</a> (${citedNode.pubDate})`;
-            } else {
-                this.state.tooltipString = null;
-            }
-            this.setState({ tooltipTarget: event.target, tooltipShow: !this.state.tooltipShow})
-            this.contextMenu.setState({
-                tooltipString: this.state.tooltipString,
-                contextMenuLocation: {'x' : event.renderedPosition.x, 'y': event.renderedPosition.y}
-              });
-        }
-        cy.on('tap', _renderTooltip.bind(this) );
-        cy.on('zoom', _hideTooltip.bind(this) );
-        cy.on('mouseover', 'node', _formatNodeMouseover.bind(this) );
-        cy.on('mouseout', 'node', _formatNodeMouseout.bind(this) );
+        cy.on('zoom', this._hideTooltip );
+        cy.on('mouseover', 'node', this._formatNodeMouseover );
+        cy.on('mouseout', 'node', this._formatNodeMouseout );
         //var pr = cy.elements().pageRank();
         this.cy = cy; // TODO: pass event to state and use this binding
     }
 
-    render() {
-        var cytoDivStyle = {
-            position: 'relative', // Relative position necessary for cytoscape lib features!
-            height: '600px',
-            width: '100%',
-            padding: '0px',
-            zIndex: '1000'
-        };
-        return (
-            <div>
-            </div>
-        )
-    }
+    render() { return ( <div/> ) }
 }
 
 

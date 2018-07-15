@@ -1,19 +1,17 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom'
-import { Image, Grid, Col, Clearfix, Row, Navbar, Nav, NavItem, NavDropdown, MenuItem, Button, form, ButtonToolbar, FormGroup, FormControl, InputGroup, Glyphicon, Panel, ControlLabel, Form, Modal } from 'react-bootstrap'
-import { CytoGraph, GraphInfo, ContextMenu } from './cytoComponents'
+import { 
+    Image, Grid, Col, Clearfix, Row, Navbar, Nav, NavItem, NavDropdown, MenuItem, 
+    Button, form, ButtonToolbar, FormGroup, FormControl, Popover, Badge,
+    InputGroup, Glyphicon, Panel, ControlLabel, Form, Modal, Well } from 'react-bootstrap'
+import { CytoGraph, GraphInfo } from './cytoComponents'
 import { DotLoader } from 'react-spinners';
 import { keys, map, isArray, sortBy } from 'lodash';
 import ReactGA from 'react-ga';
 import numeral from 'numeral'
 import request from 'superagent'
-//import queryString from 'query-string'
-//import Modal from 'react-bootstrap-modal'
-//var Modal = require('react-bootstrap-modal')
-//import createIssue from 'github-create-issue';
 var createIssue = require( 'github-create-issue');
 var bgImage = require('../../images/main_img-01.svg')
-//var feedbackUrl = require('https://microfeedback-github-vbaphuxutm.now.sh/')
 
 var divContentLanding = {
     contenttest: {
@@ -54,6 +52,28 @@ var divContentLanding = {
     }
 }
 
+class ErrorBoundary extends React.Component {
+    constructor(props) {
+      super(props);
+      this.state = { hasError: false };
+    }
+  
+    componentDidCatch(error, info) {
+      // Display fallback UI
+      this.setState({ hasError: true });
+      // You can also log the error to an error reporting service
+      // logErrorToMyService(error, info);
+    }
+  
+    render() {
+      if (this.state.hasError) {
+        // You can render any custom fallback UI
+        return <h1>Sorry, something went wrong. We are trying to fix it asap.</h1>;
+      }
+      return this.props.children;
+    }
+}
+
 export class MainNav extends Component {
 
     constructor(props) {
@@ -62,23 +82,67 @@ export class MainNav extends Component {
 
     render() {
         return (
-            <Navbar fixedTop={ true } inverse={ false } fluid={ true }>
+            <Navbar fixedTop={true} inverse={true} fluid={true}>
                 <Navbar.Header>
                     <Navbar.Brand>
                     <a href="/">brightfield.io</a>
                     </Navbar.Brand>
                 </Navbar.Header>
-                <Nav>
-                    <NavItem eventKey={1} href="/about">
-                    About
-                    </NavItem>
-                    <NavItem eventKey={2} href="/searchactive2">
-                    Search
-                    </NavItem>
-                </Nav>
-                <Navbar.Form pullRight>
-                <FeedbackModal/>                
-                </Navbar.Form>
+                <Navbar.Collapse>
+                    <Nav>
+                        <NavItem eventKey={1} href="/about">
+                            About
+                        </NavItem>
+                        </Nav>
+                    <Nav pullRight>
+                        <Navbar.Form >
+                            <FeedbackModal/>                
+                        </Navbar.Form>
+                    </Nav>
+                </Navbar.Collapse>
+            </Navbar>
+        )
+    }
+}
+
+export class SearchNav extends Component {
+
+    constructor(props) {
+        super(props);
+    }
+
+    render() {
+        return (
+            <Navbar fixedTop={true} inverse={true} fluid={true}>
+                <Navbar.Header>
+                    <Navbar.Brand>
+                    <a href="/">brightfield.io</a>
+                    </Navbar.Brand>
+                </Navbar.Header>
+                <Navbar.Collapse>
+                    <Nav>
+                        <NavItem eventKey={1} href="/about">
+                            About
+                        </NavItem>
+                        </Nav>
+                        <Nav>
+                        <Navbar.Form>
+                            <form onSubmit={this.props.formHandler}>
+                                <InputGroup>
+                                    <FormControl type="text" id="searchString" style={{width:'400px'}}/>
+                                    <InputGroup.Addon>
+                                        <Glyphicon glyph="search" />
+                                    </InputGroup.Addon>
+                                </InputGroup>
+                            </form>
+                        </Navbar.Form>
+                        </Nav>
+                    <Nav pullRight>
+                        <Navbar.Form >
+                            <FeedbackModal/>                
+                        </Navbar.Form>
+                    </Nav>
+                </Navbar.Collapse>
             </Navbar>
         )
     }
@@ -88,21 +152,21 @@ export class SearchLanding extends Component {
 
     constructor(props) {
         super(props);
-        this.handleForm = this.handleForm.bind(this);
-
+        this.onSubmit = this.onSubmit.bind(this);
     }
 
-    handleForm(event) {
+    onSubmit(event) {
         event.preventDefault();
         var searchString = event.target.childNodes[0].children.searchString.value;
-        console.log(searchString)
-        this.props.history.push({pathname: '/searchactive2', state: {searchQuery: searchString}})
+        this.props.history.push({pathname: '/searchactive', state: {searchQuery: searchString}})
     }
 
 	render() {
 		return (
+            <div>
+            <div style={{ height:"36px" }}><MainNav/></div>
             <div style={{width:'100%', float:'left', height:'80%', position: 'absolute', left: '0%', 
-            backgroundImage: "url(" + bgImage + ")", backgroundRepeat: "no-repeat", backgroundSize:'cover' }}>
+            backgroundImage: `url(${bgImage})`, backgroundRepeat: "no-repeat", backgroundSize:'cover' }}>
 		  	<Grid>
                 <Row style={{height:'20vh'}}>
                 </Row>
@@ -114,7 +178,7 @@ export class SearchLanding extends Component {
             		    <h2 style={divContentLanding.h2}>Let us illuminate your research.</h2>
 					    <p></p>
 					    <p style={divContentLanding.p}>Our mission is to make your biomedical literature search experience the best it can be. We take your search query and return a network of publications to you. The network contains the direct results of your search (in blue) as well as the publications they cite (in red). The structure of the network helps you to find highly cited publications and quickly identify publications that belong together.</p>
-                        <form onSubmit={this.handleForm}>
+                        <form onSubmit={this.onSubmit}>
                         <InputGroup>
                         <FormControl type="text" placeholder="Type your search query and hit <Enter>" id="searchString"/>
                         <InputGroup.Addon>
@@ -134,39 +198,111 @@ export class SearchLanding extends Component {
 				</Row>
 			</Grid>
             </div>
+            </div>
 		)
 	}
 }
 
-export class SearchActive extends Component {
-	render() {
-		return (
-            <Grid>
-                <Row className="show-grid">
-                    <Col md={8} xs={12}>
-                        <h2>SearchActive</h2>
-                    </Col>
-                </Row>
-                <Row className="show-grid">
-                    <Col md={8} xs={12} style={{marginLeft:"20px"}}>
-                    </Col>
-                </Row>
-            </Grid>
-	) }
+class ContextMenu extends React.Component {
+/**
+ * Component to render tooltip on Graph
+ */
+
+    constructor(props){
+        super(props);
+        this.state = props.contextMenuState;
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.contextMenuState.tooltipString !== this.state.tooltipString) {
+            this.setState(nextProps.contextMenuState);
+        }
+    }
+
+    shouldComponentUpdate(){
+        return true;
+    }
+
+    render() {
+        var tooltipWidth = 250;
+        var tooltipHeight = 180;
+        var location = this.state.contextMenuLocation;
+        var contentMenuStyle = {
+            display: this.state.tooltipString != null && location ? 'block' : 'none',
+            position: 'absolute', 
+            left: location ? (location.x-tooltipWidth / 2 + 15) : 0, // 15px offset from  container-fluid padding
+            top: location ? (location.y + 36) : 0, // 36px offset from div height
+            pointerEvents: 'all',
+            width: tooltipWidth,
+            height: tooltipHeight,
+            borderRadius: '7px',
+            padding: '0px',
+            zIndex: '10001',
+        };
+        var popoverStyle = 
+        {
+            positionTop: location ? (location.x-tooltipWidth/2) : 0,
+            positionLeft: location ? (location.y) : 0,
+        }
+
+        return (
+            <div id="results" 
+                style={contentMenuStyle} 
+                onClick={(e) => {e.stopPropagation(); e.nativeEvent.stopImmediatePropagation()}}>
+                <Popover id="tooltipPopover" placement="bottom" style={popoverStyle}>
+                    <div dangerouslySetInnerHTML={{ __html: this.state.tooltipString}} />
+                </Popover>
+            </div>
+        );
+    }
+
 }
 
-export class SearchActive2 extends Component {
-	render() {
-		return (
-            <div style={{width:'100%', float:'left', height:'100%'}}>
-                <div style={{background:'grey', height:'100%', width:'20%'}}>
-                    <h2>Info div</h2>
-                </div>
-                <div style={{background:'red', height:'100%', width:'70%'}}>
-                    <h2>Main network</h2>
-                </div>
-            </div>
-	) }
+class GraphSummaryDisplay extends Component {
+
+    constructor(props){
+        super(props);
+        this.state = { stats: props.data };
+    }
+
+    render(){
+        var graphSummaryStyle = {
+            paddingRight: '20px',
+            paddingLeft: '20px',
+            marginTop: '5px',
+            verticalAlign: 'middle',
+            display: 'block',
+            position: 'absolute', 
+            top: '5%',
+            left: '30%',
+            borderRadius: '7px',
+            padding: '7px',
+        };
+
+        var gradient_svg = <svg width="100" height="20">
+        <defs>
+            <linearGradient id="MyGradient">
+                <stop offset="5%" stopColor="white" />
+                <stop offset="95%" stopColor="red" />
+            </linearGradient>
+        </defs>
+        <rect fill="url(#MyGradient)" x="0" y="10" width="100" height="20" />
+        </svg>
+
+        return(
+            <Well bsSize="small" style={graphSummaryStyle}>
+                <strong>Direct hits </strong>
+                <Badge style={{backgroundColor:'#004cc6'}}>{ this.state.stats.num_results }</Badge>
+                <strong>  Cited publications </strong>
+                <Badge style={{backgroundColor:'red'}}>{ this.state.stats.num_citations }</Badge>
+                <strong>  Citation links </strong>
+                <Badge style={{backgroundColor:'lightgrey'}}>{ this.state.stats.num_links }</Badge>
+                <strong>  Citation strength </strong>
+                <Badge style={{backgroundColor:'lightgrey'}}>0</Badge>{'\u00A0'}{ gradient_svg }{'\u00A0'}
+                <Badge style={{backgroundColor:'red'}}>{this.state.stats.max_degree_cited}</Badge>
+            </Well>         
+        )
+    }
 }
 
 class GraphHelperMenu extends Component {
@@ -219,124 +355,60 @@ class GraphHelperMenu extends Component {
 const rootUrl = new URL(window.location.origin)
 rootUrl.port = 8080
 const apiUrl = new URL("/api/", rootUrl)
-const maxTime = 60 * 1000;
+const maxTime = 30 * 1000; // miliseconds
 const pollInterval = 500;
 
-export class SearchActive4 extends Component {
+export class SearchActive extends Component {
 
     constructor(props) {
         super(props);
+        var defaultVisualGraphState = {
+            zoomLevel: 0.7,
+            nodeFilter: null,
+            nodeHighlighter: null,
+            displayNodes: true
+        };
+        var defaultContextMenuState = {
+            tooltipString: null,
+            contextMenuLocation: null,
+        };
         this.state = { 
+            visualGraphState: defaultVisualGraphState,
+            contextMenuState: defaultContextMenuState,
             graphJson: {}, 
             pending: {}, 
             loading: false, 
             foundResults: false, 
             numApiCalls: 0, 
-            //searchHint: 'cell division',
             searchString: null,
-            oldSearchString: null,
-            refocus: false,
-            zoomIn: false,
-            zoomOut: false,
-            nodes: ''
-         };
-        this.handleForm = this.handleForm.bind(this);
+        };
+        this.contextMenuHandler = this.contextMenuHandler.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
-        this.cytoGraph = React.createRef();
         this.search = this.search.bind(this);
-        this.searchHint = 'other hint'
-        
-        this.contextMenu = React.createRef();
         this.handleRefocus = this.handleRefocus.bind(this);
         this.handleZoomIn = this.handleZoomIn.bind(this);
         this.handleZoomOut = this.handleZoomOut.bind(this);
         this.nodeHandler = this.nodeHandler.bind(this);
-        this._handleFieldChange = this._handleFieldChange.bind(this);
+        this.nodeHighlighter = this.nodeHighlighter.bind(this);
+        this.authorHighlighter = this.authorHighlighter.bind(this);
+        this.updateVisualGraphState = this.updateVisualGraphState.bind(this);
     }
 
     componentDidMount() {
-        if(this.props.location.state != undefined)
-        {
-            const values = this.props.location.state.searchQuery
-            console.log('in constructor')
-            console.log(values)
-            //this.searchHint = values
-            //this.setState({ searchQuery: values })
-            this.setState( { searchQuery: values, searchString: values } )
-            //this.search(values)
-        }
+        console.log(`componentDidMount: ${this.props.location.state.searchQuery}`);
+        this.search(this.props.location.state.searchQuery);
     }
 
-    componentDidUpdate() {
-        console.log('did update')
-        if(this.state.searchString != this.state.oldSearchString) {
-            console.log('New search query')
-            this.setState({oldSearchString: this.state.searchString})
-            this.search(this.state.searchString)
-        }
-    }
-
-    nodeHandler(){
-        this.setState({nodes: 'cited'});
-    }
-
-    handleZoomIn(){
-        this.setState({zoomIn: true})
-    }
-
-    handleZoomOut(){
-        this.setState({zoomOut: true})
-    }
-
-    handleRefocus(){
-        this.setState({refocus: true});
-    }
-
-    setCytoGraphRef(ref)
-    {
-        this.cytoGraph = ref;
-    }
-
-    poll(id) {
-        return () => {
-            request.get(new URL(id, apiUrl))
-                .end((err, res) => { // call api with id -> will return task_id and if ready result
-                    if (err) return;
-                    const { result } = res.body;
-                    const { numApiCalls } = this.state;
-                    if (!result) 
-                    {
-                        if (numApiCalls > maxTime/pollInterval)
-                        {
-                            const { pending } = this.state;
-                            clearInterval(pending[id]);
-                            delete pending[id];
-                            this.setState({ graphJson: {[id]: null }, loading: false, foundResults: false, numApiCalls: 0 });
-                        }
-                        else
-                        {
-                            //this.setState({numApiCalls: numApiCalls+1});
-							console.log('Found no result.')
-                            this.setState({ graphJson: {[id]: null }, loading: false, foundResults: false, numApiCalls: numApiCalls+1 });
-                        }
-                        return;
-                    }
-                    else
-                    {
-                        const { pending } = this.state;
-                        clearInterval(pending[id]);
-                        delete pending[id];
-                        this.setState({ graphJson: { [id]: result }, loading: false, foundResults: (result.stats.num_results > 0), numApiCalls: 0 });
-                    }
-                })
-        }
+    onSubmit(event) {
+        event.preventDefault();
+        event.stopPropagation();
+        this.updateVisualGraphState({"displayNodes": false}); // Need to remove graph manually
+        this.search(event.target.childNodes[0].children.searchString.value);
     }
 
     search(searchQuery) {
-        //this.setState({ oldSearchString: this.state.searchQuery })
-        //this.setState({ loading: true, searchString: searchQuery});
-        this.setState({ searchHint: searchQuery })
         ReactGA.event({ category: 'Search', action: 'Submitted search', label: searchQuery });
+        this.setState({loading: true, foundResults: false});
         const payload = { 'search_string': searchQuery, 'graph_format': 'cytoscape' };
         request.put(apiUrl).send(payload)
             .end((err, res) => {
@@ -349,24 +421,69 @@ export class SearchActive4 extends Component {
             })
     }
 
-    handleForm(event) {
-        event.preventDefault();
-        var searchString = event.target.childNodes[0].children.searchString.value;
-        console.log(searchString)
-        //this.setState({refocus: true});
-        this.setState({oldSearchString: this.state.searchString, searchHint: this.state.searchString, searchString: searchString})
-        //this.setState({searchString: searchString})
-        //this.props.history.push({pathname: '/searchactive2', state: {searchQuery: searchString}})
+    poll(id) {
+        return () => {
+            request.get(new URL(id, apiUrl))
+                .end((err, res) => { // call api with id -> will return task_id and if ready result
+                    if (err) return;
+                    const { result } = res.body;
+                    const { numApiCalls } = this.state;
+                    if (!result) {
+                        if (numApiCalls > maxTime / pollInterval) {
+                            const { pending } = this.state;
+                            clearInterval(pending[id]);
+                            delete pending[id];
+                            this.setState({ loading: false, numApiCalls: 0 });
+                        }
+                        else {
+                            this.setState({ numApiCalls: numApiCalls + 1 });
+                        }
+                    }
+                    else {
+                        const { pending } = this.state;
+                        clearInterval(pending[id]);
+                        delete pending[id];
+                        this.updateVisualGraphState({"displayNodes": true}); // Need to add graph manually
+                        this.setState({ graphJson: { [id]: result }, loading: false, foundResults: (result.stats.num_results > 0), numApiCalls: 0 });
+                    }
+                })
+        }
     }
 
-    onSubmit(event) {
-        event.preventDefault();
-        this.search(event.target.childNodes[0].children.searchString.value);
+    updateVisualGraphState(updateDict){
+        var visualGraphState = this.state.visualGraphState;
+        for(var propertyName in updateDict){
+            visualGraphState[propertyName] = updateDict[propertyName];
+        };
+        this.setState({visualGraphState: visualGraphState});
     }
-    
-    //re-render when input changes
-    _handleFieldChange(event) {
-        this.setState({searchHint: event.target.value});
+
+    contextMenuHandler(contextMenuState){
+        this.setState({contextMenuState: contextMenuState});
+    }
+
+    nodeHandler(filter){
+        this.updateVisualGraphState({"nodeFilter": filter});
+    }
+
+    nodeHighlighter(filter){
+        this.updateVisualGraphState({"nodeHighlighter": filter});
+    }
+
+    authorHighlighter(filter){
+        this.updateVisualGraphState({"authorHighlighter": filter})
+    }
+
+    handleZoomIn(){
+        this.updateVisualGraphState({"zoomLevel": 1.1 });
+    }
+
+    handleZoomOut(){
+        this.updateVisualGraphState({"zoomLevel": 0.9 });
+    }
+
+    handleRefocus(){
+        this.updateVisualGraphState({"zoomLevel": 1.0});
     }
 
 	render() {
@@ -386,53 +503,43 @@ export class SearchActive4 extends Component {
             borderWidth: '0.5px'
         }
         
-        const noRestultsString = "Sorry, your search yielded no results. Please try again.";
+        const noResultsString = "Sorry, your search yielded no results. Please try again.";
         const { graphJson, pending, loading } = this.state;
 		return (
             <div>
+                <div style={{ height:"36px" }}><SearchNav formHandler={this.onSubmit}/></div>
+            <div>
+                <ErrorBoundary>
                 <div style={graphMenuStyle}>
                     <Row style={{height:'2vh'}}></Row>
                     <Row>
-                        <Col md={1}>
-                        </Col>
-                        <Col md={10}>
-                            <div style={{left:'10px'}}>
-                            <form onSubmit={this.handleForm}>
-                                <InputGroup>
-                                    <FormControl type="text" id="searchString" onChange={this._handleFieldChange} value = { this.state.searchHint }/>
-                                    <InputGroup.Addon>
-                                        <Glyphicon glyph="search" />
-                                    </InputGroup.Addon>
-                                </InputGroup>
-                            </form>
-                            </div>
-                        </Col>
-                        <Col md={1}>
-                        </Col>
+                        <Col md={1}/>
                     </Row>
                     <Row>
                         <Col md={1}></Col>
                         <Col md={10}>
                         {map(keys(graphJson), id => !this.state.loading
-                            ? (this.state.foundResults ? <GraphInfo data={graphJson[id].stats} nodeHandler={this.nodeHandler}/> : <h2>{noRestultsString}</h2>)
-                            : {})
-                        }
+                            ? (this.state.foundResults ? <GraphInfo data={graphJson[id].stats} nodeHandler={this.nodeHandler} nodeHighlighter={this.nodeHighlighter} authorHighlighter={this.authorHighlighter}/> : <h2>{noResultsString}</h2>)
+                            : <div/>)}
                         </Col>
                         <Col md={1}></Col>
                     </Row>
                 </div>
                 <div style={{left: '60%', top:'40%', position: 'absolute', bottom: 0, height: '50px'}}>
-                    <DotLoader color={'#000000'} loading={loading}/>
+                    <DotLoader color={'#000000'} loading={this.state.loading}/>
                 </div>
                 <div style={{width:'100%', float:'left', height:'100%'}}>
-                    <div id='cy' style={{width:'100vw', float:'left', height:'90vh', position: 'relative', zIndex: '1000'}}>
-                        <ContextMenu ref={this.contextMenu} />
-                        {map(keys(graphJson), id => !this.state.loading
-                                ? (this.state.foundResults ? <CytoGraph ref={this.cytoGraph} data={graphJson[id]} contextMenu={this.contextMenu.current} refocus={this.state.refocus} zoomIn={this.state.zoomIn} zoomOut={this.state.zoomOut} nodes={this.state.nodes} /> : <h2>{noRestultsString}</h2>)
-                                : {})}
+                    <div id='cy' style={{width:'100%', float:'left', height:'100%', position:'absolute', zIndex:'999'}}>
+                        {map(keys(graphJson), id => <CytoGraph graph={graphJson[id].graph} contextMenuHandler={this.contextMenuHandler} visualGraphState={this.state.visualGraphState} />)};
                     </div>
+                    <ContextMenu contextMenuState={this.state.contextMenuState} />
                     <GraphHelperMenu handleRefocus={this.handleRefocus} handleZoomIn={this.handleZoomIn} handleZoomOut={this.handleZoomOut}/>
+                    {map(keys(graphJson), id => !this.state.loading
+                        ? (this.state.foundResults ? <GraphSummaryDisplay data={graphJson[id].stats}/> : <div/>)
+                        : <div/>)}
                 </div>
+                </ErrorBoundary>
+            </div>
             </div>
 	) }
 }
@@ -440,6 +547,8 @@ export class SearchActive4 extends Component {
 export class About extends Component {
 	render() {
 		return (
+            <div>
+            <div style={{ height:"36px" }}><MainNav/></div>
             <Grid>
                 <Row className="show-grid">
                     <Col md={8} xs={12}>
@@ -461,6 +570,7 @@ export class About extends Component {
                 <p><strong><a href="https://www.linkedin.com/in/simon-brunner-3631521a/" target="_blank">Simon Brunner.</a> </strong>{"Simon holds a Bachelor's degree in Biochemistry and a Master's degree in Systems Biology from ETH Zurich. He then pursued doctoral studies at the Lab of Molecular Biology (MRC-LMB) in Cambridge, United Kingdom and graduated with a PhD from the University of Cambridge. He currently pursues post-doctoral research at The Sanger Wellcome Trust Institute in Cambridge, UK."}</p>
                 </Col></Row>
             </Grid>
+            </div>
 	) }
 }
 
