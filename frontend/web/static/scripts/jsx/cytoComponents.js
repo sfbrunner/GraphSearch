@@ -707,27 +707,22 @@ export class CytoGraph extends React.Component {
     // See https://github.com/cytoscape/cytoscape.js/issues/1468 for implementation recommendations
 
     constructor(props) {
+        /**
+         * We do not set a state on this component as all data is passed via props.
+         */
         super(props);
-        this.cy = null;
-        this.state = { 
-            graph: props.graph, 
-            visualGraphState: props.visualGraphState,
-        };
+        this.cy = undefined;
+        this.tooltipTimeout = undefined;
+        // TODO: This needs to be done smarter. As we pass state as a reference in props, we cannot compare to this.props as they are alway the same as nextProps
+        this.visualGraphState = JSON.parse(JSON.stringify(props.visualGraphState)); 
         this._nodeSelector = this._nodeSelector.bind(this);
-        this.refocusGraph = this.refocusGraph.bind(this);
         this.zoomGraph = this.zoomGraph.bind(this);
-        this.hideSecondaryNodes = this.hideSecondaryNodes.bind(this);
-        this.hidePrimaryNodes = this.hidePrimaryNodes.bind(this);
-        this.nodeHandler = this.nodeHandler.bind(this);
-        this.eles = null;
-        this.primaryEles = null;
         this.highlightNodes = this.highlightNodes.bind(this);
         this.highlightNodes2 = this.highlightNodes2.bind(this);
         this._formatNodeMouseout = this._formatNodeMouseout.bind(this);
         this._formatNodeMouseover = this._formatNodeMouseover.bind(this);
         this._hideTooltip = this._hideTooltip.bind(this);
         this._renderTooltip = this._renderTooltip.bind(this);
-        this.tooltipTimeout = null;
         this.visualGraphUpdate = this.visualGraphUpdate.bind(this);
     }
 
@@ -736,41 +731,19 @@ export class CytoGraph extends React.Component {
     }
 
     _nodeSelector(nodeId) {
-        return this.state.graph.nodes.filter(function (obj) { return obj.data.id == nodeId })[0].data;
-    }
-
-    nodeHandler()
-    {
-        this.hidePrimaryNodes();
-    }
-
-    refocusGraph() {
-        this.cy.fit();
+        /**
+         * @param nodeId: The id of the node in the graph.
+         * Returns the nodes data stored on this node. 
+         */
+        return this.props.graph.nodes.filter(function (obj) { return obj.data.id == nodeId })[0].data;
     }
 
     zoomGraph(level){
-        this.cy.zoom(level);
-    }
-
-    hideSecondaryNodes() {
-        if (this.eles != null) {
-            this.eles.restore();
-            this.eles = null;
+        if(Math.round(level * 10) == 10) {
+            this.cy.fit(); //TODO: Need to store initial zoom level after cy.fit(), then not call it again but zoom back to this level
         }
         else {
-            var eles = this.cy.remove('node[group = "Cited"]');
-            this.eles = eles;
-        }
-    }
-
-    hidePrimaryNodes() {
-        if (this.primaryEles != null) {
-            this.primaryEles.restore();
-            this.primaryEles = null;
-        }
-        else {
-            var primaryEles = this.cy.remove('node[group = "Searched"]');
-            this.primaryEles = primaryEles;
+            this.cy.zoom(this.cy.zoom() * level);
         }
     }
 
@@ -795,14 +768,25 @@ export class CytoGraph extends React.Component {
     {
         /**
         * @param {string} selector the selector according to http://js.cytoscape.org/#selectors
+        * styling according to http://js.cytoscape.org/#style/labels
         * duration should not be set to 0 otherwise cytoscape will crash.
         */
         this.cy.nodes().animate(
-            { style: { 'color': 'black'} },
+            { style: { 
+                'color': 'black', 
+                'text-background-color': 'white', 
+                'text-background-opacity': '0.0'
+            } },
             { duration: 1 }
         );
         this.cy.$(`node[${selector}]`).select().animate(
-            { style: { 'color': 'red'} },
+            { style: { 
+                'color': 'white', 
+                'text-background-color': 'black', 
+                'text-background-opacity': '0.6', 
+                'text-background-padding': '0.5px', 
+                'text-background-shape': 'roundrectangle'
+            } },
             { duration: 1 }
         );
     }
@@ -820,9 +804,13 @@ export class CytoGraph extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.graph !== this.state.graph) {
+        /**
+         * When this method is called, it does not mean that props changed.
+         * This method is very perfomance critical.
+         */
+
+        if (nextProps.graph !== this.props.graph) {
             this.cy.elements().remove();
-            this.setState({ graph: nextProps.graph });
             if (nextProps.graph.nodes.length > 0){
                 this.cy.add(nextProps.graph);
                 this.cy.json(nextProps.graph);
@@ -830,17 +818,20 @@ export class CytoGraph extends React.Component {
                 this.cy.fit();
             }
         } 
-        else 
+        else
         {
             for (var propertyName in nextProps.visualGraphState){
-                var nextPropertyValue = nextProps.visualGraphState[propertyName];
-                var oldPropertyValue = this.state.visualGraphState[propertyName];
-                //if (nextPropertyValue !== oldPropertyValue){
-                    this.visualGraphUpdate(propertyName, nextPropertyValue);
-                //}
-            }
+                if (nextProps.visualGraphState[propertyName] !== this.visualGraphState[propertyName]){
+                    this.visualGraphUpdate(propertyName, nextProps.visualGraphState[propertyName]);
+                }
+            };
         }
-        this.setState({visualGraphState: nextProps.visualGraphState});
+        // TODO: This needs to be done smarter. As we pass state as a reference in props, we cannot compare to this.props as they are alway the same as nextProps
+        this.visualGraphState = JSON.parse(JSON.stringify(nextProps.visualGraphState));
+    }
+
+    shouldComponentUpdate() {
+        return true;
     }
 
     visualGraphUpdate(propertyName, propertyValue){
@@ -853,11 +844,11 @@ export class CytoGraph extends React.Component {
                 this.zoomGraph(propertyValue);
                 break;
             case "nodeHighlighter":
-                this.highlightPapers(this.state.visualGraphState.nodeHighlighter);
+                this.highlightPapers(this.props.visualGraphState.nodeHighlighter);
                 this.highlightPapers(propertyValue);
                 break;
             case "authorHighlighter":
-                this.highlightAuthors(this.state.visualGraphState.nodeHighlighter);
+                this.highlightAuthors(this.props.visualGraphState.nodeHighlighter);
                 this.highlightAuthors(propertyValue);
             case "journalHighlighter":
                 break;
@@ -868,10 +859,6 @@ export class CytoGraph extends React.Component {
             case "nodeFilter":
                 break;
         }
-    }
-
-    shouldComponentUpdate() {
-        return false;
     }
 
     getCy() {
@@ -890,7 +877,7 @@ export class CytoGraph extends React.Component {
             { style: { borderColor: NodeBorderColor.highlight, borderWidth: NodeBorderWidth.highlight } },
             { duration: 10 }
         );
-        this.tooltipTimeout = setTimeout(this._renderTooltip, 400, event);
+        this.tooltipTimeout = setTimeout(this._renderTooltip, 200, event);
     }
 
     _formatNodeMouseout(event){
@@ -919,20 +906,21 @@ export class CytoGraph extends React.Component {
             ${citingNode.title}</a> (${citingNode.pubDate})<br><i>cites</i><br>
             <a href="${ncbiUrl}${citedNode.id}" target="_blank">${citedNode.title}</a> (${citedNode.pubDate})`;
         };
-        this.props.contextMenuHandler(
-            {tooltipString: tooltipString,
+        this.props.contextMenuHandler({
+            tooltipString: tooltipString,
             contextMenuLocation: {
                 'x' : event.target.renderedPosition().x, 
-                'y' : event.target.renderedPosition().y + event.target.renderedHeight() / 2
-                }
-            }
-        );
+                'y' : event.target.renderedPosition().y + event.target.renderedHeight() / 2 }
+            });
     }
 
     componentDidMount() {
+        /** 
+         * Attaches a cytoscape instance to the DOM with the data 
+        */
         var cy = cytoscape({
             container: document.getElementById('cy'),
-            elements: this.state.graph,
+            elements: this.props.graph,
             style: cytoStyle,
             layout: cytoEuler,
             minZoom: 0.5,

@@ -68,7 +68,7 @@ class ErrorBoundary extends React.Component {
     render() {
       if (this.state.hasError) {
         // You can render any custom fallback UI
-        return <h1>Sorry, something went wrong. Please try again.</h1>;
+        return <h1>Sorry, something went wrong. We are trying to fix it asap.</h1>;
       }
       return this.props.children;
     }
@@ -297,7 +297,7 @@ class GraphSummaryDisplay extends Component {
                 <Badge style={{backgroundColor:'red'}}>{ this.state.stats.num_citations }</Badge>
                 <strong>  Citation links </strong>
                 <Badge style={{backgroundColor:'lightgrey'}}>{ this.state.stats.num_links }</Badge>
-                <strong>  Citations per publication </strong>
+                <strong>  Citation strength </strong>
                 <Badge style={{backgroundColor:'lightgrey'}}>0</Badge>{'\u00A0'}{ gradient_svg }{'\u00A0'}
                 <Badge style={{backgroundColor:'red'}}>{this.state.stats.max_degree_cited}</Badge>
             </Well>         
@@ -475,11 +475,11 @@ export class SearchActive extends Component {
     }
 
     handleZoomIn(){
-        this.updateVisualGraphState({"zoomLevel": Math.min(this.state.visualGraphState.zoomLevel + 0.1, 3.0)});
+        this.updateVisualGraphState({"zoomLevel": 1.1 });
     }
 
     handleZoomOut(){
-        this.updateVisualGraphState({"zoomLevel": Math.max(this.state.visualGraphState.zoomLevel - 0.1, 0.0)});
+        this.updateVisualGraphState({"zoomLevel": 0.9 });
     }
 
     handleRefocus(){
