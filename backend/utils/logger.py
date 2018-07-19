@@ -5,7 +5,7 @@ def get_logger(log_name = '', fpath = None):
     Either returns an already existing log handle from LogHandler class attribute,
     or generates a new Log Handle.
     '''
-    print 'In get_logger'
+
     # Retrieve class attribute from LogHandler
     lh = LogHandler().lh
     
@@ -36,8 +36,6 @@ class LogHandler():
         
         # If lh is not set, generate new log handler
         if not LogHandler.lh:
-            print "not lh"
-            print fpath
             # Initialise logger
             logger = logging.getLogger(log_name)
             LogHandler.format_logger(logger, fpath=fpath, debug=debug)

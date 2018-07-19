@@ -92,7 +92,7 @@ class MongoSession(object):
         pmid_refs = {}
         for pmc in pmc_iter:
             if 'article_pmid' in pmc:
-                pmid_refs[pmc['article_pmid']] = pmc['ref_pmid']
+                pmid_refs[int(pmc['article_pmid'])] = pmc['ref_pmid']
         return pmid_refs
     
     def get_metadata_of_pmid_lst(self, pmid_lst):
@@ -108,7 +108,7 @@ class MongoSession(object):
     
     def _parse_meta_doc(self, meta_doc):
         summaryDict = {}
-        summaryDict['Id'] = meta_doc['pmid']
+        summaryDict['Id'] = int(meta_doc['pmid'])
         summaryDict['Title'] = ''
         summaryDict['Journal'] = ''
         summaryDict['Authors'] = []
