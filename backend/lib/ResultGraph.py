@@ -18,7 +18,7 @@ class ResultGraph():
         self.citationWeight = {}
 
     def add_publication(self, pmid, cite_lst):
-        
+        #from IPython.core.debugger import Tracer; Tracer()()
         for citation in cite_lst:
             self.G.add_edge(str(pmid), str(citation))
             if str(pmid) in self.citationWeight.keys():
@@ -36,6 +36,7 @@ class ResultGraph():
                 self.G.node[n]['group'] = 'Cited'
     
     def populate_from_cite_dict(self, cite_dict):
+        #from IPython.core.debugger import Tracer; Tracer()()
         for pmid in cite_dict:
             self.add_publication(pmid, cite_dict[pmid])
         # Add the pre-calculated weights back to the graph
