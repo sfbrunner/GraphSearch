@@ -167,8 +167,9 @@ class ResultGraph():
         top_authors = ', '.join(['{0} ({1})'.format(author[0].encode('utf-8'), str(author[1])) for author in top_authors])
 
         # Journals
-        top_journals_dict = {str(journal[0]): journal[1]  for journal in journal_counts.most_common(n_most_common)}
-        top_author_dict = {str(author[0]): author[1] for author in author_counts.most_common(n_most_common)}
+        #from IPython.core.debugger import Tracer; Tracer()()
+        top_journals_dict = {str(journal[0].encode('utf-8')): journal[1] for journal in journal_counts.most_common(n_most_common)}
+        top_author_dict = {str(author[0].encode('utf-8')): author[1] for author in author_counts.most_common(n_most_common)}
 
         # Get list of publication years
         pub_years = []
