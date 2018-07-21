@@ -1,15 +1,19 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom'
 import { 
-    Image, Grid, Col, Clearfix, Row, Navbar, Nav, NavItem, NavDropdown, MenuItem, 
-    Button, form, ButtonToolbar, FormGroup, FormControl, Popover, Badge,
-    InputGroup, Glyphicon, Panel, ControlLabel, Form, Modal, Well } from 'react-bootstrap'
-import { CytoGraph, GraphInfo } from './cytoComponents'
+    Image, Grid, Col, Row, Navbar, Nav, NavItem, 
+    Button, ButtonToolbar, FormControl, Popover, Badge,
+    InputGroup, Glyphicon, Panel, Modal, Well } from 'react-bootstrap'
+import { CytoGraph } from './cytoComponents'
 import { DotLoader } from 'react-spinners';
 import { keys, map, isArray, sortBy } from 'lodash';
 import ReactGA from 'react-ga';
 import numeral from 'numeral'
 import request from 'superagent'
+import { Histogram, DensitySeries, BarSeries, withParentSize, XAxis, YAxis, WithTooltip } from '@data-ui/histogram';
+import { format } from "d3-format";
+import renderTooltip from './renderHistogramTooltip'; 
+import { TagCloud } from "react-tagcloud";
 var createIssue = require( 'github-create-issue');
 var bgImage = require('../../images/main_img-01.svg')
 
@@ -258,6 +262,127 @@ class ContextMenu extends React.Component {
 
 }
 
+const ResponsiveHistogram = withParentSize(({ parentWidth, parentHeight, ...rest}) => (
+    <Histogram width={parentWidth} height={parentHeight} renderTooltip={renderTooltip} {...rest} />
+));
+
+class GraphTagCloud extends React.Component{
+
+    constructor(props){
+        super(props);
+        this.state = { tags: props.tags, clickedTag: null }
+        this.nodeHighlighter = this.nodeHighlighter.bind(this);
+    }
+
+    nodeHighlighter(filter){
+        this.props.nodeHighlighter(filter);
+    }
+
+    render(){
+        const options = {
+            luminosity: 'dark',
+            hue: 'monochrome'
+          };
+
+        const customRenderer = (tag, size, color) => (
+            <span key={tag.value}
+                    style={{
+                    fontSize: `${size}px`,
+                    border: `0.0px solid ${color}`,
+                    margin: '1px',
+                    backgroundColor: tag.value==this.state.clickedTag? 'black' : 'grey',
+                    padding: '3px',
+                    color: 'white',
+                    borderRadius: '5px',
+                    cursor: 'pointer',
+                    whiteSpace: 'pre-wrap',
+                    display: 'inline-block',
+                    }}>{tag.value}
+            </span>
+        );
+
+        return(
+        <div>
+            <TagCloud 
+                minSize={12}
+                maxSize={24}
+                colorOptions={options}
+                tags={this.state.tags}
+                shuffle={false}
+                renderer={customRenderer}
+                onClick={tag => {
+                    if (tag.value==this.state.clickedTag) {
+                        this.nodeHighlighter('');
+                        this.setState({clickedTag: null})
+                    } else {
+                        this.nodeHighlighter(tag.value); 
+                        this.setState({clickedTag: tag.value})
+                    }
+                }}
+                className="simple-cloud" />
+        </div>
+        )
+    }
+}
+
+class GraphInfo extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.state = { stats: props.data };
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.data !== this.state) {
+            this.setState({ stats: nextProps.data });
+        }
+    }
+
+    render() {
+
+        function tagCreator(entry){
+            var tagEntry = {};
+            tagEntry['value'] = `${entry[0]}`;
+            tagEntry['count'] = entry[1];
+            return tagEntry;
+        };
+
+        return (
+            <div id="netstats" name="netstats">
+                <Panel id="top-author-panel" defaultExpanded>
+                    <Panel.Heading>
+                        <Panel.Title toggle>Top Authors</Panel.Title>
+                    </Panel.Heading>
+                    <Panel.Body collapsible expanded="true">
+                        <GraphTagCloud tags={Object.entries(this.state.stats.top_author_dict).map(tagCreator)} nodeHighlighter={this.props.authorHighlighter} />
+                    </Panel.Body>
+                </Panel>
+                <Panel id="top-journal-panel" defaultExpanded>
+                    <Panel.Heading>
+                        <Panel.Title toggle>Top Journals</Panel.Title>
+                    </Panel.Heading>
+                    <Panel.Body collapsible expanded="true">
+                    <GraphTagCloud tags={Object.entries(this.state.stats.top_journal_dict).map(tagCreator)} nodeHighlighter={this.props.nodeHighlighter} />
+                    </Panel.Body>
+                </Panel>
+                <Panel id="publications-per-year-panel" defaultExpanded>
+                    <Panel.Heading>
+                        <Panel.Title toggle>Publications per year</Panel.Title>
+                    </Panel.Heading>
+                    <Panel.Body collapsible expanded="true">
+                        <div style={{height:'140px'}}>
+                        <ResponsiveHistogram ariaLabel='' orientation="vertical" binCount={this.state.stats.pub_years.num_bin} margin={{ top: 10, right: 12, bottom: 60, left: 12}}>
+                        <BarSeries animated rawData={this.state.stats.pub_years.values} fill='grey' strokeWidth={0}/>
+                        <XAxis numTicks={3} tickFormat={format('.4')}/>
+                        </ResponsiveHistogram>
+                        </div>
+                    </Panel.Body>
+                </Panel>
+            </div>
+        )
+    }
+}
+
 class GraphSummaryDisplay extends Component {
 
     constructor(props){
@@ -488,60 +613,37 @@ export class SearchActive extends Component {
     }
 
 	render() {
-        var graphMenuStyle = {
-            background:'#d3d3d34d',
-            verticalAlign: 'left',
-            display: 'block',
-            position: 'absolute', 
-            left: '0%',
-            top:  36,
-            pointerEvents: 'all',
-            width: '22vw',
-            height: '100%',
-            zIndex: '1001',
-            borderStyle: 'solid',
-            borderColor: 'lightgrey',
-            borderWidth: '0.5px'
-        }
         
         const noResultsString = "Sorry, your search yielded no results. Please try again.";
-        const { graphJson, pending, loading } = this.state;
+
 		return (
-            <div>
-                <div style={{ height:"36px" }}><SearchNav formHandler={this.onSubmit}/></div>
-            <div>
-                <ErrorBoundary>
-                <div style={graphMenuStyle}>
-                    <Row style={{height:'2vh'}}></Row>
-                    <Row>
-                        <Col md={1}/>
-                    </Row>
-                    <Row>
-                        <Col md={1}></Col>
-                        <Col md={10}>
-                        {map(keys(graphJson), id => !this.state.loading
-                            ? (this.state.foundResults ? <GraphInfo data={graphJson[id].stats} nodeHandler={this.nodeHandler} nodeHighlighter={this.nodeHighlighter} authorHighlighter={this.authorHighlighter}/> : <h2>{noResultsString}</h2>)
-                            : <div/>)}
-                        </Col>
-                        <Col md={1}></Col>
-                    </Row>
-                </div>
-                <div style={{left: '60%', top:'40%', position: 'absolute', bottom: 0, height: '50px'}}>
-                    <DotLoader color={'#000000'} loading={this.state.loading}/>
-                </div>
-                <div style={{width:'100%', float:'left', height:'100%'}}>
-                    <div id='cy' style={{width:'100%', float:'left', height:'100%', position:'absolute', zIndex:'999'}}>
-                        {map(keys(graphJson), id => <CytoGraph graph={graphJson[id].graph} contextMenuHandler={this.contextMenuHandler} visualGraphState={this.state.visualGraphState} />)};
+            <Grid>
+                <Row>
+                    <SearchNav formHandler={this.onSubmit}/>
+                </Row>
+                <Row>
+                    <ErrorBoundary>
+                    <Panel style={{padding: '0.5%', background:'#d3d3d34d', borderColor: 'lightgrey', display: this.state.loading? 'none': 'block', pointerEvents: 'all', zIndex: '10001', position: 'absolute', left: '1%', top: '8%', width: '20%'}}>
+                        {map(keys(this.state.graphJson), id => this.state.foundResults 
+                            ? <GraphInfo data={this.state.graphJson[id].stats} nodeHandler={this.nodeHandler} nodeHighlighter={this.nodeHighlighter} authorHighlighter={this.authorHighlighter}/> 
+                            : <h2>{noResultsString}</h2>)}
+                    </Panel>
+                    <div style={{width: '100%', float: 'left', height: '100%', display: this.state.loading? 'none': 'block'}}>
+                        <div id='cy' style={{width: '100%', float: 'left', height: '100%', position: 'absolute', zIndex: '999'}}>
+                            {map(keys(this.state.graphJson), id => <CytoGraph graph={this.state.graphJson[id].graph} contextMenuHandler={this.contextMenuHandler} visualGraphState={this.state.visualGraphState} />)};
+                        </div>
+                        <ContextMenu contextMenuState={this.state.contextMenuState} />
+                        <GraphHelperMenu handleRefocus={this.handleRefocus} handleZoomIn={this.handleZoomIn} handleZoomOut={this.handleZoomOut}/>
+                        {map(keys(this.state.graphJson), id => this.state.foundResults 
+                            ? <GraphSummaryDisplay data={this.state.graphJson[id].stats}/> 
+                            : null)}
                     </div>
-                    <ContextMenu contextMenuState={this.state.contextMenuState} />
-                    <GraphHelperMenu handleRefocus={this.handleRefocus} handleZoomIn={this.handleZoomIn} handleZoomOut={this.handleZoomOut}/>
-                    {map(keys(graphJson), id => !this.state.loading
-                        ? (this.state.foundResults ? <GraphSummaryDisplay data={graphJson[id].stats}/> : <div/>)
-                        : <div/>)}
-                </div>
-                </ErrorBoundary>
-            </div>
-            </div>
+                    <div style={{left: '45%', top: '40%', position: 'absolute', bottom: 0, height: '100px'}}>
+                        <DotLoader loading={this.state.loading}/>
+                    </div>
+                    </ErrorBoundary>
+                </Row>
+            </Grid>
 	) }
 }
 
@@ -664,6 +766,6 @@ export class FeedbackModal extends Component {
                 
             </Modal>
         </div>
-      );
+      )
     }
   }
