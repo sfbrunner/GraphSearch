@@ -378,7 +378,7 @@ export class CytoGraph extends React.Component {
             tooltipString: tooltipString,
             contextMenuLocation: {
                 'x' : event.target.renderedPosition().x, 
-                'y' : event.target.renderedPosition().y + event.target.renderedHeight() / 2 }
+                'y' : event.target.renderedPosition().y + event.target.height() }
             });
     }
 

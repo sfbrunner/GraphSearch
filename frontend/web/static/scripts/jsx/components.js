@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom'
 import { 
-    Image, Grid, Col, Row, Navbar, Nav, NavItem, 
+    Image, Grid, Col, Row, Navbar, Nav, NavItem, MenuItem, 
     Button, ButtonToolbar, FormControl, Popover, Badge,
-    InputGroup, Glyphicon, Panel, Modal, Well } from 'react-bootstrap'
+    InputGroup, Glyphicon, Panel, Modal, Well, DropdownButton } from 'react-bootstrap'
 import { CytoGraph } from './cytoComponents'
 import { DotLoader } from 'react-spinners';
 import { keys, map, isArray, sortBy } from 'lodash';
@@ -128,18 +128,25 @@ export class SearchNav extends Component {
                         <NavItem eventKey={1} href="/about">
                             About
                         </NavItem>
-                        </Nav>
+                    </Nav>
                         <Nav>
                         <Navbar.Form>
                             <form onSubmit={this.props.formHandler}>
                                 <InputGroup>
-                                    <FormControl type="text" id="searchString" style={{width:'400px'}}/>
+                                    <FormControl type="text" id="searchString" style={{width:'400px'}} placeholder="Try more keywords and hit <Enter>"/>
                                     <InputGroup.Addon>
                                         <Glyphicon glyph="search" />
                                     </InputGroup.Addon>
                                 </InputGroup>
                             </form>
                         </Navbar.Form>
+                        </Nav>
+                        <Nav>
+                            <ButtonToolbar>
+                                <DropdownButton title="History" id="dropdown-size-medium">
+                                    <MenuItem eventKey="1" onClick={ event => this.props.historyHandler(3)}>Action</MenuItem>
+                                </DropdownButton>
+                            </ButtonToolbar>
                         </Nav>
                     <Nav pullRight>
                         <Navbar.Form >
@@ -162,7 +169,7 @@ export class SearchLanding extends Component {
     onSubmit(event) {
         event.preventDefault();
         var searchString = event.target.childNodes[0].children.searchString.value;
-        this.props.history.push({pathname: '/searchactive', state: {searchQuery: searchString}})
+        this.props.history.push({pathname: '/search', state: {searchQuery: searchString}})
     }
 
 	render() {
@@ -234,8 +241,8 @@ class ContextMenu extends React.Component {
         var contentMenuStyle = {
             display: this.state.tooltipString != null && location ? 'block' : 'none',
             position: 'absolute', 
-            left: location ? (location.x-tooltipWidth / 2 + 15) : 0, // 15px offset from  container-fluid padding
-            top: location ? (location.y + 36) : 0, // 36px offset from div height
+            left: location ? (location.x-tooltipWidth / 2) : 0,
+            top: location ? (location.y) : 0,
             pointerEvents: 'all',
             width: tooltipWidth,
             height: tooltipHeight,
@@ -245,7 +252,7 @@ class ContextMenu extends React.Component {
         };
         var popoverStyle = 
         {
-            positionTop: location ? (location.x-tooltipWidth/2) : 0,
+            positionTop: location ? (location.x - tooltipWidth / 2) : 0,
             positionLeft: location ? (location.y) : 0,
         }
 
@@ -619,7 +626,7 @@ export class SearchActive extends Component {
 		return (
             <Grid>
                 <Row>
-                    <SearchNav formHandler={this.onSubmit}/>
+                    <SearchNav formHandler={this.onSubmit} historyHandler={this.poll}/>
                 </Row>
                 <Row>
                     <ErrorBoundary>
@@ -629,7 +636,7 @@ export class SearchActive extends Component {
                             : <h2>{noResultsString}</h2>)}
                     </Panel>
                     <div style={{width: '100%', float: 'left', height: '100%', display: this.state.loading? 'none': 'block'}}>
-                        <div id='cy' style={{width: '100%', float: 'left', height: '100%', position: 'absolute', zIndex: '999'}}>
+                        <div id='cy' style={{width: '100%', float: 'left', left: '0%', height: '100%', position: 'absolute', zIndex: '999'}}>
                             {map(keys(this.state.graphJson), id => <CytoGraph graph={this.state.graphJson[id].graph} contextMenuHandler={this.contextMenuHandler} visualGraphState={this.state.visualGraphState} />)};
                         </div>
                         <ContextMenu contextMenuState={this.state.contextMenuState} />
@@ -638,7 +645,7 @@ export class SearchActive extends Component {
                             ? <GraphSummaryDisplay data={this.state.graphJson[id].stats}/> 
                             : null)}
                     </div>
-                    <div style={{left: '45%', top: '40%', position: 'absolute', bottom: 0, height: '100px'}}>
+                    <div style={{left: '45%', top: '40%', position: 'absolute', bottom: 0, height: '0px'}}>
                         <DotLoader loading={this.state.loading}/>
                     </div>
                     </ErrorBoundary>
