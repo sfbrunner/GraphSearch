@@ -517,6 +517,7 @@ export class SearchActive extends Component {
         this.contextMenuHandler = this.contextMenuHandler.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         this.search = this.search.bind(this);
+        this.getHistoryGraph = this.getHistoryGraph.bind(this);
         this.handleRefocus = this.handleRefocus.bind(this);
         this.handleZoomIn = this.handleZoomIn.bind(this);
         this.handleZoomOut = this.handleZoomOut.bind(this);
@@ -550,6 +551,17 @@ export class SearchActive extends Component {
                 const timers = { [id]: setInterval(this.poll(id), pollInterval) };
                 setTimeout(() => { clearInterval( timers[id] );}, maxTime * 1.5);
                 this.setState({ pending: { ...pending, ...timers } });
+            })
+    }
+
+    getHistoryGraph(id){
+        this.updateVisualGraphState({"displayNodes": false});
+        request.get(new URL(id, apiUrl))
+            .end((err, res) => {
+                if (err) return;
+                const { result } = res.body;
+                this.setState({ graphJson: { [id]: result }});
+                this.updateVisualGraphState({"displayNodes": true});
             })
     }
 
@@ -626,7 +638,7 @@ export class SearchActive extends Component {
 		return (
             <Grid>
                 <Row>
-                    <SearchNav formHandler={this.onSubmit} historyHandler={this.poll}/>
+                    <SearchNav formHandler={this.onSubmit} historyHandler={this.getHistoryGraph}/>
                 </Row>
                 <Row>
                     <ErrorBoundary>
