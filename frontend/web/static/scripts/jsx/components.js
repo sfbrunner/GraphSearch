@@ -142,11 +142,15 @@ export class SearchNav extends Component {
                         </Navbar.Form>
                         </Nav>
                         <Nav>
+                            <Navbar.Form>
                             <ButtonToolbar>
                                 <DropdownButton title="History" id="dropdown-size-medium">
-                                    <MenuItem eventKey="1" onClick={ event => this.props.historyHandler(3)}>Action</MenuItem>
+                                    {map(keys(this.props.searchHistory), id => 
+                                        <MenuItem eventKey={id} onClick={event => this.props.historyHandler(id)}>{this.props.searchHistory[id]}</MenuItem>
+                                    )}
                                 </DropdownButton>
                             </ButtonToolbar>
+                            </Navbar.Form>
                         </Nav>
                     <Nav pullRight>
                         <Navbar.Form >
@@ -512,7 +516,7 @@ export class SearchActive extends Component {
             loading: false, 
             foundResults: false, 
             numApiCalls: 0, 
-            searchString: null,
+            searchStrings: {},
         };
         this.contextMenuHandler = this.contextMenuHandler.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
@@ -528,7 +532,6 @@ export class SearchActive extends Component {
     }
 
     componentDidMount() {
-        console.log(`componentDidMount: ${this.props.location.state.searchQuery}`);
         this.search(this.props.location.state.searchQuery);
     }
 
@@ -546,21 +549,22 @@ export class SearchActive extends Component {
         request.put(apiUrl).send(payload)
             .end((err, res) => {
                 if (err) return;
-                const { graphJson, pending, loading, foundResults } = this.state;
+                const { pending, searchStrings } = this.state;
                 const { result: id } = res.body;
                 const timers = { [id]: setInterval(this.poll(id), pollInterval) };
                 setTimeout(() => { clearInterval( timers[id] );}, maxTime * 1.5);
-                this.setState({ pending: { ...pending, ...timers } });
+                this.setState({ pending: { ...pending, ...timers }, searchStrings: { ...searchStrings, [id]: searchQuery} });
             })
     }
 
     getHistoryGraph(id){
         this.updateVisualGraphState({"displayNodes": false});
+        this.setState({loading: true, foundResults: false});
         request.get(new URL(id, apiUrl))
             .end((err, res) => {
                 if (err) return;
                 const { result } = res.body;
-                this.setState({ graphJson: { [id]: result }});
+                this.setState({ graphJson: { [id]: result }, loading: false, foundResults: true});
                 this.updateVisualGraphState({"displayNodes": true});
             })
     }
@@ -638,7 +642,7 @@ export class SearchActive extends Component {
 		return (
             <Grid>
                 <Row>
-                    <SearchNav formHandler={this.onSubmit} historyHandler={this.getHistoryGraph}/>
+                    <SearchNav formHandler={this.onSubmit} historyHandler={this.getHistoryGraph} searchHistory={this.state.searchStrings}/>
                 </Row>
                 <Row>
                     <ErrorBoundary>
