@@ -189,6 +189,7 @@ export class CytoGraph extends React.Component {
         this._renderTooltip = this._renderTooltip.bind(this);
         this._mountCytoGraph = this._mountCytoGraph.bind(this);
         this.visualGraphUpdate = this.visualGraphUpdate.bind(this);
+        this.readingListHandler = this.readingListHandler.bind(this);
     }
 
     componentWillUnmount(){
@@ -382,6 +383,14 @@ export class CytoGraph extends React.Component {
             });
     }
 
+    readingListHandler(event) {
+        var ncbiUrl = 'https://www.ncbi.nlm.nih.gov/pubmed/';
+        var id = event.target.data().id;
+        var node = this._nodeSelector(id);
+        this.props.readingListHandler({ [id]: `<b><a href="${ncbiUrl}${node.id}" target="_blank">${node.title}</b></a>
+        <br><i>${node.journal}</i><br><i>${node.pubDate}</i><br>${node.authors}`})
+    }
+
     _mountCytoGraph(){
         /** 
          * Attaches a cytoscape instance to the DOM using data from props
@@ -400,6 +409,7 @@ export class CytoGraph extends React.Component {
         cy.on('zoom', this._hideTooltip );
         cy.on('mouseover', 'node', this._formatNodeMouseover );
         cy.on('mouseout', 'node', this._formatNodeMouseout );
+        cy.on('click', 'node', this.readingListHandler );
         //var pr = cy.elements().pageRank();
         this.cy = cy; // TODO: pass event to state and use this binding
         this.initialZoomLevel = this.cy.zoom();
