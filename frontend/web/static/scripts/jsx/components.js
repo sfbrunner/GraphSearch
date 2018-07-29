@@ -1,15 +1,20 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom'
 import { 
-    Image, Grid, Col, Clearfix, Row, Navbar, Nav, NavItem, NavDropdown, MenuItem, 
-    Button, form, ButtonToolbar, FormGroup, FormControl, Popover, Badge,
-    InputGroup, Glyphicon, Panel, ControlLabel, Form, Modal, Well } from 'react-bootstrap'
-import { CytoGraph, GraphInfo } from './cytoComponents'
+    Image, Grid, Col, Row, Navbar, Nav, NavItem, MenuItem, 
+    Button, ButtonToolbar, FormControl, Popover, Badge,
+    InputGroup, Glyphicon, Panel, Modal, Well, Dropdown,
+    ListGroup, ListGroupItem } from 'react-bootstrap'
+import { CytoGraph } from './cytoComponents'
 import { DotLoader } from 'react-spinners';
 import { keys, map, isArray, sortBy } from 'lodash';
 import ReactGA from 'react-ga';
 import numeral from 'numeral'
 import request from 'superagent'
+import { Histogram, DensitySeries, BarSeries, withParentSize, XAxis, YAxis, WithTooltip } from '@data-ui/histogram';
+import { format } from "d3-format";
+import renderTooltip from './renderHistogramTooltip'; 
+import { TagCloud } from "react-tagcloud";
 var createIssue = require( 'github-create-issue');
 var bgImage = require('../../images/main_img-01.svg')
 
@@ -124,18 +129,40 @@ export class SearchNav extends Component {
                         <NavItem eventKey={1} href="/about">
                             About
                         </NavItem>
-                        </Nav>
+                    </Nav>
                         <Nav>
                         <Navbar.Form>
                             <form onSubmit={this.props.formHandler}>
                                 <InputGroup>
-                                    <FormControl type="text" id="searchString" style={{width:'400px'}}/>
+                                    <FormControl type="text" id="searchString" style={{width:'400px'}} placeholder="Try more keywords and hit <Enter>"/>
                                     <InputGroup.Addon>
                                         <Glyphicon glyph="search" />
                                     </InputGroup.Addon>
                                 </InputGroup>
                             </form>
                         </Navbar.Form>
+                        </Nav>
+                        <Nav>
+                            <Navbar.Form>
+                            <ButtonToolbar>
+                                <Dropdown id="dropdown-custom-1">
+                                <Dropdown.Toggle>
+                                    <Glyphicon glyph="time" /> MyGraphs
+                                </Dropdown.Toggle>
+                                <Dropdown.Menu>
+                                    {map(keys(this.props.searchHistory), id => 
+                                        <MenuItem key={id} eventKey={id} onClick={event => this.props.historyHandler(id)}>
+                                            <div>{this.props.searchHistory[id].searchString + "  "}
+                                                <Badge style={{backgroundColor:'#004cc6'}}>{ this.props.searchHistory[id].num_results }</Badge>
+                                                <Badge style={{backgroundColor:'red'}}>{ this.props.searchHistory[id].num_citations }</Badge>
+                                                <Badge style={{backgroundColor:'lightgrey'}}>{ this.props.searchHistory[id].num_links }</Badge>
+                                            </div>
+                                        </MenuItem>
+                                    )}
+                                </Dropdown.Menu>
+                                </Dropdown>
+                            </ButtonToolbar>
+                            </Navbar.Form>
                         </Nav>
                     <Nav pullRight>
                         <Navbar.Form >
@@ -158,7 +185,7 @@ export class SearchLanding extends Component {
     onSubmit(event) {
         event.preventDefault();
         var searchString = event.target.childNodes[0].children.searchString.value;
-        this.props.history.push({pathname: '/searchactive', state: {searchQuery: searchString}})
+        this.props.history.push({pathname: '/search', state: {searchQuery: searchString}})
     }
 
 	render() {
@@ -230,8 +257,8 @@ class ContextMenu extends React.Component {
         var contentMenuStyle = {
             display: this.state.tooltipString != null && location ? 'block' : 'none',
             position: 'absolute', 
-            left: location ? (location.x-tooltipWidth / 2 + 15) : 0, // 15px offset from  container-fluid padding
-            top: location ? (location.y + 36) : 0, // 36px offset from div height
+            left: location ? (location.x-tooltipWidth / 2) : 0,
+            top: location ? (location.y) : 0,
             pointerEvents: 'all',
             width: tooltipWidth,
             height: tooltipHeight,
@@ -241,7 +268,7 @@ class ContextMenu extends React.Component {
         };
         var popoverStyle = 
         {
-            positionTop: location ? (location.x-tooltipWidth/2) : 0,
+            positionTop: location ? (location.x - tooltipWidth / 2) : 0,
             positionLeft: location ? (location.y) : 0,
         }
 
@@ -256,6 +283,155 @@ class ContextMenu extends React.Component {
         );
     }
 
+}
+
+const ResponsiveHistogram = withParentSize(({ parentWidth, parentHeight, ...rest}) => (
+    <Histogram width={parentWidth} height={parentHeight} renderTooltip={renderTooltip} {...rest} />
+));
+
+class GraphTagCloud extends React.Component{
+
+    constructor(props){
+        super(props);
+        this.state = { tags: props.tags, clickedTag: null };
+        this.nodeHighlighter = this.nodeHighlighter.bind(this);
+    }
+
+    nodeHighlighter(filter){
+        this.props.nodeHighlighter(filter);
+    }
+
+    render(){
+        const options = {
+            luminosity: 'dark',
+            hue: 'monochrome'
+          };
+
+        const customRenderer = (tag, size, color) => (
+            <span key={tag.value}
+                    style={{
+                    fontSize: `${size}px`,
+                    border: `0.0px solid ${color}`,
+                    margin: '1px',
+                    backgroundColor: tag.value==this.state.clickedTag? 'black' : 'grey',
+                    padding: '3px',
+                    color: 'white',
+                    borderRadius: '5px',
+                    cursor: 'pointer',
+                    whiteSpace: 'pre-wrap',
+                    display: 'inline-block',
+                    }}>{tag.value}
+            </span>
+        );
+
+        return(
+        <div>
+            <TagCloud 
+                minSize={12}
+                maxSize={24}
+                colorOptions={options}
+                tags={this.state.tags}
+                shuffle={false}
+                renderer={customRenderer}
+                onClick={tag => {
+                    if (tag.value==this.state.clickedTag) {
+                        this.nodeHighlighter('');
+                        this.setState({clickedTag: null})
+                    } else {
+                        this.nodeHighlighter(tag.value); 
+                        this.setState({clickedTag: tag.value})
+                    }
+                }}
+                className="simple-cloud" />
+        </div>
+        )
+    }
+}
+
+class ReadingList extends React.Component {
+    
+    constructor(props){
+        super(props);
+    }
+
+    render(){
+        return(
+            <Panel id="reading-list-panel" defaultcollapsed style={this.props.style}>
+            <Panel.Heading>
+                <Panel.Title toggle>Reading List ({Object.keys(this.props.readingList).length})</Panel.Title>
+            </Panel.Heading>
+            <Panel.Body collapsible expanded="true">
+            <ListGroup>
+                {Object.keys(this.props.readingList).length == 0
+                ? <div> Click on nodes to add and remove papers here! </div>
+                : map(keys(this.props.readingList), id => 
+                    <ListGroupItem>
+                        <div dangerouslySetInnerHTML={{__html: this.props.readingList[id]}}/>                
+                    </ListGroupItem>
+                )}
+            </ListGroup>
+            </Panel.Body>
+            </Panel>
+        )
+    }
+}
+
+class GraphInfo extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.state = { stats: props.data };
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.data !== this.state) {
+            this.setState({ stats: nextProps.data });
+        }
+    }
+
+    render() {
+
+        function tagCreator(entry){
+            var tagEntry = {};
+            tagEntry['value'] = `${entry[0]}`;
+            tagEntry['count'] = entry[1];
+            return tagEntry;
+        };
+
+        return (
+            <div id="netstats" name="netstats">
+                <Panel id="top-author-panel" defaultExpanded>
+                    <Panel.Heading>
+                        <Panel.Title toggle>Top Authors</Panel.Title>
+                    </Panel.Heading>
+                    <Panel.Body collapsible expanded="true">
+                        <GraphTagCloud tags={Object.entries(this.state.stats.top_author_dict).map(tagCreator)} nodeHighlighter={this.props.authorHighlighter} />
+                    </Panel.Body>
+                </Panel>
+                <Panel id="top-journal-panel" defaultExpanded>
+                    <Panel.Heading>
+                        <Panel.Title toggle>Top Journals</Panel.Title>
+                    </Panel.Heading>
+                    <Panel.Body collapsible expanded="true">
+                    <GraphTagCloud tags={Object.entries(this.state.stats.top_journal_dict).map(tagCreator)} nodeHighlighter={this.props.nodeHighlighter} />
+                    </Panel.Body>
+                </Panel>
+                <Panel id="publications-per-year-panel" defaultExpanded>
+                    <Panel.Heading>
+                        <Panel.Title toggle>Publications per year</Panel.Title>
+                    </Panel.Heading>
+                    <Panel.Body collapsible expanded="true">
+                        <div style={{height:'140px'}}>
+                        <ResponsiveHistogram ariaLabel='' orientation="vertical" binCount={this.state.stats.pub_years.num_bin} margin={{ top: 10, right: 12, bottom: 60, left: 12}}>
+                        <BarSeries animated rawData={this.state.stats.pub_years.values} fill='grey' strokeWidth={0}/>
+                        <XAxis numTicks={3} tickFormat={format('.4')}/>
+                        </ResponsiveHistogram>
+                        </div>
+                    </Panel.Body>
+                </Panel>
+            </div>
+        )
+    }
 }
 
 class GraphSummaryDisplay extends Component {
@@ -380,11 +556,13 @@ export class SearchActive extends Component {
             loading: false, 
             foundResults: false, 
             numApiCalls: 0, 
-            searchString: null,
+            searchResults: {},
+            readingList: {}
         };
         this.contextMenuHandler = this.contextMenuHandler.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         this.search = this.search.bind(this);
+        this.getHistoryGraph = this.getHistoryGraph.bind(this);
         this.handleRefocus = this.handleRefocus.bind(this);
         this.handleZoomIn = this.handleZoomIn.bind(this);
         this.handleZoomOut = this.handleZoomOut.bind(this);
@@ -392,10 +570,11 @@ export class SearchActive extends Component {
         this.nodeHighlighter = this.nodeHighlighter.bind(this);
         this.authorHighlighter = this.authorHighlighter.bind(this);
         this.updateVisualGraphState = this.updateVisualGraphState.bind(this);
+        this.handleApiResult = this.handleApiResult.bind(this);
+        this.readingListHandler = this.readingListHandler.bind(this);
     }
 
     componentDidMount() {
-        console.log(`componentDidMount: ${this.props.location.state.searchQuery}`);
         this.search(this.props.location.state.searchQuery);
     }
 
@@ -413,12 +592,66 @@ export class SearchActive extends Component {
         request.put(apiUrl).send(payload)
             .end((err, res) => {
                 if (err) return;
-                const { graphJson, pending, loading, foundResults } = this.state;
+                const { pending, searchResults } = this.state;
                 const { result: id } = res.body;
                 const timers = { [id]: setInterval(this.poll(id), pollInterval) };
                 setTimeout(() => { clearInterval( timers[id] );}, maxTime * 1.5);
-                this.setState({ pending: { ...pending, ...timers } });
+                this.setState({ 
+                    pending: { ...pending, ...timers }, 
+                    searchResults: { ...searchResults,
+                        [id]: { searchString: searchQuery,
+                                num_results: 0, 
+                                num_citations: 0, 
+                                num_links: 0
+                            }}});
             })
+    }
+
+    getHistoryGraph(id){
+        this.updateVisualGraphState({"displayNodes": false});
+        this.setState({loading: true, foundResults: false});
+        request.get(new URL(id, apiUrl))
+            .end((err, res) => {
+                if (err) return;
+                const { result } = res.body;
+                this.setState({ graphJson: { [id]: result }, loading: false, foundResults: true});
+                this.updateVisualGraphState({"displayNodes": true});
+            })
+    }
+
+    handleApiResult(result, id){
+        const { numApiCalls } = this.state;
+        if (!result) {
+            if (numApiCalls > maxTime / pollInterval) {
+                const { pending } = this.state;
+                clearInterval(pending[id]);
+                delete pending[id];
+                this.setState({ loading: false, numApiCalls: 0 });
+            }
+            else {
+                this.setState({ numApiCalls: numApiCalls + 1 });
+            }
+        }
+        else {
+            const { pending } = this.state;
+            clearInterval(pending[id]);
+            delete pending[id];
+            this.updateVisualGraphState({"displayNodes": true}); // Need to add graph manually
+            const { searchResults } = this.state;
+            this.setState({ 
+                graphJson: { [id]: result }, 
+                loading: false, 
+                foundResults: (result.stats.num_results > 0), 
+                numApiCalls: 0 ,
+                searchResults: {...searchResults, 
+                    [id]: { searchString: searchResults[id].searchString,
+                            num_results: result.stats.num_results, 
+                            num_citations: result.stats.num_citations, 
+                            num_links: result.stats.num_links
+                        }}
+                }
+            )
+            }
     }
 
     poll(id) {
@@ -427,25 +660,7 @@ export class SearchActive extends Component {
                 .end((err, res) => { // call api with id -> will return task_id and if ready result
                     if (err) return;
                     const { result } = res.body;
-                    const { numApiCalls } = this.state;
-                    if (!result) {
-                        if (numApiCalls > maxTime / pollInterval) {
-                            const { pending } = this.state;
-                            clearInterval(pending[id]);
-                            delete pending[id];
-                            this.setState({ loading: false, numApiCalls: 0 });
-                        }
-                        else {
-                            this.setState({ numApiCalls: numApiCalls + 1 });
-                        }
-                    }
-                    else {
-                        const { pending } = this.state;
-                        clearInterval(pending[id]);
-                        delete pending[id];
-                        this.updateVisualGraphState({"displayNodes": true}); // Need to add graph manually
-                        this.setState({ graphJson: { [id]: result }, loading: false, foundResults: (result.stats.num_results > 0), numApiCalls: 0 });
-                    }
+                    this.handleApiResult(result, id);
                 })
         }
     }
@@ -487,61 +702,52 @@ export class SearchActive extends Component {
         this.updateVisualGraphState({"zoomLevel": 0.0});
     }
 
-	render() {
-        var graphMenuStyle = {
-            background:'#d3d3d34d',
-            verticalAlign: 'left',
-            display: 'block',
-            position: 'absolute', 
-            left: '0%',
-            top:  36,
-            pointerEvents: 'all',
-            width: '22vw',
-            height: '100%',
-            zIndex: '1001',
-            borderStyle: 'solid',
-            borderColor: 'lightgrey',
-            borderWidth: '0.5px'
+    readingListHandler(dict){
+        const { readingList } = this.state;
+        for (var key in dict){
+            if (key in this.state.readingList) {
+                delete readingList[key];
+                this.setState({ readingList: readingList});
+            }
+            else {
+                this.setState({ readingList: {...readingList, [key]: dict[key]}});
+            }
         }
+    }
+
+	render() {
         
         const noResultsString = "Sorry, your search yielded no results. Please try again.";
-        const { graphJson, pending, loading } = this.state;
+
 		return (
-            <div>
-                <div style={{ height:"36px" }}><SearchNav formHandler={this.onSubmit}/></div>
-            <div>
-                <ErrorBoundary>
-                <div style={graphMenuStyle}>
-                    <Row style={{height:'2vh'}}></Row>
-                    <Row>
-                        <Col md={1}/>
-                    </Row>
-                    <Row>
-                        <Col md={1}></Col>
-                        <Col md={10}>
-                        {map(keys(graphJson), id => !this.state.loading
-                            ? (this.state.foundResults ? <GraphInfo data={graphJson[id].stats} nodeHandler={this.nodeHandler} nodeHighlighter={this.nodeHighlighter} authorHighlighter={this.authorHighlighter}/> : <h2>{noResultsString}</h2>)
-                            : <div/>)}
-                        </Col>
-                        <Col md={1}></Col>
-                    </Row>
-                </div>
-                <div style={{left: '60%', top:'40%', position: 'absolute', bottom: 0, height: '50px'}}>
-                    <DotLoader color={'#000000'} loading={this.state.loading}/>
-                </div>
-                <div style={{width:'100%', float:'left', height:'100%'}}>
-                    <div id='cy' style={{width:'100%', float:'left', height:'100%', position:'absolute', zIndex:'999'}}>
-                        {map(keys(graphJson), id => <CytoGraph graph={graphJson[id].graph} contextMenuHandler={this.contextMenuHandler} visualGraphState={this.state.visualGraphState} />)};
+            <Grid>
+                <Row>
+                    <SearchNav formHandler={this.onSubmit} historyHandler={this.getHistoryGraph} searchHistory={this.state.searchResults}/>
+                </Row>
+                <Row>
+                    <ErrorBoundary>
+                    <Panel style={{padding: '0.5%', background:'#d3d3d34d', borderColor: 'lightgrey', display: this.state.loading? 'none': 'block', pointerEvents: 'all', zIndex: '10001', position: 'absolute', left: '1%', top: '8%', width: '20%'}}>
+                        {map(keys(this.state.graphJson), id => this.state.foundResults 
+                            ? <GraphInfo data={this.state.graphJson[id].stats} nodeHandler={this.nodeHandler} nodeHighlighter={this.nodeHighlighter} authorHighlighter={this.authorHighlighter}/> 
+                            : <h2>{noResultsString}</h2>)}
+                    </Panel>
+                    <ReadingList readingList={this.state.readingList} style={{padding: '0%', borderColor: 'lightgrey', display: this.state.loading? 'none': 'block', pointerEvents: 'all', zIndex: '10001', position: 'absolute', left: '79%', top: '8%', width: '20%'}}/>
+                    <div style={{width: '100%', float: 'left', height: '100%', display: this.state.loading? 'none': 'block'}}>
+                        <div id='cy' style={{width: '100%', float: 'left', left: '0%', height: '100%', position: 'absolute', zIndex: '999'}}>
+                            {map(keys(this.state.graphJson), id => <CytoGraph graph={this.state.graphJson[id].graph} contextMenuHandler={this.contextMenuHandler} visualGraphState={this.state.visualGraphState} readingListHandler={this.readingListHandler} />)};
+                        </div>
+                        <ContextMenu contextMenuState={this.state.contextMenuState} />
+                        <GraphHelperMenu handleRefocus={this.handleRefocus} handleZoomIn={this.handleZoomIn} handleZoomOut={this.handleZoomOut}/>
+                        {map(keys(this.state.graphJson), id => this.state.foundResults 
+                            ? <GraphSummaryDisplay data={this.state.graphJson[id].stats}/> 
+                            : null)}
                     </div>
-                    <ContextMenu contextMenuState={this.state.contextMenuState} />
-                    <GraphHelperMenu handleRefocus={this.handleRefocus} handleZoomIn={this.handleZoomIn} handleZoomOut={this.handleZoomOut}/>
-                    {map(keys(graphJson), id => !this.state.loading
-                        ? (this.state.foundResults ? <GraphSummaryDisplay data={graphJson[id].stats}/> : <div/>)
-                        : <div/>)}
-                </div>
-                </ErrorBoundary>
-            </div>
-            </div>
+                    <div style={{left: '45%', top: '40%', position: 'absolute', bottom: 0, height: '0px'}}>
+                        <DotLoader loading={this.state.loading}/>
+                    </div>
+                    </ErrorBoundary>
+                </Row>
+            </Grid>
 	) }
 }
 
@@ -664,6 +870,6 @@ export class FeedbackModal extends Component {
                 
             </Modal>
         </div>
-      );
+      )
     }
   }

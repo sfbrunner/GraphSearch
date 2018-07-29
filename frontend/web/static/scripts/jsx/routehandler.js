@@ -10,7 +10,7 @@ import createHistory from 'history/createBrowserHistory'
 ReactGA.initialize('UA-116488460-1', { debug: true })
 ReactGA.pageview(window.location.pathname + window.location.search);
 
-const Layout = ({ routehandler}) => (
+const Layout = ({routehandler}) => (
     <div className="container-fluid wrapper" id="outer-container">
 		<div style={{ width:'100%' }}>{routehandler}</div>
 	</div>
@@ -24,8 +24,7 @@ class RouteHandler extends Component {
 				<Switch>
 					<Route exact path='/' component={SearchLanding} />
 					<Route path='/about' component={About} />
-					<Route path='/searchlanding' component={SearchLanding} />
-					<Route path='/searchactive' component={SearchActive} />
+					<Route path='/search' component={SearchActive} />
 				</Switch>
 			</BrowserRouter>
 		)
