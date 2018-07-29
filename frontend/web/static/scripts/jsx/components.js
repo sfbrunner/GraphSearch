@@ -147,7 +147,7 @@ export class SearchNav extends Component {
                             <ButtonToolbar>
                                 <Dropdown id="dropdown-custom-1">
                                 <Dropdown.Toggle>
-                                    <Glyphicon glyph="time" /> MyGraphs
+                                    <Glyphicon glyph="time" /> {"My Graphs"}
                                 </Dropdown.Toggle>
                                 <Dropdown.Menu>
                                     {map(keys(this.props.searchHistory), id => 
@@ -264,7 +264,7 @@ class ContextMenu extends React.Component {
             height: tooltipHeight,
             borderRadius: '7px',
             padding: '0px',
-            zIndex: '10001',
+            zIndex: '1001',
         };
         var popoverStyle = 
         {
@@ -280,7 +280,7 @@ class ContextMenu extends React.Component {
                     <div dangerouslySetInnerHTML={{ __html: this.state.tooltipString}} />
                 </Popover>
             </div>
-        );
+        )
     }
 
 }
@@ -453,6 +453,7 @@ class GraphSummaryDisplay extends Component {
             left: '30%',
             borderRadius: '7px',
             padding: '7px',
+            zIndex: '1000',
         };
 
         var gradient_svg = <svg width="100" height="20">
@@ -516,7 +517,7 @@ class GraphHelperMenu extends Component {
             height: '100px',
             borderRadius: '7px',
             padding: '7px',
-            zIndex: '10100'
+            zIndex: '1000'
         };
         return(
             <ButtonToolbar style={graphHelperMenuStyle} >
@@ -726,15 +727,15 @@ export class SearchActive extends Component {
                 </Row>
                 <Row>
                     <ErrorBoundary>
-                    <Panel style={{padding: '0.5%', background:'#d3d3d34d', borderColor: 'lightgrey', display: this.state.loading? 'none': 'block', pointerEvents: 'all', zIndex: '10001', position: 'absolute', left: '1%', top: '8%', width: '20%'}}>
+                    <Panel style={{padding: '0.5%', background:'#d3d3d34d', borderColor: 'lightgrey', display: this.state.loading? 'none': 'block', pointerEvents: 'all', zIndex: '1000', position: 'absolute', left: '1%', top: '8%', width: '20%'}}>
                         {map(keys(this.state.graphJson), id => this.state.foundResults 
                             ? <GraphInfo data={this.state.graphJson[id].stats} nodeHandler={this.nodeHandler} nodeHighlighter={this.nodeHighlighter} authorHighlighter={this.authorHighlighter}/> 
                             : <h2>{noResultsString}</h2>)}
                     </Panel>
-                    <ReadingList readingList={this.state.readingList} style={{padding: '0%', borderColor: 'lightgrey', display: this.state.loading? 'none': 'block', pointerEvents: 'all', zIndex: '10001', position: 'absolute', left: '79%', top: '8%', width: '20%'}}/>
+                    <ReadingList readingList={this.state.readingList} style={{padding: '0%', borderColor: 'lightgrey', display: this.state.loading? 'none': 'block', pointerEvents: 'all', zIndex: '1000', position: 'absolute', left: '79%', top: '8%', width: '20%'}}/>
                     <div style={{width: '100%', float: 'left', height: '100%', display: this.state.loading? 'none': 'block'}}>
                         <div id='cy' style={{width: '100%', float: 'left', left: '0%', height: '100%', position: 'absolute', zIndex: '999'}}>
-                            {map(keys(this.state.graphJson), id => <CytoGraph graph={this.state.graphJson[id].graph} contextMenuHandler={this.contextMenuHandler} visualGraphState={this.state.visualGraphState} readingListHandler={this.readingListHandler} />)};
+                            {map(keys(this.state.graphJson), id => <CytoGraph graph={this.state.graphJson[id].graph} contextMenuHandler={this.contextMenuHandler} visualGraphState={this.state.visualGraphState} readingListHandler={this.readingListHandler} />)}
                         </div>
                         <ContextMenu contextMenuState={this.state.contextMenuState} />
                         <GraphHelperMenu handleRefocus={this.handleRefocus} handleZoomIn={this.handleZoomIn} handleZoomOut={this.handleZoomOut}/>
@@ -837,7 +838,6 @@ export class FeedbackModal extends Component {
           'body': feedback_body,
           'labels': ['feedback'] 
         }
-      //ReactGA.event({category: 'Feedback', action: 'Submitted feedback', label: feedback_string });
       createIssue( 'sfbrunner/GraphSearch', feedback_title, github_opts, this.issue_callback );
       this.setState({modalIsOpen: false});
     }
