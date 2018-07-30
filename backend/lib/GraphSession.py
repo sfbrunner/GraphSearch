@@ -4,6 +4,7 @@ sys.path.append('..')
 import re
 from ConnectEutils import ConnectEutils
 from MongoSession import MongoSession
+from NeoSession import NeoSession
 from ResultGraph import ResultGraph
 from requestFactory import createSearchRequest
 from utils.logger import LogHandler
@@ -50,7 +51,12 @@ class GraphSession(object):
             return None
         
         return resultGraph.get_graph(graph_format=graph_format)
-
+    
+    def get_cy_json_neo4j(self, graph_format=None, mode='demo'):
+        if mode=='live':
+            searched_pubs = self.get_pubmed_results_from_fulltext(self.request.userInput, retmax=20)
+            
+    
     def return_empty_graph(self):
         ''' Returns an empty graph. Useful to generate a default return value in case of errors.
         '''
