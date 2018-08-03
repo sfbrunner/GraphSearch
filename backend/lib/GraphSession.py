@@ -6,18 +6,43 @@ from ConnectEutils import ConnectEutils
 from MongoSession import MongoSession
 from NeoSession import NeoSession
 from ResultGraph import ResultGraph
+from FrontEndGraph import FrontEndGraph
+from GraphDbConnector import NeoGraph
 from requestFactory import createSearchRequest
 from utils.logger import LogHandler
 import numpy as np
+
 log = LogHandler.get_logger('__name__')
-    
+  
 
 class GraphSession(object):
 
     def __init__(self, userInput, **kwargs):
         self.request = createSearchRequest('Fulltext', userInput)
-
+    
     def get_cy_json(self, graph_format=None, mode='demo'):
+        msg = '{0}: Search input received: {1}'
+        log.info(msg.format(self.__class__.__name__, self.request.userInput))
+        
+        if mode=='live':
+            pmc_hits = self.get_pubmed_results_from_fulltext(self.request.userInput, retmax=20)
+            
+            neo_graph = NeoGraph()
+            nx_graph = neo_graph.process_search_request(pmc_hits)
+            
+            frontendgraph = FrontEndGraph(nx_graph)
+            return frontendgraph.get_cyto_graph()
+        elif mode=='demo':
+            log.info('Using demo mode for data retrieval.')
+            resultGraph = ResultGraph()
+            resultGraph.G = resultGraph.read_json_file('../notebooks/output/demo_network_pubyear.json')
+            resultGraph.extract_by_connectivity(connectivity=2)
+            return resultGraph.get_graph(graph_format=graph_format)
+        else:
+            log.info('Unknown data retrieval mode.')
+            return None
+    
+    def get_cy_json2(self, graph_format=None, mode='demo'):
         '''Creates cytoscape JSON graph
 
         Args:

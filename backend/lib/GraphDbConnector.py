@@ -9,6 +9,20 @@ class GConnector(object):
     @property        
     def nodeIds(self):
         return [self.G.node[n]['name'] for n in self.G]
+    
+    def assign_search_group(self, pmc_hits):
+        '''Only call if networkx object is populated'''
+        for n in self.G.nodes:
+            #from IPython.core.debugger import Tracer; Tracer()()
+            if self.G.nodes[n]['pmcid'] in pmc_hits:
+                self.G.node[n]['group'] = 'Searched'
+            else:
+                self.G.node[n]['group'] = 'Cited'
+                
+    def assign_pubdate(self):
+        '''Only call if networkx object is populated'''
+        for n in self.G.nodes:
+            self.G.nodes[n]['pubDate'] = self.G.nodes[n]['month'] + ' ' + self.G.nodes[n]['year']
 
     
 class MongoGraph(GConnector):
@@ -34,6 +48,10 @@ class NeoGraph(GConnector):
         neo_subgraph = neo_request.to_subgraph()
         
         self.neo2networkx(neo_subgraph = neo_subgraph)
+        
+        # Assign search group
+        self.assign_search_group(pmc_hits)
+        self.assign_pubdate()
         
         # Return NetworkX
         return self.G
@@ -66,11 +84,24 @@ class NeoGraph(GConnector):
             neo_id = node.identity
             pmid_map[neo_id] = pmid
             
+            # Build attributes
+            attr_checked = {'title':'', 'authors':'', 'journal':'', 'journal_iso':'', 'year':'', 'month':'', 'pmcid':''}
+            
+            for key in attr_checked:
+                if key in attr.keys():
+                    attr_checked[key] = attr[key]
+            
             # build node tuple
             #node_tuple = (pmid, {'name':pmid})
             
             #print node
-            self.G.add_node(pmid, name=pmid)
+            author_lst = attr_checked['authors'].split(',')
+            
+            self.G.add_node(pmid, name=pmid, title=attr_checked['title'],
+                            authors_all=author_lst, authors=author_lst[0:3],
+                            journal=attr_checked['journal'], journal_iso=attr_checked['journal_iso'],
+                            year=str(attr_checked['year']), month=str(attr_checked['month']), 
+                            pmcid=attr_checked['pmcid'])
 
         # Add relationships
         for rel in rels:
