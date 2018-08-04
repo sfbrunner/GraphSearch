@@ -356,7 +356,7 @@ export class CytoGraph extends React.Component {
         );
         clearTimeout(this.tooltipTimeout);
         this._hideTooltip(event);
-        //setTimeout(this._hideTooltip, 300, event);
+        // setTimeout(this._hideTooltip, 300, event); //TODO: This will also remove tooltip when mouse is hovering
     }
 
     _renderTooltip(event) {

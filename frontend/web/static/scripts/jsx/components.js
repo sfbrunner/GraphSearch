@@ -114,6 +114,16 @@ export class SearchNav extends Component {
 
     constructor(props) {
         super(props);
+        this.truncateString = this.truncateString.bind(this)
+    }
+
+    truncateString(inputString, maxLength){
+        if (inputString.length > maxLength){
+            return `${inputString.substring(0, maxLength)}${"... "}`
+        }
+        else{
+            return `${inputString}${" "}`
+        }
     }
 
     render() {
@@ -152,7 +162,7 @@ export class SearchNav extends Component {
                                 <Dropdown.Menu>
                                     {map(keys(this.props.searchHistory), id => 
                                         <MenuItem key={id} eventKey={id} onClick={event => this.props.historyHandler(id)}>
-                                            <div>{this.props.searchHistory[id].searchString + "  "}
+                                            <div>{this.truncateString(this.props.searchHistory[id].searchString, 30)}
                                                 <Badge style={{backgroundColor:'#004cc6'}}>{ this.props.searchHistory[id].num_results }</Badge>
                                                 <Badge style={{backgroundColor:'red'}}>{ this.props.searchHistory[id].num_citations }</Badge>
                                                 <Badge style={{backgroundColor:'lightgrey'}}>{ this.props.searchHistory[id].num_links }</Badge>
@@ -360,13 +370,14 @@ class ReadingList extends React.Component {
             <Panel.Heading>
                 <Panel.Title toggle>Reading List ({Object.keys(this.props.readingList).length})</Panel.Title>
             </Panel.Heading>
-            <Panel.Body collapsible expanded="true">
+            <Panel.Body collapsible style={{overflowY: 'scroll'}}>
             <ListGroup>
                 {Object.keys(this.props.readingList).length == 0
                 ? <div> Click on nodes to add and remove papers here! </div>
                 : map(keys(this.props.readingList), id => 
                     <ListGroupItem>
-                        <div dangerouslySetInnerHTML={{__html: this.props.readingList[id]}}/>                
+                        <div style={{float: 'right'}}><Button bsSize="xsmall" onClick={clickEvent => this.props.readingListItemDeleter(id)}><span class="glyphicon glyphicon-remove"/></Button></div>
+                        <div dangerouslySetInnerHTML={{__html: this.props.readingList[id]}}/>
                     </ListGroupItem>
                 )}
             </ListGroup>
@@ -573,6 +584,7 @@ export class SearchActive extends Component {
         this.updateVisualGraphState = this.updateVisualGraphState.bind(this);
         this.handleApiResult = this.handleApiResult.bind(this);
         this.readingListHandler = this.readingListHandler.bind(this);
+        this.readingListItemDeleter = this.readingListItemDeleter.bind(this);
     }
 
     componentDidMount() {
@@ -703,6 +715,12 @@ export class SearchActive extends Component {
         this.updateVisualGraphState({"zoomLevel": 0.0});
     }
 
+    readingListItemDeleter(dictKey){
+        const { readingList } = this.state;
+        delete readingList[dictKey];
+        this.setState({ readingList: readingList});
+    }
+    
     readingListHandler(dict){
         const { readingList } = this.state;
         for (var key in dict){
@@ -732,7 +750,7 @@ export class SearchActive extends Component {
                             ? <GraphInfo data={this.state.graphJson[id].stats} nodeHandler={this.nodeHandler} nodeHighlighter={this.nodeHighlighter} authorHighlighter={this.authorHighlighter}/> 
                             : <h2>{noResultsString}</h2>)}
                     </Panel>
-                    <ReadingList readingList={this.state.readingList} style={{padding: '0%', borderColor: 'lightgrey', display: this.state.loading? 'none': 'block', pointerEvents: 'all', zIndex: '1000', position: 'absolute', left: '79%', top: '8%', width: '20%'}}/>
+                    <ReadingList readingListItemDeleter={this.readingListItemDeleter} readingList={this.state.readingList} style={{padding: '0%', borderColor: 'lightgrey', display: this.state.loading? 'none': 'block', pointerEvents: 'all', zIndex: '1000', position: 'absolute', left: '79%', top: '8%', width: '20%'}}/>
                     <div style={{width: '100%', float: 'left', height: '100%', display: this.state.loading? 'none': 'block'}}>
                         <div id='cy' style={{width: '100%', float: 'left', left: '0%', height: '100%', position: 'absolute', zIndex: '999'}}>
                             {map(keys(this.state.graphJson), id => <CytoGraph graph={this.state.graphJson[id].graph} contextMenuHandler={this.contextMenuHandler} visualGraphState={this.state.visualGraphState} readingListHandler={this.readingListHandler} />)}
@@ -743,7 +761,7 @@ export class SearchActive extends Component {
                             ? <GraphSummaryDisplay data={this.state.graphJson[id].stats}/> 
                             : null)}
                     </div>
-                    <div style={{left: '45%', top: '40%', position: 'absolute', bottom: 0, height: '0px'}}>
+                    <div style={{left: '47%', top: '40%', position: 'absolute', bottom: 0, height: '0px'}}>
                         <DotLoader loading={this.state.loading}/>
                     </div>
                     </ErrorBoundary>
