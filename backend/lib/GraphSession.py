@@ -7,7 +7,9 @@ from MongoSession import MongoSession
 from NeoSession import NeoSession
 from ResultGraph import ResultGraph
 from FrontEndGraph import FrontEndGraph
-from GraphDbConnector import NeoGraph
+from GraphDbConnector import NeoGraph, MongoGraph
+from MetaDbConnector import MongoMeta
+from GraphPruner import CitationPruner
 from requestFactory import createSearchRequest
 from utils.logger import LogHandler
 import numpy as np
@@ -25,12 +27,53 @@ class GraphSession(object):
         log.info(msg.format(self.__class__.__name__, self.request.userInput))
         
         if mode=='live':
-            pmc_hits = self.get_pubmed_results_from_fulltext(self.request.userInput, retmax=20)
+            log.info('Using live mode for data retrieval.')
+            pmc_hits = self.get_pubmed_results_from_fulltext(self.request.userInput, retmax=40)
             
             neo_graph = NeoGraph()
             nx_graph = neo_graph.process_search_request(pmc_hits)
             
             frontendgraph = FrontEndGraph(nx_graph)
+            #log.info(frontendgraph.get_cyto_graph())
+            return frontendgraph.get_cyto_graph()
+        elif mode=='demo':
+            log.info('Using demo mode for data retrieval.')
+            resultGraph = ResultGraph()
+            resultGraph.G = resultGraph.read_json_file('../notebooks/output/demo_network_pubyear.json')
+            resultGraph.extract_by_connectivity(connectivity=2)
+            return resultGraph.get_graph(graph_format=graph_format)
+        else:
+            log.info('Unknown data retrieval mode.')
+            return None
+    
+    def get_cy_json_mongo(self, graph_format=None, mode='demo'):
+        '''Creates cytoscape JSON graph
+
+        Args:
+        mode (default: 'live'): if 'live', then MongoDB will be queried. If 'demo', then a demo dataset is served.
+        '''
+
+        msg = '{0}: Search input received: {1}'
+        log.info(msg.format(self.__class__.__name__, self.request.userInput))
+
+        if mode=='live':
+            log.info('Using live mode for data retrieval.')
+            pmc_hits = self.get_pubmed_results_from_fulltext(self.request.userInput, retmax=200)
+            
+            mongo_graph = MongoGraph()
+            nx_graph = mongo_graph.process_search_request(pmc_hits)
+            
+            log.info('Pruning graph')
+            pruner = CitationPruner(nx_graph)
+            nx_graph = pruner.prune_graph()
+            
+            log.info('Acquiring meta data')
+            meta_db = MongoMeta()
+            nx_graph = meta_db.add_meta_to_graph(nx_graph)
+            
+            log.info('Formatting graph for frontend')
+            frontendgraph = FrontEndGraph(nx_graph)
+            #log.info(frontendgraph.get_cyto_graph())
             return frontendgraph.get_cyto_graph()
         elif mode=='demo':
             log.info('Using demo mode for data retrieval.')
