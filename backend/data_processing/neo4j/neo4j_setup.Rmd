@@ -1,0 +1,135 @@
+---
+title: "neo4j_setup"
+author: "Simon Brunner"
+date: "5 April 2018"
+output: html_document
+---
+
+```{r}
+library(dplyr)
+library(data.table)
+library(tidyr)
+```
+
+# Articles
+
+## Import data
+```{r}
+article_nodes = tbl_df(fread('zcat < mongodump/article_nodes.csv.gz'))
+pmc_id = tbl_df(fread('zcat < mongodump/PMC-ids.csv.gz'))
+```
+
+### Merge article nodes and PMC ids
+```{r}
+article_pmc = article_nodes %>%
+  left_join(pmc_id %>% dplyr::select(PMCID, pmid=PMID, pmc_year=Year), by='pmid')
+
+article_pmc %>% glimpse()
+```
+
+### Some articles in PMC have errors
+The ones where the year is not the same as pmc_year do not have the correct PMID. Perhaps remove those articles?
+```{r}
+article_pmc %>% 
+  filter(!is.na(PMCID)) %>%
+  filter(pmc_year != year) %>% glimpse()
+```
+
+### Most year differences are very small
+Those differences are probably negligible. 
+In cases where differences are bigger they mostly arise because the PMC year is the publish online year, not the actual publishing year. We should keep the Pubmed year. However, removing the articles is not necessary. Most articles are matched correctly between PMC and Pubmed.
+```{r}
+x = article_pmc %>% 
+  filter(!is.na(PMCID)) %>%
+  filter(pmc_year != year) %>%
+  mutate(year_diff = abs(year-pmc_year))
+
+table(x$year_diff)
+```
+
+### Remove articles with extreme year differences
+A single article has a year difference of 38 (PMC4138818) and does not match between Pubmed and PMC. This one is removed manually.
+```{r}
+article_pmc_cl = article_pmc %>%
+  mutate(PMCID = ifelse(is.na(PMCID), '', PMCID)) %>% 
+  filter(PMCID != 'PMC4138818') %>%
+  dplyr::select(-pmc_year) %>%
+  mutate(node_label='ARTICLE') %>%
+  mutate(title = gsub('\n', ' ', title)) %>%
+  mutate(pmid = as.character(pmid), year=as.character(year))
+  #mutate(pmid = bit64::as.integer64(pmid)) %>%
+  #mutate(year = bit64::as.integer64(year))
+```
+
+### Write to disk
+```{r}
+fwrite(article_pmc_cl, 'neo4j_data/article_nodes.csv', col.names = F, quote = T)
+```
+
+## Import article edges
+```{r}
+article_e = tbl_df(fread('zcat < mongodump/pmc_clean_ref_links_final.csv.gz'))
+```
+
+### Remove pmc id and unique the table
+```{r}
+article_e_clean = article_e %>% dplyr::select(-article_pmc) %>%
+  mutate(ref_pmid = as.numeric(ref_pmid)) %>% distinct() %>%
+  mutate(rel_type = 'CITES') %>%
+  dplyr::select(article_pmid, ref_pmid, rel_type)
+```
+
+How many edges were non unique?
+```{r}
+dim(article_e)[1] - dim(article_e_clean)[1]
+```
+
+### Write to disk
+```{r}
+fwrite(article_e_clean, 'neo4j_data/article_edges.csv', col.names=F)
+```
+
+### Write to disk without metadata
+```{r}
+fwrite(article_pmc_cl %>% dplyr::select(pmid, PMCID, node_label), 'neo4j_data/article_nodes_nometa.csv', col.names = F, quote = T)
+```
+
+## Generate journal nodes and edges
+
+### Import articles
+```{r}
+article_nodes = tbl_df(fread('neo4j_data/article_nodes.csv'))
+names(article_nodes) <- c("pmid","year","month","journal","journal_iso","title","authors","PMCID","node_label")
+article_nodes %>% glimpse()
+```
+
+### Transform
+```{r}
+journal_tbl = article_nodes %>%
+  dplyr::select(pmid, journal, journal_iso)
+journal_tbl$journal_id = group_indices(journal_tbl, journal, journal_iso)
+journal_tbl = mutate(journal_tbl, journal_id = paste('journal', journal_id, sep='_'))
+journal_tbl %>% glimpse()
+```
+
+### Generate journal nodes
+```{r}
+journal_nodes = journal_tbl %>%
+  dplyr::select(journal_id, journal, journal_iso) %>%
+  distinct() %>%
+  mutate(node_label='JOURNAL')
+journal_nodes %>% glimpse()
+
+fwrite(journal_nodes, 'neo4j_data/journal_nodes.csv', quote=T, col.names=F)
+```
+
+### Generate journal edges
+```{r}
+journal_edges = journal_tbl %>%
+  dplyr::select(journal_id, pmid) %>%
+  distinct() %>%
+  mutate(rel_type = 'PUBLISHED')
+journal_edges %>% glimpse()
+
+fwrite(journal_edges, 'neo4j_data/journal_edges.csv', quote=T, col.names=F)
+```
