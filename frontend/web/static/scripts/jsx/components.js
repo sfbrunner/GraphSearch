@@ -72,10 +72,14 @@ class ErrorBoundary extends React.Component {
   
     render() {
       if (this.state.hasError) {
-        // You can render any custom fallback UI
-        return <h1>Sorry, something went wrong. We are trying to fix it asap.</h1>;
+      return (
+          //TODO: Insert spaces more nicely.
+        <div>
+            <p><br/><br/><br/></p> 
+            <h1><Glyphicon glyph="fire" />{`${"  "}${"Sorry, something went wrong."}${"  "}`}<Glyphicon glyph="fire" /><br/>Please let us know via the Feedback form.</h1>
+        </div>)
       }
-      return this.props.children;
+      return (this.props.children)
     }
 }
 
@@ -114,6 +118,16 @@ export class SearchNav extends Component {
 
     constructor(props) {
         super(props);
+        this.truncateString = this.truncateString.bind(this)
+    }
+
+    truncateString(inputString, maxLength){
+        if (inputString.length > maxLength){
+            return `${inputString.substring(0, maxLength)}${"... "}`
+        }
+        else{
+            return `${inputString}${" "}`
+        }
     }
 
     render() {
@@ -151,13 +165,15 @@ export class SearchNav extends Component {
                                 </Dropdown.Toggle>
                                 <Dropdown.Menu>
                                     {map(keys(this.props.searchHistory), id => 
+                                        this.props.searchHistory[id].num_results > 0 ?
                                         <MenuItem key={id} eventKey={id} onClick={event => this.props.historyHandler(id)}>
-                                            <div>{this.props.searchHistory[id].searchString + "  "}
+                                            <div>{this.truncateString(this.props.searchHistory[id].searchString, 30)}
                                                 <Badge style={{backgroundColor:'#004cc6'}}>{ this.props.searchHistory[id].num_results }</Badge>
                                                 <Badge style={{backgroundColor:'red'}}>{ this.props.searchHistory[id].num_citations }</Badge>
                                                 <Badge style={{backgroundColor:'lightgrey'}}>{ this.props.searchHistory[id].num_links }</Badge>
                                             </div>
                                         </MenuItem>
+                                        : null
                                     )}
                                 </Dropdown.Menu>
                                 </Dropdown>
@@ -357,20 +373,21 @@ class ReadingList extends React.Component {
     render(){
         return(
             <Panel id="reading-list-panel" defaultcollapsed style={this.props.style}>
-            <Panel.Heading>
-                <Panel.Title toggle>Reading List ({Object.keys(this.props.readingList).length})</Panel.Title>
-            </Panel.Heading>
-            <Panel.Body collapsible expanded="true">
-            <ListGroup>
-                {Object.keys(this.props.readingList).length == 0
-                ? <div> Click on nodes to add and remove papers here! </div>
-                : map(keys(this.props.readingList), id => 
-                    <ListGroupItem>
-                        <div dangerouslySetInnerHTML={{__html: this.props.readingList[id]}}/>                
-                    </ListGroupItem>
-                )}
-            </ListGroup>
-            </Panel.Body>
+                <Panel.Heading>
+                    <Panel.Title toggle>Reading List ({Object.keys(this.props.readingList).length}) <span class="glyphicon glyphicon-chevron-down" style={{align: "right"}}/></Panel.Title>
+                </Panel.Heading>
+                <Panel.Body collapsible style={{overflowY: 'scroll', height: '550px'}}>
+                    <ListGroup>
+                        {Object.keys(this.props.readingList).length == 0
+                        ? <div> Click on nodes to add and remove papers here! </div>
+                        : map(keys(this.props.readingList), id => 
+                            <ListGroupItem>
+                                <div style={{float: 'right'}}><Button bsSize="xsmall" onClick={clickEvent => this.props.readingListItemDeleter(id)}><span class="glyphicon glyphicon-remove"/></Button></div>
+                                <div dangerouslySetInnerHTML={{__html: this.props.readingList[id]}}/>
+                            </ListGroupItem>
+                        )}
+                    </ListGroup>
+                </Panel.Body>
             </Panel>
         )
     }
@@ -573,6 +590,7 @@ export class SearchActive extends Component {
         this.updateVisualGraphState = this.updateVisualGraphState.bind(this);
         this.handleApiResult = this.handleApiResult.bind(this);
         this.readingListHandler = this.readingListHandler.bind(this);
+        this.readingListItemDeleter = this.readingListItemDeleter.bind(this);
     }
 
     componentDidMount() {
@@ -703,6 +721,12 @@ export class SearchActive extends Component {
         this.updateVisualGraphState({"zoomLevel": 0.0});
     }
 
+    readingListItemDeleter(dictKey){
+        const { readingList } = this.state;
+        delete readingList[dictKey];
+        this.setState({ readingList: readingList});
+    }
+    
     readingListHandler(dict){
         const { readingList } = this.state;
         for (var key in dict){
@@ -718,7 +742,7 @@ export class SearchActive extends Component {
 
 	render() {
         
-        const noResultsString = "Sorry, your search yielded no results. Please try again.";
+        const noResultsString = "Sorry, your search yielded no result. Please try again.";
 
 		return (
             <Grid>
@@ -727,23 +751,24 @@ export class SearchActive extends Component {
                 </Row>
                 <Row>
                     <ErrorBoundary>
-                    <Panel style={{padding: '0.5%', background:'#d3d3d34d', borderColor: 'lightgrey', display: this.state.loading? 'none': 'block', pointerEvents: 'all', zIndex: '1000', position: 'absolute', left: '1%', top: '8%', width: '20%'}}>
+                    <Panel style={{padding: '0.5%', background:'#d3d3d34d', borderColor: 'lightgrey', display: (this.state.loading || !this.state.foundResults)? 'none': 'block', pointerEvents: 'all', zIndex: '1000', position: 'absolute', left: '1%', top: '8%', width: '20%'}}>
                         {map(keys(this.state.graphJson), id => this.state.foundResults 
                             ? <GraphInfo data={this.state.graphJson[id].stats} nodeHandler={this.nodeHandler} nodeHighlighter={this.nodeHighlighter} authorHighlighter={this.authorHighlighter}/> 
-                            : <h2>{noResultsString}</h2>)}
+                            : null)}
                     </Panel>
-                    <ReadingList readingList={this.state.readingList} style={{padding: '0%', borderColor: 'lightgrey', display: this.state.loading? 'none': 'block', pointerEvents: 'all', zIndex: '1000', position: 'absolute', left: '79%', top: '8%', width: '20%'}}/>
+                    <ReadingList readingListItemDeleter={this.readingListItemDeleter} readingList={this.state.readingList} style={{padding: '0%', borderColor: 'lightgrey', display: this.state.loading? 'none': 'block', pointerEvents: 'all', zIndex: '1000', position: 'absolute', left: '79%', top: '8%', width: '20%', maxHeight: '85%'}}/>
                     <div style={{width: '100%', float: 'left', height: '100%', display: this.state.loading? 'none': 'block'}}>
                         <div id='cy' style={{width: '100%', float: 'left', left: '0%', height: '100%', position: 'absolute', zIndex: '999'}}>
                             {map(keys(this.state.graphJson), id => <CytoGraph graph={this.state.graphJson[id].graph} contextMenuHandler={this.contextMenuHandler} visualGraphState={this.state.visualGraphState} readingListHandler={this.readingListHandler} />)}
                         </div>
+                        {this.state.foundResults  ? null : <div><p><br/><br/><br/></p><h2>{noResultsString}</h2></div>}
                         <ContextMenu contextMenuState={this.state.contextMenuState} />
                         <GraphHelperMenu handleRefocus={this.handleRefocus} handleZoomIn={this.handleZoomIn} handleZoomOut={this.handleZoomOut}/>
                         {map(keys(this.state.graphJson), id => this.state.foundResults 
                             ? <GraphSummaryDisplay data={this.state.graphJson[id].stats}/> 
                             : null)}
                     </div>
-                    <div style={{left: '45%', top: '40%', position: 'absolute', bottom: 0, height: '0px'}}>
+                    <div style={{left: '47%', top: '40%', position: 'absolute', bottom: 0, height: '0px'}}>
                         <DotLoader loading={this.state.loading}/>
                     </div>
                     </ErrorBoundary>
