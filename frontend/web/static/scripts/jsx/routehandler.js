@@ -1,18 +1,15 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom'
-import { BrowserRouter, Route, Link, Switch, hashHistory } from 'react-router-dom'
-import { BurgerTest } from './burgercomponent'
-import { SearchLanding, SearchActive, About, MainNav, FeedbackModal } from './components'
-import { Image, Grid, Row, Col, Clearfix } from 'react-bootstrap'
+import { BrowserRouter, Route, Switch, hashHistory } from 'react-router-dom'
+import { SearchLanding, SearchActive, About } from './components'
 import ReactGA from 'react-ga';
-import createHistory from 'history/createBrowserHistory'
 
 ReactGA.initialize('UA-116488460-1', { debug: true })
 ReactGA.pageview(window.location.pathname + window.location.search);
 
 const Layout = ({routehandler}) => (
     <div className="container-fluid wrapper" id="outer-container">
-		<div style={{ width:'100%' }}>{routehandler}</div>
+		<div style={{ width:'100%', overflowX: 'hidden', overflowY: 'hidden' }}>{routehandler}</div>
 	</div>
 ) 
 
