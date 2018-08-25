@@ -15,6 +15,7 @@ import { Histogram, DensitySeries, BarSeries, withParentSize, XAxis, YAxis, With
 import { format } from "d3-format";
 import renderTooltip from './renderHistogramTooltip'; 
 import { TagCloud } from "react-tagcloud";
+import * as offlineParams from './offlineParams'
 var createIssue = require( 'github-create-issue');
 var bgImage = require('../../images/main_img-01.svg')
 
@@ -68,6 +69,7 @@ class ErrorBoundary extends React.Component {
       this.setState({ hasError: true });
       // You can also log the error to an error reporting service
       // logErrorToMyService(error, info);
+      console.log(error, info)
     }
   
     render() {
@@ -851,18 +853,20 @@ export class FeedbackModal extends Component {
     }
   
     closeModal(event) {
+        console.log('Closing modal')
         event.preventDefault();
-        var feedback_title = event.target.childNodes[0].children.feedback_title.value;
-        var feedback_body = event.target.childNodes[0].children.feedback_body.value;
+        var feedback_title = event.target.childNodes[0].children[0].children[0].value;
+        var feedback_body = event.target.childNodes[0].children[2].children[0].value;
         { feedback_title==''
             ? this.setState({col_title: 'red'})
             : this.setState({col_title: 'black'})
         }
         var github_opts = {
-          'token': 'ff087a2639f785667f246312a64d2709d6965229',
+          'token': offlineParams.GitToken,
           'body': feedback_body,
           'labels': ['feedback'] 
         }
+        console.log(github_opts)
       createIssue( 'sfbrunner/GraphSearch', feedback_title, github_opts, this.issue_callback );
       this.setState({modalIsOpen: false});
     }
@@ -881,7 +885,7 @@ export class FeedbackModal extends Component {
                     Please provide us with your feedback.
                     </Modal.Title>
                 </Modal.Header>
-                <form>
+                <form onSubmit={this.closeModal}>
                     <Modal.Body>
                     <h5>Subject<FormControl id='feedback_title' type='text' label='Subject' placeholder="Feedback subject"/></h5>
                     <h5>Your email (optional)<FormControl id='useremail' type='email' label='Email address (optional)' placeholder="your@email.com"/></h5>

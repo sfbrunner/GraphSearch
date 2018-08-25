@@ -35,7 +35,7 @@ def getGraph(*args, **kwargs):
     try:
         log.info(*args)
         graphSession = GraphSession(*args, **kwargs)
-        graphJSON = json.loads(graphSession.get_cy_json(graph_format=kwargs['graph_format'], mode=kwargs['mode']))
+        graphJSON = json.loads(graphSession.get_cy_json_mongo(graph_format=kwargs['graph_format'], mode=kwargs['mode']))
         log.info('Logging in getGraph of worker')
         return graphJSON
     except Exception as e:
