@@ -313,6 +313,7 @@ class GraphTagCloud extends React.Component{
         super(props);
         this.state = { tags: props.tags, clickedTag: null };
         this.nodeHighlighter = this.nodeHighlighter.bind(this);
+        this.selectedColor = props.selectedColor;
     }
 
     nodeHighlighter(filter){
@@ -331,7 +332,7 @@ class GraphTagCloud extends React.Component{
                     fontSize: `${size}px`,
                     border: `0.0px solid ${color}`,
                     margin: '1px',
-                    backgroundColor: tag.value==this.state.clickedTag? 'black' : 'grey',
+                    backgroundColor: tag.value==this.state.clickedTag? this.selectedColor : 'grey',
                     padding: '3px',
                     color: 'white',
                     borderRadius: '5px',
@@ -383,7 +384,7 @@ class ReadingList extends React.Component {
                         {Object.keys(this.props.readingList).length == 0
                         ? <div> Click on nodes to add and remove papers here! </div>
                         : map(keys(this.props.readingList), id => 
-                            <ListGroupItem>
+                            <ListGroupItem key={id}>
                                 <div style={{float: 'right'}}><Button bsSize="xsmall" onClick={clickEvent => this.props.readingListItemDeleter(id)}><span class="glyphicon glyphicon-remove"/></Button></div>
                                 <div dangerouslySetInnerHTML={{__html: this.props.readingList[id]}}/>
                             </ListGroupItem>
@@ -424,7 +425,7 @@ class GraphInfo extends React.Component {
                         <Panel.Title toggle>Top Authors</Panel.Title>
                     </Panel.Heading>
                     <Panel.Body collapsible expanded="true">
-                        <GraphTagCloud tags={Object.entries(this.state.stats.top_author_dict).map(tagCreator)} nodeHighlighter={this.props.authorHighlighter} />
+                        <GraphTagCloud tags={Object.entries(this.state.stats.top_author_dict).map(tagCreator)} nodeHighlighter={this.props.authorHighlighter} selectedColor={'#39FF14'}/>
                     </Panel.Body>
                 </Panel>
                 <Panel id="top-journal-panel" defaultExpanded>
@@ -432,7 +433,7 @@ class GraphInfo extends React.Component {
                         <Panel.Title toggle>Top Journals</Panel.Title>
                     </Panel.Heading>
                     <Panel.Body collapsible expanded="true">
-                    <GraphTagCloud tags={Object.entries(this.state.stats.top_journal_dict).map(tagCreator)} nodeHighlighter={this.props.nodeHighlighter} />
+                        <GraphTagCloud tags={Object.entries(this.state.stats.top_journal_dict).map(tagCreator)} nodeHighlighter={this.props.nodeHighlighter} selectedColor={'#ffd000'}/>
                     </Panel.Body>
                 </Panel>
                 <Panel id="publications-per-year-panel" defaultExpanded>
@@ -755,7 +756,7 @@ export class SearchActive extends Component {
                     <ErrorBoundary>
                     <Panel style={{padding: '0.5%', background:'#d3d3d34d', borderColor: 'lightgrey', display: (this.state.loading || !this.state.foundResults)? 'none': 'block', pointerEvents: 'all', zIndex: '1000', position: 'absolute', left: '1%', top: '8%', width: '20%'}}>
                         {map(keys(this.state.graphJson), id => this.state.foundResults 
-                            ? <GraphInfo data={this.state.graphJson[id].stats} nodeHandler={this.nodeHandler} nodeHighlighter={this.nodeHighlighter} authorHighlighter={this.authorHighlighter}/> 
+                            ? <GraphInfo key={id} data={this.state.graphJson[id].stats} nodeHandler={this.nodeHandler} nodeHighlighter={this.nodeHighlighter} authorHighlighter={this.authorHighlighter}/> 
                             : null)}
                     </Panel>
                     <ReadingList readingListItemDeleter={this.readingListItemDeleter} readingList={this.state.readingList} style={{padding: '0%', borderColor: 'lightgrey', display: this.state.loading? 'none': 'block', pointerEvents: 'all', zIndex: '1000', position: 'absolute', left: '79%', top: '8%', width: '20%', maxHeight: '85%'}}/>

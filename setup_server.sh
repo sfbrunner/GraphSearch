@@ -20,6 +20,7 @@ conda install -c anaconda redis=3.2.0
 conda install -c conda-forge nodejs
 pip install 'celery[redis]'
 pip install httpie
+pip install py2neo
 
 # WEBPACK
 npm install -g webpack
