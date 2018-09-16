@@ -22,6 +22,7 @@ npm install gulp
 npm install bower
 pip install 'celery[redis]'
 pip install httpie
+pip install py2neo
 
 # GET REPO
 mkdir git
