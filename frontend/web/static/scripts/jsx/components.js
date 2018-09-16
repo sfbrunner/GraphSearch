@@ -375,7 +375,7 @@ class ReadingList extends React.Component {
 
     render(){
         return(
-            <Panel id="reading-list-panel" defaultcollapsed style={this.props.style}>
+            <Panel id="reading-list-panel" defaultcollapsed="false" style={this.props.style}>
                 <Panel.Heading>
                     <Panel.Title toggle>Reading List ({Object.keys(this.props.readingList).length}) <span class="glyphicon glyphicon-chevron-down" style={{align: "right"}}/></Panel.Title>
                 </Panel.Heading>
@@ -422,7 +422,7 @@ class GraphInfo extends React.Component {
             <div id="netstats" name="netstats">
                 <Panel id="top-author-panel" defaultExpanded>
                     <Panel.Heading>
-                        <Panel.Title toggle>Top Authors</Panel.Title>
+                        <Panel.Title toggle>Top Authors <span class="glyphicon glyphicon-chevron-down" style={{align: "right"}}/></Panel.Title>
                     </Panel.Heading>
                     <Panel.Body collapsible expanded="true">
                         <GraphTagCloud tags={Object.entries(this.state.stats.top_author_dict).map(tagCreator)} nodeHighlighter={this.props.authorHighlighter} selectedColor={'#39FF14'}/>
@@ -430,7 +430,7 @@ class GraphInfo extends React.Component {
                 </Panel>
                 <Panel id="top-journal-panel" defaultExpanded>
                     <Panel.Heading>
-                        <Panel.Title toggle>Top Journals</Panel.Title>
+                        <Panel.Title toggle>Top Journals <span class="glyphicon glyphicon-chevron-down" style={{align: "right"}}/></Panel.Title>
                     </Panel.Heading>
                     <Panel.Body collapsible expanded="true">
                         <GraphTagCloud tags={Object.entries(this.state.stats.top_journal_dict).map(tagCreator)} nodeHighlighter={this.props.nodeHighlighter} selectedColor={'#ffd000'}/>
@@ -438,7 +438,7 @@ class GraphInfo extends React.Component {
                 </Panel>
                 <Panel id="publications-per-year-panel" defaultExpanded>
                     <Panel.Heading>
-                        <Panel.Title toggle>Publications per year</Panel.Title>
+                        <Panel.Title toggle>Publications per year <span class="glyphicon glyphicon-chevron-down" style={{align: "right"}}/></Panel.Title>
                     </Panel.Heading>
                     <Panel.Body collapsible expanded="true">
                         <div style={{height:'140px'}}>
@@ -541,9 +541,9 @@ class GraphHelperMenu extends Component {
         };
         return(
             <ButtonToolbar style={graphHelperMenuStyle} >
-                <Button onClick={this.handleRefocus}><span class="glyphicon glyphicon-fullscreen"></span></Button>
-                <Button onClick={this.handleZoomIn}><span class="glyphicon glyphicon-plus"></span></Button>
-                <Button onClick={this.handleZoomOut}><span class="glyphicon glyphicon-minus"></span></Button>
+                <Button style={{background: 'lightgrey'}} onClick={this.handleRefocus}><span class="glyphicon glyphicon-fullscreen"></span></Button>
+                <Button style={{background: 'lightgrey'}} onClick={this.handleZoomIn}><span class="glyphicon glyphicon-plus"></span></Button>
+                <Button style={{background: 'lightgrey'}} onClick={this.handleZoomOut}><span class="glyphicon glyphicon-minus"></span></Button>
             </ButtonToolbar >
         )
     }
@@ -759,7 +759,7 @@ export class SearchActive extends Component {
                             ? <GraphInfo key={id} data={this.state.graphJson[id].stats} nodeHandler={this.nodeHandler} nodeHighlighter={this.nodeHighlighter} authorHighlighter={this.authorHighlighter}/> 
                             : null)}
                     </Panel>
-                    <ReadingList readingListItemDeleter={this.readingListItemDeleter} readingList={this.state.readingList} style={{padding: '0%', borderColor: 'lightgrey', display: this.state.loading? 'none': 'block', pointerEvents: 'all', zIndex: '1000', position: 'absolute', left: '79%', top: '8%', width: '20%', maxHeight: '85%'}}/>
+                    <ReadingList readingListItemDeleter={this.readingListItemDeleter} readingList={this.state.readingList} style={{padding: '0%', borderColor: 'lightgrey', background:'#d3d3d34d', pointerEvents: 'all', zIndex: '1000', position: 'absolute', left: '79%', top: '8%', width: '20%', maxHeight: '85%'}}/>
                     <div style={{width: '100%', float: 'left', height: '100%', display: this.state.loading? 'none': 'block'}}>
                         <div id='cy' style={{width: '100%', float: 'left', left: '0%', height: '100%', position: 'absolute', zIndex: '999'}}>
                             {map(keys(this.state.graphJson), id => <CytoGraph graph={this.state.graphJson[id].graph} contextMenuHandler={this.contextMenuHandler} visualGraphState={this.state.visualGraphState} readingListHandler={this.readingListHandler} />)}
