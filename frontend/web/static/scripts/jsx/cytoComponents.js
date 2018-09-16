@@ -392,7 +392,7 @@ export class CytoGraph extends React.Component {
 
     _formatNodeMouseover(event){
         event.target.animate(
-            { style: { borderColor: NodeBorderColor.highlight, borderWidth: NodeBorderWidth.highlight, 'shape': 'star' } },
+            { style: { borderColor: NodeBorderColor.highlight, borderWidth: NodeBorderWidth.highlight } },
             { duration: 10 }
         );
         this.tooltipTimeout = setTimeout(this._renderTooltip, 200, event);
@@ -428,7 +428,7 @@ export class CytoGraph extends React.Component {
             tooltipString: tooltipString,
             contextMenuLocation: {
                 'x' : event.target.renderedPosition().x, 
-                'y' : event.target.renderedPosition().y + event.target.height() / 2 }
+                'y' : event.target.renderedPosition().y + (event.target.height() / 2) * this.cy.zoom() }
             });
     }
 
