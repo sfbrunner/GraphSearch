@@ -374,7 +374,7 @@ class ReadingList extends React.Component {
 
     render(){
         return(
-            <Panel id="reading-list-panel" defaultcollapsed style={this.props.style}>
+            <Panel id="reading-list-panel" defaultcollapsed style={this.props.style} defaultExpanded>
                 <Panel.Heading>
                     <Panel.Title toggle>Reading List ({Object.keys(this.props.readingList).length}) <span class="glyphicon glyphicon-chevron-down" style={{align: "right"}}/></Panel.Title>
                 </Panel.Heading>
@@ -549,8 +549,8 @@ class GraphHelperMenu extends Component {
 }
 
 const rootUrl = new URL(window.location.origin)
-rootUrl.port = 8080
-const apiUrl = new URL("/api/", rootUrl)
+//rootUrl.port = 8091
+const apiUrl = new URL("/singlepage_api/", rootUrl)
 const maxTime = 30 * 1000; // miliseconds
 const pollInterval = 500;
 
