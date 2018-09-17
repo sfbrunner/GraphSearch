@@ -5,7 +5,7 @@ from flask import jsonify
 from flask import request
 
 from utils.logger import get_logger
-log = get_logger(__name__, fpath='backend/logs/restapi_logs.txt')
+log = get_logger(__name__, fpath='logs/restapi_logs.txt')
 
 from worker import getGraph
 
@@ -50,4 +50,5 @@ def put_task():
     return jsonify(response)
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=8080)
+    app.run(debug=True, host='0.0.0.0', port=8091)
+    #app.run()
