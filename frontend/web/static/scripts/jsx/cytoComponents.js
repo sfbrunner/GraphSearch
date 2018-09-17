@@ -20,10 +20,6 @@ var searchedNodeStyle = {
         'opacity': 1.0,
         'font-size': '5pt',
         'text-transform': 'uppercase',
-        //'text-background-color': 'white',
-        //'text-background-opacity': 0.8,
-        //'text-background-shape': 'roundrectangle',
-        //'text-outline-color': 'white',
         "text-max-width": 70,
         "text-wrap": 'ellipsis'
     },
@@ -44,10 +40,6 @@ var citedNodeStyle = {
         'opacity': 1.0,
         'font-size': '5pt',
         'text-transform': 'uppercase',
-        //'text-background-color': 'white',
-        //'text-background-opacity': 0.8,
-        //'text-background-shape': 'roundrectangle',
-        //'text-outline-color': 'white',
         "text-max-width": 70,
         "text-wrap": 'ellipsis'
     }
@@ -61,7 +53,8 @@ var edgeStyle = {
         'width': '2px',
         'target-arrow-shape': 'triangle',
         'control-point-step-size': '140px',
-        'opacity': 0.5
+        'opacity': 0.5,
+        'curve-style': 'haystack'
     }
 }
 
@@ -162,7 +155,7 @@ var cytoEuler = {
 };
 
 var NodeBorderColor = Object.freeze({ 'default': 'grey', 'highlight': 'black' });
-var NodeBorderWidth = Object.freeze({ 'default': '0.5', 'highlight': '2px solid #dadada' });
+var NodeBorderWidth = Object.freeze({ 'default': '0.5', 'highlight': '3px solid #dadada' });
 
 export class CytoGraph extends React.Component {
     // Wraps the cytoscape js library into react component
@@ -182,7 +175,6 @@ export class CytoGraph extends React.Component {
         this._nodeSelector = this._nodeSelector.bind(this);
         this.zoomGraph = this.zoomGraph.bind(this);
         this.highlightNodes = this.highlightNodes.bind(this);
-        this.highlightNodes2 = this.highlightNodes2.bind(this);
         this._formatNodeMouseout = this._formatNodeMouseout.bind(this);
         this._formatNodeMouseover = this._formatNodeMouseover.bind(this);
         this._hideTooltip = this._hideTooltip.bind(this);
@@ -190,6 +182,10 @@ export class CytoGraph extends React.Component {
         this._mountCytoGraph = this._mountCytoGraph.bind(this);
         this.visualGraphUpdate = this.visualGraphUpdate.bind(this);
         this.readingListHandler = this.readingListHandler.bind(this);
+        this.calculateSets = this.calculateSets.bind(this);
+        this.highlightOrDeselectNodes = this.highlightOrDeselectNodes.bind(this)
+        this.selectedAuthorNodes = undefined;
+        this.selectedPaperNodes = undefined;
     }
 
     componentWillUnmount(){
@@ -237,43 +233,96 @@ export class CytoGraph extends React.Component {
         );
     }
 
-    highlightNodes2(selector)
-    {
+    calculateSets(setA, setB, setC){
         /**
-        * @param {string} selector the selector according to http://js.cytoscape.org/#selectors
-        * styling according to http://js.cytoscape.org/#style/labels
-        * duration should not be set to 0 otherwise cytoscape will crash.
+        * @param {eles} setA the currently highlighted nodes
+        * @param {eles} setB the nodes which remain highlighted
+        * @param {eles} setC the new nodes which need to be hightlighted
         */
-        this.cy.nodes().animate(
-            { style: { 
-                'color': 'black', 
-                'text-background-color': 'white', 
-                'text-background-opacity': '0.0'
-            } },
-            { duration: 1 }
+        var diffAB = setA.diff(setB);
+        var diffBC = setB.diff(setC);
+
+         // nodes which will have no color anymore
+        var unselectA = diffAB.left.difference(setC);
+
+        // nodes which have a single color according to setB
+        var fullB = diffAB.both.difference(setC);
+
+        // nodes which have both colors
+        var mixed = diffBC.both.difference(setA);
+
+        // nodes which have a single color according to setC
+        var fullC = setC.difference(setA.union(setB));
+        return { 'unselectA': unselectA, 'mixed': mixed, 'fullC': fullC, 'fullB': fullB };
+    }
+
+    highlightOrDeselectNodes(newNodes, oldNodes, stayingNodes, colorNew, colorStaying){
+        var sets = this.calculateSets(oldNodes, stayingNodes, newNodes);
+        sets.unselectA.filter(function(ele){return ele.data('group') == 'Cited'}).forEach(function(ele){ele.animate(
+            { 
+                style: {
+                    'background-color': '#004cc6', 
+                    }
+            },
+            { 
+                duration: 1
+            },
+        )});
+        sets.unselectA.filter(function(ele){return ele.data('group') == 'Searched'}).forEach(function(ele){ele.animate(
+            { 
+                style: {
+                    'background-color': ele.data('node_col'), 
+                     }
+            },
+            { 
+                duration: 1
+            },
+        )});
+        sets.fullC.animate(
+            { 
+                style: { 
+                'background-color': colorNew,
+                } 
+            },
+            { 
+                duration: 1,
+            }
         );
-        this.cy.$(`node[${selector}]`).select().animate(
+        sets.fullB.animate(
             { style: { 
-                'color': 'white', 
-                'text-background-color': 'black', 
-                'text-background-opacity': '0.6', 
-                'text-background-padding': '0.5px', 
-                'text-background-shape': 'roundrectangle'
+                'background-color': colorStaying,
             } },
-            { duration: 1 }
+            { 
+                duration: 1,
+            }
+        );
+        sets.mixed.animate(
+            { style: { 
+                'background-color': '#ccff66',
+            } },
+            { 
+                duration: 1,
+            },
         );
     }
 
     highlightPapers(paperName){
-        this.highlightNodes2(`journal_iso="${paperName}"`);
+        var selector = `journal_iso="${paperName}"`
+        var newPaperNodes = this.cy.$(`node[${selector}]`).select()
+        this.highlightOrDeselectNodes(newPaperNodes, this.selectedPaperNodes, this.selectedAuthorNodes, '#ffd000', '#39FF14')
+        this.selectedPaperNodes = newPaperNodes
     }
 
     highlightAuthors(authorName){
-        if (authorName == '') {
-            this.highlightNodes(`authors="${'brazzasdfasdfff'}"`); //TODO: handle this properly
-        } else {
-            this.highlightNodes(`authors*="${authorName}"`);
+        if (authorName == "")
+        {
+            // As the selector has a *= operator, we need to not match anything in case we deselect an author tag
+            authorName = "asdfafkejrlaksjrlaes"
         }
+        var selector = `authors*="${authorName}"`
+        var newAuthorNodes = this.cy.$(`node[${selector}]`).select()
+        this.highlightOrDeselectNodes(newAuthorNodes, this.selectedAuthorNodes, this.selectedPaperNodes, '#39FF14', '#ffd000')
+        this.selectedAuthorNodes = newAuthorNodes
     }
 
     componentWillReceiveProps(nextProps) {
@@ -379,7 +428,7 @@ export class CytoGraph extends React.Component {
             tooltipString: tooltipString,
             contextMenuLocation: {
                 'x' : event.target.renderedPosition().x, 
-                'y' : event.target.renderedPosition().y + event.target.height() }
+                'y' : event.target.renderedPosition().y + (event.target.height() / 2) * this.cy.zoom() }
             });
     }
 
@@ -406,12 +455,15 @@ export class CytoGraph extends React.Component {
             userZoomingEnabled: true,
             boxSelectionEnabled: true
         });
+
         cy.on('zoom', this._hideTooltip );
         cy.on('mouseover', 'node', this._formatNodeMouseover );
         cy.on('mouseout', 'node', this._formatNodeMouseout );
         cy.on('click', 'node', this.readingListHandler );
         //var pr = cy.elements().pageRank();
         this.cy = cy; // TODO: pass event to state and use this binding
+        this.selectedAuthorNodes = this.cy.collection()
+        this.selectedPaperNodes = this.cy.collection()
         this.initialZoomLevel = this.cy.zoom();
         this.initialPanLevel = this.cy.pan();
     }
