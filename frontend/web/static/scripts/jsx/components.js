@@ -19,6 +19,8 @@ import * as offlineParams from './offlineParams'
 var createIssue = require( 'github-create-issue');
 var bgImage = require('../../images/main_img-01.svg')
 
+console.log('importing components.js')
+
 var divContentLanding = {
     contenttest: {
         position: 'relative',
@@ -375,7 +377,7 @@ class ReadingList extends React.Component {
 
     render(){
         return(
-            <Panel id="reading-list-panel" defaultcollapsed style={this.props.style} defaultExpanded>
+            <Panel id="reading-list-panel" style={this.props.style} defaultExpanded>
                 <Panel.Heading>
                     <Panel.Title toggle>Reading List ({Object.keys(this.props.readingList).length}) <span class="glyphicon glyphicon-chevron-down" style={{align: "right"}}/></Panel.Title>
                 </Panel.Heading>
@@ -782,9 +784,10 @@ export class SearchActive extends Component {
 
 export class About extends Component {
 	render() {
+		console.log('Rendering About')
 		return (
             <div>
-            <div style={{ height:"36px" }}><MainNav/></div>
+            <div style={{ height:"100px" }}><MainNav/></div>
             <Grid>
                 <Row className="show-grid">
                     <Col md={8} xs={12}>
@@ -792,18 +795,16 @@ export class About extends Component {
                     </Col>
                 </Row>
                 <Row className="show-grid"><Col md={8} xs={12}>
-                <p>{"We are a team of two: Ravi Mishra and Simon Brunner. Our mission is to improve how we explore the biomedical literature. As a researcher, you are used to receiving search results in the form of lists. In some cases, that is all you need. In many cases, a list hides a lot of information. What if you knew how each research publication connects with others through citations and authors? Can we help you find what you are looking for by displaying search results in the form of a network? Currently, it is our hypothesis that we can. Please let us know if we are succeeding or if you have other thoughts about our mission and project: contact@contact.com"}</p>
-                </Col></Row>
-                <div class="col-xs-12" style={{height:"20px"}}></div>
-                <Row className="show-grid"><Col md={8} xs={12}>
-				<Image src="/static/images/image_about.JPG" responsive />
-                </Col></Row>
-				<div class="col-xs-12" style={{height:"30px"}}></div>
-                <Row className="show-grid"><Col md={8} xs={12}>
-				<p><strong><a href="https://www.linkedin.com/in/ravi-mishra-1a2160153/" target="_blank">Ravi Mishra.</a> </strong>{"Ravi holds a Bachelor's degree in Economics from the University of Zurich. Realising that all the smart jobs go to mathematicians, he went on to obtain a Bachelor's in Math from the University of Zurich and a Master's in Math from ETH Zurich. He currently pursues a technical graduate training program at a leading finance institution in Zurich, Switzerland."}</p>
+				<h4>{"What does brightfield.io do for you?"}</h4>
+				<p>{"Our mission is to improve how we explore biomedical search results. Often, search results are presented in the form of lists. In some cases, that is all we need. In many cases, a list hides a lot of information. We think better search options would specifically help in the domain of biomedical research. What if you knew how each research publication connects with others through citations and authors? Can we help you to find what you are looking for by displaying search results in the form of a network? Currently, it is our hypothesis that we can. Let us know if we are succeeding or if you have other thoughts about our mission and project. You can do so by submitting your feedback using the button on the top right."}</p>
 				</Col></Row>
-                <Row className="show-grid"><Col md={8} xs={12}>
-                <p><strong><a href="https://www.linkedin.com/in/simon-brunner-3631521a/" target="_blank">Simon Brunner.</a> </strong>{"Simon holds a Bachelor's degree in Biochemistry and a Master's degree in Systems Biology from ETH Zurich. He then pursued doctoral studies at the Lab of Molecular Biology (MRC-LMB) in Cambridge, United Kingdom and graduated with a PhD from the University of Cambridge. He currently pursues post-doctoral research at The Sanger Wellcome Trust Institute in Cambridge, UK."}</p>
+				<Row className="show-grid"><Col md={8} xs={12}>
+				<h4>{"Where is our data from?"}</h4>
+				<p>{"We are using data from the U.S. National Institutes of Health’s National Library of Medicine (NIH/NLM). Specifically, we are using data from PubMed Central (PMC), a free full-text archive of biomedical and life sciences journal literature, and from PubMed, a database comprising 28 million citations for biomedical literature from MEDLINE, life science journals, and online books. To accelerate the graph-based queries, we store preprocessed data in our own database. This data we strive to keep as up-to-date as possible."}</p>
+				</Col></Row>
+				<Row className="show-grid"><Col md={8} xs={12}>
+				<h4>{"How can I get in touch?"}</h4>
+				<p>{"We are grateful for any suggestions / requests / interaction. Please use the feedback button on the top right of this page to get in touch."}</p>
                 </Col></Row>
             </Grid>
             </div>
