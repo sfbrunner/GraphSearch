@@ -172,7 +172,6 @@ export class SearchNav extends Component {
                                         this.props.searchHistory[id].num_results > 0 ?
                                         <MenuItem key={id} eventKey={id} onClick={event => this.props.historyHandler(id)}>
                                             <div>{this.truncateString(this.props.searchHistory[id].searchString, 30)}
-                                                <Badge style={{backgroundColor:'#004cc6'}}>{ this.props.searchHistory[id].num_results }</Badge>
                                                 <Badge style={{backgroundColor:'red'}}>{ this.props.searchHistory[id].num_citations }</Badge>
                                                 <Badge style={{backgroundColor:'lightgrey'}}>{ this.props.searchHistory[id].num_links }</Badge>
                                             </div>
@@ -224,7 +223,7 @@ export class SearchLanding extends Component {
                         <Panel.Body>
             		    <h2 style={divContentLanding.h2}>Let us illuminate your research.</h2>
 					    <p></p>
-					    <p style={divContentLanding.p}>Our mission is to make your biomedical literature search experience the best it can be. We take your search query and return a network of publications to you. The network contains the direct results of your search (in blue) as well as the publications they cite (in red). The structure of the network helps you to find highly cited publications and quickly identify publications that belong together.</p>
+					    <p style={divContentLanding.p}>Our mission is to make your biomedical literature search experience the best it can be. We take your search query and return a network of publications to you. The network contains the direct results of your search as well as the publications they cite. The structure of the network helps you to find highly cited publications and quickly identify publications that belong together.</p>
                         <form onSubmit={this.onSubmit}>
                         <InputGroup>
                         <FormControl type="text" placeholder="Type your search query and hit <Enter>" id="searchString"/>
@@ -490,8 +489,6 @@ class GraphSummaryDisplay extends Component {
 
         return(
             <Well bsSize="small" style={graphSummaryStyle}>
-                <strong>Direct hits </strong>
-                <Badge style={{backgroundColor:'#004cc6'}}>{ this.state.stats.num_results }</Badge>
                 <strong>  Cited publications </strong>
                 <Badge style={{backgroundColor:'red'}}>{ this.state.stats.num_citations }</Badge>
                 <strong>  Citation links </strong>

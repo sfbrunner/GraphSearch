@@ -298,7 +298,7 @@ export class CytoGraph extends React.Component {
         );
         sets.mixed.animate(
             { style: { 
-                'background-color': '#ccff66',
+                'background-color': '#984ea3',
             } },
             { 
                 duration: 1,
