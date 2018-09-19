@@ -29,9 +29,9 @@ class FrontEndGraph(object):
             this_degree = self.G.degree(node)
             self.G.nodes[node]['deg'] = this_degree
 
-            if group_attr[node] == 'Cited':
-                if this_degree > max_degree:
-                    max_degree = this_degree
+            #if group_attr[node] == 'Cited':
+            if this_degree > max_degree:
+                max_degree = this_degree
 
         return max_degree
     
@@ -127,7 +127,7 @@ class FrontEndGraph(object):
             node_lst.append({'data': {'id':node['id'], 
                                       'name': node['id'], 
                                       'key': node['id'], 'label': node['journal'],
-                                      'group':node['group'],
+                                      'group':'Cited',
                                       'title':node['title'],
                                       'journal':node['journal'],
                                       'journal_iso':node['journal_iso'],
