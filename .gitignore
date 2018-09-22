@@ -2,10 +2,12 @@ env/*
 frontend/node_modules/*
 frontend/web/static/scripts/js/*
 frontend/web/static/bower_components/*
+frontend/web/static/scripts/jsx/offlineParams.js
+frontend/package-lock.json
+backend/logs/*
+backend/backend/logs/*
 backend/dump.rdb
 *.vscode
 *.pyc
 *.swp
 *.log
-backend/dump.rdb
-frontend/package-lock.json
