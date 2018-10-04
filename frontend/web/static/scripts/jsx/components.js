@@ -808,6 +808,28 @@ export class About extends Component {
 	) }
 }
 
+export class MobileAbout extends Component {
+	render() {
+		console.log('Rendering About')
+		return (
+            <div>
+            <div style={{ height:"100px" }}><MainNav/></div>
+            <Grid>
+                <Row className="show-grid">
+                    <Col md={8} xs={12}>
+                        <h2>Welcome to Brightfield.io</h2>
+                    </Col>
+                </Row>
+                <Row className="show-grid"><Col md={8} xs={12}>
+                <h4>A note to mobile users</h4>
+				<p>{"Thank you for visiting. Unfortunately, we are not yet mobile ready. Please visit us using a desktop device to experience our biomedical literature search system. Thank you."}</p>
+				</Col></Row>
+            </Grid>
+            <About/>
+            </div>
+	) }
+}
+
 export class FeedbackModal extends Component {
     constructor() {
       super();
