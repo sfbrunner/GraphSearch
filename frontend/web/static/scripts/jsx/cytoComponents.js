@@ -9,12 +9,12 @@ var searchedNodeStyle = {
     selector: "node[group = 'Searched']",
     style: {
         'label': 'data(journal_iso)',
-        'width': '20px',
-        'height': '20px',
+        'width': '15px',
+        'height': '15px',
         'color': 'black',
         'background-fit': 'contain',
         'background-clip': 'none',
-        'background-color': '#004cc6',
+        'background-color': 'data(node_col)',
         'border-color': 'gray',
         'border-width': 0.5,
         'opacity': 1.0,
@@ -237,7 +237,7 @@ export class CytoGraph extends React.Component {
         /**
         * @param {eles} setA the currently highlighted nodes
         * @param {eles} setB the nodes which remain highlighted
-        * @param {eles} setC the new nodes which need to be hightlighted
+        * @param {eles} setC the new nodes which need to be highlighted
         */
         var diffAB = setA.diff(setB);
         var diffBC = setB.diff(setC);
@@ -258,21 +258,11 @@ export class CytoGraph extends React.Component {
 
     highlightOrDeselectNodes(newNodes, oldNodes, stayingNodes, colorNew, colorStaying){
         var sets = this.calculateSets(oldNodes, stayingNodes, newNodes);
-        sets.unselectA.filter(function(ele){return ele.data('group') == 'Cited'}).forEach(function(ele){ele.animate(
-            { 
-                style: {
-                    'background-color': '#004cc6', 
-                    }
-            },
-            { 
-                duration: 1
-            },
-        )});
-        sets.unselectA.filter(function(ele){return ele.data('group') == 'Searched'}).forEach(function(ele){ele.animate(
+        sets.unselectA.forEach(function(ele){ele.animate(
             { 
                 style: {
                     'background-color': ele.data('node_col'), 
-                     }
+                    }
             },
             { 
                 duration: 1
@@ -456,14 +446,20 @@ export class CytoGraph extends React.Component {
             boxSelectionEnabled: true
         });
 
+        // Graph event listening
         cy.on('zoom', this._hideTooltip );
         cy.on('mouseover', 'node', this._formatNodeMouseover );
         cy.on('mouseout', 'node', this._formatNodeMouseout );
         cy.on('click', 'node', this.readingListHandler );
+
         //var pr = cy.elements().pageRank();
         this.cy = cy; // TODO: pass event to state and use this binding
+
+        // Need to initialize these attributes to pass them to cy functions.
         this.selectedAuthorNodes = this.cy.collection()
         this.selectedPaperNodes = this.cy.collection()
+
+        // Need to store initial levels for restoring.
         this.initialZoomLevel = this.cy.zoom();
         this.initialPanLevel = this.cy.pan();
     }
