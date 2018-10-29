@@ -54,7 +54,7 @@ class GraphSession(object):
         '''
 
         msg = '{0}: Search input received: {1}'
-        log.info(msg.format(self.__class__.__name__, self.request.userInput))
+        log.info(msg.format(self.__class__.__name__, self.request.userInput.encode('utf-8').strip()))
 
         if mode=='live':
             log.info('Using live mode for data retrieval.')
@@ -93,7 +93,7 @@ class GraphSession(object):
         '''
 
         msg = '{0}: Search input received: {1}'
-        log.info(msg.format(self.__class__.__name__, self.request.userInput))
+        log.info(msg.format(self.__class__.__name__, self.request.userInput.encode('utf-8').strip()))
 
         resultGraph = ResultGraph()
         if mode=='live':
